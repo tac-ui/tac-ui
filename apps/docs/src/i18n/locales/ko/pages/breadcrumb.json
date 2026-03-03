@@ -1,0 +1,29 @@
+{
+  "title": "Breadcrumb",
+  "description": "애플리케이션 내비게이션 계층에서 사용자의 현재 위치를 보여줍니다.",
+  "sections": {
+    "simple": {
+      "title": "기본",
+      "texts": ["BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator를 조합하여 기본적인 브레드크럼 경로를 구성합니다. 구분자는 기본적으로 쉐브론 아이콘을 렌더링하며 임의의 노드로 대체할 수 있습니다."]
+    },
+    "with-current-item": {
+      "title": "현재 항목 표시",
+      "texts": ["BreadcrumbItem에 <code>current</code>를 설정하면 활성 페이지로 표시됩니다. 볼드 전경 스타일이 적용되고 접근성을 위해 <code>aria-current=\"page\"</code>가 추가됩니다."]
+    },
+    "with-ellipsis": {
+      "title": "말줄임표 포함",
+      "texts": ["경로가 너무 길어 전체를 표시할 수 없을 때 BreadcrumbEllipsis를 사용하여 중간 경로 세그먼트를 축소합니다. 항목이 숨겨진 위치의 구분자 사이에 배치합니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스",
+      "texts": ["Breadcrumb은 합성 패턴을 사용합니다. 아래 나열된 하위 컴포넌트를 사용하여 구성합니다."]
+    }
+  },
+  "props": {
+    "BreadcrumbItem.current": "이 항목을 현재 페이지로 표시하며, 활성 스타일과 aria-current=\"page\"를 적용합니다.",
+    "BreadcrumbItem.children": "브레드크럼 항목의 콘텐츠(링크, 말줄임표 또는 일반 텍스트).",
+    "BreadcrumbLink.href": "브레드크럼 링크의 URL. 현재(마지막) 항목에서는 생략합니다.",
+    "BreadcrumbSeparator.children": "커스텀 구분자 콘텐츠. 기본값은 쉐브론 SVG 아이콘입니다.",
+    "BreadcrumbEllipsis": "숨겨진 중간 항목을 위한 축소 표시기(...)를 렌더링합니다."
+  }
+}

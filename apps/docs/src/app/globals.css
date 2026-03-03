@@ -1,0 +1,261 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
+
+/* Smooth scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+/* Hidden scrollbar */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* cmdk overrides */
+[cmdk-root] {
+  font-family: inherit;
+}
+[cmdk-input] {
+  font-family: inherit;
+}
+[cmdk-item] {
+  user-select: none;
+}
+
+/* ============================================
+   LANDING PAGE — Floating Precision Design System
+   ============================================ */
+
+/* Landing: void-black foundation */
+.landing-root {
+  --landing-bg: #050508;
+  --landing-surface: rgba(255, 255, 255, 0.02);
+  --landing-border: rgba(255, 255, 255, 0.06);
+  --landing-glow-primary: rgba(34, 211, 238, 0.15);
+  --landing-glow-secondary: rgba(6, 182, 212, 0.10);
+  --landing-glow-deep: rgba(8, 145, 178, 0.06);
+  background: var(--landing-bg);
+  color: #e2e8f0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Landing: ambient grid — 64px cells, ultra-subtle */
+.landing-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Landing: noise texture overlay for depth */
+.landing-noise::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.015;
+  pointer-events: none;
+  z-index: 100;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Landing: cursor-tracking spotlight — dual layer cyan */
+.landing-spotlight {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(
+      800px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+      var(--landing-glow-primary),
+      transparent 40%
+    ),
+    radial-gradient(
+      500px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+      var(--landing-glow-secondary),
+      transparent 30%
+    );
+  opacity: var(--spotlight-opacity, 0);
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Landing: glassmorphism panel — Dia floating architecture */
+.landing-glass {
+  background: rgba(255, 255, 255, 0.02) !important;
+  backdrop-filter: blur(32px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(180%) !important;
+  border: 0.5px solid rgba(255, 255, 255, 0.06) !important;
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.5),
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.04);
+  transition: box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.landing-glass:hover {
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  box-shadow:
+    0 16px 64px rgba(0, 0, 0, 0.6),
+    0 0 32px rgba(34, 211, 238, 0.05),
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Landing: gradient text — electric cyan shimmer */
+.landing-gradient-text {
+  background: linear-gradient(135deg, #A9D6E5 0%, #4E657E 25%, #8AA3B8 50%, #4E657E 75%, #A9D6E5 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-text-shimmer 6s ease-in-out infinite;
+}
+
+@keyframes gradient-text-shimmer {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 200% center; }
+}
+
+/* Landing: rolling text overflow container */
+.rolling-text-container {
+  display: inline-flex;
+  overflow: hidden;
+  vertical-align: bottom;
+  position: relative;
+}
+
+/* Landing: ambient gradient orbs */
+@keyframes orb-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 10px) scale(0.95); }
+}
+@keyframes orb-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-25px, 15px) scale(0.97); }
+  66% { transform: translate(15px, -25px) scale(1.03); }
+}
+@keyframes orb-float-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(20px, 20px) scale(1.02); }
+  66% { transform: translate(-30px, -15px) scale(0.98); }
+}
+
+.landing-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
+}
+.landing-orb-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.10) 0%, transparent 70%);
+  animation: orb-float-1 20s ease-in-out infinite;
+}
+.landing-orb-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.07) 0%, transparent 70%);
+  animation: orb-float-2 25s ease-in-out infinite;
+}
+.landing-orb-3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(8, 145, 178, 0.05) 0%, transparent 70%);
+  animation: orb-float-3 22s ease-in-out infinite;
+}
+
+/* Landing: ambient glow pulse for mobile (no cursor) */
+@keyframes glow-pulse-ambient {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+.landing-glow-pulse {
+  animation: glow-pulse-ambient 4s ease-in-out infinite;
+}
+
+/* Landing: gradient divider — electric cyan */
+.landing-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(34, 211, 238, 0.15) 20%,
+    rgba(34, 211, 238, 0.30) 50%,
+    rgba(34, 211, 238, 0.15) 80%,
+    transparent 100%
+  );
+}
+
+/* Landing: stat pill */
+.landing-stat {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.landing-stat:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+/* Landing: icon container — cyan glow ring */
+.landing-icon-container {
+  background: rgba(34, 211, 238, 0.05);
+  border: 1px solid rgba(34, 211, 238, 0.12);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.landing-icon-container:hover,
+.group:hover .landing-icon-container {
+  background: rgba(34, 211, 238, 0.08);
+  border-color: rgba(34, 211, 238, 0.25);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.12);
+}
+
+/* Landing: section title gradient */
+.landing-section-title {
+  background: linear-gradient(180deg, #f8fafc 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Landing: reduced motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  .landing-root,
+  .landing-root * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .landing-orb {
+    animation: none !important;
+  }
+  .landing-gradient-text {
+    animation: none !important;
+  }
+  .landing-spotlight {
+    display: none !important;
+  }
+}

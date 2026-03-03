@@ -1,0 +1,30 @@
+{
+  "title": "Pagination",
+  "description": "콘텐츠 페이지를 탐색하기 위한 내비게이션 컨트롤입니다.",
+  "sections": {
+    "default": {
+      "title": "기본",
+      "texts": ["PaginationPrevious, PaginationItem, PaginationNext를 PaginationContent 안에 구성하여 표준 페이지 컨트롤을 만듭니다. 현재 페이지 항목에 active를 설정하여 강조 표시합니다."]
+    },
+    "with-ellipsis": {
+      "title": "생략 기호 포함",
+      "texts": ["총 페이지 수가 많을 때 PaginationEllipsis를 사용하여 숨겨진 페이지 범위를 축약합니다. 경계 페이지와 표시 가능한 주변 페이지 사이에 생략 기호 항목을 배치합니다."]
+    },
+    "glass": {
+      "title": "글래스",
+      "texts": ["PaginationContent에 glass를 설정하면 컨트롤 그룹을 프로스트 글래스 컨테이너로 감싸며, 이미지나 그라디언트 배경 위에 표시할 때 적합합니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스",
+      "texts": ["Pagination props:", "PaginationContent props:", "PaginationItem props:", "PaginationEllipsis는 숨겨진 페이지 범위를 나타내는 축약 표시(...)를 렌더링하며 필수 props가 없습니다."]
+    }
+  },
+  "props": {
+    "label": "페이지네이션 nav 요소의 접근성 라벨. 스크린 리더에서 사용됩니다.",
+    "className": "추가 CSS 클래스명.",
+    "glass": "페이지네이션 컨테이너에 글래스모피즘 스타일을 적용합니다.",
+    "active": "현재 활성 페이지로 이 항목을 포인트 색상 배경으로 강조합니다.",
+    "disabled": "페이지 버튼을 비활성화하여 불투명도를 낮추고 상호작용을 차단합니다.",
+    "children": "버튼 내부에 렌더링되는 페이지 번호 또는 라벨."
+  }
+}

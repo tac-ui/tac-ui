@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.turbo/
+.next/
+*.tsbuildinfo
+.DS_Store
+.omc/
+.idea/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Coverage
+coverage/

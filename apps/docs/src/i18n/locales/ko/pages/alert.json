@@ -1,0 +1,41 @@
+{
+  "title": "Alert",
+  "description": "사용자의 작업을 방해하지 않으면서 주의를 끌기 위한 짧고 중요한 메시지를 표시합니다.",
+  "sections": {
+    "default": {
+      "title": "기본",
+      "texts": ["기본 알림은 중립적인 표면 색상을 사용하며, 일반적인 정보 메시지에 적합합니다."]
+    },
+    "variants": {
+      "title": "변형",
+      "texts": ["success, error, warning, info 등 시맨틱 변형을 사용하여 메시지의 성격을 전달합니다. 각 변형은 디자인 토큰 시스템에서 일치하는 배경 틴트와 테두리 색상을 적용합니다."]
+    },
+    "glass": {
+      "title": "글래스",
+      "texts": ["글래스 변형은 반투명 배경 블러를 적용하여, 풍부한 배경이나 이미지 위에 렌더링되는 알림에 적합합니다."]
+    },
+    "with-icon": {
+      "title": "아이콘 포함",
+      "texts": ["<code>icon</code> prop에 React 노드를 전달하면 알림 콘텐츠 왼쪽에 컨텍스트 아이콘이 표시됩니다. 아이콘 색상은 변형에 맞게 자동으로 조정됩니다."]
+    },
+    "dismissible": {
+      "title": "닫기 가능",
+      "texts": ["<code>dismissible</code>을 설정하면 닫기 버튼이 표시됩니다. 클릭 시 알림이 애니메이션과 함께 사라지며, 선택적인 <code>onDismiss</code> 콜백이 호출되어 외부에서 닫힘 상태를 동기화할 수 있습니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스",
+      "texts": [
+        "Alert props:",
+        "AlertTitle과 AlertDescription은 표준 HTML heading/paragraph props와 className을 받습니다."
+      ]
+    }
+  },
+  "props": {
+    "variant": "알림의 시각적 스타일 변형.",
+    "icon": "알림 콘텐츠 왼쪽에 표시되는 선택적 아이콘. 아이콘 색상은 변형에 맞게 조정됩니다.",
+    "dismissible": "true일 때 클릭 시 알림을 애니메이션으로 사라지게 하는 닫기 버튼을 표시합니다.",
+    "onDismiss": "닫기 버튼 클릭 시 애니메이션이 시작된 후 호출됩니다.",
+    "className": "추가 CSS 클래스명.",
+    "children": "알림의 콘텐츠. AlertTitle과 AlertDescription으로 구성합니다."
+  }
+}

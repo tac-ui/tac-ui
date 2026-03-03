@@ -1,0 +1,32 @@
+{
+  "title": "Skeleton",
+  "description": "데이터를 불러오는 동안 콘텐츠 레이아웃을 모방하는 로딩 플레이스홀더입니다.",
+  "sections": {
+    "text": {
+      "title": "텍스트",
+      "texts": ["텍스트 블록을 시뮬레이션하는 여러 줄의 스택입니다."]
+    },
+    "rectangular": {
+      "title": "사각형",
+      "texts": ["이미지, 카드 또는 블록을 위한 사각형 플레이스홀더입니다."]
+    },
+    "circular": {
+      "title": "원형",
+      "texts": ["아바타나 아이콘에 주로 사용되는 원형 플레이스홀더입니다."]
+    },
+    "card-composition": {
+      "title": "카드 구성",
+      "texts": ["스켈레톤을 조합하여 아바타와 텍스트가 있는 카드를 시뮬레이션합니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "variant": "스켈레톤 플레이스홀더의 형태.",
+    "width": "스켈레톤의 너비. CSS 문자열 또는 픽셀 숫자를 사용할 수 있습니다.",
+    "height": "스켈레톤의 높이. CSS 문자열 또는 픽셀 숫자를 사용할 수 있습니다.",
+    "lines": "variant가 \"text\"일 때 렌더링되는 줄 수.",
+    "className": "추가 CSS 클래스명."
+  }
+}

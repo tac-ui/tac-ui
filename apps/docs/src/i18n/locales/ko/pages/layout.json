@@ -1,0 +1,211 @@
+{
+  "title": "Layout",
+  "description": "일반적인 애플리케이션 패턴을 위한 사전 구축된 페이지 레이아웃 구성과 빌딩 블록 컴포넌트입니다. 모든 페이지 레이아웃은 선택적 헤더 및 푸터 슬롯이 있는 공통 셸을 공유합니다.",
+  "sections": {
+    "single-column-page": {
+      "title": "SingleColumnPage",
+      "texts": ["블로그 게시글, 아티클, 문서, 랜딩 페이지 등 콘텐츠 중심 페이지에 적합한 중앙 정렬 단일 컬럼 레이아웃입니다. 반응형 패딩과 설정 가능한 최대 너비 제약으로 콘텐츠가 수평 중앙 정렬됩니다."]
+    },
+    "sidebar-page": {
+      "title": "SidebarPage",
+      "texts": ["고정 너비 사이드바와 스크롤 가능한 메인 콘텐츠 영역으로 구성된 레이아웃입니다. 관리자 패널, 설정 페이지, 내비게이션 중심 애플리케이션에 사용되는 표준 앱 셸 패턴입니다. 사이드바는 접기, 양쪽 배치, 둥근 플로팅 스타일, 라벨/아이콘이 있는 커스텀 헤더를 지원합니다."]
+    },
+    "dashboard-page": {
+      "title": "DashboardPage",
+      "texts": ["왼쪽 고정 내비게이션 사이드바와 메인 콘텐츠 영역으로 구성된 대시보드 레이아웃입니다. SidebarPage와 유사하지만 사이드바가 항상 왼쪽에 위치하는 대시보드 용도에 특화되어 있습니다. 카드 기반 대시보드 그리드를 위해 GridPage 자식과 함께 사용하는 것이 일반적입니다."]
+    },
+    "split-page": {
+      "title": "SplitPage",
+      "texts": ["테두리로 구분된 동일 너비의 좌우 패널로 구성된 2분할 레이아웃입니다. 나란히 비교, 인증 페이지(히어로 + 폼), 듀얼 패널 편집기 등에 적합합니다. 각 패널은 독립적으로 스크롤됩니다."]
+    },
+    "grid-page": {
+      "title": "GridPage",
+      "texts": ["자식 요소를 컬럼에 분배하는 반응형 그리드 레이아웃입니다. 기본적으로 반응형으로, 모바일에서는 단일 컬럼이며 넓은 화면에서는 설정된 컬럼 수까지 확장됩니다. 카드 그리드, 이미지 갤러리, 상품 목록에 유용합니다."]
+    },
+    "stacked-page": {
+      "title": "StackedPage",
+      "texts": ["자식 요소가 문서 순서대로 메인 컬럼을 채우는 수직 스택 레이아웃입니다. 각 자식은 flex 컬럼 내 전체 너비 섹션으로 렌더링됩니다. 다중 섹션 랜딩 페이지, 온보딩 플로우, 긴 스크롤 스토리텔링 페이지에 적합합니다."]
+    },
+    "dual-sidebar-page": {
+      "title": "DualSidebarPage",
+      "texts": ["메인 콘텐츠 양쪽에 독립적인 좌우 사이드바가 있는 3컬럼 레이아웃입니다. 각 사이드바는 고유한 너비, 접기, 라벨, 아이콘, 스타일 옵션을 가집니다. IDE 스타일 인터페이스, 이메일 클라이언트, 내비게이션과 상세 패널이 공존하는 콘텐츠 관리 시스템에 유용합니다."]
+    },
+    "holy-grail-page": {
+      "title": "HolyGrailPage",
+      "texts": ["클래식 홀리 그레일 레이아웃입니다. 전체 너비 헤더와 푸터, 그리고 내비게이션, 메인 콘텐츠, 사이드 영역으로 구성된 3컬럼 본문을 가집니다. DualSidebarPage와 구조적으로 유사하지만 헤더/푸터가 전체 너비를 차지하는 전통적 웹 레이아웃 패턴에 맞게 설계되었습니다."]
+    },
+    "asymmetric-page": {
+      "title": "AsymmetricPage",
+      "texts": ["기본 패널과 보조 패널 간 flex 비율을 설정할 수 있는 2분할 레이아웃입니다. 보조 패널은 카드 스타일 배경과 왼쪽 테두리를 가집니다. 아티클 + 사이드바, 메인 콘텐츠 + 관련 항목 등 한쪽 패널이 시각적으로 우세해야 하는 레이아웃에 적합합니다."]
+    },
+    "app-page": {
+      "title": "AppPage",
+      "texts": ["모바일 앱과 웹뷰 임베딩에 최적화된 좁고 고정 너비 레이아웃입니다. 작은 화면에서는 전체 너비, 큰 화면에서는 선택적으로 카드 스타일로 중앙 정렬됩니다. 네이티브 iOS/Android 웹뷰 환경을 위한 safe-area 인셋 패딩과 독립적으로 제어 가능한 스티키 헤더/푸터를 지원합니다."]
+    },
+    "building-blocks": {
+      "title": "빌딩 블록",
+      "texts": ["위 페이지 레이아웃을 구성하는 데 사용되는 저수준 레이아웃 프리미티브입니다. 커스텀 레이아웃 구축을 위해 독립적으로도 사용할 수 있습니다."]
+    },
+    "header": {
+      "title": "Header",
+      "texts": ["스티키 위치, 하단 테두리, 배경 블러, 스크롤 시 자동 숨김을 선택적으로 지원하는 상단 페이지 헤더 바(64px 높이)입니다. 내비게이션 항목 정렬을 위해 flex row 레이아웃을 사용합니다."]
+    },
+    "footer": {
+      "title": "Footer",
+      "texts": ["선택적 상단 테두리가 있는 페이지 푸터 바입니다. 카드 배경과 수평 패딩이 적용된 footer 요소를 렌더링합니다."]
+    },
+    "sidebar": {
+      "title": "Sidebar",
+      "texts": ["레이아웃의 좌우에 배치할 수 있는 접이식 사이드 패널입니다. 애니메이션 접기/펼치기 전환, 라벨·아이콘·토글 버튼이 있는 헤더 영역, 스크롤 가능한 콘텐츠 영역, 선택적 고정 푸터를 제공합니다. 접힌 상태에서는 64px(아이콘 전용 너비)로 축소됩니다. 둥근 변형은 여백과 둥근 모서리가 있는 플로팅 카드로 렌더링됩니다."]
+    },
+    "sidebar-sub-components": {
+      "title": "Sidebar 하위 컴포넌트",
+      "texts": ["구조화된 내비게이션을 위해 Sidebar 내부에서 사용하도록 설계된 컴포넌트입니다. SidebarContext를 통해 상위 Sidebar의 접힌 상태에 자동으로 반응합니다."]
+    },
+    "container": {
+      "title": "Container",
+      "texts": ["반응형 수평 패딩(모바일 px-4, sm px-6, lg px-8)과 설정 가능한 최대 너비를 가진 중앙 정렬 콘텐츠 래퍼입니다."]
+    },
+    "main": {
+      "title": "Main",
+      "texts": ["사용 가능한 공간을 채우도록 확장되는(flex-1) 주요 콘텐츠 영역으로, 패딩과 선택적 최대 너비 제약을 가집니다."]
+    },
+    "floating-menu-bar": {
+      "title": "FloatingMenuBar",
+      "texts": ["페이지 콘텐츠 위에 떠 있는 알약 모양의 내비게이션 바입니다. 3x3 그리드의 9개 위치(상/중/하 x 좌/중/우), 배경 블러, 테두리를 지원합니다. 모바일/앱 스타일 레이아웃의 하단 탭 바나 플로팅 액션 툴바로 주로 사용됩니다."]
+    },
+    "floating-menu-item": {
+      "title": "FloatingMenuItem",
+      "texts": ["FloatingMenuBar 내부의 개별 항목입니다. 아이콘과 선택적 텍스트 라벨을 아래에 렌더링합니다. 활성 상태에서는 기본 색상으로 강조됩니다."]
+    },
+    "page-layout": {
+      "title": "PageLayout",
+      "texts": ["헤더, 선택적 사이드바, 메인 콘텐츠 영역, 푸터를 결합한 저수준 전체 페이지 레이아웃 셸입니다. 내부적으로 사용되는 기본 프리미티브이므로, 대부분의 경우 상위 수준 페이지 구성(SidebarPage, DashboardPage 등)을 사용하세요."]
+    },
+    "hooks": {
+      "title": "Hooks",
+      "texts": ["커스텀 사이드바 컴포넌트 구축을 위한 레이아웃 관련 hooks입니다."]
+    }
+  },
+  "props": {
+    "SingleColumnPage.maxWidth": "콘텐츠 컬럼의 최대 너비. sm=640px, md=768px, lg=1024px, xl=1280px.",
+    "SingleColumnPage.header": "상단 헤더 슬롯에 렌더링되는 콘텐츠.",
+    "SingleColumnPage.footer": "하단 푸터 슬롯에 렌더링되는 콘텐츠.",
+    "SidebarPage.sidebar": "사이드바 패널 내부에 렌더링되는 콘텐츠. 필수.",
+    "SidebarPage.sidebarWidth": "펼침 상태에서 사이드바의 너비(px).",
+    "SidebarPage.sidebarPosition": "사이드바가 배치되는 측면.",
+    "SidebarPage.collapsible": "토글 버튼으로 사이드바를 접을 수 있는지 여부.",
+    "SidebarPage.defaultCollapsed": "비제어 모드에서의 초기 접힘 상태.",
+    "SidebarPage.sidebarLabel": "사이드바 헤더 영역에 표시되는 라벨.",
+    "SidebarPage.sidebarIcon": "사이드바 헤더의 라벨 앞에 표시되는 아이콘.",
+    "SidebarPage.sidebarFillHeight": "사이드바가 남은 수직 공간을 채울지 여부.",
+    "SidebarPage.sidebarRounded": "사이드바에 둥근 모서리와 플로팅 카드 스타일을 적용할지 여부.",
+    "SidebarPage.header": "상단 헤더 슬롯에 렌더링되는 콘텐츠.",
+    "SidebarPage.footer": "하단 푸터 슬롯에 렌더링되는 콘텐츠.",
+    "DashboardPage.sidebar": "좌측 사이드바 패널 내부에 렌더링되는 콘텐츠. 필수.",
+    "DashboardPage.sidebarWidth": "펼침 상태에서 사이드바의 너비(px).",
+    "DashboardPage.collapsible": "토글 버튼으로 사이드바를 접을 수 있는지 여부.",
+    "DashboardPage.defaultCollapsed": "비제어 모드에서의 초기 접힘 상태.",
+    "DashboardPage.sidebarLabel": "사이드바 헤더 영역에 표시되는 라벨.",
+    "DashboardPage.sidebarIcon": "사이드바 헤더의 라벨 앞에 표시되는 아이콘.",
+    "DashboardPage.sidebarFillHeight": "사이드바가 남은 수직 공간을 채울지 여부.",
+    "DashboardPage.sidebarRounded": "사이드바에 둥근 모서리와 플로팅 카드 스타일을 적용할지 여부.",
+    "DashboardPage.header": "상단 헤더 슬롯에 렌더링되는 콘텐츠.",
+    "DashboardPage.footer": "하단 푸터 슬롯에 렌더링되는 콘텐츠.",
+    "SplitPage.left": "좌측 패널에 렌더링되는 콘텐츠. 필수.",
+    "SplitPage.right": "우측 패널에 렌더링되는 콘텐츠. 필수.",
+    "SplitPage.header": "상단 헤더 슬롯에 렌더링되는 콘텐츠.",
+    "SplitPage.footer": "하단 푸터 슬롯에 렌더링되는 콘텐츠.",
+    "GridPage.columns": "가장 넓은 브레이크포인트에서의 그리드 컬럼 수. 반응형으로 동작합니다.",
+    "GridPage.header": "상단 헤더 슬롯에 렌더링되는 콘텐츠.",
+    "GridPage.footer": "하단 푸터 슬롯에 렌더링되는 콘텐츠.",
+    "StackedPage.header": "상단 헤더 슬롯에 렌더링되는 콘텐츠.",
+    "StackedPage.footer": "하단 푸터 슬롯에 렌더링되는 콘텐츠.",
+    "DualSidebarPage.leftSidebar": "좌측 사이드바 패널에 렌더링되는 콘텐츠. 필수.",
+    "DualSidebarPage.rightSidebar": "우측 사이드바 패널에 렌더링되는 콘텐츠. 필수.",
+    "DualSidebarPage.leftWidth": "좌측 사이드바의 너비(px).",
+    "DualSidebarPage.rightWidth": "우측 사이드바의 너비(px).",
+    "DualSidebarPage.leftCollapsible": "좌측 사이드바를 접을 수 있는지 여부.",
+    "DualSidebarPage.rightCollapsible": "우측 사이드바를 접을 수 있는지 여부.",
+    "DualSidebarPage.defaultLeftCollapsed": "좌측 사이드바의 초기 접힘 상태.",
+    "DualSidebarPage.defaultRightCollapsed": "우측 사이드바의 초기 접힘 상태.",
+    "DualSidebarPage.leftLabel": "좌측 사이드바 헤더에 표시되는 라벨.",
+    "DualSidebarPage.leftIcon": "좌측 사이드바 라벨 앞에 표시되는 아이콘.",
+    "DualSidebarPage.rightLabel": "우측 사이드바 헤더에 표시되는 라벨.",
+    "DualSidebarPage.rightIcon": "우측 사이드바 라벨 앞에 표시되는 아이콘.",
+    "DualSidebarPage.leftFillHeight": "좌측 사이드바가 남은 수직 공간을 채울지 여부.",
+    "DualSidebarPage.rightFillHeight": "우측 사이드바가 남은 수직 공간을 채울지 여부.",
+    "DualSidebarPage.leftRounded": "좌측 사이드바에 둥근 플로팅 카드 스타일을 적용할지 여부.",
+    "DualSidebarPage.rightRounded": "우측 사이드바에 둥근 플로팅 카드 스타일을 적용할지 여부.",
+    "DualSidebarPage.header": "상단 헤더 슬롯에 렌더링되는 콘텐츠.",
+    "DualSidebarPage.footer": "하단 푸터 슬롯에 렌더링되는 콘텐츠.",
+    "HolyGrailPage.leftSidebar": "좌측 내비게이션 사이드바에 렌더링되는 콘텐츠. 필수.",
+    "HolyGrailPage.rightSidebar": "우측 aside 사이드바에 렌더링되는 콘텐츠. 필수.",
+    "HolyGrailPage.leftWidth": "좌측 사이드바의 너비(px).",
+    "HolyGrailPage.rightWidth": "우측 사이드바의 너비(px).",
+    "HolyGrailPage.leftCollapsible": "좌측 사이드바를 접을 수 있는지 여부.",
+    "HolyGrailPage.rightCollapsible": "우측 사이드바를 접을 수 있는지 여부.",
+    "HolyGrailPage.defaultLeftCollapsed": "좌측 사이드바의 초기 접힘 상태.",
+    "HolyGrailPage.defaultRightCollapsed": "우측 사이드바의 초기 접힘 상태.",
+    "HolyGrailPage.leftLabel": "좌측 사이드바 헤더에 표시되는 라벨.",
+    "HolyGrailPage.leftIcon": "좌측 사이드바 라벨 앞에 표시되는 아이콘.",
+    "HolyGrailPage.rightLabel": "우측 사이드바 헤더에 표시되는 라벨.",
+    "HolyGrailPage.rightIcon": "우측 사이드바 라벨 앞에 표시되는 아이콘.",
+    "HolyGrailPage.leftFillHeight": "좌측 사이드바가 남은 수직 공간을 채울지 여부.",
+    "HolyGrailPage.rightFillHeight": "우측 사이드바가 남은 수직 공간을 채울지 여부.",
+    "HolyGrailPage.leftRounded": "좌측 사이드바에 둥근 플로팅 카드 스타일을 적용할지 여부.",
+    "HolyGrailPage.rightRounded": "우측 사이드바에 둥근 플로팅 카드 스타일을 적용할지 여부.",
+    "HolyGrailPage.header": "전체 너비 상단 헤더 슬롯에 렌더링되는 콘텐츠.",
+    "HolyGrailPage.footer": "전체 너비 하단 푸터 슬롯에 렌더링되는 콘텐츠.",
+    "AsymmetricPage.primary": "기본(기본적으로 더 넓은) 패널에 렌더링되는 콘텐츠. 필수.",
+    "AsymmetricPage.secondary": "보조 패널(카드 배경)에 렌더링되는 콘텐츠. 필수.",
+    "AsymmetricPage.ratio": "기본 패널과 보조 패널 간 flex 너비 비율.",
+    "AsymmetricPage.header": "상단 헤더 슬롯에 렌더링되는 콘텐츠.",
+    "AsymmetricPage.footer": "하단 푸터 슬롯에 렌더링되는 콘텐츠.",
+    "AppPage.maxWidth": "최대 콘텐츠 너비. xs=360px, sm=390px, md=430px, lg=520px.",
+    "AppPage.elevated": "넓은 화면(sm+ 브레이크포인트)에서 테두리와 그림자가 있는 카드로 렌더링합니다.",
+    "AppPage.safeArea": "네이티브 웹뷰 환경을 위한 safe-area 인셋 패딩을 적용합니다.",
+    "AppPage.stickyHeader": "헤더가 뷰포트 상단에 고정될지 여부.",
+    "AppPage.stickyFooter": "푸터가 뷰포트 하단에 고정될지 여부.",
+    "AppPage.header": "상단 헤더 슬롯에 렌더링되는 콘텐츠.",
+    "AppPage.footer": "하단 푸터 슬롯에 렌더링되는 콘텐츠.",
+    "Header.sticky": "스크롤 시 헤더가 뷰포트 상단에 고정될지 여부.",
+    "Header.bordered": "헤더와 콘텐츠를 구분하는 하단 테두리를 렌더링할지 여부.",
+    "Header.blur": "반투명 배경에 배경 블러를 적용합니다. 스크롤 콘텐츠와 겹칠 때 효과적입니다.",
+    "Header.autoHide": "하방 스크롤 시 헤더를 자동으로 숨기고 상방 스크롤 시 다시 나타냅니다.",
+    "Footer.bordered": "푸터와 콘텐츠를 구분하는 상단 테두리를 렌더링할지 여부.",
+    "Sidebar.width": "펼침 상태에서 사이드바의 너비(px). 접힌 상태 너비는 항상 64px입니다.",
+    "Sidebar.position": "사이드바가 표시되는 레이아웃 측면.",
+    "Sidebar.label": "사이드바 헤더에 표시되는 라벨. 접힌 상태에서는 숨겨집니다.",
+    "Sidebar.icon": "사이드바 헤더의 라벨 앞에 표시되는 아이콘. 접힌 상태에서는 단독으로 표시됩니다.",
+    "Sidebar.collapsible": "사이드바를 접기/펼치기 위한 토글 버튼을 렌더링할지 여부.",
+    "Sidebar.collapsed": "사이드바의 제어 모드 접힘 상태.",
+    "Sidebar.onCollapse": "접기 토글 클릭 시 호출되는 콜백.",
+    "Sidebar.fillHeight": "사이드바가 남은 수직 공간을 채울지 여부(h-full).",
+    "Sidebar.rounded": "사이드바에 둥근 모서리와 플로팅 카드 스타일(테두리 + 여백 + 둥근 모서리)을 적용할지 여부.",
+    "Sidebar.swapOnCollapse": "true일 때 펼침 상태에서 아이콘을 숨기고 접힌 상태에서 라벨을 숨겨 서로 전환합니다.",
+    "Sidebar.footer": "사이드바 하단에 고정된 푸터 영역에 렌더링되는 콘텐츠.",
+    "SidebarGroup.label": "항목 위에 표시되는 그룹 라벨. 사이드바 접힌 상태에서 숨겨집니다.",
+    "SidebarGroup.icon": "라벨 앞에 표시되는 아이콘. 사이드바가 접힌 상태이고 collapseDisplay가 \"group\"일 때 단독으로 표시됩니다.",
+    "SidebarGroup.active": "이 그룹의 자식 항목이 현재 활성 상태인지 여부. 그룹 라벨을 기본 색상으로 강조합니다.",
+    "SidebarGroup.collapseDisplay": "사이드바 접힌 상태에서 표시할 내용. \"group\"은 그룹 아이콘만, \"children\"은 자식 항목(아이콘만)을 표시합니다.",
+    "SidebarGroup.collapsible": "헤더 클릭(시작 화살표 토글)으로 그룹을 펼치기/접기할 수 있는지 여부.",
+    "SidebarGroup.defaultOpen": "collapsible이 활성화되었을 때 그룹이 기본적으로 펼쳐진 상태인지 여부.",
+    "SidebarItem.icon": "라벨 앞에 렌더링되는 아이콘. 사이드바 접힌 상태에서 단독으로 표시됩니다. 아이콘이 없는 항목은 접힌 상태에서 숨겨집니다.",
+    "SidebarItem.active": "이 항목이 현재 활성/선택 상태인지 여부.",
+    "SidebarItem.variant": "활성 스타일 변형. \"filled\"는 기본 배경 색상, \"foreground\"는 기본 텍스트 색상과 굵은 글씨를 사용합니다.",
+    "Container.size": "컨테이너의 최대 너비. sm=640px, md=768px, lg=1024px, xl=1280px, full=제한 없음.",
+    "Main.maxWidth": "메인 콘텐츠 영역의 최대 너비(자동 수평 중앙 정렬).",
+    "FloatingMenuBar.position": "바가 화면에 고정되는 위치. 9개 위치를 지원합니다.",
+    "FloatingMenuBar.bordered": "메뉴 바 주위에 테두리를 렌더링할지 여부.",
+    "FloatingMenuBar.blur": "배경 블러 효과를 적용할지 여부.",
+    "FloatingMenuItem.icon": "표시할 아이콘. 필수.",
+    "FloatingMenuItem.label": "아이콘 아래에 표시되는 선택적 텍스트 라벨.",
+    "FloatingMenuItem.active": "이 항목이 현재 활성 경로인지 여부. 활성 시 기본 색상으로 표시됩니다.",
+    "PageLayout.sidebar": "메인 콘텐츠와 함께 사이드바를 렌더링할지 여부.",
+    "PageLayout.sidebarPosition": "사이드바가 표시되는 측면.",
+    "PageLayout.header": "스티키 헤더 슬롯에 렌더링되는 콘텐츠.",
+    "PageLayout.footer": "푸터 슬롯에 렌더링되는 콘텐츠.",
+    "useSidebarContext": "현재 사이드바 접힌 상태를 반환합니다. Sidebar 자식 내부에서 접힌 상태에 따라 조건부로 콘텐츠를 렌더링할 때 사용합니다."
+  }
+}

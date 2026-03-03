@@ -1,0 +1,40 @@
+{
+  "title": "Dropdown",
+  "description": "트리거 시 나타나는 플로팅 메뉴로, 컨텍스트 액션과 내비게이션에 사용됩니다.",
+  "sections": {
+    "basic-menu": {
+      "title": "기본 메뉴",
+      "texts": ["트리거를 클릭하면 플로팅 메뉴가 열립니다. 방향키, Home, End, Enter, Escape 키보드 내비게이션을 지원합니다."]
+    },
+    "with-title-and-divider": {
+      "title": "제목과 구분선",
+      "texts": ["DropdownTitle로 항목 그룹에 라벨을 지정하고 DropdownDivider로 섹션을 시각적으로 구분합니다."]
+    },
+    "with-destructive-item": {
+      "title": "위험 항목",
+      "texts": ["DropdownItem에 destructive를 전달하면 위험하거나 되돌릴 수 없는 동작을 나타내는 오류 색상으로 렌더링됩니다."]
+    },
+    "alignment": {
+      "title": "정렬",
+      "texts": ["align prop을 사용하여 메뉴의 어느 가장자리를 트리거에 맞출지 제어합니다."]
+    },
+    "controlled-open-state": {
+      "title": "제어 모드",
+      "texts": ["open과 onOpenChange를 전달하여 컴포넌트 외부에서 드롭다운을 프로그래밍 방식으로 제어합니다."]
+    },
+    "with-search": {
+      "title": "검색 포함",
+      "texts": ["메뉴 상단에 DropdownSearch를 추가하여 긴 항목 목록을 필터링할 수 있습니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "trigger": "클릭 시 드롭다운을 여는 요소.",
+    "open": "제어 모드의 열림 상태. 비제어 모드를 사용하려면 생략합니다.",
+    "onOpenChange": "열림 상태가 변경될 때 호출됩니다.",
+    "align": "트리거 기준 메뉴의 수평 정렬.",
+    "children": "드롭다운 항목과 섹션."
+  }
+}

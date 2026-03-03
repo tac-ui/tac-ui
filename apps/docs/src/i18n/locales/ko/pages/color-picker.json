@@ -1,0 +1,65 @@
+{
+  "title": "ColorPicker",
+  "description": "스펙트럼 그라데이션 피커, 스와치 그리드, 스포이드 도구, 채널 입력을 갖춘 색상 선택기입니다. 2단계 선택을 위한 확인 버튼을 포함합니다.",
+  "sections": {
+    "default": {
+      "title": "기본",
+      "texts": ["기본 피커는 선택한 색상 스와치를 표시하는 트리거 버튼을 렌더링합니다. 드롭다운을 열면 전체 스펙트럼 피커, 프리셋 스와치, hex 입력, 채널 입력이 표시됩니다."]
+    },
+    "with-label": {
+      "title": "라벨 포함",
+      "texts": ["<code>label</code>을 사용하여 트리거 위에 연결된 라벨을 렌더링하고, <code>helperText</code>로 오류가 없을 때 아래에 힌트를 표시합니다."]
+    },
+    "custom-colors": {
+      "title": "커스텀 색상",
+      "texts": ["<code>colors</code> 배열에 hex 문자열을 전달하여 기본 30색 프리셋 그리드를 커스텀 팔레트로 교체합니다. 그리드는 항상 6열을 사용합니다."]
+    },
+    "without-spectrum": {
+      "title": "스펙트럼 없이",
+      "texts": ["<code>showSpectrum={false}</code>를 설정하면 채도/밝기 캔버스와 색조 슬라이더를 숨기고, 스와치 그리드와 hex 입력만 남깁니다."]
+    },
+    "without-channels": {
+      "title": "채널 없이",
+      "texts": ["<code>showChannels={false}</code>를 설정하면 RGB 및 HSB 숫자 입력 행을 숨겨 더 컴팩트한 패널 레이아웃을 만듭니다."]
+    },
+    "swatches-only": {
+      "title": "스와치만",
+      "texts": ["<code>showSpectrum={false}</code>, <code>showChannels={false}</code>, <code>showEyeDropper={false}</code>를 결합하여 최소한의 스와치 전용 피커 패널을 만듭니다."]
+    },
+    "without-input": {
+      "title": "입력 없이",
+      "texts": ["<code>showInput={false}</code>를 설정하면 프리셋 아래의 hex 텍스트 입력과 스포이드 행을 숨깁니다."]
+    },
+    "error-state": {
+      "title": "오류 상태",
+      "texts": ["<code>error</code>를 설정하면 트리거에 위험 테두리 스타일이 적용되고, <code>errorMessage</code>를 전달하면 아래에 유효성 검사 메시지가 표시됩니다."]
+    },
+    "disabled": {
+      "title": "비활성화",
+      "texts": ["<code>disabled</code>가 true일 때 트리거는 상호작용이 불가능하며 피커 패널이 열리지 않습니다."]
+    },
+    "controlled": {
+      "title": "제어 모드",
+      "texts": ["<code>value</code>와 <code>onChange</code>를 사용하여 제어 모드로 사용합니다. <code>onChange</code> 콜백은 Select 버튼을 눌렀을 때만 실행되어 색상 변경을 명시적으로 만듭니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "value": "제어되는 선택 색상(hex 문자열).",
+    "onChange": "Select 버튼을 통해 색상이 확정될 때 호출됩니다.",
+    "label": "트리거 위에 표시되는 라벨 텍스트.",
+    "placeholder": "색상이 선택되지 않았을 때의 플레이스홀더 텍스트.",
+    "helperText": "오류가 없을 때 트리거 아래에 표시되는 도움말 텍스트.",
+    "colors": "스와치 그리드를 위한 hex 색상 문자열의 커스텀 배열.",
+    "showInput": "수동 hex 입력을 위한 텍스트 입력을 표시합니다.",
+    "showSpectrum": "상세한 색상 선택을 위한 스펙트럼 그라데이션 피커를 표시합니다.",
+    "showEyeDropper": "스포이드 버튼을 표시합니다(브라우저 지원 필요).",
+    "showChannels": "정밀한 값 설정을 위한 RGB/HSB 채널 입력을 표시합니다.",
+    "error": "true일 때 오류 스타일을 적용합니다.",
+    "errorMessage": "error가 true일 때 표시되는 오류 메시지.",
+    "id": "트리거 버튼의 ID 속성. 생략 시 자동 생성됩니다.",
+    "disabled": "피커를 비활성화합니다."
+  }
+}

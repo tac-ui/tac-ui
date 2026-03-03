@@ -1,0 +1,26 @@
+{
+  "title": "Dialog",
+  "description": "메인 콘텐츠로 돌아가기 전에 사용자 상호작용을 요구하는 모달 오버레이입니다.",
+  "sections": {
+    "default": {
+      "title": "기본",
+      "texts": ["헤더, 설명, 하단 액션 버튼이 포함된 표준 확인 다이얼로그입니다. 배경 클릭 또는 Escape 키로 닫힙니다."]
+    },
+    "without-backdrop": {
+      "title": "배경 없이",
+      "texts": ["backdrop={false}를 설정하면 어두운 오버레이가 숨겨집니다. 다이얼로그는 여전히 Escape로 닫히며 포커스 트랩이 유지됩니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스",
+      "texts": ["Dialog props. 하위 컴포넌트(DialogHeader, DialogTitle, DialogDescription, DialogFooter)는 모두 표준 HTML div/heading/paragraph 속성과 className을 받습니다."]
+    }
+  },
+  "props": {
+    "open": "다이얼로그의 표시 여부를 제어합니다.",
+    "onClose": "다이얼로그가 닫혀야 할 때 호출되는 콜백(배경 클릭 또는 Escape 키).",
+    "backdrop": "false일 때 어두운 배경 오버레이를 숨깁니다.",
+    "layoutId": "공유 레이아웃 모핑 애니메이션을 위한 선택적 Framer Motion layoutId.",
+    "children": "DialogHeader, DialogTitle, DialogDescription, DialogFooter로 구성합니다.",
+    "className": "다이얼로그 패널에 적용되는 추가 CSS 클래스명."
+  }
+}

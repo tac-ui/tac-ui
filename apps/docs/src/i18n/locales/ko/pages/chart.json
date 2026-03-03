@@ -1,0 +1,53 @@
+{
+  "title": "Charts",
+  "description": "Tac UI 디자인 토큰을 활용한 반응형 차트 컴포넌트입니다. 최소한의 격자선, 절제된 모노크롬 팔레트, 깔끔한 타이포그래피를 제공합니다.",
+  "sections": {
+    "bar-chart": {
+      "title": "Bar Chart",
+      "texts": ["차트 토큰 팔레트를 통한 막대별 색상이 적용된 수직 막대 차트입니다. 격자선은 깔끔한 캔버스를 위해 거의 보이지 않습니다."]
+    },
+    "line-chart": {
+      "title": "Line Chart",
+      "texts": ["선택적 영역 채우기와 데이터 포인트가 있는 부드러운 라인 차트입니다. 차트 팔레트의 단일 색상을 사용합니다."]
+    },
+    "pie-chart": {
+      "title": "Pie Chart",
+      "texts": ["범례가 포함된 비율 슬라이스 차트입니다. 테두리가 배경에 자연스럽게 녹아들어 깔끔한 구분을 제공합니다."]
+    },
+    "donut-chart": {
+      "title": "Donut Chart",
+      "texts": ["정제된 링 너비의 도넛 변형입니다. 호버 시 백분율 툴팁이 표시됩니다."]
+    },
+    "api-reference-bar": {
+      "title": "API 레퍼런스 — BarChart"
+    },
+    "api-reference-line": {
+      "title": "API 레퍼런스 — LineChart"
+    },
+    "api-reference-pie-donut": {
+      "title": "API 레퍼런스 — PieChart / DonutChart"
+    }
+  },
+  "props": {
+    "bar-data": "렌더링할 { label, value } 데이터 포인트 배열.",
+    "bar-height": "SVG의 높이(픽셀).",
+    "bar-showGrid": "수평 격자선 표시 여부.",
+    "bar-showLabels": "막대 아래 x축 레이블 표시 여부.",
+    "bar-showValues": "막대 위 값 레이블 표시 여부.",
+    "bar-color": "모든 막대에 적용할 CSS 색상.",
+    "bar-colors": "막대별 색상 오버라이드.",
+    "line-data": "렌더링할 { label, value } 데이터 포인트 배열.",
+    "line-height": "SVG의 높이(픽셀).",
+    "line-showDots": "각 데이터 포인트에 점 표시 여부.",
+    "line-showArea": "라인 아래 영역 채우기 여부.",
+    "line-showGrid": "수평 격자선 표시 여부.",
+    "line-color": "라인과 점에 적용할 CSS 색상.",
+    "line-strokeWidth": "라인의 획 너비.",
+    "pie-data": "{ label, value, color? } 데이터 포인트 배열.",
+    "pie-size": "차트의 지름(픽셀).",
+    "pie-variant": "파이 또는 도넛으로 렌더링할지 여부. DonutChart는 기본값이 \"donut\"입니다.",
+    "pie-strokeWidth": "도넛 변형의 링 너비(픽셀).",
+    "pie-showLabels": "차트 아래 범례 표시 여부.",
+    "pie-showValues": "백분율 값 표시 여부(도넛: 중앙 합계, 파이: 슬라이스 내)."
+  }
+}

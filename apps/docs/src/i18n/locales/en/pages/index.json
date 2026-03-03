@@ -1,0 +1,43 @@
+{
+  "title": "Tac UI",
+  "description": "A cross-platform design system built with shared tokens, React components, and comprehensive theming. Ship consistent, accessible UIs faster.",
+  "sections": {
+    "features": {
+      "title": "Features",
+      "items": {
+        "designTokens": {
+          "title": "Design Tokens",
+          "description": "Shared color, spacing, typography, and motion tokens across platforms."
+        },
+        "components": {
+          "title": "40+ Components",
+          "description": "Production-ready React components with full TypeScript support."
+        },
+        "darkMode": {
+          "title": "Dark Mode",
+          "description": "Built-in light and dark themes via CSS custom properties."
+        },
+        "accessibility": {
+          "title": "Accessibility",
+          "description": "Focus trapping, keyboard navigation, and ARIA attributes built in."
+        },
+        "charts": {
+          "title": "Charts",
+          "description": "Pure SVG chart components that consume your design tokens."
+        },
+        "layoutSystem": {
+          "title": "Layout System",
+          "description": "9 pre-composed page layout patterns for rapid scaffolding."
+        }
+      }
+    },
+    "quickStart": {
+      "title": "Quick Start",
+      "description": "Install the packages and wrap your app with the provider."
+    },
+    "usage": {
+      "title": "Usage",
+      "description": "Import components and use them with full TypeScript IntelliSense."
+    }
+  }
+}

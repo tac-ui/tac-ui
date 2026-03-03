@@ -1,0 +1,40 @@
+{
+  "title": "Tac UI",
+  "description": "A design system where code breathes.",
+  "sections": {
+    "hero": {
+      "title": "Hero",
+      "description": "A design system where code breathes. Spring physics, sequential illumination, and glassmorphic depth — crafted for interfaces that feel alive.",
+      "texts": [
+        "Interfaces that",
+        "Get Started",
+        "GitHub"
+      ]
+    },
+    "features": {
+      "title": "Features",
+      "items": {
+        "fluidMotion": {
+          "title": "Fluid Motion",
+          "description": "Spring physics with mass and momentum. No mechanical easing — every element arrives with organic deceleration."
+        },
+        "sequentialIllumination": {
+          "title": "Sequential Illumination",
+          "description": "Border glows that track and accelerate. Light sweeps across surfaces, creating depth hierarchy through motion."
+        },
+        "glassmorphismDepth": {
+          "title": "Glassmorphism Depth",
+          "description": "Translucent layers with backdrop blur create spatial depth. Elements float at different altitudes."
+        }
+      }
+    },
+    "footer": {
+      "title": "Footer",
+      "description": "Open Source Design System",
+      "texts": [
+        "GitHub",
+        "© 2026 Tac UI. All rights reserved."
+      ]
+    }
+  }
+}

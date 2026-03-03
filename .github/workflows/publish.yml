@@ -1,0 +1,95 @@
+name: Publish Packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build all packages
+        run: pnpm build
+
+      - name: Bump versions
+        run: |
+          pnpm --filter @tac-ui/shared version ${{ inputs.version }} --no-git-tag-version
+          pnpm --filter @tac-ui/tokens version ${{ inputs.version }} --no-git-tag-version
+          pnpm --filter @tac-ui/icon version ${{ inputs.version }} --no-git-tag-version
+          pnpm --filter @tac-ui/web version ${{ inputs.version }} --no-git-tag-version
+
+      - name: Resolve workspace dependencies
+        run: |
+          # Replace workspace:* with actual versions for publishing
+          cd packages/tokens
+          SHARED_VERSION=$(node -p "require('../shared/package.json').version")
+          sed -i "s/\"workspace:\*\"/\"^$SHARED_VERSION\"/g" package.json
+          cd ../web
+          TOKENS_VERSION=$(node -p "require('../tokens/package.json').version")
+          ICON_VERSION=$(node -p "require('../icon/package.json').version")
+          sed -i "s/\"@tac-ui\/shared\": \"workspace:\*\"/\"@tac-ui\/shared\": \"^$SHARED_VERSION\"/g" package.json
+          sed -i "s/\"@tac-ui\/tokens\": \"workspace:\*\"/\"@tac-ui\/tokens\": \"^$TOKENS_VERSION\"/g" package.json
+          sed -i "s/\"@tac-ui\/icon\": \"workspace:\*\"/\"@tac-ui\/icon\": \"^$ICON_VERSION\"/g" package.json
+
+      - name: Publish @tac-ui/shared
+        run: pnpm --filter @tac-ui/shared publish --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @tac-ui/tokens
+        run: pnpm --filter @tac-ui/tokens publish --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @tac-ui/icon
+        run: pnpm --filter @tac-ui/icon publish --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @tac-ui/web
+        run: pnpm --filter @tac-ui/web publish --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Get version
+        id: version
+        run: echo "version=$(node -p "require('./packages/web/package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Commit version bump
+        run: |
+          git checkout -- packages/tokens/package.json packages/web/package.json
+          pnpm --filter @tac-ui/shared version ${{ inputs.version }} --no-git-tag-version
+          pnpm --filter @tac-ui/tokens version ${{ inputs.version }} --no-git-tag-version
+          pnpm --filter @tac-ui/icon version ${{ inputs.version }} --no-git-tag-version
+          pnpm --filter @tac-ui/web version ${{ inputs.version }} --no-git-tag-version
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "release: v${{ steps.version.outputs.version }}"
+          git tag "v${{ steps.version.outputs.version }}"
+          git push && git push --tags

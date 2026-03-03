@@ -1,0 +1,32 @@
+{
+  "title": "Table",
+  "description": "구조화된 표 형식 데이터를 표시하기 위한 조합 가능한 테이블 컴포넌트입니다.",
+  "sections": {
+    "basic": {
+      "title": "기본",
+      "texts": ["TableHeader, TableBody, TableRow, TableHead, TableCell을 사용한 최소한의 테이블입니다. 행에는 기본적으로 호버 하이라이트가 적용됩니다."]
+    },
+    "invoice-example": {
+      "title": "인보이스 예제",
+      "texts": ["헤더, 본문, 합계를 위한 푸터, 캡션, 상태 뱃지를 포함한 완전한 테이블로, 모든 하위 컴포넌트를 함께 보여줍니다."]
+    },
+    "with-caption": {
+      "title": "캡션 포함",
+      "texts": ["TableCaption은 테이블 아래에 접근 가능한 캡션을 렌더링하며, 데이터 컨텍스트를 설명하는 데 유용합니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스",
+      "texts": ["모든 하위 컴포넌트는 표준 HTML 요소 속성(className, style 등)을 받으며, ref를 기본 DOM 요소로 전달합니다."]
+    }
+  },
+  "props": {
+    "Table": "수평 스크롤 가능한 컨테이너로 감싸진 루트 테이블 요소.",
+    "TableHeader": "<thead>를 렌더링합니다. 행에 미묘한 배경과 하단 테두리를 적용합니다.",
+    "TableBody": "<tbody>를 렌더링합니다. 마지막 행의 테두리를 자동으로 제거합니다.",
+    "TableFooter": "합계나 요약을 위한 상단 테두리와 보조 배경이 있는 <tfoot>를 렌더링합니다.",
+    "TableRow": "호버 하이라이트가 있는 <tr>을 렌더링합니다. data-state=\"selected\"일 때 선택 스타일을 적용합니다.",
+    "TableHead": "음소거된 전경색 텍스트와 중간 폰트 굵기의 <th scope=\"col\">을 렌더링합니다.",
+    "TableCell": "표준 패딩과 중앙 수직 정렬의 <td>를 렌더링합니다.",
+    "TableCaption": "테이블 아래에 음소거된 전경색 텍스트로 <caption>을 렌더링합니다."
+  }
+}

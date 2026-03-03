@@ -1,0 +1,40 @@
+{
+  "title": "Tac UI",
+  "description": "코드가 숨을 쉬는 디자인 시스템.",
+  "sections": {
+    "hero": {
+      "title": "히어로",
+      "description": "코드가 숨을 쉬는 디자인 시스템. 스프링 물리, 순차적 일루미네이션, 글라스모피즘 깊이 — 살아 숨 쉬는 인터페이스를 위해 설계되었습니다.",
+      "texts": [
+        "Interfaces that",
+        "시작하기",
+        "GitHub"
+      ]
+    },
+    "features": {
+      "title": "기능",
+      "items": {
+        "fluidMotion": {
+          "title": "유연한 모션",
+          "description": "질량과 운동량을 가진 스프링 물리. 기계적 이징 없이 — 모든 요소가 유기적 감속으로 도착합니다."
+        },
+        "sequentialIllumination": {
+          "title": "순차적 일루미네이션",
+          "description": "추적하고 가속하는 보더 글로우. 빛이 표면을 가로질러 흐르며 모션을 통해 깊이 계층을 만듭니다."
+        },
+        "glassmorphismDepth": {
+          "title": "글라스모피즘 깊이",
+          "description": "배경 블러가 적용된 반투명 레이어가 공간적 깊이를 만듭니다. 요소들이 서로 다른 고도에서 부유합니다."
+        }
+      }
+    },
+    "footer": {
+      "title": "푸터",
+      "description": "오픈 소스 디자인 시스템",
+      "texts": [
+        "GitHub",
+        "© 2026 Tac UI. All rights reserved."
+      ]
+    }
+  }
+}

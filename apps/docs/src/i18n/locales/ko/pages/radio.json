@@ -1,0 +1,31 @@
+{
+  "title": "Radio",
+  "description": "한 번에 하나만 선택할 수 있는 상호 배타적 옵션 세트입니다.",
+  "sections": {
+    "default-group": {
+      "title": "기본 그룹",
+      "texts": ["RadioGroup은 선택 상태를 관리하고 context를 통해 자식 Radio 항목에 제공합니다. 비제어 초기 선택에는 defaultValue를 사용합니다."]
+    },
+    "controlled": {
+      "title": "제어 모드",
+      "texts": ["RadioGroup에 value와 onValueChange를 사용하여 제어 모드로 사용합니다. 콜백은 새로 선택된 항목의 radioValue 문자열을 받습니다."]
+    },
+    "disabled": {
+      "title": "비활성화",
+      "texts": ["개별 Radio 항목에 disabled를 설정하면 나머지 그룹은 상호작용 가능한 상태로 유지하면서 해당 항목의 선택을 방지합니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "defaultValue": "비제어 모드에서의 기본 선택 값.",
+    "value": "제어 모드의 선택 값.",
+    "onValueChange": "선택된 라디오가 변경될 때 호출됩니다.",
+    "children": "그룹 내에 렌더링할 Radio 항목.",
+    "radioValue": "이 라디오 항목이 나타내는 값. RadioGroup 선택과 비교됩니다.",
+    "label": "라디오 옆에 표시되는 라벨 텍스트.",
+    "id": "라디오 입력 요소의 고유 ID.",
+    "disabled": "true일 때 이 라디오 항목을 비활성화합니다."
+  }
+}

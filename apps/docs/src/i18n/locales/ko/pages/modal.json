@@ -1,0 +1,29 @@
+{
+  "title": "Modal",
+  "description": "상세 콘텐츠, 중요 알림, 복잡한 폼을 표시하기 위한 접근성 높은 애니메이션 오버레이입니다.",
+  "sections": {
+    "default-usage": {
+      "title": "기본 사용법",
+      "texts": ["블러 배경, 부드러운 진입 애니메이션, 내장 포커스 트래핑이 적용된 표준 모달입니다."]
+    },
+    "sizes": {
+      "title": "크기",
+      "texts": ["모달은 반응형이며 다양한 콘텐츠 크기를 처리하기 위한 최대 너비 프리셋을 제공합니다."]
+    },
+    "without-backdrop": {
+      "title": "배경 없음",
+      "texts": ["배경 오버레이 없이 뒷면을 보이게 할 수 있으며, 포커스는 여전히 트래핑됩니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "open": "DOM에서 모달의 표시 여부를 제어합니다.",
+    "onClose": "모달이 닫혀야 할 때 호출되는 콜백 (Escape 또는 배경 클릭).",
+    "size": "모달 패널의 최대 너비.",
+    "backdrop": "false일 때 어두운 블러 배경 오버레이를 숨깁니다.",
+    "layoutId": "공유 요소 전환을 위한 선택적 Framer Motion layoutId.",
+    "children": "렌더링할 모달 콘텐츠. ModalHeader, ModalTitle, ModalDescription, ModalFooter로 구성하는 것을 권장합니다."
+  }
+}

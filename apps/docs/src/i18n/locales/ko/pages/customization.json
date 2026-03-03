@@ -1,0 +1,101 @@
+{
+  "title": "커스터마이징",
+  "description": "Tac UI는 CSS 커스텀 속성을 통해 완전히 커스터마이징할 수 있습니다. 컴포넌트 소스 코드를 수정하지 않고도 디자인 토큰을 오버라이드하여 브랜드 아이덴티티에 맞출 수 있습니다.",
+  "sections": {
+    "how-it-works": {
+      "title": "작동 방식",
+      "texts": [
+        "모든 Tac UI 컴포넌트는 CSS 커스텀 속성(--variable-name)으로 디자인 토큰을 소비합니다. 이 토큰은 TacProvider와 Tailwind 프리셋에 의해 :root 레벨에서 주입됩니다. 자체 CSS에서 변수를 재선언하여 토큰을 오버라이드할 수 있습니다.",
+        "CSS 커스텀 속성은 캐스케이드를 따르기 때문에 오버라이드가 항상 우선합니다. 이를 통해 전역, 테마별, 또는 컴포넌트별로 커스터마이징할 수 있습니다."
+      ]
+    },
+    "global-overrides": {
+      "title": "전역 오버라이드",
+      "texts": ["가장 간단한 커스터마이징 방법은 Tailwind import 이후 globals.css에서 토큰을 오버라이드하는 것입니다. 변경 사항은 라이트 및 다크 테마 모두에 적용됩니다."]
+    },
+    "per-theme-overrides": {
+      "title": "테마별 오버라이드",
+      "texts": ["라이트 모드와 다크 모드에서 토큰을 다르게 커스터마이징하려면 data-theme 속성 선택자를 사용하세요."]
+    },
+    "per-component-overrides": {
+      "title": "컴포넌트별 오버라이드",
+      "texts": ["래퍼 클래스나 인라인 스타일을 사용하여 특정 컴포넌트에 토큰 오버라이드 범위를 지정할 수 있습니다. --btn-md-height 같은 컴포넌트 레벨 토큰으로 개별 컴포넌트를 세밀하게 조정할 수 있습니다."]
+    },
+    "token-reference": {
+      "title": "토큰 레퍼런스"
+    },
+    "token-reference-colors": {
+      "title": "색상",
+      "texts": ["애플리케이션의 전반적인 외관을 정의하는 핵심 색상 토큰입니다."]
+    },
+    "token-reference-status-colors": {
+      "title": "상태 색상",
+      "texts": ["피드백 상태를 위한 시맨틱 색상입니다. 각각 -bg 및 -foreground 변형이 있습니다."]
+    },
+    "token-reference-spacing": {
+      "title": "간격",
+      "texts": ["패딩, 마진, 갭에 사용되는 일관된 간격 스케일입니다."]
+    },
+    "token-reference-border-radius": {
+      "title": "테두리 반경",
+      "texts": ["날카로운 모서리부터 완전한 둥근 모서리까지의 라운딩 스케일입니다."]
+    },
+    "token-reference-motion": {
+      "title": "모션",
+      "texts": ["애니메이션과 트랜지션을 위한 지속 시간 및 이징 토큰입니다."]
+    },
+    "component-tokens": {
+      "title": "컴포넌트 토큰",
+      "texts": ["전역 토큰 외에도 각 컴포넌트에는 세밀한 제어를 위한 자체 토큰 세트가 있습니다. --component-property 패턴을 따릅니다."]
+    },
+    "programmatic-access": {
+      "title": "프로그래밍 방식 접근",
+      "texts": ["@tac-ui/tokens 패키지를 사용하여 프로그래밍 방식으로 토큰에 접근하고 생성할 수 있습니다."]
+    },
+    "all-variables-light": {
+      "title": "전체 변수 -- 라이트 모드",
+      "texts": ["이 블록을 globals.css에 복사하여 원하는 변수를 오버라이드하세요. 아래 값은 기본 라이트 모드 기본값입니다."]
+    },
+    "all-variables-dark": {
+      "title": "전체 변수 -- 다크 모드",
+      "texts": ["다크 모드 오버라이드입니다. 테마 간에는 색상 관련 토큰만 변경되며 간격, 반경, 모션, 컴포넌트 토큰은 동일하게 유지됩니다."]
+    },
+    "all-variables-component": {
+      "title": "전체 변수 -- 컴포넌트 토큰",
+      "texts": ["세밀한 제어를 위한 컴포넌트 레벨 토큰입니다. 테마에 독립적이며 라이트 및 다크 모드 모두에 적용됩니다."]
+    }
+  },
+  "props": {
+    "--primary": "버튼, 링크, 강조에 사용되는 기본 브랜드 색상.",
+    "--primary-hover": "기본 색상의 호버 상태.",
+    "--primary-foreground": "기본 배경 위의 텍스트 색상.",
+    "--background": "페이지 배경 색상.",
+    "--foreground": "기본 텍스트 색상.",
+    "--secondary": "미묘한 배경을 위한 보조 표면 색상.",
+    "--border": "기본 테두리 색상.",
+    "--muted-foreground": "약한 텍스트 (설명, 플레이스홀더).",
+    "--point": "하이라이트 및 콜아웃용 강조 색상 (절제하여 사용).",
+    "--success": "성공 상태 색상.",
+    "--warning": "경고 상태 색상.",
+    "--error": "오류/파괴적 상태 색상.",
+    "--info": "정보 상태 색상.",
+    "--spacing-xs": "4px - 좁은 간격 (아이콘 갭).",
+    "--spacing-sm": "8px - 작은 간격.",
+    "--spacing-m": "12px - 중간 간격.",
+    "--spacing-lg": "16px - 큰 간격.",
+    "--spacing-xl": "24px - 매우 큰 간격.",
+    "--spacing-2xl": "32px - 섹션 레벨 간격.",
+    "--radius-none": "라운딩 없음.",
+    "--radius-sm": "미세한 라운딩 (배지, 칩).",
+    "--radius-m": "기본 라운딩 (인풋, 버튼).",
+    "--radius-lg": "큰 라운딩 (카드, 모달).",
+    "--radius-xl": "매우 큰 라운딩.",
+    "--radius-pill": "완전한 라운딩 (알약 모양, 아바타).",
+    "--duration-instant": "즉각적인 피드백.",
+    "--duration-fast": "빠른 트랜지션 (호버, 포커스).",
+    "--duration-normal": "표준 애니메이션.",
+    "--duration-slow": "의도적인 애니메이션 (모달, 드로어).",
+    "--ease-standard": "기본 이징 커브.",
+    "--ease-out": "감속 커브 (진입 애니메이션)."
+  }
+}

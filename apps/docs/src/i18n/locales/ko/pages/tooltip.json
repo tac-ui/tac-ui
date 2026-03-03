@@ -1,0 +1,32 @@
+{
+  "title": "Tooltip",
+  "description": "호버 또는 포커스 시 나타나는 작은 정보 팝업으로, 요소에 대한 추가 컨텍스트를 제공합니다.",
+  "sections": {
+    "default": {
+      "title": "기본",
+      "texts": ["어떤 요소든 Tooltip으로 감싸고 content 문자열을 제공하세요. 툴팁은 설정 가능한 delay(기본 200ms) 이후에 나타나며 기본적으로 트리거 상단에 고정됩니다."]
+    },
+    "placements": {
+      "title": "위치",
+      "texts": ["placement prop으로 트리거의 어느 쪽에 툴팁이 나타날지 제어합니다. 네 방향 모두 지원됩니다: top, bottom, left, right."]
+    },
+    "with-description": {
+      "title": "설명 포함",
+      "texts": ["description prop을 제공하면 툴팁이 리치 모드로 전환됩니다: content가 굵은 제목이 되고 description이 아래에 작은 보조 텍스트로 렌더링됩니다."]
+    },
+    "custom-delay": {
+      "title": "커스텀 딜레이",
+      "texts": ["delay prop(밀리초)을 설정하여 사용자가 호버한 후 툴팁이 나타나기까지의 시간을 제어합니다. 0으로 설정하면 즉시 표시되고, 더 긴 지연 시간으로 덜 방해되게 할 수 있습니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "content": "주요 툴팁 라벨 텍스트. description이 함께 제공되면 제목으로 동작합니다.",
+    "description": "리치 툴팁 모드에서 content 아래에 표시되는 선택적 보조 텍스트.",
+    "placement": "트리거 요소를 기준으로 툴팁이 나타나는 위치.",
+    "delay": "호버 또는 포커스 후 툴팁이 나타나기까지의 지연 시간(밀리초).",
+    "children": "트리거 요소. 단일 React 요소여야 하며, aria-describedby가 자동으로 주입됩니다."
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "title": "Progress",
+  "description": "확정된 완료 값을 선형 바 또는 원형 링으로 시각화합니다.",
+  "sections": {
+    "linear": {
+      "title": "선형",
+      "texts": ["다양한 완료 값의 수평 바입니다."]
+    },
+    "linear-with-label": {
+      "title": "선형 (라벨 포함)",
+      "texts": ["바와 함께 퍼센트 라벨을 표시합니다."]
+    },
+    "circular": {
+      "title": "원형",
+      "texts": ["세 가지 크기의 링 변형으로, 중앙에 라벨이 표시됩니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "value": "현재 진행 값.",
+    "max": "퍼센트 계산에 사용되는 최대 값.",
+    "variant": "표시 스타일 - 수평 바 또는 원형 링.",
+    "size": "원형 변형의 직경(px).",
+    "barSize": "프로그레스 트랙의 두께. 선형과 원형 변형 모두에 적용됩니다.",
+    "showLabel": "true일 때 프로그레스 인디케이터 옆에 퍼센트 라벨을 렌더링합니다.",
+    "className": "추가 CSS 클래스명."
+  }
+}

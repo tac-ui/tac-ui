@@ -1,0 +1,41 @@
+{
+  "title": "Toggle",
+  "description": "시각적 전환과 함께 두 상태 사이를 전환하는 애니메이션 토글 버튼입니다.",
+  "sections": {
+    "default": {
+      "title": "기본",
+      "texts": ["iconOn과 iconOff를 전달하여 각 상태의 아이콘을 정의합니다. 클릭할 때마다 새로운 boolean 값과 함께 onChange가 호출됩니다."]
+    },
+    "media-controls": {
+      "title": "미디어 컨트롤",
+      "texts": ["AnimatedToggle은 어떤 아이콘 쌍과도 동작합니다 — 음소거, 마이크, 재생/일시정지 컨트롤에 적합합니다."]
+    },
+    "visibility-and-security": {
+      "title": "가시성 및 보안",
+      "texts": ["상호 보완적인 아이콘 쌍을 사용하여 이진 가시성 또는 보안 상태를 표현합니다."]
+    },
+    "social-and-actions": {
+      "title": "소셜 및 액션",
+      "texts": ["소셜 반응 상태는 스프링 회전 전환으로 활성 아이콘과 비활성 아이콘 사이를 애니메이션합니다."]
+    },
+    "notifications-and-pinning": {
+      "title": "알림 및 고정",
+      "texts": ["벨과 핀 쌍은 알림 및 상단 고정 기능을 위한 일반적인 툴바 토글입니다."]
+    },
+    "custom-size": {
+      "title": "커스텀 크기",
+      "texts": ["className을 통해 버튼 크기와 아이콘 크기를 재정의하여 원하는 크기로 토글을 조절합니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "checked": "제어 모드의 체크 상태.",
+    "onChange": "토글 클릭 시 호출되는 콜백. 새로운 boolean 값을 받습니다.",
+    "iconOn": "checked가 true일 때 렌더링되는 아이콘.",
+    "iconOff": "checked가 false일 때 렌더링되는 아이콘.",
+    "disabled": "버튼을 비활성화하여 모든 상호작용을 차단합니다.",
+    "className": "크기 또는 스타일 재정의를 위한 추가 CSS 클래스명."
+  }
+}

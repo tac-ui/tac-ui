@@ -1,0 +1,29 @@
+{
+  "title": "Empty State",
+  "description": "표시할 데이터가 없을 때 보여주는 표준화된 플레이스홀더 화면입니다.",
+  "sections": {
+    "with-icon-and-action": {
+      "title": "아이콘과 액션 포함",
+      "texts": ["아이콘, 제목, 설명, 액션 버튼을 모두 포함한 빈 상태입니다. 아이콘은 블러 처리된 원형 컨테이너 내부에 중앙 정렬됩니다."]
+    },
+    "minimal": {
+      "title": "최소 구성",
+      "texts": ["제목과 설명만 포함한 간단한 빈 상태입니다. 아이콘이나 액션 없이 컴팩트한 목록 플레이스홀더에 적합합니다."]
+    },
+    "visibility-toggle": {
+      "title": "표시 전환",
+      "texts": ["visible prop으로 컴포넌트의 렌더링 여부를 제어합니다. false로 설정하면 언마운트 전에 사라지는 애니메이션이 실행됩니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "title": "주요 제목 텍스트. 필수 항목입니다.",
+    "icon": "제목 위 블러 처리된 원형 컨테이너 내에 표시되는 선택적 아이콘 또는 일러스트레이션.",
+    "description": "제목 아래에 표시되는 선택적 설명 텍스트.",
+    "action": "설명 아래에 렌더링되는 선택적 액션 버튼.",
+    "visible": "false일 때 AnimatePresence를 통해 언마운트 전 dismissVariants 애니메이션을 실행합니다.",
+    "className": "내부 컨테이너 div에 적용되는 추가 CSS 클래스명."
+  }
+}

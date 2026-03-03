@@ -1,0 +1,74 @@
+{
+  "title": "DatePicker",
+  "description": "드롭다운 패널이 있는 캘린더 기반 날짜 선택기입니다. 날짜 전용, 날짜+시간, 월 전용 모드와 최소/최대 범위 제약을 지원합니다.",
+  "sections": {
+    "default": {
+      "title": "기본",
+      "texts": ["기본 피커는 애니메이션 캘린더 드롭다운을 여는 트리거 버튼을 렌더링합니다. 날짜를 클릭하면 선택이 확정되고 패널이 닫힙니다."]
+    },
+    "with-label": {
+      "title": "라벨 포함",
+      "texts": ["<code>label</code>을 사용하여 트리거 위에 연결된 라벨을 렌더링하고, <code>helperText</code>로 아래에 컨텍스트 힌트를 추가합니다."]
+    },
+    "datetime-mode": {
+      "title": "DateTime 모드",
+      "texts": ["<code>mode=\"datetime\"</code>을 설정하면 캘린더 그리드 아래에 인라인 시간 및 분 입력이 추가됩니다. 날짜 선택 후 패널이 열린 채로 유지되어 Done을 누르기 전에 시간을 조정할 수 있습니다."]
+    },
+    "datetime-12hour": {
+      "title": "DateTime (12시간제)",
+      "texts": ["<code>use24Hour={false}</code>를 전달하면 시간 입력이 AM/PM 토글이 있는 12시간 형식으로 전환됩니다. <code>minuteStep</code>으로 분을 고정 간격으로 맞춥니다."]
+    },
+    "month-mode": {
+      "title": "월 모드",
+      "texts": ["<code>mode=\"month\"</code>를 설정하면 일간 캘린더 대신 3x4 월 그리드가 표시됩니다. 내비게이션 화살표는 연 단위로 이동하며 값은 선택한 월의 첫 날로 설정됩니다."]
+    },
+    "min-max-date": {
+      "title": "최소 / 최대 날짜",
+      "texts": ["<code>minDate</code>와 <code>maxDate</code>를 사용하여 선택 가능한 범위를 제한합니다. 범위 밖의 날짜는 감소된 투명도로 렌더링되며 클릭할 수 없습니다."]
+    },
+    "error-state": {
+      "title": "오류 상태",
+      "texts": ["<code>error</code>를 설정하면 위험 테두리 스타일이 적용되고, <code>errorMessage</code>를 전달하면 트리거 아래에 유효성 검사 메시지가 표시됩니다."]
+    },
+    "disabled": {
+      "title": "비활성화",
+      "texts": ["<code>disabled</code>가 true일 때 트리거는 상호작용이 불가능하며 캘린더 패널이 열리지 않습니다."]
+    },
+    "custom-format": {
+      "title": "커스텀 형식",
+      "texts": ["<code>formatDate</code> 함수를 전달하여 트리거 버튼에 선택한 날짜가 표시되는 방식을 재정의합니다. 함수는 <code>Date</code>를 받아 문자열을 반환해야 합니다."]
+    },
+    "controlled-date": {
+      "title": "제어 모드 (날짜)",
+      "texts": ["제어 모드 사용을 위해 <code>value</code>와 <code>onChange</code> props를 사용합니다. 컴포넌트는 외부에서 값이 변경될 때마다 캘린더 뷰를 동기화합니다."]
+    },
+    "controlled-datetime": {
+      "title": "제어 모드 (DateTime)",
+      "texts": ["datetime 모드에서 <code>onChange</code> 콜백은 날짜 선택 시와 시간 입력 조정 시 모두 실행되며, 항상 완전히 해석된 <code>Date</code>를 전달합니다."]
+    },
+    "controlled-month": {
+      "title": "제어 모드 (월)",
+      "texts": ["월 모드에서 <code>onChange</code> 콜백은 선택한 월의 첫 날을 전달하여, 결과에서 연도와 월 값을 간편하게 추출할 수 있습니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "mode": "피커 모드: 날짜 전용, 날짜+시간, 또는 월 전용.",
+    "value": "제어되는 선택 날짜.",
+    "onChange": "날짜 선택 시 호출됩니다.",
+    "label": "입력 위에 표시되는 라벨 텍스트.",
+    "placeholder": "날짜가 선택되지 않았을 때의 플레이스홀더 텍스트.",
+    "helperText": "입력 아래에 표시되는 도움말 텍스트.",
+    "error": "true일 때 오류 스타일을 적용합니다.",
+    "errorMessage": "error가 true일 때 표시되는 오류 메시지.",
+    "minDate": "선택 가능한 가장 이른 날짜.",
+    "maxDate": "선택 가능한 가장 늦은 날짜.",
+    "disabled": "날짜 피커를 비활성화합니다.",
+    "formatDate": "커스텀 날짜 형식 표시 함수.",
+    "id": "트리거 버튼의 ID 속성. 생략 시 자동 생성됩니다.",
+    "use24Hour": "시간에 24시간 형식을 사용합니다(datetime 모드).",
+    "minuteStep": "시간 피커의 분 단위 간격."
+  }
+}

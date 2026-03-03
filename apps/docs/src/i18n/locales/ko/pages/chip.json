@@ -1,0 +1,32 @@
+{
+  "title": "Chip",
+  "description": "필터, 태그, 제안 또는 입력 토큰에 사용되는 컴팩트한 인터랙티브 요소입니다.",
+  "sections": {
+    "variants": {
+      "title": "변형",
+      "texts": ["다섯 가지 동작 변형이 일반적인 칩 사용 사례를 다룹니다: filter(선택 상태), assist, suggestion, input, glass(강한 블러)."]
+    },
+    "with-delete": {
+      "title": "삭제 포함",
+      "texts": ["onDelete 콜백을 제공하면 제거 버튼이 렌더링됩니다. x 버튼을 클릭하면 이벤트 전파가 중단되고 칩 자체의 onClick을 트리거하지 않고 onDelete를 호출합니다."]
+    },
+    "with-icon": {
+      "title": "아이콘 포함",
+      "texts": ["leftIcon prop으로 왼쪽 아이콘을 추가합니다. 14x14px로 렌더링되며 패딩이 자동으로 조정됩니다."]
+    },
+    "disabled": {
+      "title": "비활성화",
+      "texts": ["disabled prop을 전달하면 칩이 시각적으로 흐려지고 모든 포인터 상호작용이 차단됩니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "variant": "칩의 시각적 및 동작 스타일.",
+    "onDelete": "삭제 버튼 클릭 시 호출되는 콜백. 제공 시 삭제 버튼을 렌더링합니다.",
+    "leftIcon": "칩 레이블 왼쪽에 14x14px로 렌더링되는 아이콘.",
+    "disabled": "칩을 비활성화하여 시각적으로 흐리게 하고 포인터 상호작용을 차단합니다.",
+    "children": "칩의 레이블 콘텐츠."
+  }
+}

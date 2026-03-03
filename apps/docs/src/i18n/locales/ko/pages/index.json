@@ -1,0 +1,79 @@
+{
+  "title": "Tac UI",
+  "description": "공유 토큰, React 컴포넌트, 그리고 포괄적인 테마를 기반으로 구축된 크로스 플랫폼 디자인 시스템입니다. 일관되고 접근성 높은 UI를 더 빠르게 제공하세요.",
+  "sections": {
+    "brandIdentity": {
+      "title": "브랜드 아이덴티티",
+      "texts": [
+        "Tac UI는 정밀한 도구입니다 — 깔끔하고, 구조적이며, 엄격하게 모던 미니멀리스트입니다. 모든 표면에는 목적이 있고, 모든 가장자리는 결정적이며, 모든 인터랙션은 물리적이고 촉각적인 무게감을 전달합니다."
+      ]
+    },
+    "designPhilosophy": {
+      "title": "디자인 철학: \"클린 & 모던 미니멀리스트\"",
+      "texts": [
+        "산만한 글로우와 복잡한 오버레이에서 벗어나, Tac UI는 선명한 보더와 높은 대비의 타이포그래피를 지향합니다. 포커스 상태는 꼭 맞게 맞춰지고(`ring-offset-0`), 표면은 과도한 글래스모피즘 대신 순수한 솔리드 또는 미묘한 구조적 그림자로 안정감 있게 표현됩니다."
+      ]
+    },
+    "pristineArchitecture": {
+      "title": "정밀한 아키텍처",
+      "texts": [
+        "컴포넌트는 표준 요소 변형을 깔끔하게 감싸는 명확한 1px 솔리드 구조적 보더(`var(--border)`)를 활용합니다. 인지적 노이즈 없이 생산성을 위해 구축된 날카롭고 기술적인 UI를 구현합니다."
+      ]
+    },
+    "typographyHierarchy": {
+      "title": "타이포그래피 & 계층 구조",
+      "texts": [
+        "정밀한 타이포그래피 메트릭에 크게 의존합니다. 제목은 타이트한 트래킹(`tracking-tight`)을 사용하고, 부제목과 설명은 엄격한 리딩 제한(`leading-tight`)으로 요소 주변의 깔끔한 바운딩을 보장합니다."
+      ]
+    },
+    "motionSpring": {
+      "title": "모션: 스프링 물리",
+      "texts": [
+        "UI 요소에는 질량과 운동량이 있습니다. 인터랙티브 버튼은 누를 때 안정적으로 축소됩니다. 모달과 같은 무거운 오버레이는 구조화된 감속으로 빠르게 진입합니다."
+      ]
+    },
+    "a11y": {
+      "title": "접근성",
+      "texts": [
+        "일관된 시맨틱 토큰이 엄격하게 호환되는 CSS 변수에 직접 매핑되어 WCAG AA 텍스트 가시성을 보장합니다. 제로 갭 포커스 링(`ring-[var(--point)]`)이 키보드 탐색 시 요소에 명확하게 고정됩니다."
+      ]
+    },
+    "features": {
+      "title": "기능",
+      "items": {
+        "designTokens": {
+          "title": "디자인 토큰",
+          "description": "플랫폼 간 공유되는 색상, 간격, 타이포그래피, 모션 토큰."
+        },
+        "components": {
+          "title": "40+ 컴포넌트",
+          "description": "완전한 TypeScript 지원을 갖춘 프로덕션 레디 React 컴포넌트."
+        },
+        "darkMode": {
+          "title": "다크 모드",
+          "description": "CSS 커스텀 속성을 통한 라이트/다크 테마 내장."
+        },
+        "accessibility": {
+          "title": "접근성",
+          "description": "포커스 트래핑, 키보드 내비게이션, ARIA 속성이 내장되어 있습니다."
+        },
+        "charts": {
+          "title": "차트",
+          "description": "디자인 토큰을 활용하는 순수 SVG 차트 컴포넌트."
+        },
+        "layoutSystem": {
+          "title": "레이아웃 시스템",
+          "description": "빠른 구성을 위한 9가지 사전 구성된 페이지 레이아웃 패턴."
+        }
+      }
+    },
+    "quickStart": {
+      "title": "빠른 시작",
+      "description": "패키지를 설치하고 앱을 프로바이더로 감싸세요."
+    },
+    "usage": {
+      "title": "사용법",
+      "description": "컴포넌트를 가져와서 완전한 TypeScript IntelliSense와 함께 사용하세요."
+    }
+  }
+}
