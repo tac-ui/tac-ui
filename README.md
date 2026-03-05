@@ -6,15 +6,21 @@
 
 <p align="center">
   A cross-platform design system where code breathes.<br/>
-  Spring physics, sequential illumination, glassmorphism depth — crafted for interfaces that feel alive.
+  40+ web components, 27 native components — crafted for interfaces that feel alive.
 </p>
 
 <p align="center">
+  <a href="https://www.npmjs.com/package/@tac-ui/web"><img src="https://img.shields.io/npm/v/@tac-ui/web?label=%40tac-ui%2Fweb&color=5856D6" alt="npm @tac-ui/web" /></a>
+  <a href="https://www.npmjs.com/package/@tac-ui/native"><img src="https://img.shields.io/npm/v/@tac-ui/native?label=%40tac-ui%2Fnative&color=5E5CE6" alt="npm @tac-ui/native" /></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="License" /></a>
+</p>
+
+<p align="center">
+  <a href="https://tac-ui.com">Documentation</a> ·
   <a href="#installation">Installation</a> ·
   <a href="#packages">Packages</a> ·
   <a href="#quick-start">Quick Start</a> ·
-  <a href="#development">Development</a> ·
-  <a href="#license">License</a>
+  <a href="#development">Development</a>
 </p>
 
 <p align="center">
@@ -25,12 +31,15 @@
 
 ## Features
 
-- **43 Components** — Button, Card, Modal, Chart, DatePicker, Table, and more
-- **Design Tokens** — Color, spacing, typography, motion, and elevation tokens
-- **Dark Mode** — Seamless light/dark theme switching with CSS variables
+- **Cross-Platform** — Web (React) and Native (React Native) from a single design system
+- **40+ Web Components** — Button, Card, Modal, Chart, DatePicker, Table, and more
+- **27 Native Components** — Full-featured React Native component library
+- **Design Tokens** — Shared color, spacing, typography, motion, and elevation tokens
+- **Dark Mode** — Seamless light/dark theme switching (CSS variables on web, context on native)
+- **Royal Indigo Accent** — Refined brand palette (`#5856D6` light / `#5E5CE6` dark)
 - **Accessibility** — WAI-ARIA compliant components with focus management
 - **Tailwind CSS** — First-class Tailwind CSS v4 integration with preset
-- **Framer Motion** — Spring-based animations with organic deceleration
+- **Animations** — Framer Motion (web), React Native Animated (native)
 - **TypeScript** — Strict-mode typed with full IntelliSense support
 - **Dual Export** — ESM and CJS builds via tsup
 
@@ -38,32 +47,44 @@
 
 | Package | Description | Version |
 |---------|------------|---------|
-| [`@tac-ui/web`](./packages/web) | React component library (43 components) | `0.1.0` |
-| [`@tac-ui/tokens`](./packages/tokens) | Design tokens (color, spacing, typography, motion) | `0.1.0` |
-| [`@tac-ui/icon`](./packages/icon) | Icon package (lucide-react + TacLogo) | `0.1.0` |
-| [`@tac-ui/shared`](./packages/shared) | Shared types and interfaces | `0.1.0` |
+| [`@tac-ui/web`](./packages/web) | React web component library (40+ components) | `1.0.0` |
+| [`@tac-ui/native`](./packages/native) | React Native component library (27 components) | `1.0.0` |
+| [`@tac-ui/tokens`](./packages/tokens) | Design tokens (color, spacing, typography, motion) | `1.0.0` |
+| [`@tac-ui/icon`](./packages/icon) | Web icon package (lucide-react + TacLogo) | `1.0.0` |
+| [`@tac-ui/icon-native`](./packages/icon-native) | Native icon package (lucide-react-native + TacLogo) | `1.0.0` |
+| [`@tac-ui/shared`](./packages/shared) | Shared types and interfaces | `1.0.0` |
 
 ## Installation
+
+### Web
 
 ```bash
 pnpm add @tac-ui/web @tac-ui/tokens @tac-ui/icon
 ```
 
+### React Native
+
+```bash
+pnpm add @tac-ui/native @tac-ui/tokens @tac-ui/icon-native
+```
+
 ## Quick Start
+
+### Web
 
 ```tsx
 import { TacProvider, Button } from '@tac-ui/web';
 
 export default function App() {
   return (
-    <TacProvider>
-      <Button>Hello Tac UI</Button>
+    <TacProvider defaultTheme="system">
+      <Button variant="point">Hello Tac UI</Button>
     </TacProvider>
   );
 }
 ```
 
-### Tailwind CSS Setup
+#### Tailwind CSS Setup
 
 ```ts
 // tailwind.config.ts
@@ -78,9 +99,27 @@ export default {
 };
 ```
 
-## Components
+### React Native
 
-Accordion · Alert · AnimatedToggle · Avatar · Badge · Breadcrumb · Button · Card · Chart · Checkbox · Chip · CodeBlock · ColorPicker · Combobox · DatePicker · Dialog · Divider · Drawer · Dropdown · EmptyState · Indicator · Input · Layout · Modal · MorphingCard · PageLayouts · Pagination · Popover · Progress · Radio · SegmentController · Select · Skeleton · Slider · Snackbar · Stack · Stepper · Switch · Table · Tabs · Textarea · Toast · Tooltip
+```tsx
+import { TacNativeProvider, Button } from '@tac-ui/native';
+
+export default function App() {
+  return (
+    <TacNativeProvider defaultPreference="system">
+      <Button variant="point">Hello Tac UI</Button>
+    </TacNativeProvider>
+  );
+}
+```
+
+## Web Components
+
+Accordion · Alert · AnimatedToggle · Avatar · Badge · Breadcrumb · Button · Card · Chart (Bar, Line, Pie, Donut) · Checkbox · Chip · CodeBlock · ColorPicker · Combobox · DatePicker · Dialog · Divider · Drawer · Dropdown · EmptyState · FloatingMenuBar · Indicator · Input · Layout · Modal · MorphingCard · PageLayouts · Pagination · Popover · Progress · Radio · SegmentController · Select · Skeleton · Slider · Snackbar · Stack · Stepper · Switch · Table · Tabs · Textarea · Toast · Tooltip
+
+## Native Components
+
+Accordion · Alert · AnimatedToggle · Avatar · Badge · Breadcrumb · Button · Card · Checkbox · Chip · CodeBlock · ColorPicker · Combobox · DatePicker · Dialog · Divider · Dropdown · EmptyState · FloatingMenuBar · Indicator · Input · Progress · Radio · SegmentController · Select · Skeleton · Slider · Snackbar · Stack · Stepper · Switch · Table · Tabs · Textarea · Toast
 
 ## Development
 
@@ -96,10 +135,11 @@ pnpm dev
 # Build all packages
 pnpm build
 
-# Lint
-pnpm lint
+# Start docs site (port 3001)
+pnpm --filter docs dev
 
-# Type check
+# Lint & type check
+pnpm lint
 pnpm typecheck
 ```
 
@@ -108,36 +148,34 @@ pnpm typecheck
 ```
 tac-ui/
 ├── packages/
-│   ├── shared/      # @tac-ui/shared — Shared types
-│   ├── tokens/      # @tac-ui/tokens — Design tokens
-│   ├── icon/        # @tac-ui/icon — Icons
-│   └── web/         # @tac-ui/web — React components
+│   ├── shared/          # @tac-ui/shared — Shared types
+│   ├── tokens/          # @tac-ui/tokens — Design tokens (web + native)
+│   ├── icon/            # @tac-ui/icon — Web icons
+│   ├── icon-native/     # @tac-ui/icon-native — Native icons
+│   ├── web/             # @tac-ui/web — React web components
+│   └── native/          # @tac-ui/native — React Native components
 ├── apps/
-│   ├── docs/        # Documentation site (Next.js)
-│   └── playground/  # Component playground
+│   ├── docs/            # Documentation site (Next.js)
+│   └── native-docs-app/ # Native component demo (Expo)
 ├── turbo.json
 └── pnpm-workspace.yaml
 ```
 
 ## Tech Stack
 
-| Category | Technology |
-|----------|-----------|
-| Language | TypeScript (strict mode) |
-| Package Manager | pnpm |
-| Monorepo | Turborepo |
-| Build | tsup |
-| UI Framework | React 18/19 |
-| Styling | Tailwind CSS 4, CVA, clsx, tailwind-merge |
-| Animation | Framer Motion |
-| Icons | lucide-react |
-| App Framework | Next.js 16 |
+| Category | Web | Native |
+|----------|-----|--------|
+| UI Framework | React 18/19 | React Native |
+| Styling | Tailwind CSS 4, CVA, clsx, tailwind-merge | StyleSheet, theme context |
+| Animation | Framer Motion | Animated API, Reanimated |
+| Icons | lucide-react | lucide-react-native |
+| Build | tsup (dual CJS/ESM) | tsup (dual CJS/ESM) |
+
+**Shared**: TypeScript (strict), pnpm, Turborepo, Next.js 16 (docs)
 
 ## License
 
 [MIT License](./LICENSE) - Copyright (c) 2026 Jeonhui Lee
-
-Free to use, modify, and distribute for personal and commercial projects.
 
 ---
 
