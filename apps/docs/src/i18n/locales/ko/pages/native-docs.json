@@ -1,0 +1,79 @@
+{
+  "title": "Tac UI Native",
+  "description": "Tac UI의 React Native 컴포넌트 라이브러리입니다. 동일한 디자인 언어, 토큰, API 인터페이스를 가진 20개의 컴포넌트 — iOS, Android, Expo를 위해 설계되었습니다.",
+  "sections": {
+    "brandIdentity": {
+      "title": "브랜드 아이덴티티",
+      "texts": [
+        "Tac UI Native는 Tac 디자인 시스템의 모바일 표현입니다 — 깔끔하고, 구조적이며, 엄격히 현대적 미니멀리즘을 추구합니다. 모든 표면에는 목적이 있고, 모든 가장자리는 명확하며, 모든 인터랙션은 스프링 물리를 통해 물리적이고 촉각적인 무게감을 전달합니다."
+      ]
+    },
+    "designPhilosophy": {
+      "title": "디자인 철학: \"Clean & Modern Minimalist\"",
+      "texts": [
+        "네이티브 컴포넌트는 웹 대응 컴포넌트를 미러링하여 선명한 보더와 고대비 타이포그래피를 채택합니다. 포커스 상태는 타이트하고, 표면은 순수한 솔리드 또는 미묘한 구조적 섀도우로 그라운딩되며, 모든 시각적 결정은 토큰 시스템을 통해 공유됩니다."
+      ]
+    },
+    "pristineArchitecture": {
+      "title": "플랫폼 아키텍처",
+      "texts": [
+        "컴포넌트는 TacNativeProvider에서 소비되는 테마 기반 StyleSheet 값을 사용합니다. 구조적 보더, 일관된 간격, 시맨틱 색상은 공유 토큰 정의에서 런타임에 해석됩니다 — 플랫폼 타협 없이 웹과의 시각적 동등성을 보장합니다."
+      ]
+    },
+    "typographyHierarchy": {
+      "title": "타이포그래피 & 계층",
+      "texts": [
+        "타이포그래피 토큰은 플랫폼 간 공유되는 폰트 크기, 굵기, 줄 높이를 정의합니다. 네이티브 컴포넌트는 테마 컨텍스트에서 이 값들을 소비하여 웹과 모바일 간 일관된 타이포그래피 계층을 보장합니다."
+      ]
+    },
+    "motionSpring": {
+      "title": "모션: 스프링 물리",
+      "texts": [
+        "UI 요소에는 질량과 운동량이 있습니다. 버튼은 누를 때 스프링 물리로 축소되고, Alert는 자기적 감속으로 슬라이드 인되며, 토글은 민첩한 스프링 설정으로 애니메이션됩니다 — 모두 React Native Animated API를 사용합니다."
+      ]
+    },
+    "a11y": {
+      "title": "접근성",
+      "texts": [
+        "컴포넌트에는 적절한 accessibilityRole, accessibilityState, accessibilityLabel props가 포함됩니다. 비활성 상태는 일관되게 불투명도를 줄이고 인터랙션을 차단합니다. 스크린 리더 지원이 모든 인터랙티브 컴포넌트에 내장되어 있습니다."
+      ]
+    },
+    "features": {
+      "title": "주요 기능"
+    },
+    "quickStart": {
+      "title": "빠른 시작",
+      "description": "패키지를 설치하고 앱을 프로바이더로 감싸세요."
+    },
+    "usage": {
+      "title": "사용법",
+      "description": "컴포넌트를 임포트하고 완전한 TypeScript IntelliSense와 함께 사용하세요."
+    }
+  },
+  "featureCards": {
+    "tokens": {
+      "title": "디자인 토큰",
+      "description": "@tac-ui/tokens/native를 통해 공유되는 색상, 간격, 타이포그래피, 모션 토큰."
+    },
+    "components": {
+      "title": "20개 컴포넌트",
+      "description": "@tac-ui/web에서 포팅된 프로덕션 수준의 React Native 컴포넌트."
+    },
+    "darkMode": {
+      "title": "다크 모드",
+      "description": "TacNativeProvider를 통한 라이트, 다크, 시스템 테마 내장 지원."
+    },
+    "crossPlatform": {
+      "title": "크로스 플랫폼",
+      "description": "@tac-ui/web 대응 컴포넌트와 공유되는 일관된 디자인 언어."
+    },
+    "animated": {
+      "title": "애니메이션",
+      "description": "React Native Animated API를 통한 스프링 물리 애니메이션."
+    },
+    "layout": {
+      "title": "레이아웃 프리미티브",
+      "description": "빠른 화면 스캐폴딩을 위한 Stack 및 레이아웃 유틸리티."
+    }
+  }
+}

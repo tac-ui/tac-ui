@@ -1,0 +1,61 @@
+{
+  "title": "SegmentController",
+  "description": "슬라이딩 인디케이터 애니메이션이 적용된 알약 모양의 세그먼트 컨트롤입니다. 라벨, 아이콘, 개별 비활성화를 지원하는 옵션 객체 배열을 받습니다.",
+  "sections": {
+    "default": {
+      "title": "기본",
+      "texts": [
+        "SegmentOption 객체의 options 배열을 전달합니다. 각 옵션에는 value와 label이 있습니다. onValueChange로 선택 변경을 처리합니다."
+      ]
+    },
+    "sizes": {
+      "title": "크기",
+      "texts": [
+        "sm, md(기본값), lg 세 가지 크기를 사용할 수 있습니다. 크기는 각 세그먼트의 높이, 폰트 크기, 가로 패딩에 영향을 줍니다."
+      ]
+    },
+    "with-icons": {
+      "title": "아이콘 포함",
+      "texts": [
+        "각 옵션에 라벨 앞에 렌더링되는 icon 노드를 포함할 수 있습니다. 세그먼트 텍스트 크기에 맞는 icon-native 아이콘을 사용하세요."
+      ]
+    },
+    "disabled-options": {
+      "title": "비활성화 옵션",
+      "texts": [
+        "개별 옵션에 disabled: true를 설정하면 나머지 세그먼트는 인터랙티브하게 유지하면서 특정 세그먼트의 선택을 방지할 수 있습니다."
+      ]
+    },
+    "disabled": {
+      "title": "비활성화",
+      "texts": ["disabled prop은 전체 컴포넌트를 비활성화하여 모든 세그먼트의 선택을 방지하고 전체 투명도를 낮춥니다."]
+    },
+    "controlled": {
+      "title": "제어 모드",
+      "texts": [
+        "제어 모드에서는 value와 onValueChange를 전달하여 선택 상태를 외부에서 관리합니다 — 다른 UI 상태와 컨트롤을 동기화할 때 유용합니다."
+      ]
+    },
+    "playground": {
+      "title": "플레이그라운드",
+      "texts": ["아래에서 SegmentController의 props를 인터랙티브하게 설정해 보세요."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    },
+    "legacy-api": {
+      "title": "레거시 API (하위 호환)"
+    }
+  },
+  "props": {
+    "options": "value, label, 선택적 icon, 선택적 disabled를 포함하는 세그먼트 옵션 객체 배열.",
+    "value": "현재 선택된 세그먼트 값 (제어 모드).",
+    "onValueChange": "눌린 세그먼트의 값과 함께 호출됩니다.",
+    "size": "각 세그먼트의 높이, 폰트 크기, 패딩을 제어합니다.",
+    "disabled": "true일 때 전체 컴포넌트를 비활성화하고 투명도를 낮춥니다.",
+    "style": "외부 컨테이너에 적용되는 추가 스타일.",
+    "items": "더 이상 사용되지 않습니다. options를 사용하세요. 세그먼트 라벨 문자열 배열.",
+    "selectedIndex": "더 이상 사용되지 않습니다. value를 사용하세요. 현재 선택된 세그먼트의 인덱스.",
+    "onSelect": "더 이상 사용되지 않습니다. onValueChange를 사용하세요. 눌린 세그먼트의 인덱스와 함께 호출됩니다."
+  }
+}

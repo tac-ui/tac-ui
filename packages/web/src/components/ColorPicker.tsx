@@ -1,27 +1,34 @@
 import React, { forwardRef, useState, useRef, useEffect, useCallback, useId, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { dropdownMotionVariants, diaSpring } from '../constants/motion';
-import { focusRing, focusRingCompact } from '../constants/styles';
-
+import { dropdownMotionVariants, tacSpring } from '../constants/motion';
+import { focusRing, inputTransition } from '../constants/styles';
 
 /* ─── EyeDropper API type declaration ─── */
 declare global {
-  interface EyeDropper { open(options?: { signal?: AbortSignal }): Promise<{ sRGBHex: string }> }
-  var EyeDropper: { new(): EyeDropper } | undefined;
+  interface EyeDropper {
+    open(options?: { signal?: AbortSignal }): Promise<{ sRGBHex: string }>;
+  }
+  var EyeDropper: { new (): EyeDropper } | undefined;
 }
 
 /* ─── Color conversion types ─── */
-interface RGB { r: number; g: number; b: number }
-interface HSV { h: number; s: number; v: number }
+interface RGB {
+  r: number;
+  g: number;
+  b: number;
+}
+interface HSV {
+  h: number;
+  s: number;
+  v: number;
+}
 
 /* ─── Color conversion utilities ─── */
 
 function hexToRgb(hex: string): RGB {
   const h = hex.replace('#', '');
-  const full = h.length === 3
-    ? `${h[0]}${h[0]}${h[1]}${h[1]}${h[2]}${h[2]}`
-    : h;
+  const full = h.length === 3 ? `${h[0]}${h[0]}${h[1]}${h[1]}${h[2]}${h[2]}` : h;
   return {
     r: parseInt(full.substring(0, 2), 16),
     g: parseInt(full.substring(2, 4), 16),
@@ -30,7 +37,10 @@ function hexToRgb(hex: string): RGB {
 }
 
 function rgbToHex(r: number, g: number, b: number): string {
-  const toHex = (n: number) => Math.round(Math.max(0, Math.min(255, n))).toString(16).padStart(2, '0');
+  const toHex = (n: number) =>
+    Math.round(Math.max(0, Math.min(255, n)))
+      .toString(16)
+      .padStart(2, '0');
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
 }
 
@@ -59,13 +69,28 @@ function hsvToRgb(h: number, s: number, v: number): RGB {
   const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
   const m = v - c;
 
-  let rn = 0, gn = 0, bn = 0;
-  if (h < 60) { rn = c; gn = x; }
-  else if (h < 120) { rn = x; gn = c; }
-  else if (h < 180) { gn = c; bn = x; }
-  else if (h < 240) { gn = x; bn = c; }
-  else if (h < 300) { rn = x; bn = c; }
-  else { rn = c; bn = x; }
+  let rn = 0,
+    gn = 0,
+    bn = 0;
+  if (h < 60) {
+    rn = c;
+    gn = x;
+  } else if (h < 120) {
+    rn = x;
+    gn = c;
+  } else if (h < 180) {
+    gn = c;
+    bn = x;
+  } else if (h < 240) {
+    gn = x;
+    bn = c;
+  } else if (h < 300) {
+    rn = x;
+    bn = c;
+  } else {
+    rn = c;
+    bn = x;
+  }
 
   return {
     r: Math.round((rn + m) * 255),
@@ -93,22 +118,44 @@ function normalizeHex(hex: string): string {
 }
 
 /* ─── Transition constants ─── */
-const inputTransition = 'border-color 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms cubic-bezier(0.22, 1, 0.36, 1)';
-const btnTransition = 'background-color 220ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms cubic-bezier(0.22, 1, 0.36, 1)';
+const btnTransition =
+  'background-color 220ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms cubic-bezier(0.22, 1, 0.36, 1)';
 
 /* ─── Default colors ─── */
 const DEFAULT_COLORS = [
-  '#EF4444', '#DC2626', '#B91C1C',
-  '#F97316', '#EA580C', '#C2410C',
-  '#EAB308', '#CA8A04', '#A16207',
-  '#22C55E', '#16A34A', '#15803D',
-  '#14B8A6', '#0D9488', '#0F766E',
-  '#3B82F6', '#2563EB', '#1D4ED8',
-  '#6366F1', '#4F46E5', '#4338CA',
-  '#A855F7', '#9333EA', '#7E22CE',
-  '#EC4899', '#DB2777', '#BE185D',
-  '#6B7280', '#4B5563', '#374151',
-  '#1F2937', '#111827', '#000000',
+  '#EF4444',
+  '#DC2626',
+  '#B91C1C',
+  '#F97316',
+  '#EA580C',
+  '#5856D6',
+  '#EAB308',
+  '#CA8A04',
+  '#A16207',
+  '#22C55E',
+  '#16A34A',
+  '#15803D',
+  '#14B8A6',
+  '#0D9488',
+  '#0F766E',
+  '#3B82F6',
+  '#2563EB',
+  '#4B49B8',
+  '#6366F1',
+  '#4F46E5',
+  '#4338CA',
+  '#A855F7',
+  '#9333EA',
+  '#7E22CE',
+  '#EC4899',
+  '#DB2777',
+  '#BE185D',
+  '#6B7280',
+  '#4B5563',
+  '#374151',
+  '#1F2937',
+  '#111827',
+  '#000000',
 ];
 
 /* ─── Props ─── */
@@ -176,7 +223,7 @@ function ChannelInput({
         className={cn(
           'w-[52px] h-7 text-center text-xs font-mono text-[var(--foreground)] bg-[var(--input-bg)] border border-solid border-[var(--input-border-rest)] rounded-[var(--radius-sm)] outline-none',
           'hover:border-[var(--input-border-hover)]',
-          'focus:border-[var(--point)]',
+          'focus:border-[var(--point)] focus:shadow-[var(--input-focus-glow)]',
           '[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none',
         )}
       />
@@ -187,24 +234,27 @@ function ChannelInput({
 /* ─── Component ─── */
 
 export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
-  ({
-    className,
-    value,
-    onChange,
-    label,
-    helperText,
-    error,
-    errorMessage,
-    colors = DEFAULT_COLORS,
-    disabled,
-    placeholder = 'Select color',
-    id,
-    showInput = true,
-    showSpectrum = true,
-    showEyeDropper = true,
-    showChannels = true,
-    ...props
-  }, ref) => {
+  (
+    {
+      className,
+      value,
+      onChange,
+      label,
+      helperText,
+      error,
+      errorMessage,
+      colors = DEFAULT_COLORS,
+      disabled,
+      placeholder = 'Select color',
+      id,
+      showInput = true,
+      showSpectrum = true,
+      showEyeDropper = true,
+      showChannels = true,
+      ...props
+    },
+    ref,
+  ) => {
     const generatedId = useId();
     const inputId = id || generatedId;
     const errorId = `${inputId}-error`;
@@ -303,34 +353,43 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
     }, []);
 
     // Swatch click → update pending
-    const handleSwatchClick = useCallback((color: string) => {
-      const normalized = normalizeHex(color);
-      setHexInput(normalized);
-      updatePendingFromHex(normalized);
-    }, [updatePendingFromHex]);
+    const handleSwatchClick = useCallback(
+      (color: string) => {
+        const normalized = normalizeHex(color);
+        setHexInput(normalized);
+        updatePendingFromHex(normalized);
+      },
+      [updatePendingFromHex],
+    );
 
     // Hex input change
-    const handleHexInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-      const raw = e.target.value;
-      setHexInput(raw);
-      const withHash = raw.startsWith('#') ? raw : `#${raw}`;
-      if (isValidHex(withHash)) {
-        updatePendingFromHex(withHash);
-      }
-    }, [updatePendingFromHex]);
+    const handleHexInputChange = useCallback(
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        const raw = e.target.value;
+        setHexInput(raw);
+        const withHash = raw.startsWith('#') ? raw : `#${raw}`;
+        if (isValidHex(withHash)) {
+          updatePendingFromHex(withHash);
+        }
+      },
+      [updatePendingFromHex],
+    );
 
     // Hex input Enter → confirm
-    const handleHexKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter') {
-        const withHash = hexInput.startsWith('#') ? hexInput : `#${hexInput}`;
-        if (isValidHex(withHash)) {
-          const normalized = normalizeHex(withHash);
-          if (!isControlled) setInternalColor(normalized);
-          onChange?.(normalized);
-          setOpen(false);
+    const handleHexKeyDown = useCallback(
+      (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+          const withHash = hexInput.startsWith('#') ? hexInput : `#${hexInput}`;
+          if (isValidHex(withHash)) {
+            const normalized = normalizeHex(withHash);
+            if (!isControlled) setInternalColor(normalized);
+            onChange?.(normalized);
+            setOpen(false);
+          }
         }
-      }
-    }, [hexInput, onChange, isControlled]);
+      },
+      [hexInput, onChange, isControlled],
+    );
 
     // Confirm (Select) button
     const handleConfirm = useCallback(() => {
@@ -362,17 +421,23 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
       setPendingHsv((prev) => ({ ...prev, s, v }));
     }, []);
 
-    const handleSVPointerDown = useCallback((e: React.PointerEvent) => {
-      e.preventDefault();
-      (e.target as HTMLElement).setPointerCapture(e.pointerId);
-      setDraggingSV(true);
-      updateSVFromPointer(e.clientX, e.clientY);
-    }, [updateSVFromPointer]);
+    const handleSVPointerDown = useCallback(
+      (e: React.PointerEvent) => {
+        e.preventDefault();
+        (e.target as HTMLElement).setPointerCapture(e.pointerId);
+        setDraggingSV(true);
+        updateSVFromPointer(e.clientX, e.clientY);
+      },
+      [updateSVFromPointer],
+    );
 
-    const handleSVPointerMove = useCallback((e: React.PointerEvent) => {
-      if (!draggingSV) return;
-      updateSVFromPointer(e.clientX, e.clientY);
-    }, [draggingSV, updateSVFromPointer]);
+    const handleSVPointerMove = useCallback(
+      (e: React.PointerEvent) => {
+        if (!draggingSV) return;
+        updateSVFromPointer(e.clientX, e.clientY);
+      },
+      [draggingSV, updateSVFromPointer],
+    );
 
     const handleSVPointerUp = useCallback(() => {
       setDraggingSV(false);
@@ -386,28 +451,37 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
       setPendingHsv((prev) => ({ ...prev, h }));
     }, []);
 
-    const handleHuePointerDown = useCallback((e: React.PointerEvent) => {
-      e.preventDefault();
-      (e.target as HTMLElement).setPointerCapture(e.pointerId);
-      setDraggingHue(true);
-      updateHueFromPointer(e.clientX);
-    }, [updateHueFromPointer]);
+    const handleHuePointerDown = useCallback(
+      (e: React.PointerEvent) => {
+        e.preventDefault();
+        (e.target as HTMLElement).setPointerCapture(e.pointerId);
+        setDraggingHue(true);
+        updateHueFromPointer(e.clientX);
+      },
+      [updateHueFromPointer],
+    );
 
-    const handleHuePointerMove = useCallback((e: React.PointerEvent) => {
-      if (!draggingHue) return;
-      updateHueFromPointer(e.clientX);
-    }, [draggingHue, updateHueFromPointer]);
+    const handleHuePointerMove = useCallback(
+      (e: React.PointerEvent) => {
+        if (!draggingHue) return;
+        updateHueFromPointer(e.clientX);
+      },
+      [draggingHue, updateHueFromPointer],
+    );
 
     const handleHuePointerUp = useCallback(() => {
       setDraggingHue(false);
     }, []);
 
     // ─── Channel input handlers ───
-    const handleRgbChange = useCallback((channel: 'r' | 'g' | 'b', val: number) => {
-      const rgb = { ...pendingRgb, [channel]: val };
-      const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
-      setPendingHsv(hsv);
-    }, [pendingRgb]);
+    const handleRgbChange = useCallback(
+      (channel: 'r' | 'g' | 'b', val: number) => {
+        const rgb = { ...pendingRgb, [channel]: val };
+        const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
+        setPendingHsv(hsv);
+      },
+      [pendingRgb],
+    );
 
     const handleHsvChannelChange = useCallback((channel: 'h' | 's' | 'v', val: number) => {
       setPendingHsv((prev) => ({
@@ -422,11 +496,17 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
       let handled = true;
       setPendingHsv((prev) => {
         switch (e.key) {
-          case 'ArrowRight': return { ...prev, s: clamp(prev.s + step, 0, 1) };
-          case 'ArrowLeft': return { ...prev, s: clamp(prev.s - step, 0, 1) };
-          case 'ArrowUp': return { ...prev, v: clamp(prev.v + step, 0, 1) };
-          case 'ArrowDown': return { ...prev, v: clamp(prev.v - step, 0, 1) };
-          default: handled = false; return prev;
+          case 'ArrowRight':
+            return { ...prev, s: clamp(prev.s + step, 0, 1) };
+          case 'ArrowLeft':
+            return { ...prev, s: clamp(prev.s - step, 0, 1) };
+          case 'ArrowUp':
+            return { ...prev, v: clamp(prev.v + step, 0, 1) };
+          case 'ArrowDown':
+            return { ...prev, v: clamp(prev.v - step, 0, 1) };
+          default:
+            handled = false;
+            return prev;
         }
       });
       if (handled) e.preventDefault();
@@ -438,9 +518,13 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
       let handled = true;
       setPendingHsv((prev) => {
         switch (e.key) {
-          case 'ArrowRight': return { ...prev, h: (prev.h + step) % 360 };
-          case 'ArrowLeft': return { ...prev, h: (prev.h - step + 360) % 360 };
-          default: handled = false; return prev;
+          case 'ArrowRight':
+            return { ...prev, h: (prev.h + step) % 360 };
+          case 'ArrowLeft':
+            return { ...prev, h: (prev.h - step + 360) % 360 };
+          default:
+            handled = false;
+            return prev;
         }
       });
       if (handled) e.preventDefault();
@@ -474,7 +558,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
               focusRing,
               'border-[var(--input-border-rest)]',
               'hover:border-[var(--input-border-hover)]',
-              'focus:border-[var(--point)]',
+              'focus:border-[var(--point)] focus:shadow-[var(--input-focus-glow)]',
               error && 'border-[var(--error)] focus:border-[var(--point)]',
               disabled && 'opacity-50 pointer-events-none cursor-not-allowed',
               className,
@@ -484,7 +568,12 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
               className="w-5 h-5 rounded-[var(--radius-sm)] border border-solid border-[var(--border)] shrink-0"
               style={{ backgroundColor: displayColor ?? 'transparent' }}
             />
-            <span className={cn('truncate flex-1', displayColor ? 'text-[var(--foreground)]' : 'text-[var(--muted-foreground)]')}>
+            <span
+              className={cn(
+                'truncate flex-1',
+                displayColor ? 'text-[var(--foreground)]' : 'text-[var(--muted-foreground)]',
+              )}
+            >
               {displayColor ?? placeholder}
             </span>
             <motion.svg
@@ -495,7 +584,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
               strokeWidth="1.5"
               aria-hidden="true"
               animate={{ rotate: open ? 180 : 0 }}
-              transition={diaSpring.magnetic}
+              transition={tacSpring.magnetic}
             >
               <path d="M4 6l4 4 4-4" />
             </motion.svg>
@@ -514,7 +603,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
-                transition={diaSpring.magnetic}
+                transition={tacSpring.magnetic}
                 style={{ originY: 0 }}
               >
                 {/* ─── Spectrum Picker ─── */}
@@ -584,7 +673,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
                 <div className={showSpectrum ? 'mt-3 pt-3 border-t border-solid border-[var(--border)]' : ''}>
                   <button
                     type="button"
-                    onClick={() => setPresetsOpen(prev => !prev)}
+                    onClick={() => setPresetsOpen((prev) => !prev)}
                     className="flex items-center gap-1 mb-1.5 bg-transparent border-none cursor-pointer p-0 select-none"
                     aria-expanded={presetsOpen}
                   >
@@ -598,7 +687,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
                       strokeLinejoin="round"
                       aria-hidden="true"
                       animate={{ rotate: presetsOpen ? 90 : 0 }}
-                      transition={diaSpring.magnetic}
+                      transition={tacSpring.magnetic}
                     >
                       <path d="M4.5 2.5l4 3.5-4 3.5" />
                     </motion.svg>
@@ -610,7 +699,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ ...diaSpring.magnetic, opacity: { duration: 0.15 } }}
+                        transition={{ ...tacSpring.magnetic, opacity: { duration: 0.15 } }}
                         style={{ overflow: 'hidden' }}
                       >
                         <div className="grid grid-cols-6 gap-1.5">
@@ -625,13 +714,15 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
                                 onClick={() => handleSwatchClick(color)}
                                 style={{
                                   backgroundColor: color,
-                                  transition: 'transform 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+                                  transition:
+                                    'transform 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1)',
                                 }}
                                 className={cn(
                                   'w-8 h-8 rounded-[var(--radius-sm)] border-none cursor-pointer',
-                                  focusRingCompact,
+                                  focusRing,
                                   'hover:scale-110 hover:shadow-[var(--shadow-m)]',
-                                  isSelected && 'ring-2 ring-[var(--point)] ring-offset-2 ring-offset-[var(--dropdown-bg)] scale-110',
+                                  isSelected &&
+                                    'ring-2 ring-[var(--point)] ring-offset-2 ring-offset-[var(--dropdown-bg)] scale-110',
                                 )}
                               />
                             );
@@ -660,7 +751,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
                       className={cn(
                         'flex-1 h-8 px-3 text-xs font-mono text-[var(--foreground)] bg-[var(--input-bg)] border border-solid border-[var(--input-border-rest)] rounded-[var(--radius-sm)] outline-none',
                         'hover:border-[var(--input-border-hover)]',
-                        'focus:border-[var(--point)]',
+                        'focus:border-[var(--point)] focus:shadow-[var(--input-focus-glow)]',
                       )}
                     />
                     {showEyeDropper && hasEyeDropper && (
@@ -672,11 +763,20 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
                         className={cn(
                           'w-8 h-8 flex items-center justify-center rounded-[var(--radius-sm)] border border-solid border-[var(--input-border-rest)] bg-[var(--input-bg)] cursor-pointer text-[var(--muted-foreground)]',
                           'hover:border-[var(--input-border-hover)] hover:text-[var(--foreground)]',
-                          focusRingCompact,
+                          focusRing,
                         )}
                       >
                         {/* Eyedropper / pipette icon */}
-                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
                           <path d="M13.5 2.5a2.12 2.12 0 0 0-3 0L9 4l-.5-.5L7 5l1 1-5 5v2h2l5-5 1 1 1.5-1.5L12 7l1.5-1.5a2.12 2.12 0 0 0 0-3z" />
                         </svg>
                       </button>
@@ -689,15 +789,51 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
                   <div className="mt-3 pt-3 border-t border-solid border-[var(--border)] flex flex-col gap-2">
                     {/* RGB row */}
                     <div className="flex items-end gap-2 justify-between">
-                      <ChannelInput label="R" value={pendingRgb.r} min={0} max={255} onChange={(v) => handleRgbChange('r', v)} />
-                      <ChannelInput label="G" value={pendingRgb.g} min={0} max={255} onChange={(v) => handleRgbChange('g', v)} />
-                      <ChannelInput label="B" value={pendingRgb.b} min={0} max={255} onChange={(v) => handleRgbChange('b', v)} />
+                      <ChannelInput
+                        label="R"
+                        value={pendingRgb.r}
+                        min={0}
+                        max={255}
+                        onChange={(v) => handleRgbChange('r', v)}
+                      />
+                      <ChannelInput
+                        label="G"
+                        value={pendingRgb.g}
+                        min={0}
+                        max={255}
+                        onChange={(v) => handleRgbChange('g', v)}
+                      />
+                      <ChannelInput
+                        label="B"
+                        value={pendingRgb.b}
+                        min={0}
+                        max={255}
+                        onChange={(v) => handleRgbChange('b', v)}
+                      />
                     </div>
                     {/* HSB row */}
                     <div className="flex items-end gap-2 justify-between">
-                      <ChannelInput label="H" value={pendingHsv.h} min={0} max={360} onChange={(v) => handleHsvChannelChange('h', v)} />
-                      <ChannelInput label="S" value={pendingHsv.s * 100} min={0} max={100} onChange={(v) => handleHsvChannelChange('s', v)} />
-                      <ChannelInput label="B" value={pendingHsv.v * 100} min={0} max={100} onChange={(v) => handleHsvChannelChange('v', v)} />
+                      <ChannelInput
+                        label="H"
+                        value={pendingHsv.h}
+                        min={0}
+                        max={360}
+                        onChange={(v) => handleHsvChannelChange('h', v)}
+                      />
+                      <ChannelInput
+                        label="S"
+                        value={pendingHsv.s * 100}
+                        min={0}
+                        max={100}
+                        onChange={(v) => handleHsvChannelChange('s', v)}
+                      />
+                      <ChannelInput
+                        label="B"
+                        value={pendingHsv.v * 100}
+                        min={0}
+                        max={100}
+                        onChange={(v) => handleHsvChannelChange('v', v)}
+                      />
                     </div>
                   </div>
                 )}
@@ -709,7 +845,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
                   style={{ transition: btnTransition }}
                   className={cn(
                     'w-full h-8 mt-3 text-sm font-medium text-[var(--point-foreground)] bg-[var(--point)] rounded-[var(--radius-sm)] border-none cursor-pointer hover:opacity-90',
-                    focusRingCompact,
+                    focusRing,
                   )}
                 >
                   Select
@@ -718,8 +854,16 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
             )}
           </AnimatePresence>
         </div>
-        {error && errorMessage && <span id={errorId} className="text-xs text-[var(--error)]">{errorMessage}</span>}
-        {helperText && !error && <span id={errorId} className="text-xs text-[var(--muted-foreground)]">{helperText}</span>}
+        {error && errorMessage && (
+          <span id={errorId} className="text-xs text-[var(--error)]">
+            {errorMessage}
+          </span>
+        )}
+        {helperText && !error && (
+          <span id={errorId} className="text-xs text-[var(--muted-foreground)]">
+            {helperText}
+          </span>
+        )}
       </div>
     );
   },

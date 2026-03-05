@@ -9,8 +9,7 @@ import { motion } from '../motion';
 import { typography } from '../typography';
 import { component } from '../component';
 import { px, rem, ms, unitless } from './unit-utils';
-
-export type ThemeMode = 'light' | 'dark';
+import type { ThemeMode } from '@tac-ui/shared';
 
 export function generateCSSVariables(mode: ThemeMode): Record<string, string> {
   const colors = semanticTokens[mode];

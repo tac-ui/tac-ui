@@ -1,0 +1,33 @@
+{
+  "title": "Progress",
+  "description": "확정된 완료 값을 선형 바 또는 원형 링으로 시각화합니다. 라벨 표시와 다양한 크기를 제공합니다.",
+  "sections": {
+    "playground": {
+      "title": "플레이그라운드",
+      "texts": ["아래에서 Progress props를 대화식으로 설정하세요."]
+    },
+    "linear": {
+      "title": "선형",
+      "texts": ["기본 선형 프로그레스 바는 수평 트랙 위에 채워진 바를 표시합니다."]
+    },
+    "linear-with-label": {
+      "title": "선형 (라벨 포함)",
+      "texts": ["바와 함께 퍼센트 라벨을 표시합니다."]
+    },
+    "circular": {
+      "title": "원형",
+      "texts": ["원형 변형은 SVG 링으로 진행률을 표시합니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "value": "현재 진행 값 (0–max).",
+    "max": "최대 값.",
+    "variant": "시각적 변형: linear 또는 circular.",
+    "size": "원형 인디케이터의 지름 (dp).",
+    "barSize": "선형 바의 높이: sm, md, lg.",
+    "showLabel": "true일 때 퍼센트 라벨을 표시합니다."
+  }
+}

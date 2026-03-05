@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../utils/cn';
-import { diaSpring } from '../constants/motion';
+import { tacSpring } from '../constants/motion';
 import { focusRing } from '../constants/styles';
 
 const buttonVariants = cva(
@@ -16,8 +16,7 @@ const buttonVariants = cva(
           'bg-[var(--btn-secondary-surface)] text-[color:var(--secondary-foreground)] hover:bg-[var(--btn-secondary-hover)]',
         outline:
           'bg-transparent text-[color:var(--foreground)] border border-solid border-[var(--btn-outline-border)] shadow-[0_0_0_0px_transparent] hover:border-[var(--btn-outline-border-hover)] hover:bg-[var(--btn-outline-hover-bg)]',
-        ghost:
-          'bg-transparent text-[color:var(--foreground)] hover:bg-[var(--btn-ghost-hover)]',
+        ghost: 'bg-transparent text-[color:var(--foreground)] hover:bg-[var(--btn-ghost-hover)]',
         point:
           'bg-[var(--btn-point-surface)] text-[color:var(--point-foreground)] backdrop-blur-[16px] border border-solid border-[var(--btn-point-border)] hover:bg-[var(--btn-point-hover-surface)] hover:border-[var(--btn-point-hover-border)]',
         destructive:
@@ -45,13 +44,7 @@ const buttonVariants = cva(
 );
 
 /** Visual style variant of the button. */
-export type ButtonVariant =
-  | 'primary'
-  | 'secondary'
-  | 'outline'
-  | 'ghost'
-  | 'point'
-  | 'destructive';
+export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'point' | 'destructive';
 
 /** Size variant of the button. */
 export type ButtonSize = 'sm' | 'md' | 'lg';
@@ -61,8 +54,7 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
  * Extends native button attributes and CVA variant props.
  */
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   /** Icon rendered to the left of the button label. */
   leftIcon?: React.ReactNode;
   /** Icon rendered to the right of the button label. */
@@ -73,7 +65,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, iconOnly, leftIcon, rightIcon, children, disabled, ...props }, ref) => {
     const isGhost = variant === 'ghost';
     // Small buttons feel snappy; medium/large feel controlled and weighty
-    const spring = size === 'sm' ? diaSpring.light : diaSpring.default;
+    const spring = tacSpring.light;
 
     const whileHoverProps = {};
 
@@ -81,13 +73,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ? {}
       : isGhost
         ? { scale: 0.99, transition: spring }
-        : { scale: 0.97, y: 0, transition: spring };
+        : { scale: 0.98, y: 0, transition: spring };
 
     return (
       <motion.button
         ref={ref}
         className={cn(buttonVariants({ variant, size, iconOnly }), className)}
-        style={{ transition: 'color 220ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+        style={{
+          transition:
+            'color 220ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
         disabled={disabled}
         whileHover={whileHoverProps}
         whileTap={whileTapProps}

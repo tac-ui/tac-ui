@@ -1,9 +1,8 @@
 import React, { forwardRef, useState, useRef, useEffect, useCallback, useId, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { dropdownMotionVariants, diaSpring } from '../constants/motion';
-import { focusRing, focusRingCompact } from '../constants/styles';
-
+import { dropdownMotionVariants, tacSpring } from '../constants/motion';
+import { focusRing, inputTransition } from '../constants/styles';
 
 /** Picker mode: date-only, date+time, or month-only. */
 export type DatePickerMode = 'date' | 'datetime' | 'month';
@@ -43,7 +42,20 @@ export interface DatePickerProps extends Omit<React.HTMLAttributes<HTMLDivElemen
 }
 
 const DAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 function isSameDay(a: Date, b: Date): boolean {
@@ -75,9 +87,9 @@ function defaultFormatDateByMode(date: Date, mode: DatePickerMode): string {
   return `${y}-${m}-${d}`;
 }
 
-const inputTransition = 'border-color 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms cubic-bezier(0.22, 1, 0.36, 1)';
 const btnTransition = 'background-color 220ms cubic-bezier(0.22, 1, 0.36, 1)';
-const cellTransition = 'background-color 220ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms cubic-bezier(0.22, 1, 0.36, 1)';
+const cellTransition =
+  'background-color 220ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms cubic-bezier(0.22, 1, 0.36, 1)';
 
 function clampNumber(val: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, val));
@@ -88,25 +100,28 @@ function roundToStep(val: number, step: number): number {
 }
 
 export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
-  ({
-    className,
-    value,
-    onChange,
-    label,
-    helperText,
-    placeholder = 'Select date',
-    error,
-    errorMessage,
-    minDate,
-    maxDate,
-    disabled,
-    formatDate,
-    id,
-    mode = 'date',
-    use24Hour = true,
-    minuteStep = 1,
-    ...props
-  }, ref) => {
+  (
+    {
+      className,
+      value,
+      onChange,
+      label,
+      helperText,
+      placeholder = 'Select date',
+      error,
+      errorMessage,
+      minDate,
+      maxDate,
+      disabled,
+      formatDate,
+      id,
+      mode = 'date',
+      use24Hour = true,
+      minuteStep = 1,
+      ...props
+    },
+    ref,
+  ) => {
     const generatedId = useId();
     const inputId = id || generatedId;
     const errorId = `${inputId}-error`;
@@ -121,7 +136,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     const [pendingHour, setPendingHour] = useState(value?.getHours() ?? 0);
     const [pendingMinute, setPendingMinute] = useState(value?.getMinutes() ?? 0);
     // AM/PM for 12-hour mode
-    const [ampm, setAmpm] = useState<'AM' | 'PM'>(() => (value?.getHours() ?? 0) >= 12 ? 'PM' : 'AM');
+    const [ampm, setAmpm] = useState<'AM' | 'PM'>(() => ((value?.getHours() ?? 0) >= 12 ? 'PM' : 'AM'));
 
     const displayFormat = formatDate ?? ((d: Date) => defaultFormatDateByMode(d, mode));
     const displayText = value ? displayFormat(value) : placeholder;
@@ -242,8 +257,10 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
 
     const isMonthDisabled = useCallback(
       (month: number) => {
-        if (minDate && new Date(viewYear, month + 1, 0) < new Date(minDate.getFullYear(), minDate.getMonth(), 1)) return true;
-        if (maxDate && new Date(viewYear, month, 1) > new Date(maxDate.getFullYear(), maxDate.getMonth() + 1, 0)) return true;
+        if (minDate && new Date(viewYear, month + 1, 0) < new Date(minDate.getFullYear(), minDate.getMonth(), 1))
+          return true;
+        if (maxDate && new Date(viewYear, month, 1) > new Date(maxDate.getFullYear(), maxDate.getMonth() + 1, 0))
+          return true;
         return false;
       },
       [viewYear, minDate, maxDate],
@@ -258,16 +275,36 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     for (let d = 1; d <= daysInMonth; d++) calendarDays.push(d);
 
     // Nav button component
-    const NavButton = ({ onClick, ariaLabel, direction }: { onClick: () => void; ariaLabel: string; direction: 'prev' | 'next' }) => (
+    const NavButton = ({
+      onClick,
+      ariaLabel,
+      direction,
+    }: {
+      onClick: () => void;
+      ariaLabel: string;
+      direction: 'prev' | 'next';
+    }) => (
       <button
         type="button"
         onClick={onClick}
         aria-label={ariaLabel}
         style={{ transition: btnTransition }}
-        className={cn("w-7 h-7 flex items-center justify-center rounded-[var(--radius-sm)] border-none bg-transparent cursor-pointer text-[var(--muted-foreground)] hover:bg-[var(--interactive-hover)] hover:text-[var(--foreground)]", focusRingCompact)}
+        className={cn(
+          'w-7 h-7 flex items-center justify-center rounded-[var(--radius-sm)] border-none bg-transparent cursor-pointer text-[var(--muted-foreground)] hover:bg-[var(--interactive-hover)] hover:text-[var(--foreground)]',
+          focusRing,
+        )}
       >
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d={direction === 'prev' ? "M10 4l-4 4 4 4" : "M6 4l4 4-4 4"} />
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d={direction === 'prev' ? 'M10 4l-4 4 4 4' : 'M6 4l4 4-4 4'} />
         </svg>
       </button>
     );
@@ -291,10 +328,9 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
             style={{ transition: inputTransition }}
             className={cn(
               'w-full h-10 flex items-center gap-2 px-4 text-sm text-left bg-[var(--input-bg)] border border-solid rounded-[var(--input-radius)] outline-none cursor-pointer',
-              focusRing,
               'border-[var(--input-border-rest)]',
               'hover:border-[var(--input-border-hover)]',
-              'focus:border-[var(--point)]',
+              'focus:border-[var(--point)] focus:shadow-[var(--input-focus-glow)]',
               error && 'border-[var(--error)] focus:border-[var(--point)]',
               !value && 'text-[var(--muted-foreground)]',
               value && 'text-[var(--foreground)]',
@@ -324,7 +360,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
               strokeWidth="1.5"
               aria-hidden="true"
               animate={{ rotate: open ? 180 : 0 }}
-              transition={diaSpring.magnetic}
+              transition={tacSpring.magnetic}
             >
               <path d="M4 6l4 4 4-4" />
             </motion.svg>
@@ -343,7 +379,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
-                transition={diaSpring.magnetic}
+                transition={tacSpring.magnetic}
                 style={{ originY: 0 }}
               >
                 {mode === 'month' ? (
@@ -359,7 +395,9 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                     {/* Month grid (3×4) */}
                     <div className="grid grid-cols-3 gap-1.5">
                       {MONTHS_SHORT.map((monthLabel, monthIndex) => {
-                        const isSelected = value ? value.getFullYear() === viewYear && value.getMonth() === monthIndex : false;
+                        const isSelected = value
+                          ? value.getFullYear() === viewYear && value.getMonth() === monthIndex
+                          : false;
                         const isCurrent = isSameMonth(new Date(viewYear, monthIndex, 1), today);
                         const isDisabled = isMonthDisabled(monthIndex);
 
@@ -372,7 +410,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                             style={{ transition: cellTransition }}
                             className={cn(
                               'h-9 flex items-center justify-center text-sm rounded-[var(--radius-sm)] border-none cursor-pointer bg-transparent',
-                              focusRingCompact,
+                              focusRing,
                               isSelected
                                 ? 'bg-[var(--point)] text-white font-medium'
                                 : isCurrent
@@ -397,7 +435,10 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                           setOpen(false);
                         }}
                         style={{ transition: btnTransition }}
-                        className={cn("w-full h-7 flex items-center justify-center text-xs font-medium text-[var(--point)] rounded-[var(--radius-sm)] border-none bg-transparent cursor-pointer hover:bg-[var(--interactive-hover)]", focusRingCompact)}
+                        className={cn(
+                          'w-full h-7 flex items-center justify-center text-xs font-medium text-[var(--point)] rounded-[var(--radius-sm)] border-none bg-transparent cursor-pointer hover:bg-[var(--interactive-hover)]',
+                          focusRing,
+                        )}
                       >
                         This Month
                       </button>
@@ -418,7 +459,10 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                     {/* Day headers */}
                     <div className="grid grid-cols-7 mb-1">
                       {DAYS.map((day) => (
-                        <div key={day} className="h-8 flex items-center justify-center text-xs font-medium text-[var(--muted-foreground)]">
+                        <div
+                          key={day}
+                          className="h-8 flex items-center justify-center text-xs font-medium text-[var(--muted-foreground)]"
+                        >
                           {day}
                         </div>
                       ))}
@@ -444,7 +488,8 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                             onClick={() => handleSelectDate(day)}
                             style={{ transition: cellTransition }}
                             className={cn(
-                              'h-8 w-full flex items-center justify-center text-sm rounded-[var(--radius-sm)] border-none cursor-pointer bg-transparent', focusRingCompact,
+                              'h-8 w-full flex items-center justify-center text-sm rounded-[var(--radius-sm)] border-none cursor-pointer bg-transparent',
+                              focusRing,
                               isSelected
                                 ? 'bg-[var(--point)] text-white font-medium'
                                 : isToday
@@ -464,7 +509,15 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                       <div className="mt-2 pt-2 border-t border-solid border-[var(--border)]">
                         <div className="flex items-center gap-2">
                           {/* Clock icon */}
-                          <svg className="w-4 h-4 text-[var(--muted-foreground)] shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                          <svg
+                            className="w-4 h-4 text-[var(--muted-foreground)] shrink-0"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
                             <circle cx="8" cy="8" r="6.5" />
                             <path d="M8 4.5V8l2.5 1.5" />
                           </svg>
@@ -472,7 +525,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                           {/* Hour input */}
                           <input
                             type="number"
-                            value={use24Hour ? pendingHour : (pendingHour % 12 || 12)}
+                            value={use24Hour ? pendingHour : pendingHour % 12 || 12}
                             min={use24Hour ? 0 : 1}
                             max={use24Hour ? 23 : 12}
                             onChange={(e) => {
@@ -535,7 +588,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                               className={cn(
                                 'h-8 px-2 text-xs font-medium rounded-[var(--radius-sm)] border border-solid border-[var(--input-border-rest)] bg-[var(--input-bg)] cursor-pointer text-[var(--foreground)]',
                                 'hover:border-[var(--input-border-hover)]',
-                                focusRingCompact,
+                                focusRing,
                               )}
                             >
                               {ampm}
@@ -550,7 +603,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                             style={{ transition: btnTransition }}
                             className={cn(
                               'h-8 px-3 text-xs font-medium text-white bg-[var(--point)] rounded-[var(--radius-sm)] border-none cursor-pointer hover:opacity-90',
-                              focusRingCompact,
+                              focusRing,
                             )}
                           >
                             Done
@@ -571,7 +624,10 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                             setOpen(false);
                           }}
                           style={{ transition: btnTransition }}
-                          className={cn("w-full h-7 flex items-center justify-center text-xs font-medium text-[var(--point)] rounded-[var(--radius-sm)] border-none bg-transparent cursor-pointer hover:bg-[var(--interactive-hover)]", focusRingCompact)}
+                          className={cn(
+                            'w-full h-7 flex items-center justify-center text-xs font-medium text-[var(--point)] rounded-[var(--radius-sm)] border-none bg-transparent cursor-pointer hover:bg-[var(--interactive-hover)]',
+                            focusRing,
+                          )}
                         >
                           Today
                         </button>
@@ -583,8 +639,16 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
             )}
           </AnimatePresence>
         </div>
-        {error && errorMessage && <span id={errorId} className="text-xs text-[var(--error)]">{errorMessage}</span>}
-        {helperText && !error && <span id={errorId} className="text-xs text-[var(--muted-foreground)]">{helperText}</span>}
+        {error && errorMessage && (
+          <span id={errorId} className="text-xs text-[var(--error)]">
+            {errorMessage}
+          </span>
+        )}
+        {helperText && !error && (
+          <span id={errorId} className="text-xs text-[var(--muted-foreground)]">
+            {helperText}
+          </span>
+        )}
       </div>
     );
   },

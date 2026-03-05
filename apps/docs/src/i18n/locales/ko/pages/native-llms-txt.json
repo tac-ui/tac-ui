@@ -1,0 +1,40 @@
+{
+  "title": "llms.txt",
+  "description": "Tac UI Native는 LLM 기반 코딩 어시스턴트(Cursor, Copilot, Claude 등)를 위한 머신 리더블 참조 파일인 llms.txt를 제공합니다.",
+  "sections": {
+    "what-is-llms-txt": {
+      "title": "llms.txt란?",
+      "texts": [
+        "는 AI 코딩 어시스턴트가 라이브러리를 이해할 수 있도록 돕는 표준화된 파일입니다. 컴포넌트 API, 프롭 테이블, 사용 예제, 디자인 토큰 참조 등을 LLM 컨텍스트 윈도우에 최적화된 형식으로 포함합니다.",
+        "AI 도구가 이 파일을 읽으면 프롭 이름을 잘못 추측하거나, 존재하지 않는 API를 만들어내거나, Tailwind 클래스 같은 웹 전용 패턴을 사용하지 않고 정확한 Tac UI Native 코드를 생성할 수 있습니다."
+      ]
+    },
+    "location": {
+      "title": "위치",
+      "texts": ["파일은 문서 사이트에서 정적 에셋으로 제공됩니다:", "저장소에서는 다음 위치에 있습니다:"]
+    },
+    "whats-included": {
+      "title": "포함 내용",
+      "texts": ["llms.txt 파일이 다루는 내용:"]
+    },
+    "usage-with-ai-tools": {
+      "title": "AI 도구에서 사용하기",
+      "texts": [
+        "대부분의 AI 코딩 어시스턴트는 문서 URL로 설정하면 llms.txt를 자동으로 검색합니다. 수동으로 참조할 수도 있습니다:"
+      ]
+    },
+    "keeping-updated": {
+      "title": "업데이트 유지",
+      "texts": [
+        "컴포넌트 API가 변경될 때마다 llms.txt 파일을 업데이트해야 합니다 — 새로운 프롭, 이름이 변경된 배리언트, 기본값 변경 등. 파일은 apps/docs/public/llms-native.txt에 위치하며 문서 사이트와 함께 배포됩니다."
+      ]
+    }
+  },
+  "items": {
+    "install": "빠른 시작 설치 및 TacNativeProvider 설정",
+    "components": "20개 이상의 React Native 컴포넌트의 프롭, 변형, 사용 예제",
+    "tokens": "디자인 토큰 — useTacNativeTheme()으로 접근 가능한 색상, 간격, 반경, 그림자",
+    "animation": "모션 상수 — Animated API를 위한 duration 값과 스프링 설정",
+    "icons": "@tac-ui/icon-native를 사용한 아이콘 사용법 (lucide-react-native + TacLogo)"
+  }
+}

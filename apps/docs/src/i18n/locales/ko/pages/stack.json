@@ -4,11 +4,15 @@
   "sections": {
     "vstack-gap-variants": {
       "title": "VStack — 간격 변형",
-      "texts": ["VStack은 자식 요소를 열 방향으로 배치합니다. gap prop은 디자인 토큰 간격 스케일(none, xs, sm, md, lg, xl, 2xl)에 매핑됩니다."]
+      "texts": [
+        "VStack은 자식 요소를 열 방향으로 배치합니다. gap prop은 디자인 토큰 간격 스케일(none, xs, sm, md, lg, xl, 2xl)에 매핑됩니다."
+      ]
     },
     "hstack-align-and-justify": {
       "title": "HStack — 정렬 및 배치",
-      "texts": ["HStack은 자식 요소를 행 방향으로 배치합니다. align으로 교차축 위치를, justify로 주축 배분을 제어합니다."]
+      "texts": [
+        "HStack은 자식 요소를 행 방향으로 배치합니다. align으로 교차축 위치를, justify로 주축 배분을 제어합니다."
+      ]
     },
     "hstack-wrap": {
       "title": "HStack — 줄바꿈",

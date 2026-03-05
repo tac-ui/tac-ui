@@ -2,27 +2,22 @@ import React, { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../utils/cn';
-import { diaSpring } from '../constants/motion';
+import { tacSpring } from '../constants/motion';
 import { focusRingPoint } from '../constants/styles';
 
-const cardVariants = cva(
-  'rounded-[var(--card-radius)] p-[var(--card-padding)] flex flex-col gap-[var(--card-gap)]',
-  {
-    variants: {
-      variant: {
-        default:
-          'bg-[var(--card)] border border-solid border-[var(--border)] shadow-[var(--shadow-sm)]',
-        accent:
-          'bg-[var(--card)] border border-solid border-[var(--card-accent-border)] shadow-[var(--card-accent-glow)]',
-        glass:
-          '[backdrop-filter:blur(32px)_saturate(160%)] bg-[var(--glass-bg)] border border-solid border-[var(--glass-border)] shadow-[var(--glass-inset),var(--glass-panel-shadow)]',
-        flat:
-          'bg-[var(--surface)] shadow-none',
-      },
+const cardVariants = cva('rounded-[var(--card-radius)] p-[var(--card-padding)] flex flex-col gap-[var(--card-gap)]', {
+  variants: {
+    variant: {
+      default: 'bg-[var(--card)] border border-solid border-[var(--border)] shadow-[var(--shadow-sm)]',
+      accent:
+        'bg-[var(--card)] border border-solid border-[var(--card-accent-border)] shadow-[var(--card-accent-glow)]',
+      glass:
+        '[backdrop-filter:blur(32px)_saturate(180%)] bg-[var(--glass-bg)] border border-solid border-[var(--glass-border)] shadow-[var(--glass-inset),var(--glass-panel-shadow)]',
+      flat: 'bg-[var(--surface)] shadow-none',
     },
-    defaultVariants: { variant: 'default' },
   },
-);
+  defaultVariants: { variant: 'default' },
+});
 
 const hoverClasses: Record<string, string> = {
   default: 'hover:border-[var(--card-accent-hover-border)] hover:shadow-[var(--card-accent-hover-glow)]',
@@ -49,9 +44,9 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
         <motion.div
           ref={ref}
           tabIndex={0}
-          whileHover={{ y: -2, transition: diaSpring.light }}
-          whileTap={{ scale: 0.99, y: 0, transition: diaSpring.light }}
-          transition={diaSpring.light}
+          whileHover={{ y: -2, transition: tacSpring.light }}
+          whileTap={{ scale: 0.99, y: 0, transition: tacSpring.light }}
+          transition={tacSpring.light}
           {...(props as React.ComponentPropsWithoutRef<typeof motion.div>)}
           style={style}
           className={cn(
@@ -72,13 +67,11 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
         ref={ref}
         {...props}
         style={{
-          transition: 'box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1), border-color 200ms cubic-bezier(0.22, 1, 0.36, 1), background-color 200ms cubic-bezier(0.22, 1, 0.36, 1)',
+          transition:
+            'box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1), border-color 200ms cubic-bezier(0.22, 1, 0.36, 1), background-color 200ms cubic-bezier(0.22, 1, 0.36, 1)',
           ...style,
         }}
-        className={cn(
-          cardVariants({ variant }),
-          className,
-        )}
+        className={cn(cardVariants({ variant }), className)}
       >
         {children}
       </div>
@@ -88,37 +81,48 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 Card.displayName = 'Card';
 
 export const CardHeader = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('flex flex-col gap-1.5', className)} {...props} />
-  ),
+  ({ className, ...props }, ref) => <div ref={ref} className={cn('flex flex-col gap-1.5', className)} {...props} />,
 );
 CardHeader.displayName = 'CardHeader';
 
 export const CardTitle = forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => (
-    <h3 ref={ref} className={cn('text-base font-semibold text-[var(--card-foreground)] tracking-tight', className)} {...props} />
+    <h3
+      ref={ref}
+      className={cn(
+        'text-[length:var(--card-title-size)] font-semibold text-[var(--card-foreground)] tracking-tight',
+        className,
+      )}
+      {...props}
+    />
   ),
 );
 CardTitle.displayName = 'CardTitle';
 
 export const CardDescription = forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
   ({ className, ...props }, ref) => (
-    <p ref={ref} className={cn('text-sm text-[var(--muted-foreground)]', className)} {...props} />
+    <p
+      ref={ref}
+      className={cn('text-[length:var(--card-body-size)] text-[var(--muted-foreground)]', className)}
+      {...props}
+    />
   ),
 );
 CardDescription.displayName = 'CardDescription';
 
 export const CardContent = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('text-sm leading-relaxed text-[var(--muted-foreground)]', className)} {...props} />
+    <div
+      ref={ref}
+      className={cn('text-[length:var(--card-body-size)] leading-relaxed text-[var(--muted-foreground)]', className)}
+      {...props}
+    />
   ),
 );
 CardContent.displayName = 'CardContent';
 
 export const CardFooter = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('flex items-center gap-2', className)} {...props} />
-  ),
+  ({ className, ...props }, ref) => <div ref={ref} className={cn('flex items-center gap-2', className)} {...props} />,
 );
 CardFooter.displayName = 'CardFooter';
 

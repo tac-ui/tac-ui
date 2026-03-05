@@ -1,0 +1,41 @@
+{
+  "title": "llms.txt",
+  "description": "Tac UI는 LLM 기반 코딩 어시스턴트(Cursor, Copilot, Claude 등)를 위한 머신 리더블 참조 파일인 llms.txt를 제공합니다.",
+  "sections": {
+    "what": {
+      "title": "llms.txt란?",
+      "texts": [
+        "는 AI 코딩 어시스턴트가 라이브러리를 이해하는 데 도움을 주는 표준화된 파일입니다. 컴포넌트 API, 프롭 테이블, 사용 예제, 디자인 토큰 참조 등을 LLM 컨텍스트 윈도우에 최적화된 형식으로 포함합니다.",
+        "AI 도구가 이 파일을 읽으면 프롭 이름을 잘못 추측하거나 존재하지 않는 API를 만들어내지 않고 정확한 Tac UI 코드를 생성할 수 있습니다."
+      ]
+    },
+    "location": {
+      "title": "위치",
+      "texts": ["이 파일은 문서 사이트에서 정적 에셋으로 제공됩니다:", "저장소 내 위치:"]
+    },
+    "included": {
+      "title": "포함 내용",
+      "description": "llms.txt 파일에 포함된 내용:",
+      "items": {
+        "install": { "badge": "설치", "text": "빠른 시작 설치 명령어 및 프로바이더 설정" },
+        "components": { "badge": "컴포넌트", "text": "39개 이상 컴포넌트의 사용 예제 및 전체 프롭 테이블" },
+        "charts": { "badge": "차트", "text": "BarChart, LineChart, PieChart, DonutChart 및 데이터 형식" },
+        "layout": { "badge": "레이아웃", "text": "Sidebar, Header, FloatingMenuBar 및 10가지 프리셋 페이지 레이아웃" },
+        "tokens": { "badge": "토큰", "text": "색상, 간격, 모서리, 그림자, 모션, z-index를 위한 CSS 커스텀 프로퍼티" },
+        "hooks": { "badge": "훅", "text": "useFocusTrap, useRovingIndex, useReducedMotion, useTilt 등" }
+      }
+    },
+    "usage": {
+      "title": "AI 도구에서 사용하기",
+      "texts": [
+        "대부분의 AI 코딩 어시스턴트는 문서 URL이 설정되면 자동으로 llms.txt를 찾습니다. 수동으로 참조할 수도 있습니다:"
+      ]
+    },
+    "updating": {
+      "title": "업데이트 유지",
+      "texts": [
+        "llms.txt 파일은 컴포넌트 API가 변경될 때마다 업데이트해야 합니다 — 새로운 프롭, 이름이 변경된 배리언트, 기본값 변경 등. apps/docs/public/llms.txt에 위치하며 문서 사이트와 함께 배포됩니다."
+      ]
+    }
+  }
+}

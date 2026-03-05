@@ -4,7 +4,9 @@
   "sections": {
     "basic-menu": {
       "title": "기본 메뉴",
-      "texts": ["트리거를 클릭하면 플로팅 메뉴가 열립니다. 방향키, Home, End, Enter, Escape 키보드 내비게이션을 지원합니다."]
+      "texts": [
+        "트리거를 클릭하면 플로팅 메뉴가 열립니다. 방향키, Home, End, Enter, Escape 키보드 내비게이션을 지원합니다."
+      ]
     },
     "with-title-and-divider": {
       "title": "제목과 구분선",
@@ -12,7 +14,9 @@
     },
     "with-destructive-item": {
       "title": "위험 항목",
-      "texts": ["DropdownItem에 destructive를 전달하면 위험하거나 되돌릴 수 없는 동작을 나타내는 오류 색상으로 렌더링됩니다."]
+      "texts": [
+        "DropdownItem에 destructive를 전달하면 위험하거나 되돌릴 수 없는 동작을 나타내는 오류 색상으로 렌더링됩니다."
+      ]
     },
     "alignment": {
       "title": "정렬",

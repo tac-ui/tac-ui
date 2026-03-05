@@ -1,0 +1,51 @@
+{
+  "title": "Accordion",
+  "description": "요청 시 추가 정보를 표시하는 접을 수 있는 콘텐츠 컨테이너입니다. 단일 및 다중 열기 모드, 애니메이션 높이 전환, 셰브론 회전을 지원합니다.",
+  "sections": {
+    "playground": {
+      "title": "플레이그라운드",
+      "texts": ["아래에서 Accordion props를 대화식으로 설정하세요."]
+    },
+    "single": {
+      "title": "단일 (한 번에 하나만 열기)",
+      "texts": ["단일 모드에서는 한 번에 하나의 항목만 열 수 있습니다."]
+    },
+    "multiple": {
+      "title": "다중 (여러 개 동시 열기)",
+      "texts": ["다중 모드에서는 여러 항목을 동시에 열 수 있습니다."]
+    },
+    "glass": {
+      "title": "글래스",
+      "texts": [
+        "glass prop은 아코디언 컨테이너와 각 항목에 반투명 배경을 적용합니다. 풍부한 배경 위에 오버레이할 때 적합합니다."
+      ]
+    },
+    "without-outline": {
+      "title": "아웃라인 없음",
+      "texts": ["outline={false}를 설정하면 테두리가 있는 카드 스타일이 제거됩니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스",
+      "texts": [
+        "Accordion은 컴포지션 패턴을 사용합니다. 루트가 상태를 관리하며 AccordionItem, AccordionTrigger, AccordionContent는 모두 열기/닫기 동작을 연결하기 위한 value prop이 필요합니다.",
+        "Accordion props:",
+        "AccordionItem props:",
+        "AccordionTrigger props:",
+        "AccordionContent props:"
+      ]
+    }
+  },
+  "props": {
+    "type": "하나 또는 여러 항목을 열 수 있는지 제어합니다.",
+    "defaultValue": "초기에 열린 항목 값.",
+    "glass": "반투명 배경을 추가합니다.",
+    "outline": "각 항목에 테두리를 추가합니다.",
+    "style": "루트 컨테이너에 적용되는 추가 스타일.",
+    "accordion-item-value": "이 아코디언 항목의 고유 식별자. 열기 상태를 제어하는 데 사용됩니다.",
+    "accordion-item-style": "항목 컨테이너에 적용되는 추가 스타일.",
+    "accordion-trigger-children": "트리거 버튼에 표시되는 레이블 텍스트.",
+    "accordion-trigger-style": "트리거에 적용되는 추가 스타일.",
+    "accordion-content-children": "아코디언 항목이 열릴 때 표시되는 콘텐츠.",
+    "accordion-content-style": "콘텐츠 컨테이너에 적용되는 추가 스타일."
+  }
+}

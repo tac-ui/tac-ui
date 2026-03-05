@@ -10,11 +10,13 @@
       "feedback": "피드백",
       "navigation": "내비게이션",
       "overlay": "오버레이",
-      "layout": "레이아웃"
+      "layout": "레이아웃",
+      "animation": "애니메이션"
     },
     "items": {
       "introduction": "소개",
       "installation": "설치",
+      "llms-txt": "llms",
       "colors": "색상",
       "typography": "타이포그래피",
       "icons": "아이콘",
@@ -44,7 +46,9 @@
       "indicator": "인디케이터",
       "skeleton": "스켈레톤",
       "codeblock": "코드 블록",
+      "code-block": "코드 블록",
       "card": "카드",
+      "morphing-card": "모핑 카드",
       "empty-state": "빈 상태",
       "chart": "차트",
       "alert": "알림",
@@ -60,7 +64,20 @@
       "modal": "모달",
       "drawer": "드로어",
       "stack": "스택",
-      "layout": "레이아웃"
+      "layout": "레이아웃",
+      "animated-toggle": "토글",
+      "native-introduction": "소개",
+      "native-installation": "설치",
+      "native-llms-txt": "llms",
+      "native-colors": "색상",
+      "native-typography": "타이포그래피",
+      "native-animations": "애니메이션",
+      "native-icons": "아이콘",
+      "native-customization": "커스터마이징",
+      "floating-menu-bar": "플로팅 메뉴 바",
+      "native-layout-tab-bar": "탭 바",
+      "native-layout-header-content": "헤더 + 콘텐츠",
+      "native-layout-bottom-sheet": "바텀 시트"
     }
   },
   "ui": {

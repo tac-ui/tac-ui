@@ -1,7 +1,9 @@
 {
   "name": "@tac-ui/web",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Web components for Tac UI (Next.js / React)",
+  "license": "MIT",
+  "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

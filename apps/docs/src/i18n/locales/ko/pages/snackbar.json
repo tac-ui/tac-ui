@@ -4,7 +4,9 @@
   "sections": {
     "variants": {
       "title": "변형",
-      "texts": ["다섯 가지 의미론적 변형이 알림의 성격을 전달합니다: default, success, error, warning, info. 기본이 아닌 변형은 색상 점 표시기를 보여줍니다."]
+      "texts": [
+        "다섯 가지 의미론적 변형이 알림의 성격을 전달합니다: default, success, error, warning, info. 기본이 아닌 변형은 색상 점 표시기를 보여줍니다."
+      ]
     },
     "interactive": {
       "title": "인터랙티브",

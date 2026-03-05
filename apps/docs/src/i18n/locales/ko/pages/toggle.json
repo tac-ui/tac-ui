@@ -4,11 +4,13 @@
   "sections": {
     "default": {
       "title": "기본",
-      "texts": ["iconOn과 iconOff를 전달하여 각 상태의 아이콘을 정의합니다. 클릭할 때마다 새로운 boolean 값과 함께 onChange가 호출됩니다."]
+      "texts": [
+        "iconOn과 iconOff를 전달하여 각 상태의 아이콘을 정의합니다. 클릭할 때마다 새로운 boolean 값과 함께 onChange가 호출됩니다."
+      ]
     },
     "media-controls": {
       "title": "미디어 컨트롤",
-      "texts": ["AnimatedToggle은 어떤 아이콘 쌍과도 동작합니다 — 음소거, 마이크, 재생/일시정지 컨트롤에 적합합니다."]
+      "texts": ["Toggle은 어떤 아이콘 쌍과도 동작합니다 — 음소거, 마이크, 재생/일시정지 컨트롤에 적합합니다."]
     },
     "visibility-and-security": {
       "title": "가시성 및 보안",

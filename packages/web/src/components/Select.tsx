@@ -1,8 +1,9 @@
 import React, { forwardRef, useState, useRef, useEffect, useCallback, useId } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
+import { inputTransition } from '../constants/styles';
 import { useRovingIndex } from '../hooks/useAccessibility';
-import { dropdownMotionVariants, diaSpring } from '../constants/motion';
+import { dropdownMotionVariants, tacSpring } from '../constants/motion';
 
 /** Size variant of the Select component. */
 export type SelectSize = 'sm' | 'md' | 'lg';
@@ -50,7 +51,24 @@ const sizeClasses = {
 };
 
 export const Select = forwardRef<HTMLDivElement, SelectProps>(
-  ({ className, label, helperText, error, errorMessage, options, placeholder, selectSize = 'md', id, value, onChange, disabled, ...props }, ref) => {
+  (
+    {
+      className,
+      label,
+      helperText,
+      error,
+      errorMessage,
+      options,
+      placeholder,
+      selectSize = 'md',
+      id,
+      value,
+      onChange,
+      disabled,
+      ...props
+    },
+    ref,
+  ) => {
     const generatedId = useId();
     const inputId = id || generatedId;
     const errorId = `${inputId}-error`;
@@ -97,7 +115,9 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
           e.preventDefault();
           setOpen(true);
           setTimeout(() => {
-            const firstItem = listboxRef.current?.querySelector<HTMLElement>('[role="option"]:not([aria-disabled="true"])');
+            const firstItem = listboxRef.current?.querySelector<HTMLElement>(
+              '[role="option"]:not([aria-disabled="true"])',
+            );
             firstItem?.focus();
           }, 0);
         } else if (e.key === 'Escape') {
@@ -126,8 +146,12 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
     });
 
     return (
-      <div ref={ref} className="flex flex-col gap-2" {...props}>
-        {label && <label htmlFor={inputId} className="text-sm font-medium text-[var(--foreground)]">{label}</label>}
+      <div ref={ref} className="w-full flex flex-col gap-2" {...props}>
+        {label && (
+          <label htmlFor={inputId} className="text-sm font-medium text-[var(--foreground)]">
+            {label}
+          </label>
+        )}
         <div ref={containerRef} className="relative">
           <button
             type="button"
@@ -139,12 +163,12 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
             onClick={handleTriggerClick}
             onKeyDown={handleTriggerKeyDown}
             disabled={disabled}
-            style={{ transition: 'border-color 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+            style={{ transition: inputTransition }}
             className={cn(
-              'w-full appearance-none bg-[var(--input-bg)] border border-solid rounded-[var(--radius-m)] outline-none text-[var(--foreground)] pr-10 ring-0 ring-transparent cursor-pointer text-left truncate',
+              'w-full appearance-none font-[var(--font-primary)] bg-[var(--input-bg)] border-[0.5px] border-solid rounded-[var(--input-radius)] outline-none text-[var(--foreground)] pr-10 cursor-pointer text-left truncate',
               'border-[var(--input-border-rest)]',
               'hover:border-[var(--input-border-hover)]',
-              'focus:border-[var(--point)] focus:ring-0 focus:ring-offset-0',
+              'focus:border-[var(--point)] focus:shadow-[var(--input-focus-glow)]',
               error && 'border-[var(--error)] focus:border-[var(--point)]',
               !selectedOption && 'text-[var(--muted-foreground)]',
               sizeClasses[selectSize],
@@ -161,7 +185,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
             strokeWidth="1.5"
             aria-hidden="true"
             animate={{ rotate: open ? 180 : 0 }}
-            transition={diaSpring.magnetic}
+            transition={tacSpring.magnetic}
           >
             <path d="M4 6l4 4 4-4" />
           </motion.svg>
@@ -176,14 +200,14 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
                   'absolute top-full mt-1 w-max min-w-full',
                   'bg-[var(--dropdown-bg)] backdrop-blur-[40px] backdrop-saturate-[180%]',
                   'rounded-[var(--radius-m)] border-[0.5px] border-solid border-[var(--input-border-rest)] shadow-[var(--dropdown-shadow)]',
-                  'max-h-[200px] overflow-y-auto',
+                  'max-h-[280px] overflow-y-auto',
                   'z-[var(--z-dropdown)]',
                 )}
                 variants={dropdownMotionVariants}
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
-                transition={diaSpring.magnetic}
+                transition={tacSpring.magnetic}
                 style={{ originY: 0 }}
               >
                 {options.map((option, index) => (
@@ -199,7 +223,10 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
                       if (e.key === 'Enter') handleSelect(option);
                       if (e.key === 'Escape') handleClose();
                     }}
-                    style={{ transition: 'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+                    style={{
+                      transition:
+                        'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)',
+                    }}
                     className={cn(
                       'px-3 py-2.5 text-sm cursor-pointer',
                       'hover:bg-[var(--dropdown-item-hover)] focus:bg-[var(--dropdown-item-hover)] focus:outline-none',
@@ -215,8 +242,16 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
             )}
           </AnimatePresence>
         </div>
-        {error && errorMessage && <span id={errorId} className="text-xs text-[var(--error)]">{errorMessage}</span>}
-        {helperText && !error && <span id={errorId} className="text-xs text-[var(--muted-foreground)]">{helperText}</span>}
+        {error && errorMessage && (
+          <span id={errorId} className="text-xs text-[var(--error)]">
+            {errorMessage}
+          </span>
+        )}
+        {helperText && !error && (
+          <span id={errorId} className="text-xs text-[var(--muted-foreground)]">
+            {helperText}
+          </span>
+        )}
       </div>
     );
   },

@@ -1,0 +1,58 @@
+{
+  "title": "Input",
+  "description": "라벨, 도움 텍스트, 오류 상태, 왼쪽/오른쪽 아이콘 슬롯, 비활성화 모드를 지원하는 단일 줄 텍스트 입력 필드입니다. React Native의 TextInput 위에 구축되었습니다.",
+  "sections": {
+    "playground": {
+      "title": "플레이그라운드",
+      "texts": ["아래에서 Input props를 대화식으로 설정하세요."]
+    },
+    "sizes": {
+      "title": "크기",
+      "texts": ["세 가지 크기 옵션으로 입력 필드의 높이와 폰트 크기를 제어합니다."]
+    },
+    "default": {
+      "title": "기본",
+      "texts": ["플레이스홀더가 있는 최소한의 입력 필드입니다. React Native의 모든 TextInput props를 상속합니다."]
+    },
+    "with-icons": {
+      "title": "아이콘 포함",
+      "texts": [
+        "leftIcon과 rightIcon을 사용하여 입력 필드 양끝에 아이콘 노드를 배치합니다. 아이콘과 겹치지 않도록 입력 패딩이 자동으로 조정됩니다."
+      ]
+    },
+    "with-label-and-helper": {
+      "title": "라벨과 도움 텍스트",
+      "texts": [
+        "label prop은 입력 필드 위에 텍스트 라벨을 렌더링합니다. helperText는 오류가 없을 때 아래에 표시됩니다."
+      ]
+    },
+    "error-state": {
+      "title": "오류 상태",
+      "texts": [
+        "error를 true로 설정하면 빨간 테두리가 표시됩니다. errorMessage와 함께 사용하면 입력 아래에 오류 설명이 표시됩니다."
+      ]
+    },
+    "disabled": {
+      "title": "비활성화",
+      "texts": [
+        "editable를 false로 설정하면 입력이 비활성화됩니다. 투명도가 낮아지고 모든 사용자 인터랙션을 무시합니다."
+      ]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "inputSize": "입력 필드의 높이와 폰트 크기를 제어합니다.",
+    "label": "입력 필드 위에 렌더링되는 선택적 라벨.",
+    "placeholder": "비어 있을 때 표시되는 플레이스홀더 텍스트.",
+    "helperText": "입력 아래에 렌더링되는 흐린 도움 텍스트. error가 true일 때 숨겨집니다.",
+    "error": "true일 때 입력에 오류 테두리 색상을 적용합니다.",
+    "errorMessage": "error가 true일 때 입력 아래에 표시되는 오류 설명.",
+    "leftIcon": "입력 필드 왼쪽에 렌더링되는 아이콘 노드.",
+    "rightIcon": "입력 필드 오른쪽에 렌더링되는 아이콘 노드.",
+    "containerStyle": "외부 컨테이너 View에 적용되는 추가 스타일.",
+    "editable": "false일 때 입력을 비활성화하고 투명도를 낮춥니다.",
+    "TextInputProps": "모든 표준 React Native TextInput props를 지원합니다."
+  }
+}

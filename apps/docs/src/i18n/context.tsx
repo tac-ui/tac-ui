@@ -33,7 +33,15 @@ export interface CommonTranslations {
 export interface PageTranslations {
   title: string;
   description: string;
-  sections?: Record<string, { title: string; description?: string; texts?: string[]; items?: Record<string, { title: string; description: string }> }>;
+  sections?: Record<
+    string,
+    {
+      title: string;
+      description?: string;
+      texts?: string[];
+      items?: Record<string, { title: string; description: string }>;
+    }
+  >;
   props?: Record<string, string>;
 }
 
@@ -77,7 +85,8 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const clientLocale = detectClientLocale();
     if (clientLocale !== defaultLocale) {
-      setLocaleState(clientLocale);
+      // Defer to avoid synchronous setState in effect
+      queueMicrotask(() => setLocaleState(clientLocale));
     }
     document.documentElement.lang = clientLocale;
   }, []);

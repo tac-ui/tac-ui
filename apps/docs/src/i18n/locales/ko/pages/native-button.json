@@ -1,0 +1,42 @@
+{
+  "title": "Button",
+  "description": "React Native에서 동작을 실행하는 pressable 요소로, 다양한 시각적 변형, 크기, 아이콘 배치를 지원합니다.",
+  "sections": {
+    "playground": {
+      "title": "플레이그라운드",
+      "texts": ["아래에서 Button props를 대화식으로 설정하세요."]
+    },
+    "variants": {
+      "title": "변형",
+      "texts": [
+        "버튼은 명확한 시각적 계층 구조를 위해 primary, secondary, outline, ghost, point, destructive 여섯 가지 변형을 제공합니다."
+      ]
+    },
+    "sizes": {
+      "title": "크기",
+      "texts": ["버튼은 다양한 레이아웃에 맞게 sm, md, lg 세 가지 크기를 지원합니다."]
+    },
+    "with-icons": {
+      "title": "아이콘 포함",
+      "texts": ["leftIcon 및 rightIcon props를 사용하여 버튼 레이블의 왼쪽 또는 오른쪽에 아이콘을 추가할 수 있습니다."]
+    },
+    "disabled": {
+      "title": "비활성화",
+      "texts": ["비활성화된 버튼은 투명도가 낮아지고 상호작용이 불가능합니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "variant": "버튼의 시각적 스타일 변형.",
+    "size": "버튼의 높이, 패딩, 폰트 크기를 제어하는 크기.",
+    "leftIcon": "버튼 레이블 왼쪽에 렌더링되는 아이콘.",
+    "rightIcon": "버튼 레이블 오른쪽에 렌더링되는 아이콘.",
+    "iconOnly": "단일 아이콘을 적절히 중앙 정렬하기 위해 패딩을 제거합니다.",
+    "disabled": "true일 때 버튼을 비활성화하며 투명도를 낮추고 press 이벤트를 차단합니다.",
+    "style": "컨테이너에 적용되는 추가 React Native 스타일.",
+    "onPress": "버튼을 눌렀을 때 실행되는 콜백.",
+    "children": "버튼 레이블 컨텐츠. 문자열은 자동으로 스타일된 Text 컴포넌트로 래핑됩니다."
+  }
+}

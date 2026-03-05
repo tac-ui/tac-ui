@@ -1,8 +1,9 @@
 import React, { forwardRef, useState, useRef, useEffect, useCallback, useId } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
+import { inputTransition } from '../constants/styles';
 import { useRovingIndex } from '../hooks/useAccessibility';
-import { dropdownMotionVariants, diaSpring } from '../constants/motion';
+import { dropdownMotionVariants, tacSpring } from '../constants/motion';
 
 /** A single selectable option in the Combobox dropdown. */
 export interface ComboboxOption {
@@ -42,19 +43,7 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
  */
 
 export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
-  (
-    {
-      className,
-      options,
-      value,
-      onChange,
-      placeholder,
-      emptyText = 'No results found',
-      id,
-      ...props
-    },
-    ref,
-  ) => {
+  ({ className, options, value, onChange, placeholder, emptyText = 'No results found', id, ...props }, ref) => {
     const generatedId = useId();
     const inputId = id ?? generatedId;
     const listboxId = `${inputId}-listbox`;
@@ -68,9 +57,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
 
     const selectedLabel = options.find((o) => o.value === value)?.label ?? '';
 
-    const filtered = isSearching
-      ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase()))
-      : options;
+    const filtered = isSearching ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase())) : options;
 
     const handleOpen = useCallback(() => {
       setOpen(true);
@@ -109,7 +96,9 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
         } else if (e.key === 'ArrowDown') {
           e.preventDefault();
           setOpen(true);
-          const firstItem = listboxRef.current?.querySelector<HTMLElement>('[role="option"]:not([aria-disabled="true"])');
+          const firstItem = listboxRef.current?.querySelector<HTMLElement>(
+            '[role="option"]:not([aria-disabled="true"])',
+          );
           firstItem?.focus();
         }
       },
@@ -152,16 +141,16 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
             onChange={handleInputChange}
             onFocus={handleInputFocus}
             onKeyDown={handleInputKeyDown}
-            style={{ transition: 'border-color 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+            style={{ transition: inputTransition }}
             className={cn(
               'w-full h-[var(--input-height)] px-[var(--input-px)] pr-9',
               'text-[var(--input-font-size)] font-[var(--font-primary)] text-[var(--foreground)]',
               'bg-[var(--input-bg)] border border-solid',
-              'rounded-[var(--input-radius)] outline-none ring-0 ring-transparent',
+              'rounded-[var(--input-radius)] outline-none',
               'placeholder:text-[var(--gray-400)]',
               'border-[var(--input-border-rest)]',
               'hover:border-[var(--input-border-hover)]',
-              'focus:border-[var(--point)] focus:ring-0 focus:ring-offset-0',
+              'focus:border-[var(--point)] focus:shadow-[var(--input-focus-glow)]',
               'disabled:cursor-not-allowed disabled:opacity-50 disabled:pointer-events-none',
               className,
             )}
@@ -176,7 +165,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
             strokeWidth="1.5"
             aria-hidden="true"
             animate={{ rotate: open ? 180 : 0 }}
-            transition={diaSpring.magnetic}
+            transition={tacSpring.magnetic}
           >
             <path d="M4 6l4 4 4-4" />
           </motion.svg>
@@ -189,8 +178,10 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
               id={listboxId}
               role="listbox"
               style={{
-                maskImage: filtered.length > 5 ? 'linear-gradient(to bottom, black calc(100% - 32px), transparent)' : undefined,
-                WebkitMaskImage: filtered.length > 5 ? 'linear-gradient(to bottom, black calc(100% - 32px), transparent)' : undefined,
+                maskImage:
+                  filtered.length > 5 ? 'linear-gradient(to bottom, black calc(100% - 32px), transparent)' : undefined,
+                WebkitMaskImage:
+                  filtered.length > 5 ? 'linear-gradient(to bottom, black calc(100% - 32px), transparent)' : undefined,
                 originY: 0,
               }}
               className={cn(
@@ -205,12 +196,10 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
               initial="hidden"
               animate="visible"
               exit="hidden"
-              transition={diaSpring.magnetic}
+              transition={tacSpring.magnetic}
             >
               {filtered.length === 0 ? (
-                <div className="px-3 py-6 text-sm text-center text-[var(--muted-foreground)]">
-                  {emptyText}
-                </div>
+                <div className="px-3 py-6 text-sm text-center text-[var(--muted-foreground)]">{emptyText}</div>
               ) : (
                 filtered.map((option, index) => (
                   <div
@@ -227,7 +216,10 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
                         handleClose();
                       }
                     }}
-                    style={{ transition: 'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+                    style={{
+                      transition:
+                        'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)',
+                    }}
                     className={cn(
                       'px-3 py-2.5 text-sm cursor-pointer',
                       'hover:bg-[var(--dropdown-item-hover)] focus:bg-[var(--dropdown-item-hover)] focus:outline-none',

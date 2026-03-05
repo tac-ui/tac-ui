@@ -1,0 +1,36 @@
+{
+  "title": "Animations",
+  "description": "React Native를 위한 스프링 물리 및 듀레이션 토큰입니다. Tac UI는 유기적이고 물리적인 모션을 위해 Animated.spring을 사용합니다.",
+  "sections": {
+    "philosophy": {
+      "title": "철학",
+      "texts": [
+        "Tac UI Native는 React Native의 Animated API를 통한 스프링 기반 애니메이션을 사용합니다. 요소에 질량과 운동량이 있어 자연스러운 감속으로 제자리에 안착합니다. 일곱 가지 스프링 프리셋이 모든 일반적인 사용 사례를 커버합니다."
+      ]
+    },
+    "spring-presets": {
+      "title": "스프링 프리셋",
+      "texts": [
+        "상수 모듈에서 스프링 설정을 가져올 수 있습니다. 각 프리셋은 고유한 stiffness, damping, mass 값을 가집니다."
+      ]
+    },
+    "duration-scale": {
+      "title": "듀레이션 스케일",
+      "texts": ["스프링이 아닌 애니메이션(예: Animated.timing)을 위한 지속 시간 상수입니다."]
+    },
+    "press-feedback": {
+      "title": "프레스 피드백",
+      "texts": [
+        "모든 인터랙티브 네이티브 컴포넌트는 Pressable의 pressed 상태를 통한 프레스 피드백을 포함합니다. 즉각적인 촉각 반응을 제공합니다."
+      ]
+    },
+    "animated-components": {
+      "title": "애니메이션 컴포넌트",
+      "texts": ["여러 네이티브 컴포넌트가 부드러운 상태 전환을 위해 Animated.spring을 사용합니다."]
+    },
+    "all-configs": {
+      "title": "전체 스프링 설정",
+      "texts": ["사용 가능한 스프링 설정의 전체 레퍼런스입니다."]
+    }
+  }
+}

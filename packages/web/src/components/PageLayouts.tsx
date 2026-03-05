@@ -26,11 +26,9 @@ interface BaseLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   footer?: React.ReactNode;
 }
 
-const Shell = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('h-full min-h-screen flex flex-col bg-[var(--background)]', className)} {...props} />
-  ),
-);
+const Shell = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn('h-full min-h-screen flex flex-col bg-[var(--background)]', className)} {...props} />
+));
 Shell.displayName = 'Shell';
 
 /* ─── 1. SingleColumnPage ─── */
@@ -56,7 +54,12 @@ export const SingleColumnPage = forwardRef<HTMLDivElement, SingleColumnPageProps
     return (
       <Shell ref={ref} className={className} {...props}>
         {header}
-        <main className={cn('flex-1 mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200', maxWidthClass)}>
+        <main
+          className={cn(
+            'flex-1 mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200',
+            maxWidthClass,
+          )}
+        >
           {children}
         </main>
         {footer}
@@ -93,35 +96,94 @@ export interface SidebarPageProps extends BaseLayoutProps {
 }
 
 export const SidebarPage = forwardRef<HTMLDivElement, SidebarPageProps>(
-  ({ header, footer, sidebar, sidebarWidth = 280, sidebarPosition = 'left', collapsible, defaultCollapsed = false, sidebarLabel, sidebarIcon, sidebarFillHeight, sidebarRounded, className, children, ...props }, ref) => {
+  (
+    {
+      header,
+      footer,
+      sidebar,
+      sidebarWidth = 280,
+      sidebarPosition = 'left',
+      collapsible,
+      defaultCollapsed = false,
+      sidebarLabel,
+      sidebarIcon,
+      sidebarFillHeight,
+      sidebarRounded,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const [collapsed, setCollapsed] = useState(defaultCollapsed);
     const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
     return (
-      <LayoutContext.Provider value={{
-        hasSidebar: true,
-        mobileSidebarOpen,
-        setMobileSidebarOpen: sidebarPosition === 'left' ? setMobileSidebarOpen : undefined,
-        hasRightSidebar: sidebarPosition === 'right',
-        mobileRightSidebarOpen: mobileSidebarOpen,
-        setMobileRightSidebarOpen: sidebarPosition === 'right' ? setMobileSidebarOpen : undefined,
-      }}>
+      <LayoutContext.Provider
+        value={{
+          hasSidebar: true,
+          mobileSidebarOpen,
+          setMobileSidebarOpen: sidebarPosition === 'left' ? setMobileSidebarOpen : undefined,
+          hasRightSidebar: sidebarPosition === 'right',
+          mobileRightSidebarOpen: mobileSidebarOpen,
+          setMobileRightSidebarOpen: sidebarPosition === 'right' ? setMobileSidebarOpen : undefined,
+        }}
+      >
         <Shell ref={ref} className={className} {...props}>
           {header}
           <div className="flex flex-1 overflow-hidden">
             {sidebarPosition === 'left' && (
-              <Sidebar width={sidebarWidth} position="left" collapsible={collapsible} collapsed={collapsed} onCollapse={setCollapsed} label={sidebarLabel} icon={sidebarIcon} fillHeight={sidebarFillHeight} rounded={sidebarRounded} className="hidden md:flex shrink-0">
+              <Sidebar
+                width={sidebarWidth}
+                position="left"
+                collapsible={collapsible}
+                collapsed={collapsed}
+                onCollapse={setCollapsed}
+                label={sidebarLabel}
+                icon={sidebarIcon}
+                fillHeight={sidebarFillHeight}
+                rounded={sidebarRounded}
+                className="hidden md:flex shrink-0"
+              >
                 {sidebar}
               </Sidebar>
             )}
-            <Drawer open={mobileSidebarOpen} onClose={() => setMobileSidebarOpen(false)} side={sidebarPosition} className="p-0 border-none rounded-none" style={{ width: sidebarWidth }}>
-              <Sidebar width={sidebarWidth} position={sidebarPosition} collapsible={false} label={sidebarLabel} icon={sidebarIcon} fillHeight={true} rounded={false} className="border-none w-full !h-full">
+            <Drawer
+              open={mobileSidebarOpen}
+              onClose={() => setMobileSidebarOpen(false)}
+              side={sidebarPosition}
+              className="p-0 border-none rounded-none"
+              style={{ width: sidebarWidth }}
+            >
+              <Sidebar
+                width={sidebarWidth}
+                position={sidebarPosition}
+                collapsible={false}
+                label={sidebarLabel}
+                icon={sidebarIcon}
+                fillHeight={true}
+                rounded={false}
+                className="border-none w-full !h-full"
+              >
                 {sidebar}
               </Sidebar>
             </Drawer>
-            <main className="flex-1 overflow-y-auto p-6 animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200">{children}</main>
+            <main className="flex-1 overflow-y-auto p-6 animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200">
+              {children}
+            </main>
             {sidebarPosition === 'right' && (
-              <Sidebar width={sidebarWidth} position="right" collapsible={collapsible} collapsed={collapsed} onCollapse={setCollapsed} label={sidebarLabel} icon={sidebarIcon} fillHeight={sidebarFillHeight} rounded={sidebarRounded} className="hidden md:flex shrink-0">
+              <Sidebar
+                width={sidebarWidth}
+                position="right"
+                collapsible={collapsible}
+                collapsed={collapsed}
+                onCollapse={setCollapsed}
+                label={sidebarLabel}
+                icon={sidebarIcon}
+                fillHeight={sidebarFillHeight}
+                rounded={sidebarRounded}
+                className="hidden md:flex shrink-0"
+              >
                 {sidebar}
               </Sidebar>
             )}
@@ -190,7 +252,24 @@ export interface DashboardPageProps extends BaseLayoutProps {
 }
 
 export const DashboardPage = forwardRef<HTMLDivElement, DashboardPageProps>(
-  ({ header, footer, sidebar, sidebarWidth = 260, collapsible, defaultCollapsed = false, sidebarLabel, sidebarIcon, sidebarFillHeight, sidebarRounded, className, children, ...props }, ref) => {
+  (
+    {
+      header,
+      footer,
+      sidebar,
+      sidebarWidth = 260,
+      collapsible,
+      defaultCollapsed = false,
+      sidebarLabel,
+      sidebarIcon,
+      sidebarFillHeight,
+      sidebarRounded,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const [collapsed, setCollapsed] = useState(defaultCollapsed);
     const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
@@ -199,15 +278,43 @@ export const DashboardPage = forwardRef<HTMLDivElement, DashboardPageProps>(
         <Shell ref={ref} className={className} {...props}>
           {header}
           <div className="flex flex-1 overflow-hidden">
-            <Sidebar width={sidebarWidth} position="left" collapsible={collapsible} collapsed={collapsed} onCollapse={setCollapsed} label={sidebarLabel} icon={sidebarIcon} fillHeight={sidebarFillHeight} rounded={sidebarRounded} className="hidden md:flex shrink-0">
+            <Sidebar
+              width={sidebarWidth}
+              position="left"
+              collapsible={collapsible}
+              collapsed={collapsed}
+              onCollapse={setCollapsed}
+              label={sidebarLabel}
+              icon={sidebarIcon}
+              fillHeight={sidebarFillHeight}
+              rounded={sidebarRounded}
+              className="hidden md:flex shrink-0"
+            >
               {sidebar}
             </Sidebar>
-            <Drawer open={mobileSidebarOpen} onClose={() => setMobileSidebarOpen(false)} side="left" className="p-0 border-none rounded-none" style={{ width: sidebarWidth }}>
-              <Sidebar width={sidebarWidth} position="left" collapsible={false} label={sidebarLabel} icon={sidebarIcon} fillHeight={true} rounded={false} className="border-none w-full !h-full">
+            <Drawer
+              open={mobileSidebarOpen}
+              onClose={() => setMobileSidebarOpen(false)}
+              side="left"
+              className="p-0 border-none rounded-none"
+              style={{ width: sidebarWidth }}
+            >
+              <Sidebar
+                width={sidebarWidth}
+                position="left"
+                collapsible={false}
+                label={sidebarLabel}
+                icon={sidebarIcon}
+                fillHeight={true}
+                rounded={false}
+                className="border-none w-full !h-full"
+              >
                 {sidebar}
               </Sidebar>
             </Drawer>
-            <main className="flex-1 overflow-y-auto p-6 animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200">{children}</main>
+            <main className="flex-1 overflow-y-auto p-6 animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200">
+              {children}
+            </main>
           </div>
           {footer}
         </Shell>
@@ -234,8 +341,12 @@ export const SplitPage = forwardRef<HTMLDivElement, SplitPageProps>(
     <Shell ref={ref} className={className} {...props}>
       {header}
       <div className="flex flex-1 overflow-hidden">
-        <div className="flex-1 overflow-y-auto p-6 border-r border-solid border-[var(--border)] animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200">{left}</div>
-        <div className="flex-1 overflow-y-auto p-6 animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200">{right}</div>
+        <div className="flex-1 overflow-y-auto p-6 border-r border-solid border-[var(--border)] animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200">
+          {left}
+        </div>
+        <div className="flex-1 overflow-y-auto p-6 animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200">
+          {right}
+        </div>
       </div>
       {footer}
     </Shell>
@@ -302,41 +413,122 @@ export interface DualSidebarPageProps extends BaseLayoutProps {
 }
 
 export const DualSidebarPage = forwardRef<HTMLDivElement, DualSidebarPageProps>(
-  ({ header, footer, leftSidebar, rightSidebar, leftWidth = 240, rightWidth = 240, leftCollapsible, rightCollapsible, defaultLeftCollapsed = false, defaultRightCollapsed = false, leftLabel, leftIcon, rightLabel, rightIcon, leftFillHeight, rightFillHeight, leftRounded, rightRounded, className, children, ...props }, ref) => {
+  (
+    {
+      header,
+      footer,
+      leftSidebar,
+      rightSidebar,
+      leftWidth = 240,
+      rightWidth = 240,
+      leftCollapsible,
+      rightCollapsible,
+      defaultLeftCollapsed = false,
+      defaultRightCollapsed = false,
+      leftLabel,
+      leftIcon,
+      rightLabel,
+      rightIcon,
+      leftFillHeight,
+      rightFillHeight,
+      leftRounded,
+      rightRounded,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const [leftCollapsed, setLeftCollapsed] = useState(defaultLeftCollapsed);
     const [rightCollapsed, setRightCollapsed] = useState(defaultRightCollapsed);
     const [mobileLeftOpen, setMobileLeftOpen] = useState(false);
     const [mobileRightOpen, setMobileRightOpen] = useState(false);
 
     return (
-      <LayoutContext.Provider value={{
-        hasSidebar: true,
-        mobileSidebarOpen: mobileLeftOpen,
-        setMobileSidebarOpen: setMobileLeftOpen,
-        hasRightSidebar: true,
-        mobileRightSidebarOpen: mobileRightOpen,
-        setMobileRightSidebarOpen: setMobileRightOpen,
-      }}>
+      <LayoutContext.Provider
+        value={{
+          hasSidebar: true,
+          mobileSidebarOpen: mobileLeftOpen,
+          setMobileSidebarOpen: setMobileLeftOpen,
+          hasRightSidebar: true,
+          mobileRightSidebarOpen: mobileRightOpen,
+          setMobileRightSidebarOpen: setMobileRightOpen,
+        }}
+      >
         <Shell ref={ref} className={className} {...props}>
           {header}
           <div className="flex flex-1 overflow-hidden">
-            <Sidebar width={leftWidth} position="left" collapsible={leftCollapsible} collapsed={leftCollapsed} onCollapse={setLeftCollapsed} label={leftLabel} icon={leftIcon} fillHeight={leftFillHeight} rounded={leftRounded} className="hidden md:flex shrink-0">
+            <Sidebar
+              width={leftWidth}
+              position="left"
+              collapsible={leftCollapsible}
+              collapsed={leftCollapsed}
+              onCollapse={setLeftCollapsed}
+              label={leftLabel}
+              icon={leftIcon}
+              fillHeight={leftFillHeight}
+              rounded={leftRounded}
+              className="hidden md:flex shrink-0"
+            >
               {leftSidebar}
             </Sidebar>
-            <Drawer open={mobileLeftOpen} onClose={() => setMobileLeftOpen(false)} side="left" className="p-0 border-none rounded-none" style={{ width: leftWidth }}>
-              <Sidebar width={leftWidth} position="left" collapsible={false} label={leftLabel} icon={leftIcon} fillHeight={true} rounded={false} className="border-none w-full !h-full">
+            <Drawer
+              open={mobileLeftOpen}
+              onClose={() => setMobileLeftOpen(false)}
+              side="left"
+              className="p-0 border-none rounded-none"
+              style={{ width: leftWidth }}
+            >
+              <Sidebar
+                width={leftWidth}
+                position="left"
+                collapsible={false}
+                label={leftLabel}
+                icon={leftIcon}
+                fillHeight={true}
+                rounded={false}
+                className="border-none w-full !h-full"
+              >
                 {leftSidebar}
               </Sidebar>
             </Drawer>
 
-            <main className="flex-1 overflow-y-auto p-6 animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200">{children}</main>
+            <main className="flex-1 overflow-y-auto p-6 animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200">
+              {children}
+            </main>
 
-            <Drawer open={mobileRightOpen} onClose={() => setMobileRightOpen(false)} side="right" className="p-0 border-none rounded-none" style={{ width: rightWidth }}>
-              <Sidebar width={rightWidth} position="right" collapsible={false} label={rightLabel} icon={rightIcon} fillHeight={true} rounded={false} className="border-none w-full !h-full">
+            <Drawer
+              open={mobileRightOpen}
+              onClose={() => setMobileRightOpen(false)}
+              side="right"
+              className="p-0 border-none rounded-none"
+              style={{ width: rightWidth }}
+            >
+              <Sidebar
+                width={rightWidth}
+                position="right"
+                collapsible={false}
+                label={rightLabel}
+                icon={rightIcon}
+                fillHeight={true}
+                rounded={false}
+                className="border-none w-full !h-full"
+              >
                 {rightSidebar}
               </Sidebar>
             </Drawer>
-            <Sidebar width={rightWidth} position="right" collapsible={rightCollapsible} collapsed={rightCollapsed} onCollapse={setRightCollapsed} label={rightLabel} icon={rightIcon} fillHeight={rightFillHeight} rounded={rightRounded} className="hidden md:flex shrink-0">
+            <Sidebar
+              width={rightWidth}
+              position="right"
+              collapsible={rightCollapsible}
+              collapsed={rightCollapsed}
+              onCollapse={setRightCollapsed}
+              label={rightLabel}
+              icon={rightIcon}
+              fillHeight={rightFillHeight}
+              rounded={rightRounded}
+              className="hidden md:flex shrink-0"
+            >
               {rightSidebar}
             </Sidebar>
           </div>
@@ -389,41 +581,122 @@ export interface HolyGrailPageProps extends BaseLayoutProps {
 }
 
 export const HolyGrailPage = forwardRef<HTMLDivElement, HolyGrailPageProps>(
-  ({ header, footer, leftSidebar, rightSidebar, leftWidth = 220, rightWidth = 220, leftCollapsible, rightCollapsible, defaultLeftCollapsed = false, defaultRightCollapsed = false, leftLabel, leftIcon, rightLabel, rightIcon, leftFillHeight, rightFillHeight, leftRounded, rightRounded, className, children, ...props }, ref) => {
+  (
+    {
+      header,
+      footer,
+      leftSidebar,
+      rightSidebar,
+      leftWidth = 220,
+      rightWidth = 220,
+      leftCollapsible,
+      rightCollapsible,
+      defaultLeftCollapsed = false,
+      defaultRightCollapsed = false,
+      leftLabel,
+      leftIcon,
+      rightLabel,
+      rightIcon,
+      leftFillHeight,
+      rightFillHeight,
+      leftRounded,
+      rightRounded,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const [leftCollapsed, setLeftCollapsed] = useState(defaultLeftCollapsed);
     const [rightCollapsed, setRightCollapsed] = useState(defaultRightCollapsed);
     const [mobileLeftOpen, setMobileLeftOpen] = useState(false);
     const [mobileRightOpen, setMobileRightOpen] = useState(false);
 
     return (
-      <LayoutContext.Provider value={{
-        hasSidebar: true,
-        mobileSidebarOpen: mobileLeftOpen,
-        setMobileSidebarOpen: setMobileLeftOpen,
-        hasRightSidebar: true,
-        mobileRightSidebarOpen: mobileRightOpen,
-        setMobileRightSidebarOpen: setMobileRightOpen,
-      }}>
+      <LayoutContext.Provider
+        value={{
+          hasSidebar: true,
+          mobileSidebarOpen: mobileLeftOpen,
+          setMobileSidebarOpen: setMobileLeftOpen,
+          hasRightSidebar: true,
+          mobileRightSidebarOpen: mobileRightOpen,
+          setMobileRightSidebarOpen: setMobileRightOpen,
+        }}
+      >
         <Shell ref={ref} className={className} {...props}>
           {header}
           <div className="flex flex-1 overflow-hidden">
-            <Sidebar width={leftWidth} position="left" collapsible={leftCollapsible} collapsed={leftCollapsed} onCollapse={setLeftCollapsed} label={leftLabel} icon={leftIcon} fillHeight={leftFillHeight} rounded={leftRounded} className="hidden md:flex shrink-0">
+            <Sidebar
+              width={leftWidth}
+              position="left"
+              collapsible={leftCollapsible}
+              collapsed={leftCollapsed}
+              onCollapse={setLeftCollapsed}
+              label={leftLabel}
+              icon={leftIcon}
+              fillHeight={leftFillHeight}
+              rounded={leftRounded}
+              className="hidden md:flex shrink-0"
+            >
               {leftSidebar}
             </Sidebar>
-            <Drawer open={mobileLeftOpen} onClose={() => setMobileLeftOpen(false)} side="left" className="p-0 border-none rounded-none" style={{ width: leftWidth }}>
-              <Sidebar width={leftWidth} position="left" collapsible={false} label={leftLabel} icon={leftIcon} fillHeight={true} rounded={false} className="border-none w-full !h-full">
+            <Drawer
+              open={mobileLeftOpen}
+              onClose={() => setMobileLeftOpen(false)}
+              side="left"
+              className="p-0 border-none rounded-none"
+              style={{ width: leftWidth }}
+            >
+              <Sidebar
+                width={leftWidth}
+                position="left"
+                collapsible={false}
+                label={leftLabel}
+                icon={leftIcon}
+                fillHeight={true}
+                rounded={false}
+                className="border-none w-full !h-full"
+              >
                 {leftSidebar}
               </Sidebar>
             </Drawer>
 
-            <main className="flex-1 overflow-y-auto p-6 animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200">{children}</main>
+            <main className="flex-1 overflow-y-auto p-6 animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200">
+              {children}
+            </main>
 
-            <Drawer open={mobileRightOpen} onClose={() => setMobileRightOpen(false)} side="right" className="p-0 border-none rounded-none" style={{ width: rightWidth }}>
-              <Sidebar width={rightWidth} position="right" collapsible={false} label={rightLabel} icon={rightIcon} fillHeight={true} rounded={false} className="border-none w-full !h-full">
+            <Drawer
+              open={mobileRightOpen}
+              onClose={() => setMobileRightOpen(false)}
+              side="right"
+              className="p-0 border-none rounded-none"
+              style={{ width: rightWidth }}
+            >
+              <Sidebar
+                width={rightWidth}
+                position="right"
+                collapsible={false}
+                label={rightLabel}
+                icon={rightIcon}
+                fillHeight={true}
+                rounded={false}
+                className="border-none w-full !h-full"
+              >
                 {rightSidebar}
               </Sidebar>
             </Drawer>
-            <Sidebar width={rightWidth} position="right" collapsible={rightCollapsible} collapsed={rightCollapsed} onCollapse={setRightCollapsed} label={rightLabel} icon={rightIcon} fillHeight={rightFillHeight} rounded={rightRounded} className="hidden md:flex shrink-0">
+            <Sidebar
+              width={rightWidth}
+              position="right"
+              collapsible={rightCollapsible}
+              collapsed={rightCollapsed}
+              onCollapse={setRightCollapsed}
+              label={rightLabel}
+              icon={rightIcon}
+              fillHeight={rightFillHeight}
+              rounded={rightRounded}
+              className="hidden md:flex shrink-0"
+            >
               {rightSidebar}
             </Sidebar>
           </div>
@@ -463,7 +736,12 @@ export const AsymmetricPage = forwardRef<HTMLDivElement, AsymmetricPageProps>(
         {header}
         <div className="flex flex-1 overflow-hidden">
           <div className={cn(primaryFlex, 'overflow-y-auto p-6')}>{primary}</div>
-          <div className={cn(secondaryFlex, 'overflow-y-auto p-6 border-l border-solid border-[var(--border)] bg-[var(--card)]')}>
+          <div
+            className={cn(
+              secondaryFlex,
+              'overflow-y-auto p-6 border-l border-solid border-[var(--border)] bg-[var(--card)]',
+            )}
+          >
             {secondary}
           </div>
         </div>
@@ -511,7 +789,21 @@ const appPageWidthClass: Record<AppPageWidth, string> = {
 };
 
 export const AppPage = forwardRef<HTMLDivElement, AppPageProps>(
-  ({ header, footer, maxWidth = 'sm', safeArea = true, elevated = false, stickyHeader = true, stickyFooter = false, className, children, ...props }, ref) => {
+  (
+    {
+      header,
+      footer,
+      maxWidth = 'sm',
+      safeArea = true,
+      elevated = false,
+      stickyHeader = true,
+      stickyFooter = false,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const widthClass = appPageWidthClass[maxWidth];
 
     return (
@@ -525,33 +817,39 @@ export const AppPage = forwardRef<HTMLDivElement, AppPageProps>(
         {...props}
       >
         {header && (
-          <div className={cn(
-            'w-full mx-auto',
-            widthClass,
-            stickyHeader && 'sticky top-0 z-[var(--z-sticky)]',
-            safeArea && 'pt-[env(safe-area-inset-top)]',
-          )}>
+          <div
+            className={cn(
+              'w-full mx-auto',
+              widthClass,
+              stickyHeader && 'sticky top-0 z-[var(--z-sticky)]',
+              safeArea && 'pt-[env(safe-area-inset-top)]',
+            )}
+          >
             {header}
           </div>
         )}
-        <main className={cn(
-          'flex-1 mx-auto w-full overflow-y-auto px-4 py-4',
-          widthClass,
-          elevated && [
-            'sm:bg-[var(--card)]',
-            'sm:border-x sm:border-solid sm:border-[var(--border)]',
-            'sm:shadow-sm',
-          ],
-        )}>
+        <main
+          className={cn(
+            'flex-1 mx-auto w-full overflow-y-auto px-4 py-4',
+            widthClass,
+            elevated && [
+              'sm:bg-[var(--card)]',
+              'sm:border-x sm:border-solid sm:border-[var(--border)]',
+              'sm:shadow-sm',
+            ],
+          )}
+        >
           {children}
         </main>
         {footer && (
-          <div className={cn(
-            'w-full mx-auto mt-auto',
-            widthClass,
-            stickyFooter && 'sticky bottom-0 z-[var(--z-sticky)]',
-            safeArea && 'pb-[env(safe-area-inset-bottom)]',
-          )}>
+          <div
+            className={cn(
+              'w-full mx-auto mt-auto',
+              widthClass,
+              stickyFooter && 'sticky bottom-0 z-[var(--z-sticky)]',
+              safeArea && 'pb-[env(safe-area-inset-bottom)]',
+            )}
+          >
             {footer}
           </div>
         )}

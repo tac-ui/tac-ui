@@ -1,0 +1,44 @@
+{
+  "title": "llms.txt",
+  "description": "Tac UI provides an llms.txt file — a machine-readable reference for LLM-powered coding assistants (Cursor, Copilot, Claude, etc.).",
+  "sections": {
+    "what": {
+      "title": "What is llms.txt?",
+      "texts": [
+        "is a standardized file that helps AI coding assistants understand your library. It contains component APIs, prop tables, usage examples, and design token references in a format optimized for LLM context windows.",
+        "When an AI tool reads this file, it can generate accurate Tac UI code without hallucinating prop names or inventing non-existent APIs."
+      ]
+    },
+    "location": {
+      "title": "Location",
+      "texts": ["The file is served as a static asset from the documentation site:", "In the repository, it lives at:"]
+    },
+    "included": {
+      "title": "What's Included",
+      "description": "The llms.txt file covers:",
+      "items": {
+        "install": { "badge": "Install", "text": "Quick start installation commands and provider setup" },
+        "components": { "badge": "Components", "text": "All 39+ components with usage examples and full prop tables" },
+        "charts": { "badge": "Charts", "text": "BarChart, LineChart, PieChart, DonutChart with data format" },
+        "layout": { "badge": "Layout", "text": "Sidebar, Header, FloatingMenuBar, and 10 preset page layouts" },
+        "tokens": {
+          "badge": "Tokens",
+          "text": "CSS custom properties for colors, spacing, radius, shadows, motion, z-index"
+        },
+        "hooks": { "badge": "Hooks", "text": "useFocusTrap, useRovingIndex, useReducedMotion, useTilt, and more" }
+      }
+    },
+    "usage": {
+      "title": "Usage with AI Tools",
+      "texts": [
+        "Most AI coding assistants automatically discover llms.txt when configured with your docs URL. You can also manually reference it:"
+      ]
+    },
+    "updating": {
+      "title": "Keeping it Updated",
+      "texts": [
+        "The llms.txt file should be updated whenever component APIs change — new props, renamed variants, or default value changes. It lives in apps/docs/public/llms.txt and is deployed with the documentation site."
+      ]
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "title": "Dropdown",
+  "description": "트리거 시 액션 목록을 표시하는 플로팅 메뉴입니다. 제목, 구분선, 위험 액션을 지원하며 애니메이션 입장/퇴장을 제공합니다.",
+  "sections": {
+    "basic-menu": {
+      "title": "기본 메뉴",
+      "texts": ["Dropdown 컴포넌트 안에 트리거 요소와 드롭다운 항목을 래핑합니다."]
+    },
+    "with-title-and-divider": {
+      "title": "제목과 구분선",
+      "texts": ["DropdownTitle로 항목 그룹에 라벨을 지정하고 DropdownDivider로 섹션을 시각적으로 구분합니다."]
+    },
+    "with-destructive-item": {
+      "title": "위험 항목",
+      "texts": [
+        "DropdownItem에 destructive를 전달하면 위험하거나 되돌릴 수 없는 동작을 나타내는 오류 색상으로 렌더링됩니다."
+      ]
+    },
+    "alignment": {
+      "title": "정렬",
+      "texts": ["align prop을 사용하여 메뉴의 어떤 가장자리가 트리거에 정렬될지 제어합니다."]
+    },
+    "controlled-open-state": {
+      "title": "제어된 열림 상태",
+      "texts": ["open과 onOpenChange를 전달하면 컴포넌트 외부에서 드롭다운을 프로그래밍 방식으로 제어할 수 있습니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스",
+      "texts": ["DropdownItem props:", "DropdownTitle props:", "DropdownDivider props:"]
+    }
+  },
+  "props": {
+    "trigger": "드롭다운을 토글하는 요소.",
+    "open": "제어된 열림 상태; 생략하면 비제어 모드 사용.",
+    "onOpenChange": "열림 상태가 변경될 때 호출됩니다.",
+    "align": "트리거에 대한 메뉴의 수평 정렬.",
+    "children": "드롭다운 항목과 섹션.",
+    "DropdownItem-onPress": "항목이 눌렸을 때 호출됩니다.",
+    "DropdownItem-destructive": "위험한 동작을 나타내기 위해 항목을 오류 색상으로 렌더링합니다.",
+    "DropdownItem-disabled": "상호작용을 방지하고 항목을 낮은 투명도로 렌더링합니다.",
+    "DropdownItem-children": "항목 레이블 콘텐츠.",
+    "DropdownTitle": "드롭다운의 섹션 제목 라벨.",
+    "DropdownDivider": "메뉴 섹션 사이의 수평 구분선. Props 없음."
+  }
+}

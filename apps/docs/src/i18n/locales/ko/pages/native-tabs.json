@@ -1,0 +1,61 @@
+{
+  "title": "Tabs",
+  "description": "Tabs, TabsList, TabTrigger, TabContent로 구성된 탭 네비게이션 컴포넌트입니다. underline, pill, outline 세 가지 시각적 변형을 지원합니다. TabsList는 가로 스크롤을 지원합니다.",
+  "sections": {
+    "playground": {
+      "title": "플레이그라운드",
+      "texts": ["아래에서 Tabs props를 대화식으로 설정하세요."]
+    },
+    "underline": {
+      "title": "언더라인",
+      "texts": ["기본 변형입니다. 슬라이딩 언더라인 인디케이터가 탭 목록 하단을 따라 활성 탭을 따라갑니다."]
+    },
+    "pill": {
+      "title": "필",
+      "texts": [
+        "pill 변형은 채워진 배경 컨테이너와 슬라이딩 하이라이트 인디케이터를 사용합니다. 활성 탭 텍스트는 pointForeground 색상을 사용합니다."
+      ]
+    },
+    "outline": {
+      "title": "아웃라인",
+      "texts": [
+        "outline 변형은 테두리 컨테이너와 그림자 인디케이터로 탭 목록을 감쌉니다. 미묘한 엘리베이션으로 활성 탭을 구분합니다."
+      ]
+    },
+    "icon": {
+      "title": "아이콘",
+      "texts": [
+        "TabTrigger에 icon prop을 전달하면 탭 라벨 옆에 아이콘을 표시합니다. 아이콘은 16x16 크기로 렌더링되며 활성/비활성 색상을 따릅니다."
+      ]
+    },
+    "controlled": {
+      "title": "제어 모드",
+      "texts": [
+        "value와 onValueChange를 전달하면 활성 탭을 외부에서 제어할 수 있습니다. 프로그래밍 방식 탐색이나 다른 상태와 탭 동기화에 유용합니다."
+      ]
+    },
+    "scrollable-tabs": {
+      "title": "스크롤 가능한 탭",
+      "texts": ["TabsList는 가로 ScrollView를 사용하므로 탭이 많을 때 오버플로우를 자동으로 처리합니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스",
+      "texts": ["Tabs props:", "TabTrigger props:", "TabContent props:"]
+    }
+  },
+  "props": {
+    "tabs-defaultValue": "비제어 모드에서 기본으로 선택되는 탭 값.",
+    "tabs-value": "제어 모드의 활성 탭 값.",
+    "tabs-onValueChange": "활성 탭이 변경될 때 호출됩니다.",
+    "tabs-variant": "탭 목록 인디케이터의 시각적 스타일.",
+    "tabs-children": "TabsList와 TabContent를 조합하여 사용합니다.",
+    "tabs-style": "루트 View에 적용되는 추가 스타일.",
+    "tabtrigger-value": "이 트리거가 활성화하는 탭 값. TabContent value와 일치해야 합니다.",
+    "tabtrigger-icon": "탭 라벨 옆에 표시되는 아이콘 요소.",
+    "tabtrigger-children": "탭 라벨 — 문자열은 스타일 텍스트로, 다른 노드는 그대로 렌더링됩니다.",
+    "tabtrigger-style": "트리거 Pressable에 적용되는 추가 스타일.",
+    "tabcontent-value": "이 패널을 활성화하는 값. TabTrigger value와 일치해야 합니다.",
+    "tabcontent-children": "이 탭이 활성화될 때 렌더링되는 콘텐츠.",
+    "tabcontent-style": "콘텐츠 View에 적용되는 추가 스타일."
+  }
+}

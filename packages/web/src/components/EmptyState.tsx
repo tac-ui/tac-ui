@@ -22,17 +22,12 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
   ({ className, icon, title, description, action, visible = true, ...props }, ref) => (
     <AnimatePresence>
       {visible && (
-        <motion.div
-          variants={fadeVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-        >
+        <motion.div variants={fadeVariants} initial="hidden" animate="visible" exit="exit">
           <div
             ref={ref}
             role="status"
             className={cn(
-              'border-2 border-dashed border-[var(--border)] rounded-[var(--radius-xl)]',
+              'bg-[var(--surface-base)] rounded-[var(--radius-xl)]',
               'w-full py-12 px-8 flex flex-col items-center justify-center text-center',
               className,
             )}

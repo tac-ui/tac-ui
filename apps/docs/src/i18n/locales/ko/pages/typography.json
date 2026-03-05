@@ -4,7 +4,9 @@
   "sections": {
     "font-families": {
       "title": "폰트 패밀리",
-      "texts": ["기본 폰트는 --font-primary로 설정되며 모든 UI 텍스트에 사용됩니다. 디스플레이나 브랜딩용으로 보조 폰트 --font-secondary를 사용할 수 있습니다."]
+      "texts": [
+        "기본 폰트는 --font-primary로 설정되며 모든 UI 텍스트에 사용됩니다. 디스플레이나 브랜딩용으로 보조 폰트 --font-secondary를 사용할 수 있습니다."
+      ]
     },
     "type-scale": {
       "title": "타입 스케일",

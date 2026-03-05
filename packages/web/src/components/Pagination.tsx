@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { focusRingCompact } from '../constants/styles';
-import { diaSpring } from '../constants/motion';
+import { focusRing } from '../constants/styles';
+import { tacSpring } from '../constants/motion';
 
 /** Props for the Pagination root nav element. */
 export interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
@@ -29,7 +29,8 @@ export const PaginationContent = forwardRef<HTMLUListElement, PaginationContentP
       ref={ref}
       className={cn(
         'flex items-center gap-1',
-        glass && 'p-1 rounded-[var(--radius-lg)] bg-[var(--glass-bg)] backdrop-blur-[8px] border border-solid border-[var(--glass-border)]',
+        glass &&
+          'p-1 rounded-[var(--radius-lg)] bg-[var(--glass-bg)] backdrop-blur-[8px] border border-solid border-[var(--glass-border)]',
         className,
       )}
       {...props}
@@ -51,17 +52,21 @@ export const PaginationItem = forwardRef<HTMLButtonElement, PaginationItemProps>
         ref={ref}
         type="button"
         aria-current={active ? 'page' : undefined}
-        style={{ transition: 'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+        style={{
+          transition:
+            'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
         className={cn(
-          'w-9 h-9 flex items-center justify-center text-sm rounded-[var(--radius-m)] border-none cursor-pointer', focusRingCompact,
+          'w-9 h-9 flex items-center justify-center text-sm rounded-[var(--radius-m)] border-none cursor-pointer',
+          focusRing,
           active
             ? 'bg-[var(--point-subtle)] text-[var(--point)] font-semibold'
             : 'bg-transparent text-[var(--foreground)] hover:bg-[var(--interactive-hover)]',
           'disabled:opacity-50 disabled:pointer-events-none',
           className,
         )}
-        whileTap={{ scale: 0.97, transition: diaSpring.light }}
-        transition={diaSpring.light}
+        whileTap={{ scale: 0.97, transition: tacSpring.light }}
+        transition={tacSpring.light}
         {...(props as React.ComponentPropsWithoutRef<typeof motion.button>)}
       />
     </li>
@@ -72,7 +77,13 @@ PaginationItem.displayName = 'PaginationItem';
 export const PaginationEllipsis = forwardRef<HTMLSpanElement, React.HTMLAttributes<HTMLSpanElement>>(
   ({ className, ...props }, ref) => (
     <li className="list-none">
-      <span ref={ref} className={cn('w-9 h-9 flex items-center justify-center text-[var(--muted-foreground)]', className)} {...props}>...</span>
+      <span
+        ref={ref}
+        className={cn('w-9 h-9 flex items-center justify-center text-[var(--muted-foreground)]', className)}
+        {...props}
+      >
+        ...
+      </span>
     </li>
   ),
 );
@@ -87,13 +98,22 @@ export const PaginationPrevious = forwardRef<HTMLButtonElement, PaginationPrevNe
       <motion.button
         ref={ref}
         type="button"
-        style={{ transition: 'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)' }}
-        className={cn('flex items-center gap-1 px-3 h-9 text-sm rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-[var(--foreground)] hover:bg-[var(--interactive-hover)] hover:text-[var(--point)] disabled:opacity-50 disabled:pointer-events-none', focusRingCompact, className)}
-        whileTap={{ scale: 0.97, transition: diaSpring.light }}
-        transition={diaSpring.light}
+        style={{
+          transition:
+            'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
+        className={cn(
+          'flex items-center gap-1 px-3 h-9 text-sm rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-[var(--foreground)] hover:bg-[var(--interactive-hover)] disabled:opacity-50 disabled:pointer-events-none',
+          focusRing,
+          className,
+        )}
+        whileTap={{ scale: 0.97, transition: tacSpring.light }}
+        transition={tacSpring.light}
         {...(props as React.ComponentPropsWithoutRef<typeof motion.button>)}
       >
-        <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M10 4l-4 4 4 4" /></svg>
+        <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M10 4l-4 4 4 4" />
+        </svg>
         {children || 'Previous'}
       </motion.button>
     </li>
@@ -107,14 +127,23 @@ export const PaginationNext = forwardRef<HTMLButtonElement, PaginationPrevNextPr
       <motion.button
         ref={ref}
         type="button"
-        style={{ transition: 'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)' }}
-        className={cn('flex items-center gap-1 px-3 h-9 text-sm rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-[var(--foreground)] hover:bg-[var(--interactive-hover)] hover:text-[var(--point)] disabled:opacity-50 disabled:pointer-events-none', focusRingCompact, className)}
-        whileTap={{ scale: 0.97, transition: diaSpring.light }}
-        transition={diaSpring.light}
+        style={{
+          transition:
+            'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
+        className={cn(
+          'flex items-center gap-1 px-3 h-9 text-sm rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-[var(--foreground)] hover:bg-[var(--interactive-hover)] disabled:opacity-50 disabled:pointer-events-none',
+          focusRing,
+          className,
+        )}
+        whileTap={{ scale: 0.97, transition: tacSpring.light }}
+        transition={tacSpring.light}
         {...(props as React.ComponentPropsWithoutRef<typeof motion.button>)}
       >
         {children || 'Next'}
-        <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6 4l4 4-4 4" /></svg>
+        <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M6 4l4 4-4 4" />
+        </svg>
       </motion.button>
     </li>
   ),

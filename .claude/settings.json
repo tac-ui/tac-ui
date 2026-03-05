@@ -1,5 +1,33 @@
 {
   "env": {
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(comm -13 /tmp/web_comps.txt /tmp/native_comps.txt)",
+      "Bash(do echo \"EXTRA IN NATIVE: $c\")",
+      "Read(//Users/jeonhui/.claude-profiles/work/projects/-Users-jeonhui-Github-tac-ui-tac-ui/9a63c0a8-88f4-43cd-8b1b-81ce99b4046f/subagents/**)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\(''timestamp'',''?''\\)\\)\")",
+      "Bash(python3 -c \":*)",
+      "Bash(python3 -c \"import sys,json; lines=[l.strip\\(\\) for l in sys.stdin if l.strip\\(\\)]; d=json.loads\\(lines[-1]\\) if lines else {}; print\\(d.get\\(''timestamp'',''?''\\)\\)\")",
+      "Bash(npx expo start --clear --no-dev)",
+      "Bash(grep -r \"recentlyCreatedOwnerStacks\" /Users/jeonhui/Github/tac-ui/tac-ui/node_modules/.pnpm/react-native@0.76.9*/ --include=\"*.js\" -l)",
+      "Bash(npx expo install expo@latest --fix)",
+      "Bash(npx eslint packages/tokens/src/native/index.ts)",
+      "Bash(npx eslint packages/native/src/)",
+      "Bash(npx eslint packages/native/src/components/Toast.tsx)",
+      "Bash(npx eslint apps/docs/src/)",
+      "Bash(npx eslint apps/docs/src/app/web/\\\\\\(docs\\\\\\)/foundations/animations/page.tsx)",
+      "Bash(grep -l \"diaSpring\" /Users/jeonhui/Github/tac-ui/tac-ui/packages/web/src/components/*.tsx)",
+      "Bash(for f in packages/web/src/components/Accordion.tsx packages/web/src/components/Alert.tsx packages/web/src/components/AnimatedToggle.tsx packages/web/src/components/Avatar.tsx packages/web/src/components/Badge.tsx packages/web/src/components/Button.tsx packages/web/src/components/Card.tsx packages/web/src/components/Checkbox.tsx packages/web/src/components/Chip.tsx packages/web/src/components/ColorPicker.tsx packages/web/src/components/Combobox.tsx packages/web/src/components/DatePicker.tsx packages/web/src/components/Dialog.tsx packages/web/src/components/Drawer.tsx packages/web/src/components/Dropdown.tsx packages/web/src/components/Layout.tsx packages/web/src/components/Modal.tsx packages/web/src/components/MorphingCard.tsx packages/web/src/components/Pagination.tsx packages/web/src/components/Progress.tsx packages/web/src/components/Radio.tsx packages/web/src/components/SegmentController.tsx packages/web/src/components/Select.tsx packages/web/src/components/Skeleton.tsx packages/web/src/components/Snackbar.tsx packages/web/src/components/Stepper.tsx packages/web/src/components/Switch.tsx packages/web/src/components/Tabs.tsx packages/web/src/components/Toast.tsx packages/web/src/components/Tooltip.tsx)",
+      "Bash(do sed -i '' 's/diaSpring/tacSpring/g' \"$f\")",
+      "Bash(npx eslint packages/tokens/src/ packages/web/src/ packages/native/src/ apps/docs/src/ --ext .ts,.tsx)",
+      "Read(//tmp/**)",
+      "Bash(for pkg in packages/shared packages/tokens packages/icon packages/icon-native packages/web packages/native apps/docs)",
+      "Bash(do node -e \"const p=require\\(''./$pkg/package.json''\\); p.version=''1.0.0''; require\\(''fs''\\).writeFileSync\\(''./$pkg/package.json'', JSON.stringify\\(p, null, 2\\) + ''\\\\n''\\)\")",
+      "Bash(echo \"Bumped $pkg to 1.0.0\")",
+      "Bash(git remote get-url origin)",
+      "Bash(git commit:*)"
+    ]
   }
 }

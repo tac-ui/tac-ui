@@ -1,7 +1,7 @@
 import React, { createContext, forwardRef, useCallback, useContext, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { diaSpring } from '../constants/motion';
+import { tacSpring } from '../constants/motion';
 import { peerFocusRing } from '../constants/styles';
 
 interface RadioGroupContextValue {
@@ -27,10 +27,13 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
     const isControlled = controlledValue !== undefined;
     const value = isControlled ? controlledValue : internalValue;
 
-    const handleChange = useCallback((v: string) => {
-      if (!isControlled) setInternalValue(v);
-      onValueChange?.(v);
-    }, [isControlled, onValueChange]);
+    const handleChange = useCallback(
+      (v: string) => {
+        if (!isControlled) setInternalValue(v);
+        onValueChange?.(v);
+      },
+      [isControlled, onValueChange],
+    );
 
     return (
       <RadioGroupContext.Provider value={{ value, onChange: handleChange }}>
@@ -47,10 +50,12 @@ export interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   label?: string;
   /** The value this radio represents; compared against the RadioGroup's selected value. */
   radioValue: string;
+  /** When true, wraps the radio in a tinted background container for emphasis. */
+  filled?: boolean;
 }
 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(
-  ({ className, label, radioValue, disabled, ...props }, ref) => {
+  ({ className, label, radioValue, disabled, filled, ...props }, ref) => {
     const { value, onChange } = useContext(RadioGroupContext);
     const checked = value === radioValue;
     const handleChange = useCallback(() => {
@@ -58,7 +63,14 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
     }, [disabled, onChange, radioValue]);
 
     return (
-      <label className={cn('flex items-center gap-3 py-2.5 px-4 rounded-[var(--radius-m)] bg-[var(--interactive-surface-tint)] cursor-pointer transition-colors hover:bg-[var(--interactive-hover-tint)]', disabled && 'cursor-default hover:bg-[var(--interactive-surface-tint)]', className)}>
+      <label
+        className={cn(
+          'flex items-center gap-3 py-1 cursor-pointer transition-colors',
+          filled && 'bg-[var(--interactive-surface-tint)] px-4 py-2.5 rounded-[10px]',
+          disabled && 'cursor-default',
+          className,
+        )}
+      >
         <input
           ref={ref}
           type="radio"
@@ -69,9 +81,12 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
           {...props}
         />
         <span
-          style={{ transition: 'border-color 200ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1), background-color 200ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+          style={{
+            transition:
+              'border-color 200ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1), background-color 200ms cubic-bezier(0.22, 1, 0.36, 1)',
+          }}
           className={cn(
-            'relative w-5 h-5 rounded-full shrink-0 flex items-center justify-center border-2 border-solid',
+            'relative w-5 h-5 rounded-full shrink-0 flex items-center justify-center border-[1.5px] border-solid',
             peerFocusRing,
             checked ? 'border-[var(--point)]' : 'border-[var(--gray-300)]',
             disabled && 'opacity-50',
@@ -84,7 +99,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 exit={{ scale: 0 }}
-                transition={diaSpring.light}
+                transition={tacSpring.light}
               />
             )}
           </AnimatePresence>

@@ -1,0 +1,35 @@
+{
+  "name": "native-docs-app",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.28.6",
+    "@react-navigation/drawer": "^7.3.0",
+    "@react-navigation/native": "^7.1.0",
+    "@react-navigation/native-stack": "^7.3.0",
+    "@tac-ui/icon-native": "workspace:*",
+    "@tac-ui/native": "workspace:*",
+    "@tac-ui/tokens": "workspace:*",
+    "expo": "~55.0.5",
+    "expo-clipboard": "~55.0.8",
+    "r": "^0.0.5",
+    "react": "19.2.0",
+    "react-native": "0.83.2",
+    "react-native-gesture-handler": "~2.30.0",
+    "react-native-reanimated": "~4.2.1",
+    "react-native-safe-area-context": "~5.6.2",
+    "react-native-screens": "~4.23.0",
+    "react-native-svg": "~15.15.3"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.0",
+    "typescript": "~5.9.3"
+  }
+}

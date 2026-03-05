@@ -5,11 +5,16 @@
     "hero": {
       "title": "Hero",
       "description": "A design system where code breathes. Spring physics, sequential illumination, and glassmorphic depth — crafted for interfaces that feel alive.",
-      "texts": [
-        "Interfaces that",
-        "Get Started",
-        "GitHub"
-      ]
+      "texts": ["Interfaces that", "Get Started", "GitHub"]
+    },
+    "stats": {
+      "title": "Stats",
+      "items": {
+        "components": { "value": "39+", "label": "Components" },
+        "tokens": { "value": "100+", "label": "Design Tokens" },
+        "layouts": { "value": "10", "label": "Page Layouts" },
+        "a11y": { "value": "A11y", "label": "Accessible" }
+      }
     },
     "features": {
       "title": "Features",
@@ -28,13 +33,23 @@
         }
       }
     },
+    "quickstart": {
+      "title": "Quick Start",
+      "description": "Get up and running in seconds."
+    },
+    "showcase": {
+      "title": "Built for developers",
+      "description": "39+ accessible components, ready to compose."
+    },
+    "cta": {
+      "title": "Ready to build?",
+      "description": "Start using Tac UI in your next project. It's free, open source, and built for production.",
+      "texts": ["Read the Docs", "View on GitHub"]
+    },
     "footer": {
       "title": "Footer",
-      "description": "Open Source Design System",
-      "texts": [
-        "GitHub",
-        "© 2026 Tac UI. All rights reserved."
-      ]
+      "description": "Open Source Design System · MIT License",
+      "texts": ["GitHub", "© 2026 Jeonhui Lee. MIT License."]
     }
   }
 }

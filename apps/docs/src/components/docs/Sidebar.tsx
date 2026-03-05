@@ -6,43 +6,59 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { cn, SidebarGroup, Sidebar as SidebarShell, Drawer, useTacTheme, SegmentController } from '@tac-ui/web';
 import {
-  X, TacLogo, Search, Sun, Moon, Monitor, Globe,
-  Rocket, Palette, MousePointerClick, FormInput, BarChart3,
-  PieChart, MessageCircle, Navigation, Layers, LayoutGrid,
+  X,
+  TacLogo,
+  Search,
+  Sun,
+  Moon,
+  Monitor,
+  Globe,
+  Rocket,
+  Palette,
+  MousePointerClick,
+  FormInput,
+  BarChart3,
+  PieChart,
+  MessageCircle,
+  Navigation,
+  Layers,
+  LayoutGrid,
 } from '@tac-ui/icon';
-import { navGroups } from './nav-data';
+import { navGroups as defaultNavGroups, type NavGroup } from './nav-data';
 import { SearchTrigger, useCommandPalette } from './CommandPalette';
 import { useTranslation } from '@/i18n';
 import type { Locale } from '@/i18n/config';
+import { RotateCw } from '@tac-ui/icon';
 
-function useActiveGroup(pathname: string) {
+function useActiveGroup(pathname: string, groups: NavGroup[]) {
   return useMemo(() => {
-    for (const group of navGroups) {
+    for (const group of groups) {
       for (const item of group.items) {
         if (pathname === item.href) return group.title;
       }
     }
-    return navGroups[0]?.title ?? '';
-  }, [pathname]);
+    return groups[0]?.title ?? '';
+  }, [pathname, groups]);
 }
 
-function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
-  const pathname = usePathname();
-  const activeGroup = useActiveGroup(pathname);
-  const { t } = useTranslation();
+const groupIcons: Record<string, React.ReactNode> = {
+  'getting-started': <Rocket size={14} />,
+  foundations: <Palette size={14} />,
+  actions: <MousePointerClick size={14} />,
+  form: <FormInput size={14} />,
+  'data-display': <BarChart3 size={14} />,
+  charts: <PieChart size={14} />,
+  feedback: <MessageCircle size={14} />,
+  navigation: <Navigation size={14} />,
+  overlay: <Layers size={14} />,
+  layout: <LayoutGrid size={14} />,
+  animation: <RotateCw size={14} />,
+};
 
-  const groupIcons: Record<string, React.ReactNode> = {
-    'getting-started': <Rocket size={14} />,
-    'foundations': <Palette size={14} />,
-    'actions': <MousePointerClick size={14} />,
-    'form': <FormInput size={14} />,
-    'data-display': <BarChart3 size={14} />,
-    'charts': <PieChart size={14} />,
-    'feedback': <MessageCircle size={14} />,
-    'navigation': <Navigation size={14} />,
-    'overlay': <Layers size={14} />,
-    'layout': <LayoutGrid size={14} />,
-  };
+function NavLinks({ onNavigate, navGroups = defaultNavGroups }: { onNavigate?: () => void; navGroups?: NavGroup[] }) {
+  const pathname = usePathname();
+  const activeGroup = useActiveGroup(pathname, navGroups);
+  const { t } = useTranslation();
 
   return (
     <nav className="flex flex-col pt-2 pb-2">
@@ -84,9 +100,7 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
                         />
                       )}
                     </AnimatePresence>
-                    <span className="relative z-[1]">
-                      {t.nav.items[item.key] ?? item.title}
-                    </span>
+                    <span className="relative z-[1]">{t.nav.items[item.key] ?? item.title}</span>
                   </Link>
                 );
               })}
@@ -98,7 +112,7 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
-export function Sidebar() {
+export function Sidebar({ navGroups }: { navGroups?: NavGroup[] } = {}) {
   const [collapsed, setCollapsed] = useState(false);
   const { open: openSearch } = useCommandPalette();
 
@@ -124,7 +138,7 @@ export function Sidebar() {
       label={<SearchTrigger />}
       className="sticky top-[calc(3.5rem+0.5rem)] h-[calc(100vh-3.5rem-1rem)] hidden lg:flex bg-transparent"
     >
-      <NavLinks />
+      <NavLinks navGroups={navGroups} />
     </SidebarShell>
   );
 }
@@ -140,7 +154,15 @@ const themeOptions = [
   { value: 'system', label: '', icon: <Monitor size={14} /> },
 ];
 
-export function MobileSidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function MobileSidebar({
+  open,
+  onClose,
+  navGroups,
+}: {
+  open: boolean;
+  onClose: () => void;
+  navGroups?: NavGroup[];
+}) {
   const { preference, setPreference } = useTacTheme();
   const { locale, setLocale } = useTranslation();
 
@@ -148,7 +170,12 @@ export function MobileSidebar({ open, onClose }: { open: boolean; onClose: () =>
 
   return (
     <div className="lg:hidden">
-      <Drawer open={open} onClose={onClose} side="left" className="w-[280px] rounded-none border-y-0 border-l-0 border-r border-solid border-[var(--border)] p-0">
+      <Drawer
+        open={open}
+        onClose={onClose}
+        side="left"
+        className="w-[280px] rounded-none border-y-0 border-l-0 border-r border-solid border-[var(--border)] p-0"
+      >
         <div className="px-3 pt-4 pb-0 items-center justify-between mb-3 flex">
           <Link href="/" className="flex items-center gap-2 no-underline text-[var(--primary)]" onClick={onClose}>
             <TacLogo size={20} className="shrink-0" />
@@ -168,7 +195,7 @@ export function MobileSidebar({ open, onClose }: { open: boolean; onClose: () =>
         <div className="relative flex-1 min-h-0">
           <div className="pointer-events-none absolute top-0 left-0 right-0 h-4 z-10 bg-gradient-to-b from-[var(--background)] to-transparent" />
           <div className="h-full overflow-y-auto px-3 pt-1 pb-4">
-            <NavLinks onNavigate={onClose} />
+            <NavLinks onNavigate={onClose} navGroups={navGroups} />
           </div>
           <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-6 z-10 bg-gradient-to-t from-[var(--background)] to-transparent" />
         </div>

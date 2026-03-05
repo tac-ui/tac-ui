@@ -1,0 +1,995 @@
+# Tac UI
+
+> Cross-platform design system with 39+ React components, design tokens, and icons.
+
+## Quick Start
+
+```bash
+pnpm add @tac-ui/web @tac-ui/icon @tac-ui/tokens
+```
+
+```tsx
+import { Button, Input, Card } from '@tac-ui/web';
+import { Search, Star } from '@tac-ui/icon';
+```
+
+Wrap your app with `TacProvider` for theming:
+
+```tsx
+import { TacProvider } from '@tac-ui/web';
+
+export default function App({ children }) {
+  return <TacProvider>{children}</TacProvider>;
+}
+```
+
+## Styling
+
+- Tailwind CSS with `cn()` utility (clsx + tailwind-merge)
+- CSS custom properties for tokens: `var(--point)`, `var(--border)`, etc.
+- CVA (class-variance-authority) for component variants
+- Add `tacPreset` to your Tailwind config: `presets: [tacPreset]`
+
+```tsx
+import { cn } from '@tac-ui/web';
+import { tacPreset } from '@tac-ui/web/tailwind';
+```
+
+---
+
+## Components
+
+### Button
+
+```tsx
+<Button variant="primary" size="md">Click</Button>
+<Button variant="point" leftIcon={<Star size={16} />}>Favorite</Button>
+<Button variant="outline" size="sm" iconOnly><Search size={16} /></Button>
+<Button variant="ghost" iconOnly><Search size={16} /></Button>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| variant | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'point' \| 'destructive'` | `'primary'` |
+| size | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| iconOnly | `boolean` | `false` |
+| leftIcon | `ReactNode` | - |
+| rightIcon | `ReactNode` | - |
+| disabled | `boolean` | `false` |
+
+### Input
+
+```tsx
+<Input label="Email" placeholder="you@example.com" />
+<Input inputSize="sm" placeholder="Small input" />
+<Input error errorMessage="Required" leftIcon={<Search size={16} />} />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| inputSize | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| label | `string` | - |
+| helperText | `string` | - |
+| error | `boolean` | `false` |
+| errorMessage | `string` | - |
+| leftIcon | `ReactNode` | - |
+| rightIcon | `ReactNode` | - |
+| rightButton | `ReactNode` | - |
+
+### Textarea
+
+```tsx
+<Textarea label="Message" placeholder="Type here..." />
+<Textarea textareaSize="sm" placeholder="Small textarea" />
+<Textarea error errorMessage="Too short" />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| textareaSize | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| label | `string` | - |
+| helperText | `string` | - |
+| error | `boolean` | `false` |
+| errorMessage | `string` | - |
+
+### Select
+
+```tsx
+<Select
+  label="Country"
+  options={[
+    { value: 'us', label: 'United States' },
+    { value: 'kr', label: 'South Korea' },
+  ]}
+  value={selected}
+  onChange={setSelected}
+/>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| label | `string` | - |
+| options | `{ value: string; label: string; disabled?: boolean }[]` | `[]` |
+| value | `string` | - |
+| onChange | `(value: string) => void` | - |
+| placeholder | `string` | `'Select...'` |
+| selectSize | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| error | `boolean` | `false` |
+| errorMessage | `string` | - |
+
+### Combobox
+
+```tsx
+<Combobox
+  options={[{ value: 'react', label: 'React' }, { value: 'vue', label: 'Vue' }]}
+  value={value}
+  onChange={setValue}
+  placeholder="Search framework..."
+/>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| options | `{ value: string; label: string; disabled?: boolean }[]` | `[]` |
+| value | `string` | - |
+| onChange | `(value: string) => void` | - |
+| placeholder | `string` | - |
+| emptyText | `string` | `'No results found'` |
+
+### Card
+
+```tsx
+<Card variant="default">
+  <CardHeader>
+    <CardTitle>Title</CardTitle>
+    <CardDescription>Description</CardDescription>
+  </CardHeader>
+  <CardContent>Body content</CardContent>
+  <CardFooter><Button size="sm">Action</Button></CardFooter>
+</Card>
+
+<Card interactive tilt variant="accent">Premium card</Card>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| variant | `'default' \| 'accent' \| 'glass' \| 'flat'` | `'default'` |
+| interactive | `boolean` | `false` |
+
+Sub-components: `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`
+
+### MorphingCard
+
+```tsx
+<MorphingCard
+  layoutId="demo"
+  preview={<CardTitle>Project Alpha</CardTitle>}
+  detail={
+    <div>
+      <CardTitle>Project Alpha</CardTitle>
+      <CardDescription>Full project details shown in expanded overlay.</CardDescription>
+      <Button size="sm">Get Started</Button>
+    </div>
+  }
+/>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| layoutId | `string` | - |
+| expanded | `boolean` | `false` |
+| onExpandedChange | `(expanded: boolean) => void` | - |
+| preview | `React.ReactNode` | - |
+| detail | `React.ReactNode` | - |
+
+### Badge
+
+```tsx
+<Badge>Default</Badge>
+<Badge variant="success">Active</Badge>
+<Badge variant="glass" interactive>Click me</Badge>
+<Badge count={5} />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| variant | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'success' \| 'error' \| 'warning' \| 'info' \| 'glass'` | `'default'` |
+| interactive | `boolean` | `false` |
+| count | `number` | - |
+
+### Checkbox
+
+```tsx
+<Checkbox label="Accept terms" />
+<Checkbox checked={checked} onChange={(e) => setChecked(e.target.checked)} />
+<Checkbox indeterminate />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| label | `string` | - |
+| checked | `boolean` | - |
+| defaultChecked | `boolean` | `false` |
+| indeterminate | `boolean` | `false` |
+| filled | `boolean` | `false` |
+| disabled | `boolean` | `false` |
+
+### Radio & RadioGroup
+
+```tsx
+<RadioGroup value={value} onValueChange={setValue}>
+  <Radio radioValue="a" label="Option A" />
+  <Radio radioValue="b" label="Option B" />
+  <Radio radioValue="c" label="Option C" disabled />
+</RadioGroup>
+```
+
+| Prop (RadioGroup) | Type | Default |
+|------|------|---------|
+| value | `string` | - |
+| defaultValue | `string` | - |
+| onValueChange | `(value: string) => void` | - |
+
+| Prop (Radio) | Type | Default |
+|------|------|---------|
+| radioValue | `string` | required |
+| label | `string` | - |
+| disabled | `boolean` | `false` |
+
+### Switch
+
+```tsx
+<Switch />
+<Switch label="Dark Mode" defaultChecked />
+<Switch checked={on} onChange={setOn} />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| label | `string` | - |
+| checked | `boolean` | - |
+| defaultChecked | `boolean` | `false` |
+| onChange | `(checked: boolean) => void` | - |
+| disabled | `boolean` | `false` |
+
+### AnimatedToggle
+
+```tsx
+<AnimatedToggle
+  checked={dark}
+  onChange={setDark}
+  iconOn={<Moon size={14} />}
+  iconOff={<Sun size={14} />}
+/>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| checked | `boolean` | `false` |
+| onChange | `(checked: boolean) => void` | - |
+| iconOn | `ReactNode` | - |
+| iconOff | `ReactNode` | - |
+
+### Slider
+
+```tsx
+<Slider defaultValue={50} min={0} max={100} />
+<Slider label="Volume" showValue value={vol} onChange={(e) => setVol(+e.target.value)} />
+<Slider filled={false} defaultValue={50} />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| label | `string` | - |
+| showValue | `boolean` | `false` |
+| filled | `boolean` | `true` |
+| min | `number` | `0` |
+| max | `number` | `100` |
+| step | `number` | `1` |
+| value | `number` | - |
+| defaultValue | `number` | - |
+| disabled | `boolean` | `false` |
+
+### SegmentController
+
+```tsx
+<SegmentController
+  options={[
+    { value: 'day', label: 'Day' },
+    { value: 'week', label: 'Week' },
+    { value: 'month', label: 'Month' },
+  ]}
+  value={period}
+  onChange={setPeriod}
+/>
+
+<SegmentController options={opts} mode="multi" size="sm" collapsible />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| options | `{ value: string; label: string; icon?: ReactNode; disabled?: boolean }[]` | required |
+| mode | `'single' \| 'multi'` | `'single'` |
+| value | `string \| string[]` | - |
+| defaultValue | `string \| string[]` | - |
+| onChange | `(value: string \| string[]) => void` | - |
+| size | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| fullWidth | `boolean` | `false` |
+| collapsible | `boolean` | `false` |
+| disabled | `boolean` | `false` |
+
+### DatePicker
+
+```tsx
+<DatePicker label="Start date" value={date} onChange={setDate} />
+<DatePicker mode="datetime" use24Hour />
+<DatePicker mode="month" />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| value | `Date \| null` | - |
+| onChange | `(date: Date \| null) => void` | - |
+| label | `string` | - |
+| placeholder | `string` | `'Select date'` |
+| mode | `'date' \| 'datetime' \| 'month'` | `'date'` |
+| use24Hour | `boolean` | `true` |
+| minuteStep | `number` | `1` |
+| minDate | `Date` | - |
+| maxDate | `Date` | - |
+| error | `boolean` | `false` |
+| errorMessage | `string` | - |
+
+### ColorPicker
+
+```tsx
+<ColorPicker label="Brand color" value={color} onChange={setColor} />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| value | `string` | - |
+| onChange | `(color: string) => void` | - |
+| label | `string` | - |
+| disabled | `boolean` | `false` |
+
+### Tabs
+
+```tsx
+<Tabs defaultValue="tab1" variant="underline">
+  <TabsList>
+    <TabTrigger value="tab1">General</TabTrigger>
+    <TabTrigger value="tab2">Settings</TabTrigger>
+  </TabsList>
+  <TabContent value="tab1">General content</TabContent>
+  <TabContent value="tab2">Settings content</TabContent>
+</Tabs>
+```
+
+| Prop (Tabs) | Type | Default |
+|------|------|---------|
+| value | `string` | - |
+| defaultValue | `string` | `''` |
+| onValueChange | `(value: string) => void` | - |
+| variant | `'underline' \| 'pill' \| 'outline' \| 'icon'` | `'underline'` |
+
+### Accordion
+
+```tsx
+<Accordion type="single" defaultValue="item-1">
+  <AccordionItem value="item-1">
+    <AccordionTrigger value="item-1">Section 1</AccordionTrigger>
+    <AccordionContent value="item-1">Content 1</AccordionContent>
+  </AccordionItem>
+</Accordion>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| type | `'single' \| 'multiple'` | `'single'` |
+| defaultValue | `string \| string[]` | - |
+| glass | `boolean` | `false` |
+| outline | `boolean` | `true` |
+
+### Dialog
+
+```tsx
+<Dialog open={open} onClose={() => setOpen(false)}>
+  <DialogHeader>
+    <DialogTitle>Confirm</DialogTitle>
+    <DialogDescription>Are you sure?</DialogDescription>
+  </DialogHeader>
+  <DialogFooter>
+    <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+    <Button onClick={handleConfirm}>Confirm</Button>
+  </DialogFooter>
+</Dialog>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| open | `boolean` | required |
+| onClose | `() => void` | required |
+| backdrop | `boolean` | `true` |
+| layoutId | `string` | - |
+
+Sub-components: `DialogHeader`, `DialogTitle`, `DialogDescription`, `DialogFooter`
+
+### Modal
+
+```tsx
+<Modal open={open} onClose={() => setOpen(false)} size="md">
+  <ModalHeader>
+    <ModalTitle>Edit Profile</ModalTitle>
+  </ModalHeader>
+  <Input label="Name" />
+  <ModalFooter>
+    <Button>Save</Button>
+  </ModalFooter>
+</Modal>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| open | `boolean` | required |
+| onClose | `() => void` | required |
+| size | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| backdrop | `boolean` | `true` |
+| layoutId | `string` | - |
+
+Sub-components: `ModalHeader`, `ModalIcon`, `ModalTitle`, `ModalDescription`, `ModalFooter`
+
+### Drawer
+
+```tsx
+<Drawer open={open} onClose={() => setOpen(false)} side="right">
+  <DrawerHeader>
+    <DrawerTitle>Settings</DrawerTitle>
+  </DrawerHeader>
+  <DrawerBody>Content here</DrawerBody>
+  <DrawerFooter><Button>Save</Button></DrawerFooter>
+</Drawer>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| open | `boolean` | required |
+| onClose | `() => void` | required |
+| side | `'left' \| 'right' \| 'top' \| 'bottom'` | `'right'` |
+| backdrop | `boolean` | `true` |
+
+Sub-components: `DrawerHeader`, `DrawerTitle`, `DrawerDescription`, `DrawerBody`, `DrawerFooter`
+
+### Alert
+
+```tsx
+<Alert variant="success" icon={<CheckCircle size={16} />} dismissible>
+  <AlertTitle>Saved</AlertTitle>
+  <AlertDescription>Your changes have been saved.</AlertDescription>
+</Alert>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| variant | `'default' \| 'success' \| 'error' \| 'warning' \| 'info' \| 'glass'` | `'default'` |
+| icon | `ReactNode` | - |
+| dismissible | `boolean` | `false` |
+| onDismiss | `() => void` | - |
+
+### Toast
+
+```tsx
+// Wrap app with ToastProvider
+<ToastProvider position="bottom-right" maxToasts={5}>
+  <App />
+</ToastProvider>
+
+// Use in components
+const { toast, dismiss, dismissAll } = useToast();
+toast('Saved successfully', { variant: 'success', duration: 3000 });
+toast('Error occurred', { variant: 'error', action: <Button size="sm">Retry</Button> });
+```
+
+| Option | Type | Default |
+|------|------|---------|
+| variant | `'default' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'default'` |
+| duration | `number` (ms, 0 = no auto-dismiss) | `5000` |
+| icon | `ReactNode` | - |
+| action | `ReactNode` | - |
+
+### Snackbar
+
+```tsx
+<Snackbar open={open} onClose={() => setOpen(false)} variant="success" icon={<Check size={16} />} action="Undo" onAction={handleUndo}>
+  Item deleted
+</Snackbar>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| open | `boolean` | required |
+| onClose | `() => void` | - |
+| variant | `'default' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'default'` |
+| autoHideDuration | `number` (ms, 0 = no auto-dismiss) | `5000` |
+| icon | `ReactNode` | - |
+| action | `ReactNode` | - |
+| onAction | `() => void` | - |
+| closeLabel | `string` | `'Close'` |
+
+### Dropdown
+
+```tsx
+<Dropdown trigger={<Button variant="outline">Menu</Button>} align="start">
+  <DropdownItem onClick={handleEdit}>Edit</DropdownItem>
+  <DropdownDivider />
+  <DropdownItem destructive onClick={handleDelete}>Delete</DropdownItem>
+</Dropdown>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| trigger | `ReactNode` | required |
+| open | `boolean` | - |
+| onOpenChange | `(open: boolean) => void` | - |
+| align | `'start' \| 'center' \| 'end'` | `'start'` |
+
+Sub-components: `DropdownTitle`, `DropdownDivider`, `DropdownItem`, `DropdownSearch`
+
+### Tooltip
+
+```tsx
+<Tooltip content="Save changes" placement="top">
+  <Button iconOnly><Save size={16} /></Button>
+</Tooltip>
+
+<Tooltip content="Premium feature" description="Upgrade to unlock" placement="bottom">
+  <Badge>Pro</Badge>
+</Tooltip>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| content | `ReactNode` | required |
+| description | `string` | - |
+| placement | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` |
+| delay | `number` (ms) | `200` |
+
+### Popover
+
+```tsx
+<Popover trigger={<Button>Options</Button>} side="bottom" align="start">
+  <PopoverHeader>Filter</PopoverHeader>
+  <PopoverBody><Input placeholder="Search..." /></PopoverBody>
+  <PopoverFooter><Button size="sm">Apply</Button></PopoverFooter>
+</Popover>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| trigger | `ReactNode` | required |
+| open | `boolean` | - |
+| onOpenChange | `(open: boolean) => void` | - |
+| side | `'top' \| 'bottom' \| 'left' \| 'right'` | `'bottom'` |
+| align | `'start' \| 'center' \| 'end'` | `'center'` |
+
+### Avatar
+
+```tsx
+<Avatar src="/photo.jpg" alt="User" size="md" />
+<Avatar initials="JH" size="lg" showStatus />
+<Avatar icon={<User size={20} />} animated />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| size | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
+| src | `string` | - |
+| alt | `string` | - |
+| initials | `string` | - |
+| icon | `ReactNode` | - |
+| showStatus | `boolean` | `false` |
+| statusColor | `string` | `'var(--success)'` |
+| animated | `boolean` | `false` |
+
+### Chip
+
+```tsx
+<Chip variant="filter">Active</Chip>
+<Chip variant="input" leftIcon={<Tag size={12} />} onDelete={() => {}}>React</Chip>
+<Chip variant="glass">Premium</Chip>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| variant | `'filter' \| 'assist' \| 'suggestion' \| 'input' \| 'glass'` | `'filter'` |
+| leftIcon | `ReactNode` | - |
+| onDelete | `() => void` | - |
+| disabled | `boolean` | `false` |
+
+### Progress
+
+```tsx
+<Progress value={75} />
+<Progress value={60} variant="circular" size={80} showLabel />
+<Progress value={40} barSize="lg" />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| value | `number` | `0` |
+| max | `number` | `100` |
+| variant | `'linear' \| 'circular'` | `'linear'` |
+| size | `number` | `64` |
+| barSize | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| showLabel | `boolean` | `false` |
+
+### Table
+
+```tsx
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Name</TableHead>
+      <TableHead>Email</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>John</TableCell>
+      <TableCell>john@example.com</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+Sub-components: `Table`, `TableHeader`, `TableBody`, `TableFooter`, `TableRow`, `TableHead`, `TableCell`, `TableCaption`
+
+### Breadcrumb
+
+```tsx
+<Breadcrumb>
+  <BreadcrumbList>
+    <BreadcrumbItem><BreadcrumbLink href="/">Home</BreadcrumbLink></BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem><BreadcrumbLink href="/docs">Docs</BreadcrumbLink></BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>
+```
+
+### Pagination
+
+```tsx
+<Pagination>
+  <PaginationContent>
+    <PaginationPrevious onClick={prev} />
+    <PaginationItem>1</PaginationItem>
+    <PaginationItem>2</PaginationItem>
+    <PaginationEllipsis />
+    <PaginationItem>10</PaginationItem>
+    <PaginationNext onClick={next} />
+  </PaginationContent>
+</Pagination>
+```
+
+### Stepper
+
+```tsx
+<Stepper activeStep={1} orientation="horizontal">
+  <Step title="Account" description="Create account" />
+  <Step title="Profile" description="Set up profile" />
+  <Step title="Done" />
+</Stepper>
+```
+
+| Prop (Stepper) | Type | Default |
+|------|------|---------|
+| activeStep | `number` | `0` |
+| orientation | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| alignLabels | `'edge' \| 'center'` | `'edge'` |
+
+| Prop (Step) | Type | Default |
+|------|------|---------|
+| title | `string` | required |
+| description | `string` | - |
+| icon | `ReactNode` | - |
+
+### Divider
+
+```tsx
+<Divider />
+<Divider variant="thick" />
+<Divider variant="inset" />
+<Divider label="OR" />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| variant | `'full' \| 'inset' \| 'thick' \| 'withLabel'` | `'full'` |
+| label | `string` | - |
+
+### Skeleton
+
+```tsx
+<Skeleton variant="text" lines={3} />
+<Skeleton variant="circular" width={48} height={48} />
+<Skeleton variant="rectangular" width="100%" height={200} />
+<Skeleton animation="pulse" width="100%" height={20} />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| variant | `'rectangular' \| 'circular' \| 'text'` | `'rectangular'` |
+| animation | `'shimmer' \| 'pulse'` | `'shimmer'` |
+| width | `string \| number` | - |
+| height | `string \| number` | - |
+| lines | `number` (for text variant) | `3` |
+
+### Indicator
+
+```tsx
+<Indicator variant="linear" />
+<Indicator variant="circular" size={32} />
+<Indicator variant="circular" size={48} color="var(--error)" />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| variant | `'linear' \| 'circular'` | `'linear'` |
+| size | `number` | `32` |
+| color | `string` | `'var(--point)'` |
+
+### CodeBlock
+
+```tsx
+<CodeBlock code={`const x = 1;`} language="typescript" showLineNumbers showCopyButton />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| code | `string` | required |
+| language | `string` | - |
+| showLineNumbers | `boolean` | `false` |
+| showCopyButton | `boolean` | `false` |
+
+### EmptyState
+
+```tsx
+<EmptyState
+  icon={<Inbox size={48} />}
+  title="No items"
+  description="Create your first item to get started."
+  action={<Button>Create Item</Button>}
+/>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| icon | `ReactNode` | - |
+| title | `string` | required |
+| description | `string` | - |
+| action | `ReactNode` | - |
+
+### MorphingCard
+
+```tsx
+<MorphingCard
+  layoutId="card-1"
+  expanded={expanded}
+  onExpandedChange={setExpanded}
+  preview={<div>Compact view</div>}
+  detail={<div>Expanded view with more content</div>}
+/>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| layoutId | `string` | required |
+| expanded | `boolean` | - |
+| onExpandedChange | `(expanded: boolean) => void` | - |
+| preview | `ReactNode` | - |
+| detail | `ReactNode` | - |
+
+### VStack & HStack
+
+```tsx
+<VStack gap="md" align="center">
+  <Input label="Name" />
+  <Button>Submit</Button>
+</VStack>
+
+<HStack gap="sm" justify="between">
+  <Badge>Tag 1</Badge>
+  <Badge>Tag 2</Badge>
+</HStack>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| gap | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'md'` |
+| align | `'start' \| 'center' \| 'end' \| 'stretch' \| 'baseline'` | VStack: `'stretch'`, HStack: `'center'` |
+| justify | `'start' \| 'center' \| 'end' \| 'between' \| 'around' \| 'evenly'` | `'start'` |
+| wrap | `boolean` | `false` |
+
+---
+
+## Charts
+
+```tsx
+import { BarChart, LineChart, PieChart, DonutChart } from '@tac-ui/web';
+```
+
+### BarChart
+
+```tsx
+<BarChart
+  data={[{ label: 'Jan', value: 30 }, { label: 'Feb', value: 45 }]}
+  height={200}
+  showGrid
+  showValues
+/>
+```
+
+### LineChart
+
+```tsx
+<LineChart
+  data={[{ label: 'Mon', value: 10 }, { label: 'Tue', value: 25 }]}
+  height={200}
+  showArea
+  showDots
+  color="var(--point)"
+/>
+```
+
+### PieChart / DonutChart
+
+```tsx
+<PieChart
+  data={[
+    { label: 'A', value: 40, color: 'var(--chart-1)' },
+    { label: 'B', value: 30, color: 'var(--chart-2)' },
+  ]}
+  size={200}
+  showLabels
+/>
+
+<DonutChart data={data} size={200} strokeWidth={20} />
+```
+
+---
+
+## Layout
+
+```tsx
+import {
+  PageLayout, Header, Sidebar, SidebarGroup, SidebarItem,
+  Main, Footer, Container, FloatingMenuBar, FloatingMenuItem,
+} from '@tac-ui/web';
+```
+
+### Sidebar with groups
+
+```tsx
+<Sidebar width={240} collapsible collapsed={collapsed} onCollapse={setCollapsed} position="left" rounded>
+  <SidebarGroup label="Navigation" icon={<Menu size={14} />} collapsible defaultOpen>
+    <SidebarItem icon={<Home size={16} />} active>Dashboard</SidebarItem>
+    <SidebarItem icon={<Settings size={16} />}>Settings</SidebarItem>
+  </SidebarGroup>
+</Sidebar>
+```
+
+### Header
+
+```tsx
+<Header sticky bordered blur autoHide>
+  <Logo />
+  <nav>...</nav>
+</Header>
+```
+
+### Preset Page Layouts
+
+```tsx
+import { SidebarPage, DashboardPage, HolyGrailPage } from '@tac-ui/web';
+```
+
+Available: `SingleColumnPage`, `SidebarPage`, `GridPage`, `DashboardPage`, `SplitPage`, `StackedPage`, `DualSidebarPage`, `HolyGrailPage`, `AsymmetricPage`, `AppPage`
+
+### FloatingMenuBar
+
+```tsx
+<FloatingMenuBar position="bottom-center" blur bordered>
+  <FloatingMenuItem icon={<Home size={18} />} label="Home" active />
+  <FloatingMenuItem icon={<Search size={18} />} label="Search" />
+</FloatingMenuBar>
+```
+
+---
+
+## Icons
+
+```tsx
+import { Search, Star, Check, X, ArrowRight, TacLogo } from '@tac-ui/icon';
+
+<Search size={16} />
+<TacLogo size={24} />
+```
+
+All [lucide-react](https://lucide.dev/icons) icons are re-exported from `@tac-ui/icon`, plus the custom `TacLogo`.
+
+---
+
+## Design Tokens
+
+```tsx
+import { primitiveColors, semanticTokens, spacing, typography, motion, diaSpring } from '@tac-ui/tokens';
+```
+
+### CSS Custom Properties
+
+Colors: `--background`, `--foreground`, `--border`, `--card`, `--primary`, `--point`, `--muted-foreground`, `--success`, `--error`, `--warning`, `--info`
+
+Spacing: `--spacing-2xs` through `--spacing-3xl`
+
+Radius: `--radius-none`, `--radius-xs`, `--radius-sm`, `--radius-m`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-pill`
+
+Shadows: `--shadow-sm`, `--shadow-m`, `--shadow-lg`, `--shadow-xl`
+
+Motion: `--duration-instant` (80ms), `--duration-fast` (150ms), `--duration-normal` (220ms), `--duration-slow` (320ms), `--duration-complex` (450ms)
+
+Easing: `--ease-standard`, `--ease-in`, `--ease-out`, `--ease-in-out`, `--ease-bounce`, `--ease-spring`
+
+Z-Index: `--z-dropdown`, `--z-sticky`, `--z-overlay`, `--z-modal`, `--z-popover`, `--z-tooltip`, `--z-toast`
+
+Charts: `--chart-1` through `--chart-8`
+
+---
+
+## Hooks
+
+```tsx
+import {
+  useFocusTrap,     // Trap focus within element
+  useFocusRestore,  // Restore focus on unmount
+  useRovingIndex,   // Arrow key navigation
+  useReducedMotion, // Check prefers-reduced-motion
+  useTilt,          // Cursor-tracking 3D tilt
+  useSpotlight,     // Spotlight reveal effect
+  useSidebarContext // Get sidebar collapsed state
+} from '@tac-ui/web';
+```
+
+---
+
+## Theming
+
+Tac UI supports light/dark themes via CSS custom properties and `TacProvider`:
+
+```tsx
+import { TacProvider, useTacTheme } from '@tac-ui/web';
+
+function App() {
+  return (
+    <TacProvider defaultTheme="system">
+      <MyApp />
+    </TacProvider>
+  );
+}
+
+function ThemeToggle() {
+  const { preference, setPreference } = useTacTheme();
+  // preference: 'light' | 'dark' | 'system'
+}
+```
+
+Themes are applied via `data-theme` attribute on the root element. Use `data-no-bg-transition` attribute on elements that should not animate during theme changes.
+
+---
+
+## Tech Stack
+
+- TypeScript (strict), React 18/19, Tailwind CSS 4
+- Framer Motion for animations
+- CVA + clsx + tailwind-merge for styling
+- lucide-react for icons
+- ES2020 target, dual CJS/ESM

@@ -8,11 +8,15 @@
     },
     "without-backdrop": {
       "title": "배경 없이",
-      "texts": ["backdrop={false}를 설정하면 어두운 오버레이가 숨겨집니다. 다이얼로그는 여전히 Escape로 닫히며 포커스 트랩이 유지됩니다."]
+      "texts": [
+        "backdrop={false}를 설정하면 어두운 오버레이가 숨겨집니다. 다이얼로그는 여전히 Escape로 닫히며 포커스 트랩이 유지됩니다."
+      ]
     },
     "api-reference": {
       "title": "API 레퍼런스",
-      "texts": ["Dialog props. 하위 컴포넌트(DialogHeader, DialogTitle, DialogDescription, DialogFooter)는 모두 표준 HTML div/heading/paragraph 속성과 className을 받습니다."]
+      "texts": [
+        "Dialog props. 하위 컴포넌트(DialogHeader, DialogTitle, DialogDescription, DialogFooter)는 모두 표준 HTML div/heading/paragraph 속성과 className을 받습니다."
+      ]
     }
   },
   "props": {

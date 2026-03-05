@@ -1,8 +1,14 @@
 import React, { forwardRef, useId } from 'react';
 import { cn } from '../utils/cn';
+import { inputTransition } from '../constants/styles';
+
+/** Size variant of the Textarea component. */
+export type TextareaSize = 'sm' | 'md' | 'lg';
 
 /** Props for the Textarea component, a styled multi-line text input with optional label and error state. */
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  /** Controls the padding and font size of the textarea element. */
+  textareaSize?: TextareaSize;
   /** Label text displayed above the textarea. */
   label?: string;
   /** Helper text displayed below the textarea when there is no error. */
@@ -13,27 +19,38 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
   errorMessage?: string;
 }
 
+const textareaSizeClasses = {
+  sm: 'py-2 px-3 text-xs min-h-[60px]',
+  md: 'py-3 px-4 text-sm min-h-[80px]',
+  lg: 'py-3.5 px-5 text-base min-h-[100px]',
+};
+
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, label, helperText, error, errorMessage, id, ...props }, ref) => {
+  ({ className, label, helperText, error, errorMessage, textareaSize = 'md', id, ...props }, ref) => {
     const generatedId = useId();
     const inputId = id || generatedId;
     const errorId = `${inputId}-error`;
     return (
-      <div className="flex flex-col gap-2">
-        {label && <label htmlFor={inputId} className="text-sm font-medium text-[var(--foreground)]">{label}</label>}
+      <div className="w-full flex flex-col gap-2">
+        {label && (
+          <label htmlFor={inputId} className="text-sm font-medium text-[var(--foreground)]">
+            {label}
+          </label>
+        )}
         <div className="relative isolate">
           <textarea
             ref={ref}
             id={inputId}
             aria-invalid={error || undefined}
             aria-describedby={error && errorMessage ? errorId : helperText ? errorId : undefined}
-            style={{ transition: 'border-color 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+            style={{ transition: inputTransition }}
             className={cn(
-              'peer relative z-10 w-full min-h-[80px] py-3 px-4 text-sm text-[var(--foreground)] bg-[var(--input-bg)] border border-solid rounded-[var(--radius-m)] outline-none resize-y ring-0 ring-transparent',
+              'peer relative z-10 w-full font-[var(--font-primary)] text-[var(--foreground)] bg-[var(--input-bg)] border-[0.5px] border-solid rounded-[var(--input-radius)] outline-none resize-y',
+              textareaSizeClasses[textareaSize],
               'placeholder:text-[var(--muted-foreground)]',
               'border-[var(--input-border-rest)]',
               'hover:border-[var(--input-border-hover)]',
-              'focus:border-[var(--point)] focus:ring-0 focus:ring-offset-0',
+              'focus:border-[var(--point)] focus:shadow-[var(--input-focus-glow)]',
               error && 'border-[var(--error)] focus:border-[var(--point)]',
               'disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
               className,
@@ -41,8 +58,16 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             {...props}
           />
         </div>
-        {error && errorMessage && <span id={errorId} className="text-xs text-[var(--error)]">{errorMessage}</span>}
-        {helperText && !error && <span id={errorId} className="text-xs text-[var(--muted-foreground)]">{helperText}</span>}
+        {error && errorMessage && (
+          <span id={errorId} className="text-xs text-[var(--error)]">
+            {errorMessage}
+          </span>
+        )}
+        {helperText && !error && (
+          <span id={errorId} className="text-xs text-[var(--muted-foreground)]">
+            {helperText}
+          </span>
+        )}
       </div>
     );
   },

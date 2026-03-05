@@ -1,0 +1,44 @@
+{
+  "title": "설치",
+  "description": "React Native 또는 Expo 프로젝트에서 Tac UI Native를 설치하고 시작하세요.",
+  "sections": {
+    "install": {
+      "title": "1. 패키지 설치",
+      "texts": [
+        "핵심 네이티브 패키지와 공유 토큰 및 아이콘 패키지를 함께 설치합니다.",
+        "아이콘은 @tac-ui/icon-native에서 제공됩니다. @tac-ui/web에서 사용되는 아이콘 세트의 React Native SVG 포팅 버전입니다. 컴포넌트가 React.ReactNode를 받는 곳에 자식 또는 prop으로 아이콘을 전달하세요."
+      ]
+    },
+    "peer-dependencies": {
+      "title": "2. 피어 디펜던시",
+      "texts": [
+        "Tac UI Native는 다음 피어 디펜던시가 필요합니다. 대부분은 표준 React Native / Expo 프로젝트에 이미 포함되어 있습니다.",
+        "Expo를 사용하는 경우 다음과 같이 react-native-svg를 설치합니다:",
+        "그런 다음 react-native-reanimated 설정 가이드를 따라 Babel 플러그인을 추가하세요."
+      ]
+    },
+    "provider": {
+      "title": "3. 프로바이더 추가",
+      "texts": [
+        "테마를 활성화하려면 애플리케이션 루트를 TacNativeProvider로 감싸세요. 모든 자식 컴포넌트가 사용하는 React context에 활성 테마 토큰을 주입합니다.",
+        "defaultMode prop은 \"light\", \"dark\", 또는 \"system\"을 받습니다. \"system\"으로 설정하면 provider가 useColorScheme을 통해 기기의 색상 스킴을 자동으로 따릅니다."
+      ]
+    },
+    "usage": {
+      "title": "4. 컴포넌트 사용",
+      "texts": [
+        "@tac-ui/native에서 컴포넌트를 직접 임포트합니다. 모든 컴포넌트는 로컬 오버라이드를 위한 style prop을 받으며, 해당되는 경우 ref를 전달합니다."
+      ]
+    },
+    "customize": {
+      "title": "5. 디자인 토큰 커스터마이징",
+      "texts": [
+        "TacNativeProvider에 theme prop을 전달하면 어떤 토큰이든 오버라이드할 수 있습니다. 테마 객체는 기본 토큰과 깊은 병합(deep merge)되므로 변경하려는 값만 지정하면 됩니다. 전체 토큰 레퍼런스는 커스터마이징 가이드를 참고하세요 (토큰 이름은 웹과 네이티브 간에 공유됩니다)."
+      ]
+    },
+    "structure": {
+      "title": "프로젝트 구조",
+      "texts": ["네이티브 프로젝트에서 사용하는 모노레포 패키지:"]
+    }
+  }
+}

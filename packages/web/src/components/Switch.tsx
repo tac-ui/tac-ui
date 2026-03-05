@@ -1,7 +1,7 @@
 import React, { forwardRef, useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { diaSpring } from '../constants/motion';
+import { tacSpring } from '../constants/motion';
 import { focusRing } from '../constants/styles';
 
 /** Props for the Switch component, a toggle control that supports controlled and uncontrolled usage. */
@@ -17,10 +17,10 @@ export interface SwitchProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
 }
 
 // Pixel values sourced from packages/tokens/src/component.ts switch tokens:
-// thumbTranslateOff: 4, thumbTranslateOn: 24
+// thumbTranslateOff: 2, thumbTranslateOn: 22
 // Framer Motion cannot animate CSS custom properties, so we use literals.
-const THUMB_X_OFF = 4;
-const THUMB_X_ON = 24;
+const THUMB_X_OFF = 2;
+const THUMB_X_ON = 22;
 
 export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
   ({ className, checked: controlledChecked, defaultChecked = false, onChange, label, disabled, ...props }, ref) => {
@@ -43,7 +43,10 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         aria-checked={checked}
         disabled={disabled}
         onClick={handleClick}
-        style={{ transition: 'background-color 200ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+        style={{
+          transition:
+            'background-color 200ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
         className={cn(
           'relative w-[var(--switch-width)] h-[var(--switch-height)] rounded-[var(--radius-pill)] cursor-pointer',
           focusRing,
@@ -55,18 +58,22 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         {...props}
       >
         <motion.span
-          className="absolute left-0 w-[var(--switch-thumb-size)] h-[var(--switch-thumb-size)] rounded-full bg-[var(--background)] shadow-[var(--shadow-sm)]"
+          className="absolute left-0 w-[var(--switch-thumb-size)] h-[var(--switch-thumb-size)] rounded-full bg-[var(--background)] shadow-[var(--shadow-sm)] pointer-events-none"
           style={{ top: 'calc(50% - var(--switch-thumb-size) / 2)' }}
           animate={{ x: checked ? THUMB_X_ON : THUMB_X_OFF, scale: 1 }}
-          whileTap={{ scale: 0.95 }}
-          transition={diaSpring.magnetic}
+          transition={tacSpring.magnetic}
         />
       </button>
     );
 
     if (label) {
       return (
-        <div className={cn('flex items-center justify-between gap-4 py-3 px-4 rounded-[var(--radius-m)] bg-[var(--interactive-surface-tint)]', className)}>
+        <div
+          className={cn(
+            'flex items-center justify-between gap-4 py-3 px-4 rounded-[var(--radius-m)] bg-[var(--interactive-surface-tint)]',
+            className,
+          )}
+        >
           <span className="text-sm font-medium text-[var(--foreground)]">{label}</span>
           {toggle}
         </div>

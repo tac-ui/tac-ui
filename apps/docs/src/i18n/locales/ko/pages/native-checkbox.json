@@ -1,0 +1,45 @@
+{
+  "title": "Checkbox",
+  "description": "사용자가 불리언 값을 토글할 수 있는 이진 선택 컨트롤입니다. 제어/비제어 모드, 불확정 상태, 레이블, filled 서피스 변형을 지원합니다.",
+  "sections": {
+    "playground": {
+      "title": "플레이그라운드",
+      "texts": ["아래에서 Checkbox props를 대화식으로 설정하세요."]
+    },
+    "default": {
+      "title": "기본",
+      "texts": ["비제어 체크박스는 defaultChecked를 사용하여 내부적으로 상태를 관리합니다."]
+    },
+    "indeterminate": {
+      "title": "불확정",
+      "texts": [
+        "indeterminate prop은 체크마크 대신 대시 아이콘을 표시하며, 일부 항목만 선택된 '전체 선택' 컨트롤에 주로 사용됩니다."
+      ]
+    },
+    "disabled": {
+      "title": "비활성화",
+      "texts": ["비활성화된 체크박스는 상호작용이 불가능하고 투명도가 낮아집니다."]
+    },
+    "controlled": {
+      "title": "제어 모드",
+      "texts": ["부모가 상태를 관리하는 제어 모드에서는 checked와 onChange를 사용하세요."]
+    },
+    "all-states": {
+      "title": "모든 상태",
+      "texts": ["기본, 체크됨, 불확정, 비활성화 네 가지 시각적 상태의 개요입니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "checked": "제어된 체크 상태. 제어 모드에서는 onChange와 함께 사용하세요.",
+    "defaultChecked": "비제어 모드에서의 초기 체크 상태.",
+    "onChange": "체크 상태가 변경될 때 실행되는 콜백.",
+    "label": "체크박스와 나란히 표시되는 텍스트 레이블.",
+    "indeterminate": "true일 때 부분 선택 상태를 나타내는 대시 아이콘을 표시합니다.",
+    "disabled": "true일 때 체크박스를 비활성화하여 상호작용을 차단하고 투명도를 낮춥니다.",
+    "filled": "체크박스와 레이블 주변에 틴트 서피스 배경을 추가하여 더 넓은 인터랙티브 영역을 제공합니다.",
+    "style": "래퍼 컨테이너에 적용되는 추가 React Native 스타일."
+  }
+}

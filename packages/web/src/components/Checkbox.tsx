@@ -1,7 +1,7 @@
 import React, { forwardRef, useEffect, useRef, useImperativeHandle, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { diaSpring } from '../constants/motion';
+import { tacSpring } from '../constants/motion';
 import { peerFocusRing } from '../constants/styles';
 
 /** Props for the Checkbox component, a styled checkbox input with optional label and indeterminate state. */
@@ -15,7 +15,7 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
 }
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ className, label, indeterminate, filled = true, checked, defaultChecked, onChange, ...props }, ref) => {
+  ({ className, label, indeterminate, filled = false, checked, defaultChecked, onChange, ...props }, ref) => {
     const innerRef = useRef<HTMLInputElement>(null);
     useImperativeHandle(ref, () => innerRef.current!);
 
@@ -35,7 +35,17 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     };
 
     return (
-      <label className={cn('group flex items-center gap-3 cursor-pointer transition-colors', filled ? 'py-2.5 px-4 rounded-[var(--radius-m)] bg-[var(--interactive-surface-tint)] hover:bg-[var(--interactive-hover-tint)]' : 'py-1', 'peer-disabled:opacity-60', props.disabled && cn('cursor-default', filled && 'hover:bg-[var(--interactive-surface-tint)]'), className)}>
+      <label
+        className={cn(
+          'group flex items-center gap-3 cursor-pointer transition-colors',
+          filled
+            ? 'py-2.5 px-4 rounded-[var(--radius-m)] bg-[var(--interactive-surface-tint)] hover:bg-[var(--interactive-hover-tint)]'
+            : 'py-1',
+          'peer-disabled:opacity-60',
+          props.disabled && cn('cursor-default', filled && 'hover:bg-[var(--interactive-surface-tint)]'),
+          className,
+        )}
+      >
         <input
           ref={innerRef}
           type="checkbox"
@@ -47,7 +57,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         />
         <motion.span
           className={cn(
-            'relative w-5 h-5 rounded-[var(--checkbox-radius)] border-2 flex items-center justify-center shrink-0',
+            'relative w-5 h-5 rounded-[var(--checkbox-radius)] border-[1.5px] flex items-center justify-center shrink-0',
             peerFocusRing,
             'peer-disabled:bg-[var(--gray-200)] peer-disabled:border-[var(--gray-200)]',
             indeterminate && 'bg-[var(--point)] border-[var(--point)]',
@@ -61,7 +71,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
                 }
           }
           whileTap={{ scale: 0.95 }}
-          transition={{ ...diaSpring.light, backgroundColor: { duration: 0.2 }, borderColor: { duration: 0.2 } }}
+          transition={{ ...tacSpring.light, backgroundColor: { duration: 0.2 }, borderColor: { duration: 0.2 } }}
         >
           {indeterminate ? (
             <svg
@@ -91,7 +101,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
                   initial={{ scale: 0.5, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0.8, opacity: 0 }}
-                  transition={diaSpring.light}
+                  transition={tacSpring.light}
                 >
                   <motion.path
                     d="M11.5 3.5L5.5 10.5L2.5 7.5"

@@ -380,16 +380,25 @@ export type ComponentSize = 'sm' | 'md' | 'lg';
 export type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'point';
 
 /** Badge variant */
-export type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'error' | 'warning' | 'info' | 'gradient';
+export type BadgeVariant =
+  | 'default'
+  | 'secondary'
+  | 'destructive'
+  | 'outline'
+  | 'success'
+  | 'error'
+  | 'warning'
+  | 'info'
+  | 'glass';
 
 /** Status variant (shared across components) */
 export type StatusVariant = 'default' | 'success' | 'error' | 'warning' | 'info';
 
 /** Chip variant */
-export type ChipVariant = 'filter' | 'assist' | 'suggestion' | 'input';
+export type ChipVariant = 'filter' | 'assist' | 'suggestion' | 'input' | 'glass';
 
 /** Tab variant */
-export type TabVariant = 'underline' | 'pill' | 'solid' | 'outline' | 'icon';
+export type TabVariant = 'underline' | 'pill' | 'outline' | 'icon';
 
 /** Divider variant */
 export type DividerVariant = 'full' | 'inset' | 'thick' | 'withLabel';

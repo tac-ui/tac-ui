@@ -2,11 +2,11 @@ import React, { forwardRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../utils/cn';
-import { fadeVariants, diaSpring } from '../constants/motion';
-import { focusRingCompact } from '../constants/styles';
+import { fadeVariants, tacSpring } from '../constants/motion';
+import { focusRing } from '../constants/styles';
 
 const alertVariants = cva(
-  'relative flex items-start gap-3 py-3.5 px-4 rounded-[var(--radius-m)] border border-solid overflow-hidden',
+  'relative flex items-start gap-3 py-3.5 px-4 rounded-[var(--radius-m)] border-[0.5px] border-solid overflow-hidden',
   {
     variants: {
       variant: {
@@ -15,13 +15,13 @@ const alertVariants = cva(
         error: 'bg-[var(--error-bg)] border-[var(--error)] text-[var(--foreground)]',
         warning: 'bg-[var(--warning-bg)] border-[var(--warning)] text-[var(--foreground)]',
         info: 'bg-[var(--info-bg)] border-[var(--info)] text-[var(--foreground)]',
-        glass: 'bg-[var(--glass-bg)] [backdrop-filter:blur(24px)_saturate(180%)] border-[var(--glass-border)] text-[var(--foreground)]',
+        glass:
+          'bg-[var(--glass-bg)] [backdrop-filter:blur(24px)_saturate(180%)] border-[var(--glass-border)] text-[var(--foreground)]',
       },
     },
     defaultVariants: { variant: 'default' },
   },
 );
-
 
 const iconColorMap = {
   default: 'text-[var(--primary)]',
@@ -55,7 +55,7 @@ const alertMotionVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: diaSpring.magnetic,
+    transition: tacSpring.magnetic,
   },
   exit: fadeVariants.exit,
 };
@@ -72,20 +72,15 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
     return (
       <AnimatePresence>
         {!dismissed && (
-          <motion.div
-            variants={alertMotionVariants}
-            initial="initial"
-            animate="visible"
-            exit="exit"
-          >
-            <div
-              ref={ref}
-              role="alert"
-              className={cn(alertVariants({ variant }), className)}
-              {...props}
-            >
+          <motion.div variants={alertMotionVariants} initial="initial" animate="visible" exit="exit">
+            <div ref={ref} role="alert" className={cn(alertVariants({ variant }), className)} {...props}>
               {icon && (
-                <span className={cn('shrink-0 w-5 h-5 [&>svg]:w-5 [&>svg]:h-5', iconColorMap[variant || 'default'])}>
+                <span
+                  className={cn(
+                    'shrink-0 w-[18px] h-[18px] [&>svg]:w-[18px] [&>svg]:h-[18px]',
+                    iconColorMap[variant || 'default'],
+                  )}
+                >
                   {icon}
                 </span>
               )}
@@ -94,10 +89,22 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
                 <button
                   type="button"
                   onClick={handleDismiss}
-                  className={cn('shrink-0 w-6 h-6 flex items-center justify-center rounded-[var(--radius-sm)] bg-transparent border-none cursor-pointer text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)] transition-colors', focusRingCompact)}
+                  className={cn(
+                    'shrink-0 w-6 h-6 flex items-center justify-center rounded-[var(--radius-sm)] bg-transparent border-none cursor-pointer text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)] transition-colors',
+                    focusRing,
+                  )}
                   aria-label="Dismiss alert"
                 >
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    aria-hidden="true"
+                  >
                     <path d="M3.5 3.5l7 7M10.5 3.5l-7 7" />
                   </svg>
                 </button>
@@ -113,7 +120,11 @@ Alert.displayName = 'Alert';
 
 export const AlertTitle = forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => (
-    <h5 ref={ref} className={cn('text-sm font-semibold tracking-tight text-[var(--foreground)]', className)} {...props} />
+    <h5
+      ref={ref}
+      className={cn('text-sm font-semibold tracking-tight text-[var(--foreground)]', className)}
+      {...props}
+    />
   ),
 );
 AlertTitle.displayName = 'AlertTitle';

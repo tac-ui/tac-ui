@@ -4,7 +4,9 @@
   "sections": {
     "usage": {
       "title": "사용법",
-      "texts": ["앱을 ToastProvider로 감싸고(docs 레이아웃에 이미 포함됨), useToast()를 호출하여 toast 함수를 가져옵니다."]
+      "texts": [
+        "앱을 ToastProvider로 감싸고(docs 레이아웃에 이미 포함됨), useToast()를 호출하여 toast 함수를 가져옵니다."
+      ]
     },
     "variants": {
       "title": "변형"

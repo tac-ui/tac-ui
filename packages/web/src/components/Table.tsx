@@ -21,13 +21,24 @@ TableHeader.displayName = 'TableHeader';
 
 /** Renders the `<tbody>` section, removing the border from the last row. */
 export const TableBody = forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(
-  ({ className, ...props }, ref) => <tbody ref={ref} className={cn('[&_tr:last-child]:border-0', className)} {...props} />,
+  ({ className, ...props }, ref) => (
+    <tbody ref={ref} className={cn('[&_tr:last-child]:border-0', className)} {...props} />
+  ),
 );
 TableBody.displayName = 'TableBody';
 
 /** Renders the `<tfoot>` section with a top border and secondary background. */
 export const TableFooter = forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(
-  ({ className, ...props }, ref) => <tfoot ref={ref} className={cn('border-t border-solid border-[var(--border)] bg-[var(--muted)] font-medium [&_td]:py-3 [&_td]:align-middle [&_th]:py-3 [&_th]:align-middle', className)} {...props} />,
+  ({ className, ...props }, ref) => (
+    <tfoot
+      ref={ref}
+      className={cn(
+        'border-t border-solid border-[var(--border)] bg-[var(--muted)] font-medium [&_td]:py-3 [&_td]:align-middle [&_th]:py-3 [&_th]:align-middle',
+        className,
+      )}
+      {...props}
+    />
+  ),
 );
 TableFooter.displayName = 'TableFooter';
 
@@ -54,7 +65,15 @@ TableRow.displayName = 'TableRow';
 /** Renders a `<th>` header cell with muted foreground text and medium font weight. */
 export const TableHead = forwardRef<HTMLTableCellElement, React.ThHTMLAttributes<HTMLTableCellElement>>(
   ({ className, ...props }, ref) => (
-    <th ref={ref} scope="col" className={cn('h-10 px-4 text-left align-middle font-medium text-[var(--muted-foreground)] [&:has([role=checkbox])]:pr-0', className)} {...props} />
+    <th
+      ref={ref}
+      scope="col"
+      className={cn(
+        'h-10 px-4 text-left align-middle font-medium text-[var(--muted-foreground)] [&:has([role=checkbox])]:pr-0',
+        className,
+      )}
+      {...props}
+    />
   ),
 );
 TableHead.displayName = 'TableHead';

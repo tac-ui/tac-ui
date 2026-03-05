@@ -22,10 +22,10 @@ const tacThemePlugin = plugin(({ addBase }) => {
       transitionDuration: 'var(--duration-normal)',
       transitionTimingFunction: 'var(--ease-standard)',
     },
-    'body': {
+    body: {
       backgroundColor: 'var(--background)',
       color: 'var(--foreground)',
-      fontFamily: "var(--font-primary), system-ui, sans-serif",
+      fontFamily: 'var(--font-primary), system-ui, sans-serif',
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
     },

@@ -7,7 +7,7 @@ const dividerVariants = cva('', {
     variant: {
       full: 'w-full h-px bg-[var(--border)]',
       inset: 'h-px bg-[var(--border)] mx-16',
-      thick: 'w-full h-[2px] bg-[var(--border)]',
+      thick: 'w-full h-px bg-[var(--foreground)]/10',
       withLabel: 'flex items-center gap-4 w-full',
     },
   },
@@ -28,20 +28,20 @@ export interface DividerProps extends React.HTMLAttributes<HTMLDivElement>, Vari
   label?: string;
 }
 
-export const Divider = forwardRef<HTMLDivElement, DividerProps>(
-  ({ className, variant, label, ...props }, ref) => {
-    if (variant === 'withLabel' || label) {
-      return (
-        <div ref={ref} className={cn('flex items-center gap-4 w-full', className)} {...props}>
-          <span className="flex-1 h-px bg-[var(--border)]" />
-          <span className="text-xs text-[var(--muted-foreground)] whitespace-nowrap font-medium px-1 tracking-wide">{label}</span>
-          <span className="flex-1 h-px bg-[var(--border)]" />
-        </div>
-      );
-    }
-    return <div ref={ref} role="separator" className={cn(dividerVariants({ variant }), className)} {...props} />;
-  },
-);
+export const Divider = forwardRef<HTMLDivElement, DividerProps>(({ className, variant, label, ...props }, ref) => {
+  if (variant === 'withLabel' || label) {
+    return (
+      <div ref={ref} className={cn('flex items-center gap-4 w-full', className)} {...props}>
+        <span className="flex-1 h-px bg-[var(--border)]" />
+        <span className="text-xs text-[var(--muted-foreground)] whitespace-nowrap font-medium px-1 tracking-wide">
+          {label}
+        </span>
+        <span className="flex-1 h-px bg-[var(--border)]" />
+      </div>
+    );
+  }
+  return <div ref={ref} role="separator" className={cn(dividerVariants({ variant }), className)} {...props} />;
+});
 Divider.displayName = 'Divider';
 
 export { dividerVariants };

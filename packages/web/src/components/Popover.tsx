@@ -6,7 +6,6 @@ import { panelVariants } from '../constants/motion';
 import { focusRing } from '../constants/styles';
 import { mergeRefs } from '../utils/mergeRefs';
 
-
 /** Horizontal or vertical alignment of the popover panel relative to its trigger. */
 export type PopoverAlign = 'start' | 'center' | 'end';
 
@@ -62,16 +61,7 @@ const alignClassesLeftRight: Record<PopoverAlign, string> = {
  */
 export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
   (
-    {
-      trigger,
-      open: controlledOpen,
-      onOpenChange,
-      side = 'bottom',
-      align = 'center',
-      className,
-      children,
-      ...props
-    },
+    { trigger, open: controlledOpen, onOpenChange, side = 'bottom', align = 'center', className, children, ...props },
     ref,
   ) => {
     const [internalOpen, setInternalOpen] = useState(false);
@@ -109,16 +99,17 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
     }, [open, setOpen]);
 
     const isTopBottom = side === 'top' || side === 'bottom';
-    const alignClass = isTopBottom
-      ? alignClassesTopBottom[align]
-      : alignClassesLeftRight[align];
+    const alignClass = isTopBottom ? alignClassesTopBottom[align] : alignClassesLeftRight[align];
 
-    const handleTriggerKeyDown = useCallback((e: React.KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        setOpen(!open);
-      }
-    }, [open, setOpen]);
+    const handleTriggerKeyDown = useCallback(
+      (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setOpen(!open);
+        }
+      },
+      [open, setOpen],
+    );
 
     return (
       <div ref={containerRef} className={cn('relative inline-block', className)} {...props}>
@@ -167,11 +158,7 @@ Popover.displayName = 'Popover';
  */
 export const PopoverHeader = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn('px-4 py-3 border-b border-solid border-[var(--border)]', className)}
-      {...props}
-    />
+    <div ref={ref} className={cn('px-4 py-3 border-b border-solid border-[var(--border)]', className)} {...props} />
   ),
 );
 PopoverHeader.displayName = 'PopoverHeader';
@@ -181,9 +168,7 @@ PopoverHeader.displayName = 'PopoverHeader';
  * Intended for the main content of the popover.
  */
 export const PopoverBody = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('px-4 py-3', className)} {...props} />
-  ),
+  ({ className, ...props }, ref) => <div ref={ref} className={cn('px-4 py-3', className)} {...props} />,
 );
 PopoverBody.displayName = 'PopoverBody';
 
@@ -193,11 +178,7 @@ PopoverBody.displayName = 'PopoverBody';
  */
 export const PopoverFooter = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn('px-4 py-3 border-t border-solid border-[var(--border)]', className)}
-      {...props}
-    />
+    <div ref={ref} className={cn('px-4 py-3 border-t border-solid border-[var(--border)]', className)} {...props} />
   ),
 );
 PopoverFooter.displayName = 'PopoverFooter';

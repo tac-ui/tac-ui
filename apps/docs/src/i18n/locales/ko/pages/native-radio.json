@@ -1,0 +1,43 @@
+{
+  "title": "Radio",
+  "description": "한 번에 하나만 선택할 수 있는 상호 배타적 옵션 세트입니다. 제어/비제어 모드, 라벨, 채우기 스타일, 비활성화 상태를 지원합니다.",
+  "sections": {
+    "playground": {
+      "title": "플레이그라운드",
+      "texts": ["아래에서 Radio 그룹 props를 대화식으로 설정하세요."]
+    },
+    "default-group": {
+      "title": "기본 그룹",
+      "texts": [
+        "Radio 아이템들을 RadioGroup 안에 넣어 사용합니다. 각 Radio는 고유한 value prop이 필요합니다. 비제어 모드에서는 그룹이 선택 상태를 내부적으로 관리합니다."
+      ]
+    },
+    "controlled": {
+      "title": "제어 모드",
+      "texts": [
+        "RadioGroup에 value와 onChange를 전달하면 선택 상태를 외부에서 제어할 수 있습니다. onChange 콜백은 새로 선택된 값 문자열을 전달받습니다."
+      ]
+    },
+    "disabled": {
+      "title": "비활성화",
+      "texts": [
+        "개별 Radio 아이템에 disabled를 설정하면 상호작용을 방지합니다. 비활성화된 아이템은 투명도가 낮아지고 터치 이벤트를 무시합니다."
+      ]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "defaultValue": "비제어 모드의 초기 선택 값.",
+    "value": "제어 모드의 선택된 값.",
+    "onChange": "선택된 라디오가 변경될 때 호출됩니다.",
+    "children": "그룹 내에 렌더링할 Radio 아이템.",
+    "radiogroup-style": "그룹 컨테이너에 적용되는 추가 스타일.",
+    "radio-value": "이 라디오가 나타내는 값. 그룹 내에서 고유해야 합니다.",
+    "radio-label": "라디오 원 옆에 렌더링되는 선택적 텍스트 라벨.",
+    "radio-disabled": "true일 때 상호작용을 방지하고 투명도를 낮춥니다.",
+    "radio-filled": "true일 때 라디오 래퍼에 색조 배경과 패딩을 추가합니다.",
+    "radio-style": "라디오 래퍼에 적용되는 추가 스타일."
+  }
+}

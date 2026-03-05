@@ -1,0 +1,27 @@
+{
+  "title": "Icons",
+  "description": "Tac UI Native는 아이콘으로 lucide-react-native를 사용합니다. 아이콘을 클릭하면 import 구문이 복사됩니다.",
+  "sections": {
+    "usage": {
+      "title": "사용법"
+    },
+    "general": { "title": "일반" },
+    "media": { "title": "미디어" },
+    "communication": { "title": "커뮤니케이션" },
+    "files": { "title": "파일" },
+    "interface": { "title": "인터페이스" },
+    "status": { "title": "상태" },
+    "social": { "title": "소셜" },
+    "security": { "title": "보안" },
+    "weather": { "title": "날씨" },
+    "editing": { "title": "편집" },
+    "navigation": { "title": "내비게이션" },
+    "commerce": { "title": "커머스" },
+    "all-icons": {
+      "title": "전체 아이콘",
+      "texts": [
+        "Lucide는 1500개 이상의 아이콘을 제공합니다. 전체 라이브러리와 검색은 lucide.dev를 방문하세요. lucide-react-native의 모든 아이콘은 @tac-ui/icon-native를 통해 사용 가능합니다."
+      ]
+    }
+  }
+}

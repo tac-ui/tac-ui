@@ -1,7 +1,9 @@
 {
   "name": "@tac-ui/tokens",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Design tokens for Tac UI",
+  "license": "MIT",
+  "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -15,9 +17,17 @@
       "types": "./dist/web/css-variables.d.ts",
       "import": "./dist/web/css-variables.mjs",
       "require": "./dist/web/css-variables.js"
+    },
+    "./native": {
+      "types": "./dist/native/index.d.ts",
+      "import": "./dist/native/index.mjs",
+      "require": "./dist/native/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist",
+    "native"
+  ],
   "publishConfig": {
     "access": "public"
   },

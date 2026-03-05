@@ -1,0 +1,22 @@
+{
+  "expo": {
+    "name": "Tac UI Native Docs",
+    "slug": "tac-ui-native-docs",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "tacuidocs",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tacui.nativedocs"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.tacui.nativedocs"
+    },
+    "plugins": ["expo-font"]
+  }
+}

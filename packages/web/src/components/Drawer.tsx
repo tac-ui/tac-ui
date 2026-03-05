@@ -2,10 +2,9 @@ import React, { forwardRef, useEffect, useCallback, useRef, useId } from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { useFocusTrap, useFocusRestore } from '../hooks/useAccessibility';
-import { diaSpring } from '../constants/motion';
+import { tacSpring } from '../constants/motion';
 import { mergeRefs } from '../utils/mergeRefs';
 import type { MotionConflictingHandlers } from '../constants/types';
-
 
 /** Controls which edge the Drawer slides in from. */
 export type DrawerSide = 'left' | 'right' | 'top' | 'bottom';
@@ -42,7 +41,10 @@ const radiusClasses: Record<DrawerSide, string> = {
   bottom: 'rounded-t-[var(--radius-xl)]',
 };
 
-const panelVariants: Record<DrawerSide, { initial: { x?: string; y?: string }; animate: { x?: number; y?: number }; exit: { x?: string; y?: string } }> = {
+const panelVariants: Record<
+  DrawerSide,
+  { initial: { x?: string; y?: string }; animate: { x?: number; y?: number }; exit: { x?: string; y?: string } }
+> = {
   left: {
     initial: { x: '-100%' },
     animate: { x: 0 },
@@ -77,9 +79,12 @@ export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(
     useFocusRestore(open);
     useFocusTrap(panelRef, open);
 
-    const handleKeyDown = useCallback((e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    }, [onClose]);
+    const handleKeyDown = useCallback(
+      (e: KeyboardEvent) => {
+        if (e.key === 'Escape') onClose();
+      },
+      [onClose],
+    );
 
     useEffect(() => {
       if (open) {
@@ -102,20 +107,22 @@ export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className={cn("fixed inset-0 z-[var(--z-modal)]", backdrop && "bg-black/40 backdrop-blur-sm")}
-            onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+            className={cn('fixed inset-0 z-[var(--z-modal)]', backdrop && 'bg-black/30 backdrop-blur-md')}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) onClose();
+            }}
           >
             <motion.div
               ref={mergeRefs(panelRef, ref)}
               initial={initial}
               animate={animate}
               exit={exit}
-              transition={diaSpring.heavy}
+              transition={tacSpring.heavy}
               role="dialog"
               aria-modal="true"
               aria-labelledby={titleId}
               className={cn(
-                'fixed flex flex-col [backdrop-filter:blur(24px)_saturate(180%)] bg-[var(--background)] border border-solid border-[var(--input-border-rest)] [box-shadow:var(--glass-inset),var(--glass-panel-shadow)] overflow-hidden',
+                'fixed flex flex-col [backdrop-filter:blur(24px)_saturate(180%)] bg-[var(--background)] border-[0.5px] border-solid border-[var(--input-border-rest)] [box-shadow:var(--glass-inset),var(--glass-panel-shadow)] overflow-hidden',
                 panelStaticClasses[side],
                 radiusClasses[side],
                 className,
@@ -169,7 +176,7 @@ export const DrawerFooter = forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('flex justify-end gap-3 px-6 py-4 border-t border-solid border-[var(--border)]', className)}
+      className={cn('flex justify-end gap-2 px-6 py-5 border-t-[0.5px] border-solid border-[var(--border)]', className)}
       {...props}
     />
   ),

@@ -1,0 +1,68 @@
+{
+  "title": "Customization",
+  "description": "Customize native theme tokens by providing overrides to TacNativeProvider. All components consume tokens from the theme context via useTacNativeTheme().",
+  "sections": {
+    "how-it-works": {
+      "title": "How It Works",
+      "texts": [
+        "All Tac UI Native components consume design tokens via useTacNativeTheme(). Tokens are provided through TacNativeProvider and built from @tac-ui/tokens. You can override colors, spacing, border radius, motion, and more at the provider level.",
+        "Wrap your app in TacNativeProvider once. The default theme is built automatically from the tokens package. Use the theme prop to pass overrides — they are deep-merged with the defaults so you only specify what you want to change. Use useTacNativeTheme() anywhere in the tree to access the active theme object and switch modes."
+      ]
+    },
+    "theme-overrides": {
+      "title": "Theme Overrides",
+      "texts": [
+        "The simplest way to customize is to pass a theme prop to TacNativeProvider. The override object is deep-merged with the default theme, so only the values you specify are changed — all other tokens remain at their defaults."
+      ]
+    },
+    "per-mode-overrides": {
+      "title": "Per-Mode Overrides",
+      "texts": [
+        "To customize tokens differently for light and dark modes, use the lightTheme and darkTheme props on TacNativeProvider. These are merged on top of the base theme overrides for the matching mode."
+      ]
+    },
+    "per-component-overrides": {
+      "title": "Per-Component Overrides",
+      "texts": [
+        "Every Tac UI Native component accepts a style prop for local overrides. For structural customization (padding, border radius, etc.) you can override the style directly. For color overrides that should follow the theme, use the component's dedicated style props."
+      ]
+    },
+    "token-reference": {
+      "title": "Token Reference"
+    },
+    "token-reference-colors": {
+      "title": "Colors",
+      "texts": ["Core color tokens available via theme.colors.*"]
+    },
+    "token-reference-status-colors": {
+      "title": "Status Colors",
+      "texts": [
+        "Semantic colors for feedback states. Each has matching Bg and Foreground variants accessible via theme.colors.*"
+      ]
+    },
+    "token-reference-spacing": {
+      "title": "Spacing",
+      "texts": ["Spacing tokens available via theme.spacing.* (values in points)."]
+    },
+    "token-reference-border-radius": {
+      "title": "Border Radius",
+      "texts": ["Rounding scale from sharp to fully rounded. Available via theme.radius.* (values in points)."]
+    },
+    "token-reference-motion": {
+      "title": "Motion",
+      "texts": ["Duration and spring config tokens for animations. Available via theme.motion.*"]
+    },
+    "programmatic-access": {
+      "title": "Programmatic Access",
+      "texts": [
+        "You can also access and generate tokens programmatically by importing directly from the @tac-ui/tokens package. This is useful for building custom theme objects or computing derived values at runtime."
+      ]
+    },
+    "theme-structure": {
+      "title": "Full Theme Structure",
+      "texts": [
+        "Complete reference of the theme object returned by useTacNativeTheme(). All values below are the built-in light mode defaults."
+      ]
+    }
+  }
+}

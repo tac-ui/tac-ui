@@ -1,8 +1,8 @@
 import React, { forwardRef, useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { diaSpring } from '../constants/motion';
-import { focusRingPoint, focusRingCompact } from '../constants/styles';
+import { tacSpring } from '../constants/motion';
+import { focusRingPoint, focusRing } from '../constants/styles';
 
 /** Props for the MorphingCard component, which smoothly morphs between a compact preview and an expanded detail view. */
 export interface MorphingCardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -85,7 +85,7 @@ export const MorphingCard = forwardRef<HTMLDivElement, MorphingCardProps>(
           <motion.div
             ref={ref}
             layoutId={layoutId}
-            transition={diaSpring.default}
+            transition={tacSpring.default}
             onClick={handleCollapsedClick}
             role="button"
             tabIndex={0}
@@ -95,7 +95,10 @@ export const MorphingCard = forwardRef<HTMLDivElement, MorphingCardProps>(
                 setExpanded(true);
               }
             }}
-            style={{ transition: 'box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+            style={{
+              transition:
+                'box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+            }}
             className={cn(
               glassClasses,
               'p-[var(--card-padding)] flex flex-col gap-[var(--card-gap)]',
@@ -123,7 +126,7 @@ export const MorphingCard = forwardRef<HTMLDivElement, MorphingCardProps>(
             >
               <motion.div
                 layoutId={layoutId}
-                transition={diaSpring.default}
+                transition={tacSpring.default}
                 className={cn(
                   glassClasses,
                   'p-[var(--card-padding)] flex flex-col gap-[var(--card-gap)]',
@@ -135,10 +138,25 @@ export const MorphingCard = forwardRef<HTMLDivElement, MorphingCardProps>(
                   type="button"
                   aria-label="Close"
                   onClick={() => setExpanded(false)}
-                  style={{ transition: 'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)' }}
-                  className={cn('absolute top-3 right-3 flex items-center justify-center w-7 h-7 rounded-full bg-[var(--muted)] text-[var(--muted-foreground)] hover:bg-[var(--secondary)] cursor-pointer border-none', focusRingCompact)}
+                  style={{
+                    transition:
+                      'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)',
+                  }}
+                  className={cn(
+                    'absolute top-3 right-3 flex items-center justify-center w-7 h-7 rounded-full bg-[var(--muted)] text-[var(--muted-foreground)] hover:bg-[var(--secondary)] cursor-pointer border-none',
+                    focusRing,
+                  )}
                 >
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M10 2L2 10" />
                     <path d="M2 2l8 8" />
                   </svg>

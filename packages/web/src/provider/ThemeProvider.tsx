@@ -58,7 +58,10 @@ function TacThemeInner({ children }: { children: React.ReactNode }) {
   const setMode = useCallback((newMode: ThemeMode) => setTheme(newMode), [setTheme]);
   const setPreference = useCallback((pref: ThemePreference) => setTheme(pref), [setTheme]);
   const toggleMode = useCallback(() => setTheme(mode === 'light' ? 'dark' : 'light'), [mode, setTheme]);
-  const value = useMemo<UseTacThemeReturn>(() => ({ theme: tacTheme, mode, setMode, toggleMode, preference, setPreference }), [tacTheme, mode, setMode, toggleMode, preference, setPreference]);
+  const value = useMemo<UseTacThemeReturn>(
+    () => ({ theme: tacTheme, mode, setMode, toggleMode, preference, setPreference }),
+    [tacTheme, mode, setMode, toggleMode, preference, setPreference],
+  );
   return <TacThemeContext.Provider value={value}>{children}</TacThemeContext.Provider>;
 }
 

@@ -1,7 +1,7 @@
 import React, { createContext, forwardRef, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { diaSpring } from '../constants/motion';
+import { tacSpring } from '../constants/motion';
 
 /** Orientation of the Stepper layout. */
 export type StepperOrientation = 'horizontal' | 'vertical';
@@ -28,7 +28,6 @@ interface StepIndexContextValue {
 }
 
 const StepIndexContext = createContext<StepIndexContextValue>({ index: 0 });
-
 
 /**
  * Multi-step wizard/workflow indicator container.
@@ -57,7 +56,13 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
     if (orientation === 'horizontal') {
       return (
         <StepperContext.Provider value={{ activeStep, orientation, totalSteps, alignLabels }}>
-          <div ref={ref} role="group" aria-label="Progress steps" className={cn('flex flex-col gap-2', className)} {...props}>
+          <div
+            ref={ref}
+            role="group"
+            aria-label="Progress steps"
+            className={cn('flex flex-col gap-2', className)}
+            {...props}
+          >
             {/* Top row: circles + connectors */}
             <div className="flex items-center">
               {steps.map((child, index) => {
@@ -151,30 +156,53 @@ function StepCircle({ icon }: { icon?: React.ReactNode }) {
   return (
     <motion.div
       className={cn(
-        'w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium shrink-0 border-2 border-solid',
+        'w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium shrink-0 border-[1.5px] border-solid',
         isCompleted && 'bg-[var(--point)] border-[var(--point)] text-[var(--point-foreground)]',
         isActive && 'border-[var(--point)] text-[var(--point)] bg-transparent',
         !isCompleted && !isActive && 'bg-[var(--secondary)] border-transparent text-[var(--muted-foreground)]',
       )}
-      animate={isActive ? { scale: 1.05, boxShadow: '0 0 0 3px var(--point-subtle)' } : { scale: 1, boxShadow: '0 0 0 0px transparent' }}
-      transition={diaSpring.default}
+      animate={isActive ? { scale: 1, boxShadow: 'none' } : { scale: 1, boxShadow: 'none' }}
+      transition={tacSpring.default}
     >
       <AnimatePresence mode="wait" initial={false}>
         {isCompleted ? (
           <motion.svg
             key="check"
-            width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            transition={diaSpring.light}
+            transition={tacSpring.light}
           >
             <path d="M3 8l3.5 3.5 6.5-7" />
           </motion.svg>
         ) : icon ? (
-          <motion.span key="icon" className="[&>svg]:w-4 [&>svg]:h-4" initial={{ scale: 0.8 }} animate={{ scale: 1 }} transition={diaSpring.default}>{icon}</motion.span>
+          <motion.span
+            key="icon"
+            className="[&>svg]:w-4 [&>svg]:h-4"
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={tacSpring.default}
+          >
+            {icon}
+          </motion.span>
         ) : (
-          <motion.span key={`num-${index}`} initial={{ scale: 0.8 }} animate={{ scale: 1 }} transition={diaSpring.default}>{index + 1}</motion.span>
+          <motion.span
+            key={`num-${index}`}
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={tacSpring.default}
+          >
+            {index + 1}
+          </motion.span>
         )}
       </AnimatePresence>
     </motion.div>
@@ -182,7 +210,17 @@ function StepCircle({ icon }: { icon?: React.ReactNode }) {
 }
 
 /** Internal label for horizontal layout. */
-function StepLabel({ title, description, status, className }: { title: string; description?: string; status?: 'completed' | 'active' | 'pending'; className?: string }) {
+function StepLabel({
+  title,
+  description,
+  status,
+  className,
+}: {
+  title: string;
+  description?: string;
+  status?: 'completed' | 'active' | 'pending';
+  className?: string;
+}) {
   const { activeStep } = useContext(StepperContext);
   const { index } = useContext(StepIndexContext);
 
@@ -191,12 +229,15 @@ function StepLabel({ title, description, status, className }: { title: string; d
 
   return (
     <div className={className}>
-      <p className={cn('text-sm font-medium leading-tight', isHighlighted ? 'text-[var(--foreground)]' : 'text-[var(--muted-foreground)]')}>
+      <p
+        className={cn(
+          'text-sm font-medium leading-tight',
+          isHighlighted ? 'text-[var(--foreground)]' : 'text-[var(--muted-foreground)]',
+        )}
+      >
         {title}
       </p>
-      {description && (
-        <p className="text-xs text-[var(--muted-foreground)] mt-0.5 leading-tight">{description}</p>
-      )}
+      {description && <p className="text-xs text-[var(--muted-foreground)] mt-0.5 leading-tight">{description}</p>}
     </div>
   );
 }
@@ -223,45 +264,63 @@ export const Step = forwardRef<HTMLDivElement, StepProps>(
     const { index } = useContext(StepIndexContext);
 
     const resolvedStatus: 'completed' | 'active' | 'pending' =
-      status ??
-      (index < activeStep ? 'completed' : index === activeStep ? 'active' : 'pending');
+      status ?? (index < activeStep ? 'completed' : index === activeStep ? 'active' : 'pending');
 
     const isCompleted = resolvedStatus === 'completed';
     const isActive = resolvedStatus === 'active';
 
     return (
-      <div
-        ref={ref}
-        className={cn('flex flex-row items-start gap-3', className)}
-        {...props}
-      >
+      <div ref={ref} className={cn('flex flex-row items-start gap-3', className)} {...props}>
         {/* Circle */}
         <motion.div
           className={cn(
-            'w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium shrink-0 border-2 border-solid',
+            'w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium shrink-0 border-[1.5px] border-solid',
             isCompleted && 'bg-[var(--point)] border-[var(--point)] text-[var(--point-foreground)]',
             isActive && 'border-[var(--point)] text-[var(--point)] bg-transparent',
             !isCompleted && !isActive && 'bg-[var(--secondary)] border-transparent text-[var(--muted-foreground)]',
           )}
-          animate={isActive ? { scale: 1.05, boxShadow: '0 0 0 3px var(--point-subtle)' } : { scale: 1, boxShadow: '0 0 0 0px transparent' }}
-          transition={diaSpring.default}
+          animate={isActive ? { scale: 1, boxShadow: 'none' } : { scale: 1, boxShadow: 'none' }}
+          transition={tacSpring.default}
         >
           <AnimatePresence mode="wait" initial={false}>
             {isCompleted ? (
               <motion.svg
                 key="check"
-                width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0, opacity: 0 }}
-                transition={diaSpring.light}
+                transition={tacSpring.light}
               >
                 <path d="M3 8l3.5 3.5 6.5-7" />
               </motion.svg>
             ) : icon ? (
-              <motion.span key="icon" className="[&>svg]:w-4 [&>svg]:h-4" initial={{ scale: 0.8 }} animate={{ scale: 1 }} transition={diaSpring.default}>{icon}</motion.span>
+              <motion.span
+                key="icon"
+                className="[&>svg]:w-4 [&>svg]:h-4"
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                transition={tacSpring.default}
+              >
+                {icon}
+              </motion.span>
             ) : (
-              <motion.span key={`num-${index}`} initial={{ scale: 0.8 }} animate={{ scale: 1 }} transition={diaSpring.default}>{index + 1}</motion.span>
+              <motion.span
+                key={`num-${index}`}
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                transition={tacSpring.default}
+              >
+                {index + 1}
+              </motion.span>
             )}
           </AnimatePresence>
         </motion.div>
@@ -276,9 +335,7 @@ export const Step = forwardRef<HTMLDivElement, StepProps>(
           >
             {title}
           </span>
-          {description && (
-            <span className="text-xs text-[var(--muted-foreground)] mt-0.5">{description}</span>
-          )}
+          {description && <span className="text-xs text-[var(--muted-foreground)] mt-0.5">{description}</span>}
         </div>
       </div>
     );

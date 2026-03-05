@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { focusRingCompact } from '../constants/styles';
+import { focusRing } from '../constants/styles';
 
 /**
  * Displays a syntax-highlighted code block with a copy-to-clipboard button.
@@ -43,20 +43,21 @@ export const CodeBlock = forwardRef<HTMLDivElement, CodeBlockProps>(
             glass ? 'bg-transparent' : 'bg-[var(--muted)]',
           )}
         >
-          {language && (
-            <span className="text-xs text-[var(--muted-foreground)] font-mono">{language}</span>
-          )}
+          {language && <span className="text-xs text-[var(--muted-foreground)] font-mono">{language}</span>}
           {!language && <span />}
           <motion.button
             type="button"
             onClick={handleCopy}
             aria-live="polite"
             whileTap={{ scale: 0.95 }}
-            style={{ transition: 'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+            style={{
+              transition:
+                'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)',
+            }}
             className={cn(
               'text-xs text-[var(--muted-foreground)] bg-transparent border-none cursor-pointer px-2 py-0.5 rounded-[var(--radius-sm)]',
               'hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)]',
-              focusRingCompact,
+              focusRing,
             )}
           >
             <AnimatePresence mode="wait" initial={false}>

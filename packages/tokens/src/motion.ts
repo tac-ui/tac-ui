@@ -1,31 +1,36 @@
 /**
- * Motion tokens — Tac UI Dia-inspired organic spring interactions.
+ * Motion tokens — Tac UI organic spring interactions.
  * Elements have mass and momentum. They spring into place with natural
  * deceleration rather than sliding mechanically.
- *
- * Philosophy: Dia browser (by The Browser Company) feels physical and alive.
- * UI elements have MASS and MOMENTUM — they don't just move, they spring into
- * place. The key is spring-approximation cubic-bezier curves that overshoot
- * very slightly, creating a living feel without being bouncy or distracting.
  *
  * Spring physics needs time to resolve — durations are intentionally longer
  * than "snappy" UI so the spring character reads clearly.
  */
 import type { ThemeMotion } from '@tac-ui/shared';
 
-type SpringPreset = { readonly type: 'spring'; readonly stiffness: number; readonly damping: number; readonly mass?: number };
+type SpringPreset = {
+  readonly type: 'spring';
+  readonly stiffness: number;
+  readonly damping: number;
+  readonly mass?: number;
+};
 type MotionTokens = ThemeMotion & {
   spring: Record<string, SpringPreset>;
-  diaSpring: Record<string, SpringPreset>;
+  tacSpring: Record<string, SpringPreset>;
   keyframes: Record<string, Record<string, unknown>>;
-  glow: { rotationSpeed: Record<string, number>; blur: Record<string, number>; opacity: Record<string, number>; spread: Record<string, number> };
+  glow: {
+    rotationSpeed: Record<string, number>;
+    blur: Record<string, number>;
+    opacity: Record<string, number>;
+    spread: Record<string, number>;
+  };
   morph: { spring: SpringPreset; springFast: SpringPreset };
 };
 
-/** Default Dia spring — standard mass, used for layout shifts and morph transitions. */
-const DIA_SPRING_DEFAULT = { type: 'spring' as const, stiffness: 260, damping: 34, mass: 1 } as const;
-/** Light Dia spring — half mass, used for nimble interactive feedback. */
-const DIA_SPRING_LIGHT = { type: 'spring' as const, stiffness: 260, damping: 34, mass: 0.5 } as const;
+/** Default spring — standard mass, tuned damping for natural deceleration. */
+const TAC_SPRING_DEFAULT = { type: 'spring' as const, stiffness: 300, damping: 35, mass: 1 } as const;
+/** Light spring — half mass, tuned for nimble interactive feedback. */
+const TAC_SPRING_LIGHT = { type: 'spring' as const, stiffness: 350, damping: 35, mass: 0.5 } as const;
 
 export const motion = {
   duration: {
@@ -36,43 +41,43 @@ export const motion = {
     complex: 450,
   },
   easing: {
-    /** Dia's signature curve — slight overshoot with smooth natural deceleration. */
-    standard: 'cubic-bezier(0.22, 1, 0.36, 1)',
+    /** Slight overshoot with smooth natural deceleration. */
+    standard: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
     /** Exit easing — fast acceleration, abrupt departure. */
-    easeIn: 'cubic-bezier(0.55, 0, 1, 0.45)',
+    easeIn: 'cubic-bezier(0.42, 0, 1, 1)',
     /** Entrance easing — gentle deceleration without overshoot. */
-    easeOut: 'cubic-bezier(0, 0.55, 0.45, 1)',
+    easeOut: 'cubic-bezier(0, 0, 0.58, 1)',
     /** Symmetric ease — smooth in both directions. */
     easeInOut: 'cubic-bezier(0.65, 0, 0.35, 1)',
-    /** Playful overshoot — for toggles, switches, confirmatory feedback. */
-    bounce: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
-    /** Stronger spring feel — deliberate physical presence. */
-    spring: 'cubic-bezier(0.22, 1.2, 0.36, 1)',
+    /** Restrained overshoot — for toggles, switches, confirmatory feedback. */
+    bounce: 'cubic-bezier(0.34, 1.3, 0.64, 1)',
+    /** Subtle spring feel — deliberate physical presence. */
+    spring: 'cubic-bezier(0.22, 1.1, 0.36, 1)',
     /** Subtle rubber-band — elastic resistance with quick snap back. */
-    elastic: 'cubic-bezier(0.68, -0.2, 0.265, 1.2)',
+    elastic: 'cubic-bezier(0.68, -0.1, 0.265, 1.1)',
   },
-  /** Framer Motion spring presets calibrated for Dia-style organic feel. */
+  /** Framer Motion spring presets — tuned with higher damping for natural deceleration. */
   spring: {
     /** Quick interactive feedback — subtle and responsive. */
-    snappy: { type: 'spring' as const, stiffness: 260, damping: 28 },
+    snappy: { type: 'spring' as const, stiffness: 260, damping: 32 },
     /** Smooth state changes — gentle spring resolution. */
-    gentle: { type: 'spring' as const, stiffness: 180, damping: 26 },
+    gentle: { type: 'spring' as const, stiffness: 180, damping: 30 },
     /** Toggle/switch feel — restrained with minimal bounce. */
-    bouncy: { type: 'spring' as const, stiffness: 260, damping: 24 },
+    bouncy: { type: 'spring' as const, stiffness: 260, damping: 30 },
     /** Large layout shifts — deliberate mass with controlled deceleration. */
-    slow: { type: 'spring' as const, stiffness: 140, damping: 24 },
+    slow: { type: 'spring' as const, stiffness: 140, damping: 28 },
     /** Press/release with life — elastic resistance, mass gives it weight. */
-    elastic: { type: 'spring' as const, stiffness: 220, damping: 22, mass: 0.8 },
+    elastic: { type: 'spring' as const, stiffness: 220, damping: 28, mass: 0.8 },
     /** Elements appearing — spring resolves cleanly with organic arrival. */
-    entrance: { type: 'spring' as const, stiffness: 180, damping: 24, mass: 0.9 },
+    entrance: { type: 'spring' as const, stiffness: 180, damping: 28, mass: 0.9 },
   },
-  /** Mass-differentiated spring configs for Dia Browser-like physics interactions. */
-  diaSpring: {
-    default: DIA_SPRING_DEFAULT,
-    light: DIA_SPRING_LIGHT,
-    heavy: { type: 'spring' as const, stiffness: 220, damping: 32, mass: 1.5 },
-    magnetic: { type: 'spring' as const, stiffness: 340, damping: 38, mass: 0.8 },
-    entrance: { type: 'spring' as const, stiffness: 180, damping: 28, mass: 1.2 },
+  /** Mass-differentiated spring configs — tuned higher damping for smooth deceleration. */
+  tacSpring: {
+    default: TAC_SPRING_DEFAULT,
+    light: TAC_SPRING_LIGHT,
+    heavy: { type: 'spring' as const, stiffness: 250, damping: 38, mass: 1.5 },
+    magnetic: { type: 'spring' as const, stiffness: 400, damping: 40, mass: 0.8 },
+    entrance: { type: 'spring' as const, stiffness: 220, damping: 32, mass: 1.2 },
   },
   /** Standard animation keyframe presets for reuse across components. */
   keyframes: {
@@ -89,13 +94,25 @@ export const motion = {
       to: { opacity: '1', filter: 'blur(0px)', transform: 'scale(1)' },
     },
     /** Slide entrance from below — element springs up from offset position. */
-    slideInUp: { from: { opacity: '0', transform: 'translateY(5px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
+    slideInUp: {
+      from: { opacity: '0', transform: 'translateY(5px)' },
+      to: { opacity: '1', transform: 'translateY(0)' },
+    },
     /** Slide entrance from above — element springs down from offset position. */
-    slideInDown: { from: { opacity: '0', transform: 'translateY(-5px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
+    slideInDown: {
+      from: { opacity: '0', transform: 'translateY(-5px)' },
+      to: { opacity: '1', transform: 'translateY(0)' },
+    },
     /** Slide entrance from left — element springs in from offset. */
-    slideInLeft: { from: { opacity: '0', transform: 'translateX(-5px)' }, to: { opacity: '1', transform: 'translateX(0)' } },
+    slideInLeft: {
+      from: { opacity: '0', transform: 'translateX(-5px)' },
+      to: { opacity: '1', transform: 'translateX(0)' },
+    },
     /** Slide entrance from right — element springs in from offset. */
-    slideInRight: { from: { opacity: '0', transform: 'translateX(5px)' }, to: { opacity: '1', transform: 'translateX(0)' } },
+    slideInRight: {
+      from: { opacity: '0', transform: 'translateX(5px)' },
+      to: { opacity: '1', transform: 'translateX(0)' },
+    },
     /** Scale entrance — element inflates from slight compression. */
     scaleIn: { from: { opacity: '0', transform: 'scale(0.98)' }, to: { opacity: '1', transform: 'scale(1)' } },
     scaleOut: { from: { opacity: '1', transform: 'scale(1)' }, to: { opacity: '0', transform: 'scale(0.98)' } },
@@ -163,12 +180,27 @@ export const motion = {
   },
   /** Layout morphing spring config — for FLIP transitions between components. */
   morph: {
-    /** Spring config for morph transitions — references diaSpring.default. */
-    spring: DIA_SPRING_DEFAULT,
+    /** Spring config for morph transitions — references tacSpring.default. */
+    spring: TAC_SPRING_DEFAULT,
     /** Faster variant for small elements. */
-    springFast: { type: 'spring' as const, stiffness: 400, damping: 35, mass: 0.8 },
+    springFast: { type: 'spring' as const, stiffness: 450, damping: 35, mass: 0.8 },
   },
 } as const satisfies MotionTokens;
 
-/** Standalone export of Dia spring presets for direct consumption in packages/web. */
-export const diaSpring = motion.diaSpring;
+/** Standalone export of Tac spring presets for direct consumption in packages/web. */
+export const tacSpring = motion.tacSpring;
+
+/** Platform-agnostic spring configs — usable by both Framer Motion and reanimated.
+ *  Merges motion.spring + motion.tacSpring presets without the `type` field. */
+export const springConfigs = {
+  default: { stiffness: 300, damping: 35, mass: 1 },
+  snappy: { stiffness: 260, damping: 32, mass: 1 },
+  gentle: { stiffness: 180, damping: 30, mass: 1 },
+  bouncy: { stiffness: 260, damping: 30, mass: 1 },
+  magnetic: { stiffness: 400, damping: 40, mass: 0.8 },
+  entrance: { stiffness: 180, damping: 28, mass: 0.9 },
+  light: { stiffness: 350, damping: 35, mass: 0.5 },
+  heavy: { stiffness: 250, damping: 38, mass: 1.5 },
+  elastic: { stiffness: 220, damping: 28, mass: 0.8 },
+  slow: { stiffness: 140, damping: 28, mass: 1 },
+} as const;

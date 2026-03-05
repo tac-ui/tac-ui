@@ -1,0 +1,45 @@
+{
+  "title": "Chip",
+  "description": "필터링, 입력 태그, 제안, 보조 액션에 사용되는 소형 인터랙티브 요소입니다. 선택 상태, 닫기, 앞쪽 아이콘을 지원합니다.",
+  "sections": {
+    "playground": {
+      "title": "플레이그라운드",
+      "texts": ["아래에서 Chip props를 대화식으로 설정하세요."]
+    },
+    "variants": {
+      "title": "변형",
+      "texts": [
+        "다섯 가지 시각적으로 구별되는 변형: filter(강조 텍스트 + 테두리), assist(보조 배경), suggestion(점선 테두리), input(반투명 배경 + 테두리), glass(테두리 없는 보조 배경)."
+      ]
+    },
+    "with-delete": {
+      "title": "삭제 포함",
+      "texts": ["onDismiss 핸들러를 제공하면 칩 오른쪽에 닫기(×) 버튼이 표시됩니다. 입력 태그 칩에 유용합니다."]
+    },
+    "with-left-icon": {
+      "title": "아이콘 포함",
+      "texts": ["leftIcon prop으로 칩 레이블 앞에 아이콘을 표시할 수 있습니다. 임의의 React 노드를 전달하세요."]
+    },
+    "disabled": {
+      "title": "비활성화",
+      "texts": ["disabled prop을 전달하면 칩이 시각적으로 흐려지고 모든 포인터 상호작용이 차단됩니다."]
+    },
+    "selected-state": {
+      "title": "선택 상태",
+      "texts": ["selected를 true로 설정하면 강조 색상을 적용하여 필터 그룹에서 칩이 활성 상태임을 나타냅니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "variant": "칩의 시각적 스타일 변형.",
+    "selected": "true일 때 활성 선택을 나타내는 포인트(강조) 색상을 적용합니다.",
+    "onPress": "칩의 Press 핸들러.",
+    "onDismiss": "제공 시 칩 끝 부분에 닫기(×) 버튼을 렌더링합니다.",
+    "leftIcon": "칩 앞쪽에 렌더링되는 아이콘 노드.",
+    "disabled": "칩을 비활성화하여 시각적으로 흐리게 하고 모든 press 상호작용을 차단합니다.",
+    "children": "칩 레이블 콘텐츠. 문자열은 자동으로 스타일된 Text 컴포넌트로 래핑됩니다.",
+    "style": "칩 컨테이너에 적용되는 추가 React Native 스타일."
+  }
+}

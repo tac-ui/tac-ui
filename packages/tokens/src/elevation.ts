@@ -7,12 +7,12 @@ import type { ThemeMode, ThemeElevation } from '@tac-ui/shared';
 
 export const elevation = {
   light: {
-    sm: '0 1px 2px rgba(94,94,94,0.04), 0 1px 3px rgba(94,94,94,0.02)',
-    m: '0 2px 4px rgba(94,94,94,0.04), 0 8px 16px rgba(94,94,94,0.04)',
-    lg: '0 4px 8px rgba(94,94,94,0.05), 0 16px 32px rgba(94,94,94,0.06)',
-    xl: '0 8px 16px rgba(94,94,94,0.06), 0 24px 48px rgba(94,94,94,0.08)',
-    glass: '0 4px 24px rgba(94,94,94,0.05), 0 1px 2px rgba(94,94,94,0.02)',
-    glassLg: '0 8px 32px rgba(94,94,94,0.08), 0 2px 4px rgba(94,94,94,0.03)',
+    sm: '0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02)',
+    m: '0 4px 12px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.03)',
+    lg: '0 8px 24px rgba(0,0,0,0.06), 0 4px 8px rgba(0,0,0,0.04)',
+    xl: '0 16px 40px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.04)',
+    glass: '0 8px 32px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.02)',
+    glassLg: '0 12px 48px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.04)',
   },
   dark: {
     sm: '0 1px 2px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.14)',

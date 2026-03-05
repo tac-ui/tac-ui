@@ -4,7 +4,9 @@
   "sections": {
     "typescript-example": {
       "title": "TypeScript 예제",
-      "texts": ["헤더 바에 언어 레이블이 표시되고 원클릭 클립보드 복사 버튼이 포함된 TypeScript 또는 TSX 코드를 렌더링합니다."]
+      "texts": [
+        "헤더 바에 언어 레이블이 표시되고 원클릭 클립보드 복사 버튼이 포함된 TypeScript 또는 TSX 코드를 렌더링합니다."
+      ]
     },
     "css-color-tokens": {
       "title": "CSS 컬러 토큰",
@@ -16,7 +18,9 @@
     },
     "glass-variant": {
       "title": "글래스 변형",
-      "texts": ["glass prop은 배경 블러 글래스모피즘 스타일(포화 블러가 적용된 투명 배경)을 적용하며, 시각적 배경 위에 코드를 배치할 때 적합합니다."]
+      "texts": [
+        "glass prop은 배경 블러 글래스모피즘 스타일(포화 블러가 적용된 투명 배경)을 적용하며, 시각적 배경 위에 코드를 배치할 때 적합합니다."
+      ]
     },
     "api-reference": {
       "title": "API 레퍼런스"

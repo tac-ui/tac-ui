@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { exitVariants, diaSpring } from '../constants/motion';
+import { exitVariants, tacSpring } from '../constants/motion';
 
 /** Shape style of the Skeleton placeholder. */
 export type SkeletonVariant = 'rectangular' | 'circular' | 'text';
@@ -26,7 +26,7 @@ export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
 /** Apple-style skeleton: very wide, ultra-soft gradient with no harsh edges, mimicking a breathing metallic surface. */
 const shimmerClasses = [
   'before:absolute before:inset-0 before:-translate-x-full',
-  'before:animate-[shimmer_2s_ease-in-out_infinite_alternate]',
+  'before:animate-[shimmer_1.5s_ease-in-out_infinite]',
   'before:bg-gradient-to-r',
   'before:from-transparent',
   'before:via-secondary',
@@ -58,7 +58,7 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
                 style={{ width: i === lines - 1 ? '65%' : '100%' }}
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ ...diaSpring.light, delay: i * 0.05 }}
+                transition={{ ...tacSpring.light, delay: i * 0.05 }}
               />
             ))}
           </motion.div>

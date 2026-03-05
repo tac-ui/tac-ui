@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { diaSpring } from '../constants/motion';
+import { tacSpring } from '../constants/motion';
 
 /** Display style of the Progress indicator. */
 export type ProgressVariant = 'linear' | 'circular';
@@ -58,18 +58,29 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
             style={{ width: size, height: size }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={diaSpring.default}
+            transition={tacSpring.default}
             {...(props as React.ComponentPropsWithoutRef<typeof motion.div>)}
           >
             <svg className="-rotate-90" width={size} height={size}>
-              <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--secondary)" strokeWidth={strokeWidth} />
+              <circle
+                cx={size / 2}
+                cy={size / 2}
+                r={r}
+                fill="none"
+                stroke="var(--secondary)"
+                strokeWidth={strokeWidth}
+              />
               <motion.circle
-                cx={size / 2} cy={size / 2} r={r}
-                fill="none" stroke="var(--point)" strokeWidth={strokeWidth}
+                cx={size / 2}
+                cy={size / 2}
+                r={r}
+                fill="none"
+                stroke="var(--point)"
+                strokeWidth={strokeWidth}
                 strokeLinecap="round"
                 strokeDasharray={circumference}
                 animate={{ strokeDashoffset: offset }}
-                transition={diaSpring.default}
+                transition={tacSpring.default}
               />
             </svg>
             {showLabel && (
@@ -82,7 +93,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
 
     const barSizeClasses = {
       sm: 'h-1',
-      md: 'h-2',
+      md: 'h-1.5',
       lg: 'h-3',
     };
 
@@ -97,7 +108,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
           className={cn('flex flex-col gap-1.5', className)}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={diaSpring.default}
+          transition={tacSpring.default}
           {...(props as React.ComponentPropsWithoutRef<typeof motion.div>)}
         >
           {showLabel && (
@@ -106,12 +117,17 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
               <span className="text-[var(--muted-foreground)]">{Math.round(percent)}%</span>
             </div>
           )}
-          <div className={cn('w-full bg-[var(--secondary)] rounded-[var(--radius-pill)] overflow-hidden', barSizeClasses[barSize])}>
+          <div
+            className={cn(
+              'w-full bg-[var(--secondary)] rounded-[var(--radius-pill)] overflow-hidden',
+              barSizeClasses[barSize],
+            )}
+          >
             <motion.div
               className="h-full bg-[var(--point)] rounded-[var(--radius-pill)]"
               initial={{ width: 0 }}
               animate={{ width: `${percent}%` }}
-              transition={diaSpring.default}
+              transition={tacSpring.default}
             />
           </div>
         </motion.div>

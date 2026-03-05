@@ -1,8 +1,10 @@
-import React, { forwardRef, createContext, useContext, useState, useEffect, useRef } from 'react';
+import React, { forwardRef, createContext, useContext, useState, useEffect, useRef, useId } from 'react';
+import { motion, LayoutGroup } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { PanelLeftOpen, PanelRightOpen, Menu } from '@tac-ui/icon';
 import { cn } from '../utils/cn';
 import { focusRing } from '../constants/styles';
+import { tacSpring } from '../constants/motion';
 
 /* ─── Layout Context ─── */
 export const LayoutContext = createContext<{
@@ -54,30 +56,27 @@ const mainVariants = cva('flex-1 p-6', {
 });
 
 // Header variants
-const headerVariants = cva(
-  'h-16 shrink-0 flex flex-row items-center px-6',
-  {
-    variants: {
-      sticky: {
-        true: 'sticky top-0 z-[var(--z-sticky)]',
-        false: '',
-      },
-      bordered: {
-        true: 'border-b border-solid border-[var(--border)]',
-        false: '',
-      },
-      blur: {
-        true: 'backdrop-blur-[20px] bg-[var(--glass-bg)] border-b-[0.5px] border-b-white/[0.1]',
-        false: 'bg-[var(--card)]',
-      },
+const headerVariants = cva('h-16 shrink-0 flex flex-row items-center px-6', {
+  variants: {
+    sticky: {
+      true: 'sticky top-0 z-[var(--z-sticky)]',
+      false: '',
     },
-    defaultVariants: {
-      sticky: false,
-      bordered: true,
-      blur: false,
+    bordered: {
+      true: 'border-b border-solid border-[var(--border)]',
+      false: '',
+    },
+    blur: {
+      true: 'backdrop-blur-[20px] bg-[var(--glass-bg)] border-b-[0.5px] border-b-white/[0.1]',
+      false: 'bg-[var(--card)]',
     },
   },
-);
+  defaultVariants: {
+    sticky: false,
+    bordered: true,
+    blur: false,
+  },
+});
 
 // Sidebar variants
 const sidebarVariants = cva(
@@ -130,15 +129,11 @@ const footerVariants = cva('px-6 py-4 bg-[var(--card)]', {
  * Centered content wrapper with responsive horizontal padding and configurable max-width.
  * @prop size - Maximum width of the container. @example size="lg"
  */
-export interface ContainerProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof containerVariants> {}
+export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof containerVariants> {}
 
-export const Container = forwardRef<HTMLDivElement, ContainerProps>(
-  ({ className, size, ...props }, ref) => (
-    <div ref={ref} className={cn(containerVariants({ size }), className)} {...props} />
-  ),
-);
+export const Container = forwardRef<HTMLDivElement, ContainerProps>(({ className, size, ...props }, ref) => (
+  <div ref={ref} className={cn(containerVariants({ size }), className)} {...props} />
+));
 Container.displayName = 'Container';
 
 // Header
@@ -149,9 +144,7 @@ Container.displayName = 'Container';
  * @prop blur - Whether to apply a backdrop blur effect with semi-transparent background.
  * @prop autoHide - Whether the header hides when scrolling down and reappears when scrolling up. Works best with sticky.
  */
-export interface HeaderProps
-  extends React.HTMLAttributes<HTMLElement>,
-    VariantProps<typeof headerVariants> {
+export interface HeaderProps extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof headerVariants> {
   /** Whether the header auto-hides on scroll down and reappears on scroll up. Works best with sticky. @default false */
   autoHide?: boolean;
 }
@@ -180,31 +173,31 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
     return (
       <header
         ref={ref}
-        className={cn(
-          headerVariants({ sticky, bordered, blur }),
-          autoHide && hidden && '-translate-y-full',
-          className,
-        )}
+        className={cn(headerVariants({ sticky, bordered, blur }), autoHide && hidden && '-translate-y-full', className)}
         style={autoHide ? { transition: 'transform 350ms cubic-bezier(0.22, 1, 0.36, 1)' } : undefined}
         {...props}
       >
         {hasSidebar && (
           <button
             type="button"
-            className={cn('md:hidden mr-3 p-1 rounded-md shrink-0 hover:bg-[var(--point-subtle)] transition-colors text-[var(--muted-foreground)] cursor-pointer', focusRing)}
+            className={cn(
+              'md:hidden mr-3 p-1 rounded-md shrink-0 hover:bg-[var(--point-subtle)] transition-colors text-[var(--muted-foreground)] cursor-pointer',
+              focusRing,
+            )}
             onClick={() => setMobileSidebarOpen?.(true)}
             aria-label="Toggle sidebar"
           >
             <Menu size={20} />
           </button>
         )}
-        <div className="flex-1 min-w-0 flex items-center justify-between h-full gap-2">
-          {props.children}
-        </div>
+        <div className="flex-1 min-w-0 flex items-center justify-between h-full gap-2">{props.children}</div>
         {hasRightSidebar && (
           <button
             type="button"
-            className={cn('md:hidden ml-3 p-1 rounded-md shrink-0 hover:bg-[var(--point-subtle)] transition-colors text-[var(--muted-foreground)] cursor-pointer', focusRing)}
+            className={cn(
+              'md:hidden ml-3 p-1 rounded-md shrink-0 hover:bg-[var(--point-subtle)] transition-colors text-[var(--muted-foreground)] cursor-pointer',
+              focusRing,
+            )}
             onClick={() => setMobileRightSidebarOpen?.(true)}
             aria-label="Toggle right sidebar"
           >
@@ -246,10 +239,17 @@ export interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   footer?: React.ReactNode;
 }
 
-const CollapseToggle = ({ collapsed, position, onClick }: { collapsed: boolean; position: 'left' | 'right'; onClick: () => void }) => {
-  const Icon = (position === 'left' && collapsed) || (position === 'right' && !collapsed)
-    ? PanelLeftOpen
-    : PanelRightOpen;
+const CollapseToggle = ({
+  collapsed,
+  position,
+  onClick,
+}: {
+  collapsed: boolean;
+  position: 'left' | 'right';
+  onClick: () => void;
+}) => {
+  const Icon =
+    (position === 'left' && collapsed) || (position === 'right' && !collapsed) ? PanelLeftOpen : PanelRightOpen;
 
   return (
     <button
@@ -292,7 +292,8 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 
     const hasHeader = label || icon || collapsible;
 
-    const sidebarTransition = 'width 350ms cubic-bezier(0.22, 1, 0.36, 1), padding 350ms cubic-bezier(0.22, 1, 0.36, 1), background-color 350ms cubic-bezier(0.22, 1, 0.36, 1)';
+    const sidebarTransition =
+      'width 350ms cubic-bezier(0.22, 1, 0.36, 1), padding 350ms cubic-bezier(0.22, 1, 0.36, 1), background-color 350ms cubic-bezier(0.22, 1, 0.36, 1)';
 
     return (
       <aside
@@ -311,11 +312,17 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
               <div
                 className={cn(
                   'flex items-center w-full',
-                  collapsed ? 'gap-0 justify-center px-2 pt-3 pb-12' : cn(
-                    swapOnCollapse ? 'gap-0' : 'gap-2', 
-                    'py-3',
-                    collapsible && position === 'left' ? 'pl-4 pr-12' : collapsible && position === 'right' ? 'pl-12 pr-4' : 'px-4'
-                  ),
+                  collapsed
+                    ? 'gap-0 justify-center px-2 pt-3 pb-12'
+                    : cn(
+                        swapOnCollapse ? 'gap-0' : 'gap-2',
+                        'py-3',
+                        collapsible && position === 'left'
+                          ? 'pl-4 pr-12'
+                          : collapsible && position === 'right'
+                            ? 'pl-12 pr-4'
+                            : 'px-4',
+                      ),
                 )}
                 style={{ transition: 'all 350ms cubic-bezier(0.22, 1, 0.36, 1)' }}
               >
@@ -326,7 +333,9 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
                       swapOnCollapse && !collapsed && 'w-0 opacity-0 overflow-hidden',
                     )}
                     style={{ transition: 'all 350ms cubic-bezier(0.22, 1, 0.36, 1)' }}
-                  >{icon}</span>
+                  >
+                    {icon}
+                  </span>
                 )}
                 {label && (
                   <span
@@ -335,7 +344,9 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
                       collapsed ? 'opacity-0 w-0' : 'opacity-100 flex-1',
                     )}
                     style={{ transition: 'all 350ms cubic-bezier(0.22, 1, 0.36, 1)' }}
-                  >{label}</span>
+                  >
+                    {label}
+                  </span>
                 )}
               </div>
               {collapsible && (
@@ -352,14 +363,8 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
               )}
             </div>
           )}
-          <div className="flex-1 overflow-y-auto">
-            {children}
-          </div>
-          {footer && (
-            <div className="border-t border-solid border-[var(--border)] shrink-0">
-              {footer}
-            </div>
-          )}
+          <div className="flex-1 overflow-y-auto">{children}</div>
+          {footer && <div className="border-t border-solid border-[var(--border)] shrink-0">{footer}</div>}
         </SidebarContext.Provider>
       </aside>
     );
@@ -388,9 +393,23 @@ export interface SidebarGroupProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 export const SidebarGroup = forwardRef<HTMLDivElement, SidebarGroupProps>(
-  ({ label, icon, active: groupActive = false, collapseDisplay = 'children', collapsible: groupCollapsible = false, defaultOpen = true, className, children, ...props }, ref) => {
+  (
+    {
+      label,
+      icon,
+      active: groupActive = false,
+      collapseDisplay = 'children',
+      collapsible: groupCollapsible = false,
+      defaultOpen = true,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const { collapsed } = useSidebarContext();
     const [open, setOpen] = React.useState(defaultOpen);
+    const groupId = useId();
     const showChildrenWhenCollapsed = collapseDisplay === 'children';
     const isOpen = collapsed ? showChildrenWhenCollapsed : !groupCollapsible || open;
     const showHeader = collapsed ? !showChildrenWhenCollapsed : true;
@@ -405,10 +424,10 @@ export const SidebarGroup = forwardRef<HTMLDivElement, SidebarGroupProps>(
               className={cn(
                 'flex items-center text-xs font-semibold uppercase tracking-wider overflow-hidden',
                 groupActive ? 'text-[var(--point)]' : 'text-[var(--muted-foreground)]',
-                collapsed
-                  ? icon ? 'justify-center px-2 py-2' : 'h-0 p-0 opacity-0'
-                  : 'gap-2 px-4 py-2',
-                groupCollapsible && !collapsed && cn('cursor-pointer', groupActive ? 'hover:text-[var(--point)]' : 'hover:text-[var(--foreground)]'),
+                collapsed ? (icon ? 'justify-center px-2 py-2' : 'h-0 p-0 opacity-0') : 'gap-2 px-4 py-2',
+                groupCollapsible &&
+                  !collapsed &&
+                  cn('cursor-pointer', groupActive ? 'hover:text-[var(--point)]' : 'hover:text-[var(--foreground)]'),
               )}
               style={{ transition: groupTransition }}
               onClick={groupCollapsible && !collapsed ? () => setOpen(!open) : undefined}
@@ -445,32 +464,37 @@ export const SidebarGroup = forwardRef<HTMLDivElement, SidebarGroupProps>(
                   className={cn('shrink-0', isOpen && 'rotate-180')}
                   style={{ transition: 'transform 200ms cubic-bezier(0.22, 1, 0.36, 1)' }}
                 >
-                  <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path
+                    d="M3 4.5L6 7.5L9 4.5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               )}
             </div>
             {!icon && (
               <div
-                className={cn(
-                  'mx-3 bg-[var(--border)]',
-                  collapsed ? 'h-px my-1 opacity-100' : 'h-0 my-0 opacity-0',
-                )}
+                className={cn('mx-3 bg-[var(--border)]', collapsed ? 'h-px my-1 opacity-100' : 'h-0 my-0 opacity-0')}
                 style={{ transition: groupTransition }}
               />
             )}
           </>
         )}
         <div
-          className={cn(
-            'grid',
-            isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
-          )}
-          style={{ transition: 'grid-template-rows 200ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+          className={cn('grid', isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0')}
+          style={{
+            transition:
+              'grid-template-rows 200ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms cubic-bezier(0.22, 1, 0.36, 1)',
+          }}
         >
           <div className="overflow-hidden min-h-0">
-            <div className={cn('flex flex-col gap-1 px-2 pt-1', groupCollapsible && !collapsed && 'ml-2')}>
-              {children}
-            </div>
+            <LayoutGroup id={groupId}>
+              <div className={cn('flex flex-col gap-1 px-2 pt-1', groupCollapsible && !collapsed && 'ml-2')}>
+                {children}
+              </div>
+            </LayoutGroup>
           </div>
         </div>
       </div>
@@ -499,17 +523,6 @@ export const SidebarItem = forwardRef<HTMLDivElement, SidebarItemProps>(
   ({ icon, active, variant = 'filled', className, children, ...props }, ref) => {
     const { collapsed } = useSidebarContext();
     const shouldHide = collapsed && !icon;
-    const [hovered, setHovered] = useState(false);
-
-    const bgColor = shouldHide
-      ? 'transparent'
-      : active
-        ? variant === 'filled'
-          ? 'var(--point)'
-          : 'transparent'
-        : hovered
-          ? 'var(--point-subtle)'
-          : 'transparent';
 
     const textClass = active
       ? variant === 'filled'
@@ -521,31 +534,41 @@ export const SidebarItem = forwardRef<HTMLDivElement, SidebarItemProps>(
       <div
         ref={ref}
         style={{
-          backgroundColor: bgColor,
-          transition: 'background-color 220ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+          transition: 'color 220ms cubic-bezier(0.22, 1, 0.36, 1)',
         }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
         className={cn(
-          'flex items-center rounded-[var(--radius-m)] text-sm cursor-pointer overflow-hidden',
+          'relative flex items-center rounded-[var(--radius-m)] text-sm cursor-pointer overflow-hidden',
           collapsed ? 'gap-0' : 'gap-3',
-          shouldHide
-            ? 'max-h-0 opacity-0 p-0 m-0'
-            : collapsed
-              ? 'justify-center p-2 max-h-12'
-              : 'px-3 py-2 max-h-12',
+          shouldHide ? 'max-h-0 opacity-0 p-0 m-0' : collapsed ? 'justify-center p-2 max-h-12' : 'px-3 py-2 max-h-12',
           !shouldHide && textClass,
+          !active && !shouldHide && 'hover:bg-[var(--point-subtle)]',
           className,
         )}
         {...props}
       >
-        {icon && <span className="flex items-center justify-center shrink-0">{icon}</span>}
+        {active && !shouldHide && variant === 'filled' && (
+          <motion.div
+            layoutId="sidebar-active-bg"
+            className="absolute inset-0 bg-[var(--point)] rounded-[var(--radius-m)]"
+            transition={tacSpring.default}
+          />
+        )}
+        {active && !shouldHide && variant === 'foreground' && (
+          <motion.div
+            layoutId="sidebar-active-bg"
+            className="absolute inset-0 bg-[var(--point-subtle)] rounded-[var(--radius-m)]"
+            transition={tacSpring.default}
+          />
+        )}
+        {icon && <span className="relative z-10 flex items-center justify-center shrink-0">{icon}</span>}
         <span
           className={cn(
-            'min-w-0 flex items-center gap-3 whitespace-nowrap',
+            'relative z-10 min-w-0 flex items-center gap-3 whitespace-nowrap',
             collapsed ? 'w-0 opacity-0 overflow-hidden' : 'flex-1 opacity-100',
           )}
-          style={{ transition: 'opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), width 220ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+          style={{
+            transition: 'opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), width 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+          }}
         >
           {children}
         </span>
@@ -570,7 +593,10 @@ export const SidebarContent = forwardRef<HTMLDivElement, React.HTMLAttributes<HT
           collapsed ? 'max-h-0 opacity-0 py-0 px-4' : 'max-h-96 opacity-100 px-4 py-2',
           className,
         )}
-        style={{ transition: 'max-height 200ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms cubic-bezier(0.22, 1, 0.36, 1), padding 200ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+        style={{
+          transition:
+            'max-height 200ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms cubic-bezier(0.22, 1, 0.36, 1), padding 200ms cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
         {...props}
       />
     );
@@ -593,7 +619,10 @@ export const SidebarFooter = forwardRef<HTMLDivElement, React.HTMLAttributes<HTM
           collapsed ? 'max-h-0 opacity-0 p-0' : 'max-h-96 opacity-100 px-3 py-3',
           className,
         )}
-        style={{ transition: 'max-height 200ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms cubic-bezier(0.22, 1, 0.36, 1), padding 200ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+        style={{
+          transition:
+            'max-height 200ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms cubic-bezier(0.22, 1, 0.36, 1), padding 200ms cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
         {...props}
       />
     );
@@ -606,15 +635,11 @@ SidebarFooter.displayName = 'SidebarFooter';
  * Primary content area that grows to fill available space with optional max-width constraint.
  * @prop maxWidth - Maximum width of the main content area. @example maxWidth="xl"
  */
-export interface MainProps
-  extends React.HTMLAttributes<HTMLElement>,
-    VariantProps<typeof mainVariants> {}
+export interface MainProps extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof mainVariants> {}
 
-export const Main = forwardRef<HTMLElement, MainProps>(
-  ({ className, maxWidth, ...props }, ref) => (
-    <main ref={ref} className={cn(mainVariants({ maxWidth }), className)} {...props} />
-  ),
-);
+export const Main = forwardRef<HTMLElement, MainProps>(({ className, maxWidth, ...props }, ref) => (
+  <main ref={ref} className={cn(mainVariants({ maxWidth }), className)} {...props} />
+));
 Main.displayName = 'Main';
 
 // Footer
@@ -622,24 +647,26 @@ Main.displayName = 'Main';
  * Page footer bar with optional top border.
  * @prop bordered - Whether to render a top border separating the footer from the content.
  */
-export interface FooterProps
-  extends React.HTMLAttributes<HTMLElement>,
-    VariantProps<typeof footerVariants> {}
+export interface FooterProps extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof footerVariants> {}
 
-export const Footer = forwardRef<HTMLElement, FooterProps>(
-  ({ className, bordered, ...props }, ref) => (
-    <footer ref={ref} className={cn(footerVariants({ bordered }), className)} {...props} />
-  ),
-);
+export const Footer = forwardRef<HTMLElement, FooterProps>(({ className, bordered, ...props }, ref) => (
+  <footer ref={ref} className={cn(footerVariants({ bordered }), className)} {...props} />
+));
 Footer.displayName = 'Footer';
 
 // FloatingMenuBar
 
 /** Position of the floating menu bar on screen (3x3 grid). */
 export type FloatingMenuBarPosition =
-  | 'top-left' | 'top-center' | 'top-right'
-  | 'middle-left' | 'middle-center' | 'middle-right'
-  | 'bottom-left' | 'bottom-center' | 'bottom-right';
+  | 'top-left'
+  | 'top-center'
+  | 'top-right'
+  | 'middle-left'
+  | 'middle-center'
+  | 'middle-right'
+  | 'bottom-left'
+  | 'bottom-center'
+  | 'bottom-right';
 
 const floatingPositionClass: Record<FloatingMenuBarPosition, string> = {
   'top-left': 'top-4 left-4',
@@ -714,10 +741,9 @@ export const FloatingMenuItem = forwardRef<HTMLButtonElement, FloatingMenuItemPr
       ref={ref}
       type="button"
       className={cn(
-        'flex flex-col items-center justify-center gap-0.5 bg-transparent border-none cursor-pointer px-3 py-1.5 rounded-full transition-colors hover:-translate-y-0.5', focusRing,
-        active
-          ? 'text-[var(--point)]'
-          : 'text-[var(--muted-foreground)] hover:text-[var(--foreground)]',
+        'flex flex-col items-center justify-center gap-0.5 bg-transparent border-none cursor-pointer px-3 py-1.5 rounded-full transition-colors hover:-translate-y-0.5',
+        focusRing,
+        active ? 'text-[var(--point)]' : 'text-[var(--muted-foreground)] hover:text-[var(--foreground)]',
         className,
       )}
       {...props}
@@ -745,30 +771,13 @@ export interface PageLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const PageLayout = forwardRef<HTMLDivElement, PageLayoutProps>(
-  (
-    {
-      className,
-      sidebar = false,
-      sidebarPosition = 'left',
-      header,
-      footer,
-      children,
-      ...props
-    },
-    ref,
-  ) => {
+  ({ className, sidebar = false, sidebarPosition = 'left', header, footer, children, ...props }, ref) => {
     return (
-      <div
-        ref={ref}
-        className={cn('min-h-screen flex flex-col bg-[var(--background)]', className)}
-        {...props}
-      >
+      <div ref={ref} className={cn('min-h-screen flex flex-col bg-[var(--background)]', className)} {...props}>
         {header}
         <div className="flex flex-1 overflow-hidden">
           {sidebar && sidebarPosition === 'left' && children}
-          <div className="flex flex-col flex-1 overflow-auto">
-            {!sidebar && children}
-          </div>
+          <div className="flex flex-col flex-1 overflow-auto">{!sidebar && children}</div>
           {sidebar && sidebarPosition === 'right' && children}
         </div>
         {footer}

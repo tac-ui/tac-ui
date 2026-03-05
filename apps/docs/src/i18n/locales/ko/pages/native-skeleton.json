@@ -1,0 +1,46 @@
+{
+  "title": "Skeleton",
+  "description": "데이터를 불러오는 동안 콘텐츠 레이아웃을 모방하는 로딩 플레이스홀더입니다. 사각형, 원형, 텍스트 변형을 지원합니다.",
+  "sections": {
+    "playground": {
+      "title": "플레이그라운드",
+      "texts": ["아래에서 Skeleton props를 대화식으로 설정하세요."]
+    },
+    "text": {
+      "title": "텍스트",
+      "texts": ["텍스트 변형은 4px 보더 반경을 사용하며, 인라인 텍스트 줄 플레이스홀더에 적합합니다."]
+    },
+    "rectangular": {
+      "title": "사각형",
+      "texts": ["너비와 높이를 지정한 기본 직사각형 스켈레톤입니다. 이미지나 카드의 플레이스홀더로 유용합니다."]
+    },
+    "circular": {
+      "title": "원형",
+      "texts": [
+        "아바타나 아이콘 플레이스홀더에는 variant를 circular로 설정하세요. 보더 반경이 자동으로 9999로 설정됩니다."
+      ]
+    },
+    "animation": {
+      "title": "애니메이션",
+      "texts": [
+        "animation prop으로 shimmer(기본값) 또는 pulse 효과를 선택하거나, none으로 애니메이션을 비활성화할 수 있습니다."
+      ]
+    },
+    "card-composition": {
+      "title": "카드 구성",
+      "texts": ["여러 Skeleton 컴포넌트를 조합하여 실제 콘텐츠가 로딩되는 동안 그 형태를 모방합니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "width": "스켈레톤 요소의 너비. dp 숫자 또는 퍼센트 문자열을 사용합니다.",
+    "height": "스켈레톤 요소의 높이.",
+    "borderRadius": "커스텀 보더 반경. 변형 기본 반경을 덮어씁니다.",
+    "variant": "시각적 변형. circular는 9999 반경, text는 4px, rectangular는 8px을 사용합니다.",
+    "animation": "애니메이션 스타일: shimmer(기본값), pulse, 또는 none.",
+    "lines": "텍스트 변형에서 여러 줄의 스켈레톤을 렌더링할 때 사용하는 줄 수.",
+    "style": "애니메이션 컨테이너에 적용되는 추가 스타일."
+  }
+}

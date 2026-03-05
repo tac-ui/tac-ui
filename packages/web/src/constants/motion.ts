@@ -1,6 +1,6 @@
-import { diaSpring } from '@tac-ui/tokens';
+import { tacSpring } from '@tac-ui/tokens';
 
-export { diaSpring };
+export { tacSpring };
 
 /** Shared dropdown panel motion variants for Select, Combobox, Dropdown, DatePicker, ColorPicker. */
 export const dropdownMotionVariants = {
@@ -8,13 +8,13 @@ export const dropdownMotionVariants = {
     opacity: 0,
     scale: 0.96,
     y: -4,
-    transition: diaSpring.magnetic,
+    transition: tacSpring.magnetic,
   },
   visible: {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: diaSpring.magnetic,
+    transition: tacSpring.magnetic,
   },
 };
 
@@ -25,7 +25,7 @@ export const panelVariants = {
     opacity: 1,
     scale: 1,
     filter: 'blur(0px)',
-    transition: diaSpring.heavy,
+    transition: tacSpring.heavy,
   },
   exit: {
     opacity: 0,
@@ -42,7 +42,7 @@ export const fadeVariants = {
     opacity: 1,
     filter: 'blur(0px)',
     y: 0,
-    transition: diaSpring.entrance,
+    transition: tacSpring.entrance,
   },
   exit: {
     opacity: 0,
@@ -61,5 +61,5 @@ export const exitVariants = {
 /** Entrance fade for page-level content. */
 export const pageEntrance = {
   initial: { opacity: 0, y: 8 },
-  animate: { opacity: 1, y: 0, transition: diaSpring.entrance },
+  animate: { opacity: 1, y: 0, transition: tacSpring.entrance },
 };

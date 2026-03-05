@@ -1,51 +1,49 @@
 /**
- * Semantic color tokens — Tac UI Identity "The Luxurious Pantone Monochrome"
- * * Design philosophy: 
- * - High-end, structured, and architectural based on physical Pantone standards.
- * - Minimalist palette using Pantone Cool Grays and deepest Blacks (e.g. Black 6 C) to create immense depth and luxury.
- * - Point color uses true deep black for light mode, and crisp white for dark mode.
+ * Semantic color tokens — Tac UI brand palette.
+ * Monochrome + Indigo: Ink Black primary, Royal Indigo accent.
+ * Neutral: Zinc scale.
  */
 import type { ThemeMode, ThemeColors } from '@tac-ui/shared';
 
 export const semanticTokens = {
   light: {
-    // ── Canvas & Surface (Off-white paper base) ──
-    background: '#FAFAFA',         // Off-white base
-    backgroundSubtle: '#F4F4F5',   // Slightly darker gray
-    surface: '#FCFCFC',            // Just faintly off-white surface
+    // ── Canvas & Surface ──
+    background: '#FAFAFA',
+    backgroundSubtle: '#F4F4F5',
+    surface: '#FFFFFF',
     surfaceHover: '#F4F4F5',
     surfaceBase: '#FAFAFA',
-    surfaceElevatedLow: '#FCFCFC',
-    surfaceElevatedMid: '#FCFCFC',
-    surfaceElevatedHigh: '#FCFCFC',
-    card: '#FCFCFC',
-    cardForeground: '#121212',     // Barely off-black
+    surfaceElevatedLow: '#FFFFFF',
+    surfaceElevatedMid: '#FFFFFF',
+    surfaceElevatedHigh: '#FFFFFF',
+    card: '#FFFFFF',
+    cardForeground: '#18181B',
 
     // ── Text ──
-    foreground: '#121212',
+    foreground: '#18181B',
     muted: '#F4F4F5',
     mutedForeground: '#71717A',
 
-    // ── Brand ──
-    primary: '#1E232D',            // Iron Navy
-    primaryHover: '#2A303D',       // Slightly lighter for hover
-    primaryForeground: '#FAFAFA',
-    secondary: '#E4E4E7',          // Darkened from F4F4F5 for better visibility
-    secondaryForeground: '#1E232D',
-    ring: '#1E232D',
+    // ── Brand (Ink Black) ──
+    primary: '#18181B',
+    primaryHover: '#27272A',
+    primaryForeground: '#FFFFFF',
+    secondary: '#F4F4F5',
+    secondaryForeground: '#18181B',
+    ring: '#18181B',
 
-    // ── Point / Accent (Steel Navy) ──
-    point: '#323944',
-    pointHover: '#4A5361',
-    pointForeground: '#FAFAFA',
-    pointSubtle: 'rgba(30, 35, 45, 0.08)',
+    // ── Point / Accent (Royal Indigo) ──
+    point: '#5856D6',
+    pointHover: '#4B49B8',
+    pointForeground: '#FFFFFF',
+    pointSubtle: 'rgba(88, 86, 214, 0.1)',
 
     // ── Border ──
     border: '#E4E4E7',
     input: '#E4E4E7',
 
-    // ── Gray Scale ──
-    gray50: '#FAFAFA', 
+    // ── Gray Scale (Zinc) ──
+    gray50: '#FAFAFA',
     gray100: '#F4F4F5',
     gray200: '#E4E4E7',
     gray300: '#D4D4D8',
@@ -57,11 +55,11 @@ export const semanticTokens = {
     gray900: '#18181B',
 
     // ── Glass & Effects ──
-    glassBg: 'rgba(252, 252, 252, 0.85)',
-    glassBorder: 'rgba(18, 18, 18, 0.04)',
-    glassInset: 'inset 0 1px 0 rgba(250, 250, 250, 0.6)',
-    glassPanelShadow: '0 12px 40px rgba(18, 18, 18, 0.04), 0 1px 3px rgba(18, 18, 18, 0.02)',
-    accentGlow: '0 0 0 transparent',
+    glassBg: 'rgba(255, 255, 255, 0.85)',
+    glassBorder: 'rgba(24, 24, 27, 0.04)',
+    glassInset: 'inset 0 1px 0 rgba(255, 255, 255, 0.6)',
+    glassPanelShadow: '0 12px 40px rgba(24, 24, 27, 0.04), 0 1px 3px rgba(24, 24, 27, 0.02)',
+    accentGlow: 'none',
 
     // ── Gradients ──
     gradientBrand: 'none',
@@ -75,105 +73,105 @@ export const semanticTokens = {
     gradientGlowShadow: 'none',
 
     // ── Shadow ──
-    shadowColor: 'rgba(18, 18, 18, 0.05)',
+    shadowColor: 'rgba(24, 24, 27, 0.05)',
 
     // ── Status ──
-    success: '#1A4331',
-    successBg: '#EAF1EC',
-    successForeground: '#1A4331',
-    warning: '#8A6D3B',
-    warningBg: '#F7F3EA',
-    warningForeground: '#8A6D3B',
-    error: '#7C2128',
-    errorBg: '#F4EAEB',
-    errorForeground: '#7C2128',
-    info: '#121212',
-    infoBg: '#FAFAFA',
-    infoForeground: '#121212',
+    success: '#166534',
+    successBg: '#DCFCE7',
+    successForeground: '#166534',
+    warning: '#854D0E',
+    warningBg: '#FEF9C3',
+    warningForeground: '#854D0E',
+    error: '#991B1B',
+    errorBg: '#FEE2E2',
+    errorForeground: '#991B1B',
+    info: '#18181B',
+    infoBg: '#F4F4F5',
+    infoForeground: '#18181B',
 
     // ── Interaction States ──
-    interactiveHover: 'rgba(18, 18, 18, 0.04)',
-    interactivePressed: 'rgba(18, 18, 18, 0.08)',
-    interactiveFocus: '#121212',
-    interactiveSurfaceTint: 'rgba(18, 18, 18, 0.02)',
-    interactiveHoverTint: 'rgba(18, 18, 18, 0.04)',
-    focusGlow: '0 0 0 2px #E4E4E7',
-    pointGlow: '0 0 0 2px rgba(18, 18, 18, 0.15)',
+    interactiveHover: 'rgba(24, 24, 27, 0.04)',
+    interactivePressed: 'rgba(24, 24, 27, 0.08)',
+    interactiveFocus: '#18181B',
+    interactiveSurfaceTint: 'rgba(0, 0, 0, 0.02)',
+    interactiveHoverTint: 'rgba(0, 0, 0, 0.04)',
+    focusGlow: '0 0 0 3px rgba(24, 24, 27, 0.1)',
+    pointGlow: '0 0 0 2px rgba(88, 86, 214, 0.2)',
 
     // ── Components ──
-    btnPrimarySurface: '#1E232D',
-    btnPrimaryHover: '#2A303D',
-    btnPrimaryEnergy: '0 4px 12px rgba(30, 35, 45, 0.16)',
+    btnPrimarySurface: '#18181B',
+    btnPrimaryHover: '#27272A',
+    btnPrimaryEnergy: '0 4px 12px rgba(24, 24, 27, 0.15)',
     btnPrimaryInset: 'none',
-    btnSecondarySurface: '#E4E4E7',
-    btnSecondaryHover: '#D4D4D8',
-    btnOutlineBorder: '#E4E4E7',
-    btnOutlineBorderHover: '#D4D4D8',
-    btnOutlineHoverBg: '#F4F4F5',
+    btnSecondarySurface: '#F4F4F5',
+    btnSecondaryHover: '#E4E4E7',
+    btnOutlineBorder: '#D4D4D8',
+    btnOutlineBorderHover: '#A1A1AA',
+    btnOutlineHoverBg: '#F9FAFB',
     btnGhostHover: '#F4F4F5',
-    btnPointSurface: '#323944',
+    btnPointSurface: '#5856D6',
     btnPointBorder: 'transparent',
-    btnPointHoverSurface: '#4A5361',
+    btnPointHoverSurface: '#4B49B8',
     btnPointHoverBorder: 'transparent',
-    btnPointEnergy: '0 4px 12px rgba(50, 57, 68, 0.2)',
-    btnDestructiveSurface: '#7C2128',
-    btnDestructiveHover: '#5B171D',
+    btnPointEnergy: '0 4px 12px rgba(88, 86, 214, 0.2)',
+    btnDestructiveSurface: '#DC2626',
+    btnDestructiveHover: '#B91C1C',
 
-    inputBg: '#FCFCFC',
-    inputBorderRest: '#E4E4E7',
+    inputBg: '#F4F4F5',
+    inputBorderRest: '#D4D4D8',
     inputBorderHover: '#A1A1AA',
-    inputHoverGlow: '0 0 0 2px #F4F4F5',
-    inputFocusGlow: '0 0 0 2px #E4E4E7',
-    inputErrorGlow: '0 0 0 2px #F4EAEB',
+    inputHoverGlow: '0 0 0 2px rgba(0, 0, 0, 0.04)',
+    inputFocusGlow: '0 0 0 2px rgba(24, 24, 27, 0.15)',
+    inputErrorGlow: '0 0 0 2px #FEE2E2',
 
-    dropdownBg: '#FCFCFC',
-    dropdownShadow: '0 20px 25px -5px rgba(18, 18, 18, 0.08), 0 0 0 1px rgba(18, 18, 18, 0.03)',
+    dropdownBg: '#FFFFFF',
+    dropdownShadow: '0 20px 25px -5px rgba(24, 24, 27, 0.08), 0 0 0 1px rgba(24, 24, 27, 0.03)',
     dropdownItemHover: '#F4F4F5',
 
     cardAccentBorder: '#E4E4E7',
     cardAccentGlow: 'none',
     cardAccentHoverBorder: '#D4D4D8',
-    cardAccentHoverGlow: '0 8px 24px rgba(18, 18, 18, 0.06)',
+    cardAccentHoverGlow: '0 8px 24px rgba(24, 24, 27, 0.06)',
   },
   dark: {
-    // ── Canvas & Surface (High-Contrast Charcoal Base) ──
-    background: '#121214',         // Off-black charcoal
-    backgroundSubtle: '#18181A',   // Zinc 900
-    surface: '#27272A',            // Zinc 800 - distinct from subtle background
-    surfaceHover: '#3F3F46',       // Zinc 700
-    surfaceBase: '#121214',
-    surfaceElevatedLow: '#18181A', 
-    surfaceElevatedMid: '#27272A', 
+    // ── Canvas & Surface ──
+    background: '#09090B',
+    backgroundSubtle: '#18181B',
+    surface: '#27272A',
+    surfaceHover: '#3F3F46',
+    surfaceBase: '#09090B',
+    surfaceElevatedLow: '#18181B',
+    surfaceElevatedMid: '#27272A',
     surfaceElevatedHigh: '#3F3F46',
-    card: '#18181A',               // Zinc 900
-    cardForeground: '#F4F4F5',     // Off-white
+    card: '#18181B',
+    cardForeground: '#FAFAFA',
 
     // ── Text ──
-    foreground: '#F4F4F5',         // Off-white
-    muted: '#27272A',              // Zinc 800
-    mutedForeground: '#A1A1AA',    // Zinc 400
+    foreground: '#FAFAFA',
+    muted: '#27272A',
+    mutedForeground: '#A1A1AA',
 
-    // ── Brand (Iron Navy Light / Cold Steel Blue-Gray) ──
-    primary: '#B8C4D9',            
-    primaryHover: '#D1DBE8',
-    primaryForeground: '#1E232D',  // Deep Iron Navy text
+    // ── Brand (Inverted — Near-White) ──
+    primary: '#FAFAFA',
+    primaryHover: '#E4E4E7',
+    primaryForeground: '#18181B',
     secondary: '#27272A',
-    secondaryForeground: '#B8C4D9',
-    ring: '#B8C4D9',
+    secondaryForeground: '#FAFAFA',
+    ring: '#FAFAFA',
 
-    // ── Point / Accent (Lighter Steel Blue-Gray) ──
-    point: '#D1DBE8',
-    pointHover: '#E6ECEF',         
-    pointForeground: '#1E232D',
-    pointSubtle: 'rgba(209, 219, 232, 0.12)',
+    // ── Point / Accent (Royal Indigo) ──
+    point: '#5E5CE6',
+    pointHover: '#7A78F0',
+    pointForeground: '#FFFFFF',
+    pointSubtle: 'rgba(94, 92, 230, 0.15)',
 
-    // ── Border (Highly Visible) ──
-    border: '#3F3F46',             // Zinc 700
+    // ── Border ──
+    border: '#3F3F46',
     input: '#3F3F46',
 
-    // ── Gray Scale (Zinc) ──
-    gray50: '#121214',
-    gray100: '#18181A',
+    // ── Gray Scale (Zinc Inverted) ──
+    gray50: '#09090B',
+    gray100: '#18181B',
     gray200: '#27272A',
     gray300: '#3F3F46',
     gray400: '#52525B',
@@ -184,7 +182,7 @@ export const semanticTokens = {
     gray900: '#FAFAFA',
 
     // ── Glass & Effects ──
-    glassBg: 'rgba(18, 18, 20, 0.85)',
+    glassBg: 'rgba(9, 9, 11, 0.85)',
     glassBorder: 'rgba(250, 250, 250, 0.1)',
     glassInset: 'inset 0 1px 0 rgba(250, 250, 250, 0.05)',
     glassPanelShadow: '0 20px 40px rgba(0, 0, 0, 0.8)',
@@ -204,13 +202,13 @@ export const semanticTokens = {
     // ── Shadow ──
     shadowColor: 'rgba(0, 0, 0, 0.9)',
 
-    // ── Status (Deep & Clear) ──
-    success: '#34D399',
-    successBg: 'rgba(52, 211, 153, 0.15)',
-    successForeground: '#34D399',
-    warning: '#FBBF24',
-    warningBg: 'rgba(251, 191, 36, 0.15)',
-    warningForeground: '#FBBF24',
+    // ── Status ──
+    success: '#4ADE80',
+    successBg: 'rgba(74, 222, 128, 0.15)',
+    successForeground: '#4ADE80',
+    warning: '#FACC15',
+    warningBg: 'rgba(250, 204, 21, 0.15)',
+    warningForeground: '#FACC15',
     error: '#F87171',
     errorBg: 'rgba(248, 113, 113, 0.15)',
     errorForeground: '#F87171',
@@ -222,39 +220,39 @@ export const semanticTokens = {
     interactiveHover: 'rgba(250, 250, 250, 0.08)',
     interactivePressed: 'rgba(250, 250, 250, 0.12)',
     interactiveFocus: '#FAFAFA',
-    interactiveSurfaceTint: 'rgba(250, 250, 250, 0.04)',
-    interactiveHoverTint: 'rgba(250, 250, 250, 0.08)',
-    focusGlow: '0 0 0 2px #3F3F46',
-    pointGlow: '0 0 0 2px rgba(250, 250, 250, 0.3)',
+    interactiveSurfaceTint: 'rgba(255, 255, 255, 0.04)',
+    interactiveHoverTint: 'rgba(255, 255, 255, 0.08)',
+    focusGlow: '0 0 0 3px rgba(250, 250, 250, 0.15)',
+    pointGlow: '0 0 0 2px rgba(94, 92, 230, 0.3)',
 
     // ── Components ──
-    btnPrimarySurface: '#B8C4D9',
-    btnPrimaryHover: '#D1DBE8',
-    btnPrimaryEnergy: '0 4px 16px rgba(184, 196, 217, 0.25)',
+    btnPrimarySurface: '#FAFAFA',
+    btnPrimaryHover: '#E4E4E7',
+    btnPrimaryEnergy: '0 4px 16px rgba(250, 250, 250, 0.1)',
     btnPrimaryInset: 'none',
     btnSecondarySurface: '#27272A',
     btnSecondaryHover: '#3F3F46',
     btnOutlineBorder: '#3F3F46',
     btnOutlineBorderHover: '#52525B',
-    btnOutlineHoverBg: '#27272A',
+    btnOutlineHoverBg: '#18181B',
     btnGhostHover: '#27272A',
-    btnPointSurface: '#D1DBE8',
+    btnPointSurface: '#5E5CE6',
     btnPointBorder: 'transparent',
-    btnPointHoverSurface: '#E6ECEF',
+    btnPointHoverSurface: '#7A78F0',
     btnPointHoverBorder: 'transparent',
-    btnPointEnergy: '0 4px 16px rgba(209, 219, 232, 0.25)',
-    btnDestructiveSurface: '#7C2128',
-    btnDestructiveHover: '#9A2A32',
+    btnPointEnergy: '0 4px 16px rgba(94, 92, 230, 0.3)',
+    btnDestructiveSurface: '#EF4444',
+    btnDestructiveHover: '#F87171',
 
-    inputBg: '#18181A',
+    inputBg: '#27272A',
     inputBorderRest: '#3F3F46',
     inputBorderHover: '#52525B',
-    inputHoverGlow: '0 0 0 2px #27272A',
-    inputFocusGlow: '0 0 0 2px #3F3F46',
-    inputErrorGlow: '0 0 0 2px #3E1014',
+    inputHoverGlow: '0 0 0 2px rgba(255, 255, 255, 0.04)',
+    inputFocusGlow: '0 0 0 2px rgba(250, 250, 250, 0.15)',
+    inputErrorGlow: '0 0 0 2px rgba(248, 113, 113, 0.3)',
 
-    dropdownBg: '#18181A',
-    dropdownShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(250,250,250,0.1)',
+    dropdownBg: '#18181B',
+    dropdownShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(250, 250, 250, 0.1)',
     dropdownItemHover: '#27272A',
 
     cardAccentBorder: '#3F3F46',

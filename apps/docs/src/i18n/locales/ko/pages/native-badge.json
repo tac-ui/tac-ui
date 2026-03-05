@@ -1,0 +1,37 @@
+{
+  "title": "Badge",
+  "description": "React Native에서 상태, 카테고리, 카운트를 표시하는 소형 레이블 컴포넌트입니다. 시맨틱 색상 변형과 선택적 press 인터랙션을 지원합니다.",
+  "sections": {
+    "playground": {
+      "title": "플레이그라운드",
+      "texts": ["아래에서 Badge props를 대화식으로 설정하세요."]
+    },
+    "variants": {
+      "title": "변형",
+      "texts": [
+        "Badge는 default, secondary, destructive, outline, success, error, warning, info 시맨틱 변형을 지원합니다."
+      ]
+    },
+    "interactive": {
+      "title": "인터랙티브",
+      "texts": ["interactive를 설정하거나 onPress 핸들러를 제공하면 press 피드백이 있는 탭 가능한 배지가 됩니다."]
+    },
+    "count": {
+      "title": "카운트",
+      "texts": [
+        "숫자 count prop을 전달하면 배지 안에 숫자가 표시됩니다. 값이 변경될 때마다 스프링 스케일 효과와 함께 애니메이션됩니다."
+      ]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "variant": "배지의 시맨틱 색상 변형.",
+    "count": "배지 안에 표시되는 숫자. 값이 변경될 때 스프링 스케일로 애니메이션됩니다.",
+    "interactive": "true일 때 press 피드백 애니메이션이 있는 Pressable로 렌더링됩니다.",
+    "onPress": "Press 핸들러. 제공 시 배지를 자동으로 인터랙티브하게 만듭니다.",
+    "children": "배지 콘텐츠. 문자열은 자동으로 스타일된 Text 컴포넌트로 래핑됩니다.",
+    "style": "배지 컨테이너에 적용되는 추가 React Native 스타일."
+  }
+}

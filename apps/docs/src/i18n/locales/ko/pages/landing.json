@@ -5,11 +5,16 @@
     "hero": {
       "title": "히어로",
       "description": "코드가 숨을 쉬는 디자인 시스템. 스프링 물리, 순차적 일루미네이션, 글라스모피즘 깊이 — 살아 숨 쉬는 인터페이스를 위해 설계되었습니다.",
-      "texts": [
-        "Interfaces that",
-        "시작하기",
-        "GitHub"
-      ]
+      "texts": ["Interfaces that", "시작하기", "GitHub"]
+    },
+    "stats": {
+      "title": "통계",
+      "items": {
+        "components": { "value": "39+", "label": "컴포넌트" },
+        "tokens": { "value": "100+", "label": "디자인 토큰" },
+        "layouts": { "value": "10", "label": "페이지 레이아웃" },
+        "a11y": { "value": "A11y", "label": "접근성" }
+      }
     },
     "features": {
       "title": "기능",
@@ -28,13 +33,23 @@
         }
       }
     },
+    "quickstart": {
+      "title": "빠른 시작",
+      "description": "몇 초 만에 시작하세요."
+    },
+    "showcase": {
+      "title": "개발자를 위한 설계",
+      "description": "39개 이상의 접근 가능한 컴포넌트, 바로 조합 가능."
+    },
+    "cta": {
+      "title": "시작할 준비 되셨나요?",
+      "description": "다음 프로젝트에서 Tac UI를 사용해보세요. 무료, 오픈 소스이며 프로덕션을 위해 만들어졌습니다.",
+      "texts": ["문서 보기", "GitHub에서 보기"]
+    },
     "footer": {
       "title": "푸터",
-      "description": "오픈 소스 디자인 시스템",
-      "texts": [
-        "GitHub",
-        "© 2026 Tac UI. All rights reserved."
-      ]
+      "description": "오픈 소스 디자인 시스템 · MIT 라이선스",
+      "texts": ["GitHub", "© 2026 Jeonhui Lee. MIT License."]
     }
   }
 }

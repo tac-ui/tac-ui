@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,14 +10,18 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@tac-ui/icon": "workspace:*",
+    "@tac-ui/icon-native": "workspace:^",
+    "@tac-ui/native": "workspace:^",
     "@tac-ui/tokens": "workspace:*",
     "@tac-ui/web": "workspace:*",
     "cmdk": "^1.1.1",
-    "@tac-ui/icon": "workspace:*",
     "framer-motion": "^12.34.0",
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "react-native-svg-web": "^1.0.9",
+    "react-native-web": "^0.21.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

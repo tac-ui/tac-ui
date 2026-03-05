@@ -1,0 +1,175 @@
+'use client';
+
+import React, { useState } from 'react';
+import { Slider } from '@tac-ui/web';
+import { usePageTranslation } from '@/i18n';
+import {
+  DocPage,
+  DocTitle,
+  DocDescription,
+  DocSection,
+  Showcase,
+  PropsTable,
+  DocText,
+  PreviewCode,
+} from '@/components/docs/DocPage';
+import { Playground } from '@/components/docs/Playground';
+
+export default function SliderPage() {
+  const [value, setValue] = useState(40);
+  const pt = usePageTranslation('slider');
+
+  return (
+    <DocPage>
+      <div>
+        <DocTitle>{pt?.title ?? 'Slider'}</DocTitle>
+        <DocDescription>
+          {pt?.description ?? 'A range input that lets users select a numeric value within a defined min/max range.'}
+        </DocDescription>
+      </div>
+
+      <DocSection title="Import">
+        <PreviewCode code={`import { Slider } from '@tac-ui/web';`} />
+      </DocSection>
+
+      <DocSection title="Playground">
+        <DocText>Interactively configure the Slider props below.</DocText>
+        <Playground
+          controls={{
+            disabled: {
+              type: 'boolean',
+              label: 'Disabled',
+              defaultValue: false,
+            },
+          }}
+          previewClassName="flex-col items-stretch"
+          render={(values) => <Slider defaultValue={50} min={0} max={100} disabled={values.disabled as boolean} />}
+          code={(values) => `<Slider defaultValue={50} min={0} max={100}${values.disabled ? ' disabled' : ''} />`}
+        />
+      </DocSection>
+
+      <DocSection title={pt?.sections?.['default']?.title ?? 'Default'}>
+        <DocText>
+          {pt?.sections?.['default']?.texts?.[0] ??
+            'The base slider renders a styled range input with a filled track and an animated thumb that scales on hover and drag interactions.'}
+        </DocText>
+        <Showcase code={`<Slider defaultValue={50} min={0} max={100} />`}>
+          <div className="w-full">
+            <Slider defaultValue={50} min={0} max={100} />
+          </div>
+        </Showcase>
+      </DocSection>
+
+      <DocSection title={pt?.sections?.['unfilled']?.title ?? 'Unfilled'}>
+        <DocText>
+          {pt?.sections?.['unfilled']?.texts?.[0] ??
+            'Set filled={false} to render the track as a flat secondary color without the progressive fill, useful when the position alone conveys the value.'}
+        </DocText>
+        <Showcase code={`<Slider defaultValue={50} min={0} max={100} filled={false} />`}>
+          <div className="w-full">
+            <Slider defaultValue={50} min={0} max={100} filled={false} />
+          </div>
+        </Showcase>
+      </DocSection>
+
+      <DocSection title={pt?.sections?.['with-label-and-value-display']?.title ?? 'With Label and Value Display'}>
+        <DocText>
+          {pt?.sections?.['with-label-and-value-display']?.texts?.[0] ??
+            'Pass label to render a heading above the track. Enable showValue to display the current numeric value aligned to the right of the label in real time.'}
+        </DocText>
+        <Showcase
+          code={`const [value, setValue] = useState(40);
+
+<Slider
+  label="Volume"
+  showValue
+  value={value}
+  min={0}
+  max={100}
+  step={1}
+  onChange={(e) => setValue(Number(e.target.value))}
+/>`}
+        >
+          <div className="w-full">
+            <Slider
+              label="Volume"
+              showValue
+              value={value}
+              min={0}
+              max={100}
+              step={1}
+              onChange={(e) => setValue(Number(e.target.value))}
+            />
+          </div>
+        </Showcase>
+      </DocSection>
+
+      <DocSection title={pt?.sections?.['api-reference']?.title ?? 'API Reference'}>
+        <PropsTable
+          data={[
+            {
+              name: 'label',
+              type: 'string',
+              default: '-',
+              description: pt?.props?.['label'] ?? 'Label displayed above the slider.',
+            },
+            {
+              name: 'showValue',
+              type: 'boolean',
+              default: 'false',
+              description: pt?.props?.['showValue'] ?? 'Displays the current value next to the label.',
+            },
+            {
+              name: 'filled',
+              type: 'boolean',
+              default: 'true',
+              description: pt?.props?.['filled'] ?? 'Fills the track up to the current value with the primary color.',
+            },
+            {
+              name: 'value',
+              type: 'number',
+              default: '-',
+              description: pt?.props?.['value'] ?? 'Controlled current value.',
+            },
+            {
+              name: 'defaultValue',
+              type: 'number',
+              default: '-',
+              description: pt?.props?.['defaultValue'] ?? 'Default value for uncontrolled usage.',
+            },
+            {
+              name: 'min',
+              type: 'number',
+              default: '0',
+              description: pt?.props?.['min'] ?? 'Minimum value of the range.',
+            },
+            {
+              name: 'max',
+              type: 'number',
+              default: '100',
+              description: pt?.props?.['max'] ?? 'Maximum value of the range.',
+            },
+            {
+              name: 'step',
+              type: 'number',
+              default: '1',
+              description: pt?.props?.['step'] ?? 'Increment step between values.',
+            },
+            {
+              name: 'onChange',
+              type: '(e: React.ChangeEvent<HTMLInputElement>) => void',
+              default: '-',
+              description: pt?.props?.['onChange'] ?? 'Called when the value changes.',
+            },
+            {
+              name: 'disabled',
+              type: 'boolean',
+              default: 'false',
+              description: pt?.props?.['disabled'] ?? 'Disables the slider when true.',
+            },
+          ]}
+        />
+      </DocSection>
+    </DocPage>
+  );
+}

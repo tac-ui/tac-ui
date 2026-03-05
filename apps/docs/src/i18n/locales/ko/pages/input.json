@@ -4,31 +4,45 @@
   "sections": {
     "default": {
       "title": "기본",
-      "texts": ["기본 입력은 호버 및 포커스 시 부드러운 테두리와 그림자 전환이 적용된 전체 너비 스타일 텍스트 필드를 렌더링합니다."]
+      "texts": [
+        "기본 입력은 호버 및 포커스 시 부드러운 테두리와 그림자 전환이 적용된 전체 너비 스타일 텍스트 필드를 렌더링합니다."
+      ]
     },
     "with-icons": {
       "title": "아이콘 포함",
-      "texts": ["leftIcon 또는 rightIcon을 사용하여 입력 내부에 아이콘을 렌더링합니다. 아이콘 슬롯은 모든 React 노드를 허용하며 SVG를 20px로 자동 조정합니다."]
+      "texts": [
+        "leftIcon 또는 rightIcon을 사용하여 입력 내부에 아이콘을 렌더링합니다. 아이콘 슬롯은 모든 React 노드를 허용하며 SVG를 20px로 자동 조정합니다."
+      ]
     },
     "password-toggle": {
       "title": "비밀번호 토글",
-      "texts": ["rightIcon에 AnimatedToggle 같은 인터랙티브 요소를 결합하여 별도의 래퍼 컴포넌트 없이 비밀번호 표시 전환을 구현합니다."]
+      "texts": [
+        "rightIcon에 Toggle 같은 인터랙티브 요소를 결합하여 별도의 래퍼 컴포넌트 없이 비밀번호 표시 전환을 구현합니다."
+      ]
     },
     "with-label-and-helper": {
       "title": "라벨과 도움 텍스트",
-      "texts": ["label을 전달하면 필드 위에 연결된 <label>을 렌더링합니다. helperText는 활성 오류가 없을 때 아래에 표시됩니다."]
+      "texts": [
+        "label을 전달하면 필드 위에 연결된 <label>을 렌더링합니다. helperText는 활성 오류가 없을 때 아래에 표시됩니다."
+      ]
     },
     "error-state": {
       "title": "오류 상태",
-      "texts": ["error를 설정하면 위험 테두리 스타일이 적용되고, errorMessage를 전달하면 필드 아래에 접근성을 갖춘 오류 설명이 표시됩니다."]
+      "texts": [
+        "error를 설정하면 위험 테두리 스타일이 적용되고, errorMessage를 전달하면 필드 아래에 접근성을 갖춘 오류 설명이 표시됩니다."
+      ]
     },
     "with-button": {
       "title": "버튼 포함",
-      "texts": ["rightButton은 입력 오른쪽 가장자리에 작은 액션 버튼을 렌더링하며, 입력 높이에 자동으로 맞춰 스타일링됩니다."]
+      "texts": [
+        "rightButton은 입력 오른쪽 가장자리에 작은 액션 버튼을 렌더링하며, 입력 높이에 자동으로 맞춰 스타일링됩니다."
+      ]
     },
     "glow": {
       "title": "글로우",
-      "texts": ["glow prop은 입력 주위를 지속적으로 순환하는 애니메이션 코닉 그라디언트 테두리를 활성화합니다. 포커스된 필드에 주의를 끌 때 유용합니다."]
+      "texts": [
+        "glow prop은 입력 주위를 지속적으로 순환하는 애니메이션 코닉 그라디언트 테두리를 활성화합니다. 포커스된 필드에 주의를 끌 때 유용합니다."
+      ]
     },
     "disabled": {
       "title": "비활성화",

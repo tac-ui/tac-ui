@@ -39,20 +39,33 @@ jobs:
           pnpm --filter @tac-ui/shared version ${{ inputs.version }} --no-git-tag-version
           pnpm --filter @tac-ui/tokens version ${{ inputs.version }} --no-git-tag-version
           pnpm --filter @tac-ui/icon version ${{ inputs.version }} --no-git-tag-version
+          pnpm --filter @tac-ui/icon-native version ${{ inputs.version }} --no-git-tag-version
           pnpm --filter @tac-ui/web version ${{ inputs.version }} --no-git-tag-version
+          pnpm --filter @tac-ui/native version ${{ inputs.version }} --no-git-tag-version
 
       - name: Resolve workspace dependencies
         run: |
-          # Replace workspace:* with actual versions for publishing
+          SHARED_VERSION=$(node -p "require('./packages/shared/package.json').version")
+          TOKENS_VERSION=$(node -p "require('./packages/tokens/package.json').version")
+          ICON_VERSION=$(node -p "require('./packages/icon/package.json').version")
+
+          # tokens depends on shared
           cd packages/tokens
-          SHARED_VERSION=$(node -p "require('../shared/package.json').version")
           sed -i "s/\"workspace:\*\"/\"^$SHARED_VERSION\"/g" package.json
-          cd ../web
-          TOKENS_VERSION=$(node -p "require('../tokens/package.json').version")
-          ICON_VERSION=$(node -p "require('../icon/package.json').version")
+          cd ../..
+
+          # web depends on shared, tokens, icon
+          cd packages/web
           sed -i "s/\"@tac-ui\/shared\": \"workspace:\*\"/\"@tac-ui\/shared\": \"^$SHARED_VERSION\"/g" package.json
           sed -i "s/\"@tac-ui\/tokens\": \"workspace:\*\"/\"@tac-ui\/tokens\": \"^$TOKENS_VERSION\"/g" package.json
           sed -i "s/\"@tac-ui\/icon\": \"workspace:\*\"/\"@tac-ui\/icon\": \"^$ICON_VERSION\"/g" package.json
+          cd ../..
+
+          # native depends on shared, tokens
+          cd packages/native
+          sed -i "s/\"@tac-ui\/shared\": \"workspace:\*\"/\"@tac-ui\/shared\": \"^$SHARED_VERSION\"/g" package.json
+          sed -i "s/\"@tac-ui\/tokens\": \"workspace:\*\"/\"@tac-ui\/tokens\": \"^$TOKENS_VERSION\"/g" package.json
+          cd ../..
 
       - name: Publish @tac-ui/shared
         run: pnpm --filter @tac-ui/shared publish --no-git-checks
@@ -69,8 +82,18 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Publish @tac-ui/icon-native
+        run: pnpm --filter @tac-ui/icon-native publish --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Publish @tac-ui/web
         run: pnpm --filter @tac-ui/web publish --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @tac-ui/native
+        run: pnpm --filter @tac-ui/native publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -80,11 +103,17 @@ jobs:
 
       - name: Commit version bump
         run: |
-          git checkout -- packages/tokens/package.json packages/web/package.json
+          # Restore workspace deps before committing
+          git checkout -- packages/tokens/package.json packages/web/package.json packages/native/package.json
+
+          # Re-bump versions (clean workspace deps)
           pnpm --filter @tac-ui/shared version ${{ inputs.version }} --no-git-tag-version
           pnpm --filter @tac-ui/tokens version ${{ inputs.version }} --no-git-tag-version
           pnpm --filter @tac-ui/icon version ${{ inputs.version }} --no-git-tag-version
+          pnpm --filter @tac-ui/icon-native version ${{ inputs.version }} --no-git-tag-version
           pnpm --filter @tac-ui/web version ${{ inputs.version }} --no-git-tag-version
+          pnpm --filter @tac-ui/native version ${{ inputs.version }} --no-git-tag-version
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A

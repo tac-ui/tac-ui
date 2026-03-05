@@ -10,11 +10,13 @@
       "feedback": "Feedback",
       "navigation": "Navigation",
       "overlay": "Overlay",
-      "layout": "Layout"
+      "layout": "Layout",
+      "animation": "Animation"
     },
     "items": {
       "introduction": "Introduction",
       "installation": "Installation",
+      "llms-txt": "llms",
       "colors": "Colors",
       "typography": "Typography",
       "icons": "Icons",
@@ -44,7 +46,9 @@
       "indicator": "Indicator",
       "skeleton": "Skeleton",
       "codeblock": "CodeBlock",
+      "code-block": "CodeBlock",
       "card": "Card",
+      "morphing-card": "MorphingCard",
       "empty-state": "EmptyState",
       "chart": "Chart",
       "alert": "Alert",
@@ -60,7 +64,20 @@
       "modal": "Modal",
       "drawer": "Drawer",
       "stack": "Stack",
-      "layout": "Layout"
+      "layout": "Layout",
+      "animated-toggle": "Toggle",
+      "native-introduction": "Introduction",
+      "native-installation": "Installation",
+      "native-llms-txt": "llms",
+      "native-colors": "Colors",
+      "native-typography": "Typography",
+      "native-animations": "Animations",
+      "native-icons": "Icons",
+      "native-customization": "Customization",
+      "floating-menu-bar": "FloatingMenuBar",
+      "native-layout-tab-bar": "Tab Bar",
+      "native-layout-header-content": "Header + Content",
+      "native-layout-bottom-sheet": "Bottom Sheet"
     }
   },
   "ui": {

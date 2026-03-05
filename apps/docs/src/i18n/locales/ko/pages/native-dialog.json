@@ -1,0 +1,31 @@
+{
+  "title": "Dialog",
+  "description": "메인 콘텐츠로 돌아가기 전에 사용자 상호작용을 요구하는 모달 오버레이입니다. 애니메이션 입장/퇴장 전환과 커스터마이징 가능한 백드롭을 지원합니다.",
+  "sections": {
+    "default": {
+      "title": "기본",
+      "texts": ["구조화된 콘텐츠를 위해 서브 컴포넌트로 Dialog를 구성합니다."]
+    },
+    "without-backdrop": {
+      "title": "배경 없이",
+      "texts": ["backdrop prop으로 다이얼로그 뒤 백드롭의 시각적 스타일을 조정합니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스",
+      "texts": [
+        "Dialog props. 서브 컴포넌트(DialogHeader, DialogTitle, DialogDescription, DialogFooter)는 모두 표준 ViewProps와 children을 받습니다.",
+        "서브 컴포넌트:"
+      ]
+    }
+  },
+  "props": {
+    "open": "다이얼로그 표시 여부를 제어합니다.",
+    "onClose": "백드롭을 누르거나 닫기를 요청할 때 호출됩니다.",
+    "backdrop": "다이얼로그 뒤 백드롭의 시각적 스타일.",
+    "children": "다이얼로그 콘텐츠, 일반적으로 DialogHeader와 DialogFooter.",
+    "DialogHeader": "제목과 설명을 위한 중앙 정렬 컨테이너.",
+    "DialogTitle": "굵은 중앙 정렬 제목 텍스트.",
+    "DialogDescription": "흐린 색상의 중앙 정렬 설명 텍스트.",
+    "DialogFooter": "상단 테두리가 있는 오른쪽 정렬 액션 행."
+  }
+}

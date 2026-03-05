@@ -1,35 +1,47 @@
 'use client';
 
 import React, { useState } from 'react';
-import { cn, CodeBlock, VStack, Button, Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@tac-ui/web';
+import {
+  cn,
+  CodeBlock,
+  VStack,
+  Button,
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+} from '@tac-ui/web';
 import { useTranslation } from '@/i18n';
 import { DocNavigation } from './DocNavigation';
+import type { NavGroup } from './nav-data';
 
 /* ─── Page wrapper ─── */
-export function DocPage({ children, fullWidth = false }: { children: React.ReactNode; fullWidth?: boolean }) {
+export function DocPage({
+  children,
+  fullWidth = false,
+  navGroups,
+}: {
+  children: React.ReactNode;
+  fullWidth?: boolean;
+  navGroups?: NavGroup[];
+}) {
   return (
     <div className={cn('mx-auto py-12 px-6 lg:px-8 pb-24', fullWidth ? 'max-w-full' : 'max-w-[960px]')}>
       <VStack gap="xl">{children}</VStack>
-      <DocNavigation />
+      <DocNavigation navGroups={navGroups} />
     </div>
   );
 }
 
 /* ─── Title block ─── */
 export function DocTitle({ children }: { children: React.ReactNode }) {
-  return (
-    <h1 className="text-2xl font-semibold tracking-tight text-[var(--foreground)] leading-tight">
-      {children}
-    </h1>
-  );
+  return <h1 className="text-2xl font-semibold tracking-tight text-[var(--foreground)] leading-tight">{children}</h1>;
 }
 
 export function DocDescription({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="text-[15px] text-[var(--muted-foreground)] leading-relaxed mt-1">
-      {children}
-    </p>
-  );
+  return <p className="text-[15px] text-[var(--muted-foreground)] leading-relaxed mt-1">{children}</p>;
 }
 
 /* ─── Section ─── */
@@ -70,7 +82,7 @@ export function Preview({ children, className }: { children: React.ReactNode; cl
 
 export function PreviewCode({ code, language = 'tsx' }: { code: string; language?: string }) {
   return (
-    <div className="rounded-b-[var(--radius-lg)] border border-solid border-t-0 border-[var(--border)] overflow-hidden [&_pre]:!rounded-none [&_pre]:!border-none [&_pre]:!m-0">
+    <div className="overflow-hidden [&_pre]:!rounded-none [&_pre]:!border-none [&_pre]:!m-0">
       <CodeBlock code={code.trim()} language={language} />
     </div>
   );
@@ -92,7 +104,12 @@ export function Showcase({
 
   return (
     <div className="rounded-[var(--radius-lg)] border border-solid border-[var(--border)]">
-      <div className={cn('flex flex-wrap items-center gap-4 p-6 bg-[var(--background)] rounded-t-[var(--radius-lg)]', className)}>
+      <div
+        className={cn(
+          'flex flex-wrap items-center gap-4 p-6 bg-[var(--background)] rounded-t-[var(--radius-lg)]',
+          className,
+        )}
+      >
         {children}
       </div>
       <div className="flex justify-end border-t border-solid border-[var(--border)] bg-[var(--secondary)]/30">
@@ -144,9 +161,15 @@ export function PropsTable({ data }: { data: PropDef[] }) {
         <TableBody>
           {data.map((prop) => (
             <TableRow key={prop.name} className="last:border-b-0 hover:translate-y-0">
-              <TableCell className="py-2.5 px-4 font-mono text-[13px] text-[var(--primary)] font-medium">{prop.name}</TableCell>
-              <TableCell className="py-2.5 px-4 font-mono text-[12px] text-[var(--muted-foreground)]">{prop.type}</TableCell>
-              <TableCell className="py-2.5 px-4 font-mono text-[12px] text-[var(--muted-foreground)]">{prop.default ?? '-'}</TableCell>
+              <TableCell className="py-2.5 px-4 font-mono text-[13px] text-[var(--primary)] font-medium">
+                {prop.name}
+              </TableCell>
+              <TableCell className="py-2.5 px-4 font-mono text-[12px] text-[var(--muted-foreground)]">
+                {prop.type}
+              </TableCell>
+              <TableCell className="py-2.5 px-4 font-mono text-[12px] text-[var(--muted-foreground)]">
+                {prop.default ?? '-'}
+              </TableCell>
               <TableCell className="py-2.5 px-4 text-[13px] text-[var(--foreground)]">{prop.description}</TableCell>
             </TableRow>
           ))}

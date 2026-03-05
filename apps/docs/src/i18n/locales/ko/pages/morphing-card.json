@@ -1,0 +1,36 @@
+{
+  "title": "MorphingCard",
+  "description": "Framer Motion 레이아웃 애니메이션을 사용하여 축소된 프리뷰와 확장된 디테일 뷰 사이를 부드럽게 전환하는 글래스 모픽 카드입니다.",
+  "sections": {
+    "default": {
+      "title": "기본",
+      "texts": [
+        "카드를 클릭하면 디테일 콘텐츠가 포함된 풀스크린 오버레이로 확장됩니다. Escape를 누르거나 배경을 클릭하면 축소됩니다."
+      ]
+    },
+    "with-actions": {
+      "title": "액션 포함",
+      "texts": [
+        "확장된 디테일 뷰에 버튼 같은 인터랙티브 요소를 포함할 수 있습니다. 해당 요소를 클릭해도 카드가 축소되지 않습니다."
+      ]
+    },
+    "controlled": {
+      "title": "제어 모드",
+      "texts": [
+        "expanded와 onExpandedChange를 전달하여 카드 상태를 외부에서 제어합니다. 프로그래밍 방식의 열기/닫기나 다른 UI 상태와 동기화할 때 유용합니다."
+      ]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "layoutId": "Framer Motion 레이아웃 모핑 동기화를 위한 고유 ID. 필수입니다.",
+    "expanded": "카드가 확장 상태인지 여부. 제어 모드에서 onExpandedChange와 함께 사용합니다.",
+    "onExpandedChange": "확장 상태가 변경될 때 호출됩니다.",
+    "preview": "축소(접힘) 상태에서 표시되는 콘텐츠.",
+    "detail": "확장된 오버레이 상태에서 표시되는 콘텐츠.",
+    "children": "preview나 detail이 제공되지 않을 때 사용되는 폴백 콘텐츠.",
+    "className": "카드 컨테이너에 적용되는 추가 CSS 클래스."
+  }
+}

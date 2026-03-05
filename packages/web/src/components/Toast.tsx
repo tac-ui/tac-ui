@@ -2,6 +2,9 @@ import React, { forwardRef, useCallback, useContext, useEffect, useRef, useState
 import { motion, AnimatePresence } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../utils/cn';
+import { tacSpring } from '../constants/motion';
+import type { MotionConflictingHandlers } from '../constants/types';
+import { focusRing } from '../constants/styles';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -55,33 +58,19 @@ export interface ToastProviderProps {
 }
 
 // ---------------------------------------------------------------------------
-// Spring configs
-// ---------------------------------------------------------------------------
-
-import { diaSpring } from '../constants/motion';
-import type { MotionConflictingHandlers } from '../constants/types';
-import { focusRingCompact } from '../constants/styles';
-
-
-// ---------------------------------------------------------------------------
 // CVA variants
 // ---------------------------------------------------------------------------
 
 const toastVariants = cva(
-  'group relative flex items-center gap-3 pl-5 pr-4 py-3.5 min-w-[320px] max-w-[480px] w-auto rounded-[var(--radius-xl)] pointer-events-auto [backdrop-filter:blur(40px)_saturate(180%)] bg-[var(--card)]',
+  'group relative flex items-center gap-3 pl-5 pr-4 py-3.5 min-w-[320px] max-w-[480px] w-auto rounded-[var(--radius-lg)] pointer-events-auto [backdrop-filter:blur(40px)_saturate(180%)] bg-[var(--card)]',
   {
     variants: {
       variant: {
-        default:
-          'text-[var(--foreground)] shadow-[var(--glass-panel-shadow)]',
-        success:
-          'text-[var(--foreground)] shadow-[var(--glass-panel-shadow)]',
-        error:
-          'text-[var(--foreground)] shadow-[var(--glass-panel-shadow)]',
-        warning:
-          'text-[var(--foreground)] shadow-[var(--glass-panel-shadow)]',
-        info:
-          'text-[var(--foreground)] [box-shadow:var(--glass-panel-shadow),var(--glass-inset)]',
+        default: 'text-[var(--foreground)] shadow-[var(--glass-panel-shadow)]',
+        success: 'text-[var(--foreground)] shadow-[var(--glass-panel-shadow)]',
+        error: 'text-[var(--foreground)] shadow-[var(--glass-panel-shadow)]',
+        warning: 'text-[var(--foreground)] shadow-[var(--glass-panel-shadow)]',
+        info: 'text-[var(--foreground)] [box-shadow:var(--glass-panel-shadow),var(--glass-inset)]',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -143,7 +132,7 @@ export function ToastProvider({ children, position = 'bottom-right', maxToasts =
   entriesRef.current = entries;
 
   const dismiss = useCallback((id: string) => {
-    setEntries(prev => prev.filter(e => e.id !== id));
+    setEntries((prev) => prev.filter((e) => e.id !== id));
   }, []);
 
   const dismissAll = useCallback(() => {
@@ -163,7 +152,7 @@ export function ToastProvider({ children, position = 'bottom-right', maxToasts =
         onAction: options.onAction,
       };
 
-      setEntries(prev => {
+      setEntries((prev) => {
         const next = [...prev, entry];
         // Trim to maxToasts by dismissing oldest entries.
         if (next.length > maxToasts) {
@@ -214,7 +203,8 @@ export function useToast(): {
 // ---------------------------------------------------------------------------
 
 /** Props for a single rendered toast item. */
-export interface ToastItemProps extends Omit<React.HTMLAttributes<HTMLDivElement>, MotionConflictingHandlers>, VariantProps<typeof toastVariants> {
+export interface ToastItemProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, MotionConflictingHandlers>, VariantProps<typeof toastVariants> {
   /** Toast entry data. */
   entry: ToastEntry;
   /** Callback to dismiss this toast. */
@@ -246,20 +236,16 @@ export const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>(
         initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
         animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         exit={{ opacity: 0, y: 6, filter: 'blur(2px)', transition: { duration: 0.15 } }}
-        transition={diaSpring.magnetic}
+        transition={tacSpring.magnetic}
         {...props}
       >
-        {variant !== 'default' && (
-          <span className={cn('w-2 h-2 rounded-full shrink-0', dotColorMap[variant])} />
-        )}
+        {variant !== 'default' && <span className={cn('w-2 h-2 rounded-full shrink-0', dotColorMap[variant])} />}
         {entry.icon && variant === 'default' && (
           <span className="w-[18px] h-[18px] shrink-0 text-[var(--muted-foreground)] [&>svg]:w-[18px] [&>svg]:h-[18px]">
             {entry.icon}
           </span>
         )}
-        <span className={cn('flex-1 text-sm font-medium', textColorMap[variant])}>
-          {entry.message}
-        </span>
+        <span className={cn('flex-1 text-sm font-medium', textColorMap[variant])}>{entry.message}</span>
         {entry.action && (
           <button
             type="button"
@@ -280,7 +266,10 @@ export const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>(
         <button
           type="button"
           onClick={() => onDismiss(entry.id)}
-          className={cn("flex items-center justify-center w-9 h-9 rounded-[var(--radius-sm)] text-[var(--muted-foreground)] bg-transparent border-none cursor-pointer transition-colors hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)]", focusRingCompact)}
+          className={cn(
+            'flex items-center justify-center w-7 h-7 rounded-[var(--radius-sm)] text-[var(--muted-foreground)] bg-transparent border-none cursor-pointer transition-colors hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)]',
+            focusRing,
+          )}
           aria-label="Close"
         >
           <svg
@@ -289,7 +278,7 @@ export const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>(
             viewBox="0 0 14 14"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
           >
@@ -330,7 +319,7 @@ export const ToastContainer = forwardRef<HTMLDivElement, React.HTMLAttributes<HT
         {...props}
       >
         <AnimatePresence mode="popLayout">
-          {entries.map(entry => (
+          {entries.map((entry) => (
             <ToastItem key={entry.id} entry={entry} onDismiss={dismiss} />
           ))}
         </AnimatePresence>

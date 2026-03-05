@@ -4,19 +4,27 @@
   "sections": {
     "sides": {
       "title": "방향",
-      "texts": ["side prop을 사용하여 네 방향 중 어디에서든 슬라이드할 수 있습니다. 좌우 드로어는 고정 너비(360px)이며, 상하 드로어는 전체 너비에 최대 높이 80vh로 표시됩니다."]
+      "texts": [
+        "side prop을 사용하여 네 방향 중 어디에서든 슬라이드할 수 있습니다. 좌우 드로어는 고정 너비(360px)이며, 상하 드로어는 전체 너비에 최대 높이 80vh로 표시됩니다."
+      ]
     },
     "without-backdrop": {
       "title": "배경 없음",
-      "texts": ["backdrop={false}를 설정하면 어두운 오버레이가 제거됩니다. Escape 키로 닫기와 포커스 트래핑은 여전히 동작합니다."]
+      "texts": [
+        "backdrop={false}를 설정하면 어두운 오버레이가 제거됩니다. Escape 키로 닫기와 포커스 트래핑은 여전히 동작합니다."
+      ]
     },
     "with-content": {
       "title": "콘텐츠 포함",
-      "texts": ["DrawerBody는 콘텐츠가 넘칠 때 독립적으로 스크롤되며, DrawerHeader와 DrawerFooter는 고정 위치를 유지합니다."]
+      "texts": [
+        "DrawerBody는 콘텐츠가 넘칠 때 독립적으로 스크롤되며, DrawerHeader와 DrawerFooter는 고정 위치를 유지합니다."
+      ]
     },
     "api-reference": {
       "title": "API 레퍼런스",
-      "texts": ["Drawer props. 하위 컴포넌트(DrawerHeader, DrawerTitle, DrawerDescription, DrawerBody, DrawerFooter)는 모두 표준 HTML 속성과 className을 지원합니다."]
+      "texts": [
+        "Drawer props. 하위 컴포넌트(DrawerHeader, DrawerTitle, DrawerDescription, DrawerBody, DrawerFooter)는 모두 표준 HTML 속성과 className을 지원합니다."
+      ]
     }
   },
   "props": {

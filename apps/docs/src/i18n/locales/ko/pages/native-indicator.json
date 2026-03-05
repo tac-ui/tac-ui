@@ -1,0 +1,32 @@
+{
+  "title": "Indicator",
+  "description": "선형 바 또는 원형 스피너로 제공되는 불확정 로딩 애니메이션입니다.",
+  "sections": {
+    "playground": {
+      "title": "플레이그라운드",
+      "texts": ["아래에서 Indicator props를 대화식으로 설정하세요."]
+    },
+    "linear": {
+      "title": "선형",
+      "texts": [
+        "선형 인디케이터는 트랙을 따라 슬라이딩하는 애니메이션 바를 표시합니다. 페이지 수준 로딩 상태에 적합합니다."
+      ]
+    },
+    "circular": {
+      "title": "원형",
+      "texts": ["원형 변형은 회전하는 SVG 링을 표시합니다. size prop으로 직경을 제어합니다."]
+    },
+    "custom-colors": {
+      "title": "커스텀 색상",
+      "texts": ["color prop을 사용하여 애니메이션 부분의 색상을 커스터마이징합니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "variant": "인디케이터 스타일: linear 또는 circular.",
+    "size": "원형 인디케이터의 지름 (dp).",
+    "color": "애니메이션 바 또는 링의 색상."
+  }
+}

@@ -62,9 +62,7 @@ function CommandDialog({ onClose, open }: { onClose: () => void; open: boolean }
                   className="flex items-center gap-3 px-3 py-2.5 text-sm text-[var(--foreground)] rounded-lg cursor-pointer data-[selected=true]:bg-[var(--point-subtle)] transition-colors"
                 >
                   <div className="w-5 h-5 rounded bg-[var(--secondary)] flex items-center justify-center shrink-0">
-                    <span className="text-[10px] font-bold text-[var(--muted-foreground)]">
-                      {item.title[0]}
-                    </span>
+                    <span className="text-[10px] font-bold text-[var(--muted-foreground)]">{item.title[0]}</span>
                   </div>
                   {t.nav.items[item.key] ?? item.title}
                 </Command.Item>
@@ -113,9 +111,7 @@ export function SearchTrigger() {
     >
       <Search size={14} className="shrink-0" />
       <span className="flex-1 text-left">{t.ui.search}</span>
-      <kbd className="text-[11px] font-mono text-[var(--muted-foreground)]/60 leading-none">
-        ⌘K
-      </kbd>
+      <kbd className="text-[11px] font-mono text-[var(--muted-foreground)]/60 leading-none">⌘K</kbd>
     </button>
   );
 }

@@ -2,10 +2,9 @@ import React, { forwardRef, useEffect, useCallback, useRef, useId } from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { useFocusTrap, useFocusRestore } from '../hooks/useAccessibility';
-import { diaSpring } from '../constants/motion';
+import { tacSpring } from '../constants/motion';
 import { mergeRefs } from '../utils/mergeRefs';
 import type { MotionConflictingHandlers } from '../constants/types';
-
 
 /**
  * Modal dialog with a fixed-width layout, backdrop, and keyboard (Escape) dismissal.
@@ -32,9 +31,12 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
     useFocusRestore(open);
     useFocusTrap(panelRef, open);
 
-    const handleKeyDown = useCallback((e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    }, [onClose]);
+    const handleKeyDown = useCallback(
+      (e: KeyboardEvent) => {
+        if (e.key === 'Escape') onClose();
+      },
+      [onClose],
+    );
 
     useEffect(() => {
       if (open) {
@@ -55,8 +57,13 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className={cn("fixed inset-0 flex items-center justify-center z-[var(--z-modal)]", backdrop && "bg-black/40 backdrop-blur-sm")}
-            onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+            className={cn(
+              'fixed inset-0 flex items-center justify-center z-[var(--z-modal)]',
+              backdrop && 'bg-black/30 backdrop-blur-md',
+            )}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) onClose();
+            }}
           >
             <motion.div
               ref={mergeRefs(panelRef, ref)}
@@ -64,12 +71,12 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
               initial={{ opacity: 0, scale: 0.97, filter: 'blur(4px)' }}
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               exit={{ opacity: 0, scale: 0.97, filter: 'blur(4px)', transition: { duration: 0.15 } }}
-              transition={{ ...diaSpring.heavy, filter: { duration: 0.25 } }}
+              transition={{ ...tacSpring.heavy, filter: { duration: 0.25 } }}
               role="dialog"
               aria-modal="true"
               aria-labelledby={titleId}
               className={cn(
-                'w-[var(--dialog-width)] max-w-[90vw] [backdrop-filter:blur(24px)_saturate(180%)] bg-[var(--background)] border border-solid border-[var(--input-border-rest)] rounded-[var(--dialog-radius)] [box-shadow:var(--glass-inset),var(--glass-panel-shadow)] overflow-hidden',
+                'w-[var(--dialog-width)] max-w-[90vw] [backdrop-filter:blur(24px)_saturate(180%)] bg-[var(--background)] border-[0.5px] border-solid border-[var(--input-border-rest)] rounded-[var(--dialog-radius)] [box-shadow:var(--glass-inset),var(--glass-panel-shadow)] overflow-hidden',
                 className,
               )}
               onClick={(e) => e.stopPropagation()}
@@ -87,28 +94,50 @@ Dialog.displayName = 'Dialog';
 
 export const DialogTitle = forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => (
-    <h3 ref={ref} className={cn('text-lg font-medium text-[var(--foreground)]', className)} {...props} />
+    <h3
+      ref={ref}
+      className={cn(
+        'text-[length:var(--dialog-title-size)] font-semibold text-[var(--foreground)] tracking-tight text-center',
+        className,
+      )}
+      {...props}
+    />
   ),
 );
 DialogTitle.displayName = 'DialogTitle';
 
 export const DialogDescription = forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
   ({ className, ...props }, ref) => (
-    <p ref={ref} className={cn('text-sm text-[var(--muted-foreground)] leading-relaxed', className)} {...props} />
+    <p
+      ref={ref}
+      className={cn(
+        'text-[length:var(--dialog-desc-size)] text-[var(--muted-foreground)] leading-tight text-center',
+        className,
+      )}
+      {...props}
+    />
   ),
 );
 DialogDescription.displayName = 'DialogDescription';
 
 export const DialogHeader = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('px-6 py-5 flex flex-col gap-2', className)} {...props} />
+    <div
+      ref={ref}
+      className={cn('px-[var(--dialog-header-px)] py-[var(--dialog-header-py)] flex flex-col gap-1.5', className)}
+      {...props}
+    />
   ),
 );
 DialogHeader.displayName = 'DialogHeader';
 
 export const DialogFooter = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('flex justify-end gap-3 px-6 py-4 border-t border-solid border-[var(--border)]', className)} {...props} />
+    <div
+      ref={ref}
+      className={cn('flex justify-end gap-2 px-6 py-5 border-t-[0.5px] border-solid border-[var(--border)]', className)}
+      {...props}
+    />
   ),
 );
 DialogFooter.displayName = 'DialogFooter';

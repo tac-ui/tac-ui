@@ -1,10 +1,10 @@
 import React, { forwardRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { diaSpring } from '../constants/motion';
+import { tacSpring } from '../constants/motion';
 
-/** Props for the AnimatedToggle component, a button that swaps icons with a rotation animation on toggle. */
-export interface AnimatedToggleProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'> {
+/** Props for the Toggle component, a button that swaps icons with a rotation animation on toggle. */
+export interface ToggleProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'> {
   /** The controlled checked state. */
   checked?: boolean;
   /** Callback fired when the toggle is clicked, receives the new checked value. */
@@ -15,7 +15,7 @@ export interface AnimatedToggleProps extends Omit<React.ButtonHTMLAttributes<HTM
   iconOff?: React.ReactNode;
 }
 
-export const AnimatedToggle = forwardRef<HTMLButtonElement, AnimatedToggleProps>(
+export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
   ({ className, checked = false, onChange, iconOn, iconOff, ...props }, ref) => {
     const [mounted, setMounted] = useState(false);
     useEffect(() => setMounted(true), []);
@@ -26,10 +26,13 @@ export const AnimatedToggle = forwardRef<HTMLButtonElement, AnimatedToggleProps>
         type="button"
         aria-pressed={checked}
         onClick={() => onChange?.(!checked)}
-        style={{ transition: 'background 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+        style={{
+          transition:
+            'background 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
         className={cn(
-          'relative w-10 h-10 flex items-center justify-center rounded-[var(--radius-m)] border-none cursor-pointer hover:bg-[var(--interactive-surface-tint)]',
-          checked ? 'bg-[var(--interactive-surface-tint)] text-[var(--point)]' : 'bg-transparent',
+          'relative w-10 h-10 flex items-center justify-center rounded-[var(--radius-m)] border-none cursor-pointer',
+          'bg-transparent hover:bg-[var(--interactive-surface-tint)]',
           className,
         )}
         {...props}
@@ -38,22 +41,25 @@ export const AnimatedToggle = forwardRef<HTMLButtonElement, AnimatedToggleProps>
           <AnimatePresence initial={false}>
             <motion.span
               key={checked ? 'on' : 'off'}
-              initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
+              initial={{ opacity: 0, scale: 0.5, rotate: -90 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              exit={{ opacity: 0, scale: 0.5, rotate: 180 }}
-              transition={diaSpring.light}
+              exit={{ opacity: 0, scale: 0.5, rotate: 90 }}
+              transition={tacSpring.light}
               className="absolute w-5 h-5 text-[var(--foreground)] [&>svg]:w-5 [&>svg]:h-5"
             >
               {checked ? iconOn : iconOff}
             </motion.span>
           </AnimatePresence>
         ) : (
-          <span className="w-5 h-5 text-[var(--foreground)] [&>svg]:w-5 [&>svg]:h-5">
-            {checked ? iconOn : iconOff}
-          </span>
+          <span className="w-5 h-5 text-[var(--foreground)] [&>svg]:w-5 [&>svg]:h-5">{checked ? iconOn : iconOff}</span>
         )}
       </button>
     );
   },
 );
-AnimatedToggle.displayName = 'AnimatedToggle';
+Toggle.displayName = 'Toggle';
+
+/** @deprecated Use Toggle instead. */
+export const AnimatedToggle = Toggle;
+/** @deprecated Use ToggleProps instead. */
+export type AnimatedToggleProps = ToggleProps;

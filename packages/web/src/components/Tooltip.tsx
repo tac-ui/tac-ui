@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useRef, useCallback, useId } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { diaSpring } from '../constants/motion';
+import { tacSpring } from '../constants/motion';
 import { focusRing } from '../constants/styles';
 
 /** Position of the tooltip relative to its trigger element. */
@@ -61,7 +61,15 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
       : children;
 
     return (
-      <div ref={ref} className={cn('relative inline-block cursor-pointer', focusRing)} onMouseEnter={show} onMouseLeave={hide} onFocus={show} onBlur={hide} tabIndex={0}>
+      <div
+        ref={ref}
+        className={cn('relative inline-block cursor-pointer', focusRing)}
+        onMouseEnter={show}
+        onMouseLeave={hide}
+        onFocus={show}
+        onBlur={hide}
+        tabIndex={0}
+      >
         {trigger}
         <AnimatePresence>
           {visible && (
@@ -69,7 +77,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ ...diaSpring.light }}
+              transition={{ ...tacSpring.light }}
               className={cn(
                 'absolute z-[var(--z-tooltip)] pointer-events-auto',
                 placementOuterClasses[placement],
@@ -83,7 +91,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
                   isRich
                     ? 'py-2.5 px-4 flex flex-col gap-1 whitespace-normal w-max max-w-[240px]'
                     : 'py-2 px-3.5 w-max whitespace-nowrap text-center',
-                  'bg-[var(--gray-50)] text-[var(--foreground)] text-[13px] rounded-[var(--radius-m)] shadow-[var(--dropdown-shadow)] border border-solid border-[var(--glass-border)]',
+                  'bg-[var(--dropdown-bg)] text-[var(--foreground)] text-[13px] rounded-[var(--radius-m)] shadow-[var(--dropdown-shadow)] border-[0.5px] border-solid border-[var(--glass-border)]',
                 )}
               >
                 {isRich ? (
@@ -91,7 +99,9 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
                     <span className="font-medium text-[13px] text-[var(--foreground)]">{content}</span>
                     <span className="text-[11px] text-[var(--foreground)] opacity-60">{description}</span>
                   </>
-                ) : content}
+                ) : (
+                  content
+                )}
               </div>
             </motion.div>
           )}

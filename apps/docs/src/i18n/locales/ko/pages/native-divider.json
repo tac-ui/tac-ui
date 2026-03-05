@@ -1,0 +1,41 @@
+{
+  "title": "Divider",
+  "description": "콘텐츠 섹션이나 목록 항목을 구분하는 시각적 구분선입니다. 수평 및 수직 방향과 라벨 변형을 지원합니다.",
+  "sections": {
+    "playground": {
+      "title": "플레이그라운드",
+      "texts": ["아래에서 Divider props를 대화식으로 설정하세요."]
+    },
+    "full": {
+      "title": "전체 너비",
+      "texts": ["기본 Divider는 테마 테두리 색상을 사용한 전체 너비 수평 선으로 렌더링됩니다."]
+    },
+    "inset": {
+      "title": "인셋",
+      "texts": ["inset 변형은 가로 마진을 추가하여 가장자리에서 들여쓰기됩니다."]
+    },
+    "thick": {
+      "title": "두꺼운 선",
+      "texts": ["thick 변형은 주요 섹션 사이의 강한 시각적 구분을 위해 2px 선을 렌더링합니다."]
+    },
+    "with-label": {
+      "title": "라벨 포함",
+      "texts": ["withLabel 변형은 두 줄 사이에 텍스트 라벨이 가운데 위치하는 구분선을 렌더링합니다."]
+    },
+    "vertical": {
+      "title": "수직 방향",
+      "texts": [
+        "orientation을 vertical로 설정하면 HStack이나 행 레이아웃 내부에서 유용한 수직 구분선을 만들 수 있습니다."
+      ]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "variant": "시각적 변형. withLabel은 label prop이 필요합니다.",
+    "orientation": "구분선의 방향.",
+    "label": "variant가 \"withLabel\"일 때 가운데에 표시되는 텍스트 라벨.",
+    "style": "구분선 컨테이너에 적용되는 추가 React Native 스타일."
+  }
+}

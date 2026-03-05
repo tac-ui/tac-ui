@@ -2,10 +2,9 @@ import React, { forwardRef, useState, useRef, useEffect, useCallback } from 'rea
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { useRovingIndex } from '../hooks/useAccessibility';
-import { diaSpring } from '../constants/motion';
+import { tacSpring } from '../constants/motion';
 import { focusRing } from '../constants/styles';
 import { mergeRefs } from '../utils/mergeRefs';
-
 
 /** Horizontal alignment of the dropdown menu relative to its trigger. */
 export type DropdownAlign = 'start' | 'center' | 'end';
@@ -32,7 +31,13 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
   ({ trigger, open: controlledOpen, onOpenChange, align = 'start', className, children, ...props }, ref) => {
     const [internalOpen, setInternalOpen] = useState(false);
     const open = controlledOpen ?? internalOpen;
-    const setOpen = useCallback((v: boolean) => { setInternalOpen(v); onOpenChange?.(v); }, [onOpenChange]);
+    const setOpen = useCallback(
+      (v: boolean) => {
+        setInternalOpen(v);
+        onOpenChange?.(v);
+      },
+      [onOpenChange],
+    );
     const containerRef = useRef<HTMLDivElement>(null);
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -46,18 +51,26 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       const handleClick = (e: MouseEvent) => {
         if (containerRef.current && !containerRef.current.contains(e.target as Node)) setOpen(false);
       };
-      const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+      const handleKey = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') setOpen(false);
+      };
       document.addEventListener('mousedown', handleClick);
       document.addEventListener('keydown', handleKey);
-      return () => { document.removeEventListener('mousedown', handleClick); document.removeEventListener('keydown', handleKey); };
+      return () => {
+        document.removeEventListener('mousedown', handleClick);
+        document.removeEventListener('keydown', handleKey);
+      };
     }, [open, setOpen]);
 
-    const handleTriggerKeyDown = useCallback((e: React.KeyboardEvent) => {
-      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        setOpen(true);
-      }
-    }, [setOpen]);
+    const handleTriggerKeyDown = useCallback(
+      (e: React.KeyboardEvent) => {
+        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setOpen(true);
+        }
+      },
+      [setOpen],
+    );
 
     return (
       <div ref={containerRef} className={cn('relative inline-block', className)} {...props}>
@@ -69,7 +82,11 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
           aria-haspopup="menu"
           aria-expanded={open}
           data-state={open ? 'open' : 'closed'}
-          className={cn('cursor-pointer rounded-[var(--radius-m)]', focusRing, open && '[&_button]:bg-[var(--interactive-hover)] [&_button]:text-[var(--point)]')}
+          className={cn(
+            'cursor-pointer rounded-[var(--radius-m)]',
+            focusRing,
+            open && '[&_button]:bg-[var(--interactive-hover)]',
+          )}
         >
           {trigger}
         </div>
@@ -80,7 +97,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
               initial={{ opacity: 0, scale: 0.97, y: 4, filter: 'blur(4px)' }}
               animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
               exit={{ opacity: 0, scale: 0.97, y: 2, filter: 'blur(4px)', transition: { duration: 0.15 } }}
-              transition={diaSpring.magnetic}
+              transition={tacSpring.magnetic}
               role="menu"
               className={cn(
                 'absolute top-full mt-1 min-w-[200px] bg-[var(--dropdown-bg)] [backdrop-filter:blur(24px)_saturate(180%)] border-[0.5px] border-solid border-[var(--input-border-rest)] rounded-[var(--radius-m)] [box-shadow:var(--dropdown-shadow)] p-1 z-[var(--z-dropdown)]',
@@ -99,7 +116,11 @@ Dropdown.displayName = 'Dropdown';
 
 export const DropdownTitle = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('px-3 py-2 text-xs font-semibold text-[var(--muted-foreground)]', className)} {...props} />
+    <div
+      ref={ref}
+      className={cn('px-3 py-2 text-xs font-semibold text-[var(--muted-foreground)]', className)}
+      {...props}
+    />
   ),
 );
 DropdownTitle.displayName = 'DropdownTitle';
@@ -128,9 +149,9 @@ export const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
         'flex items-center gap-2 w-full px-3 py-2 text-sm rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-left transition-colors duration-fast',
         destructive
           ? 'text-[var(--error)] hover:bg-[var(--error-bg)]'
-          : 'text-[var(--foreground)] hover:bg-[var(--dropdown-item-hover)] hover:text-[var(--point)]',
+          : 'text-[var(--foreground)] hover:bg-[var(--dropdown-item-hover)]',
         'disabled:opacity-50 disabled:pointer-events-none',
-        'focus:outline-none focus:bg-[var(--dropdown-item-hover)] focus:text-[var(--point)]',
+        'focus:outline-none focus:bg-[var(--dropdown-item-hover)]',
         className,
       )}
       {...props}
@@ -142,15 +163,16 @@ DropdownItem.displayName = 'DropdownItem';
 /** Props for a search input rendered at the top of a Dropdown menu. */
 export type DropdownSearchProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-export const DropdownSearch = forwardRef<HTMLInputElement, DropdownSearchProps>(
-  ({ className, ...props }, ref) => (
-    <div className="px-2 pb-1">
-      <input
-        ref={ref}
-        className={cn('w-full px-3 py-2 text-sm bg-[var(--secondary)] border-none rounded-[var(--radius-m)] outline-none placeholder:text-[var(--muted-foreground)]', className)}
-        {...props}
-      />
-    </div>
-  ),
-);
+export const DropdownSearch = forwardRef<HTMLInputElement, DropdownSearchProps>(({ className, ...props }, ref) => (
+  <div className="px-2 pb-1">
+    <input
+      ref={ref}
+      className={cn(
+        'w-full px-3 py-2 text-sm bg-[var(--secondary)] border-none rounded-[var(--radius-m)] outline-none placeholder:text-[var(--muted-foreground)]',
+        className,
+      )}
+      {...props}
+    />
+  </div>
+));
 DropdownSearch.displayName = 'DropdownSearch';

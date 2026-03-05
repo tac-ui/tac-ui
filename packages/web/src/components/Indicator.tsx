@@ -16,7 +16,6 @@ export interface IndicatorProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Indicator = forwardRef<HTMLDivElement, IndicatorProps>(
   ({ className, variant = 'linear', size = 32, color = 'var(--point)', ...props }, ref) => {
-
     if (variant === 'circular') {
       const strokeWidth = Math.max(2, size / 10);
 

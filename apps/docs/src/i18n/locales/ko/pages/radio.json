@@ -4,15 +4,21 @@
   "sections": {
     "default-group": {
       "title": "기본 그룹",
-      "texts": ["RadioGroup은 선택 상태를 관리하고 context를 통해 자식 Radio 항목에 제공합니다. 비제어 초기 선택에는 defaultValue를 사용합니다."]
+      "texts": [
+        "RadioGroup은 선택 상태를 관리하고 context를 통해 자식 Radio 항목에 제공합니다. 비제어 초기 선택에는 defaultValue를 사용합니다."
+      ]
     },
     "controlled": {
       "title": "제어 모드",
-      "texts": ["RadioGroup에 value와 onValueChange를 사용하여 제어 모드로 사용합니다. 콜백은 새로 선택된 항목의 radioValue 문자열을 받습니다."]
+      "texts": [
+        "RadioGroup에 value와 onValueChange를 사용하여 제어 모드로 사용합니다. 콜백은 새로 선택된 항목의 radioValue 문자열을 받습니다."
+      ]
     },
     "disabled": {
       "title": "비활성화",
-      "texts": ["개별 Radio 항목에 disabled를 설정하면 나머지 그룹은 상호작용 가능한 상태로 유지하면서 해당 항목의 선택을 방지합니다."]
+      "texts": [
+        "개별 Radio 항목에 disabled를 설정하면 나머지 그룹은 상호작용 가능한 상태로 유지하면서 해당 항목의 선택을 방지합니다."
+      ]
     },
     "api-reference": {
       "title": "API 레퍼런스"

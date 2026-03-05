@@ -59,7 +59,10 @@ export interface PieChartDataPoint {
 
 function resolveColor(color: string): string {
   if (!color.startsWith('var(')) return color;
-  const varName = color.replace(/^var\(/, '').replace(/\)$/, '').trim();
+  const varName = color
+    .replace(/^var\(/, '')
+    .replace(/\)$/, '')
+    .trim();
   if (typeof document !== 'undefined') {
     return getComputedStyle(document.documentElement).getPropertyValue(varName).trim() || color;
   }
@@ -356,10 +359,7 @@ export const PieChart = forwardRef<HTMLDivElement, PieChartProps>(
               callbacks: showValues
                 ? {
                     label: (ctx) => {
-                      const total = (ctx.dataset.data as number[]).reduce(
-                        (sum: number, val) => sum + val,
-                        0,
-                      );
+                      const total = (ctx.dataset.data as number[]).reduce((sum: number, val) => sum + val, 0);
                       const percentage = Math.round(((ctx.parsed as number) / total) * 100);
                       return ` ${ctx.label}: ${ctx.parsed} (${percentage}%)`;
                     },

@@ -1,0 +1,43 @@
+{
+  "title": "Select",
+  "description": "옵션 목록에서 단일 값을 선택하는 드롭다운 셀렉터입니다. 라벨, 도움말 텍스트, 에러 상태, 다양한 크기를 지원합니다.",
+  "sections": {
+    "default": {
+      "title": "기본",
+      "texts": ["value와 label 쌍으로 구성된 옵션 배열을 제공합니다."]
+    },
+    "sizes": {
+      "title": "크기",
+      "texts": [
+        "selectSize를 통해 sm, md(기본), lg 세 가지 크기 변형을 사용할 수 있습니다. 폰트 크기도 함께 조정됩니다."
+      ]
+    },
+    "with-helper-text": {
+      "title": "도움 텍스트 포함",
+      "texts": ["추가 컨텍스트를 위해 라벨과 도움말 텍스트를 추가합니다."]
+    },
+    "error-state": {
+      "title": "오류 상태",
+      "texts": ["error와 errorMessage를 설정하여 유효성 검사 피드백을 표시합니다."]
+    },
+    "disabled": {
+      "title": "비활성화",
+      "texts": ["disabled가 true이면 셀렉트 트리거가 비대화형이 되고 드롭다운이 열리지 않습니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "options": "{ value, label, disabled? } 객체 배열.",
+    "value": "현재 선택된 값 (제어).",
+    "onChange": "옵션이 선택되면 호출됩니다.",
+    "label": "트리거 위에 표시되는 라벨.",
+    "placeholder": "값이 선택되지 않았을 때의 플레이스홀더.",
+    "helperText": "트리거 아래 도움말 텍스트.",
+    "selectSize": "트리거의 높이와 폰트 크기를 제어합니다.",
+    "error": "에러 스타일로 트리거를 렌더링합니다.",
+    "errorMessage": "error가 true일 때 표시되는 에러 메시지.",
+    "disabled": "셀렉트 트리거를 비활성화합니다."
+  }
+}

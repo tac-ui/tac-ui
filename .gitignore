@@ -1,11 +1,12 @@
+# Dependencies
 node_modules/
+
+# Build outputs
 dist/
 .turbo/
 .next/
+out/
 *.tsbuildinfo
-.DS_Store
-.omc/
-.idea/
 
 # Environment
 .env
@@ -15,5 +16,23 @@ dist/
 # Logs
 *.log
 
-# Coverage
+# Coverage & Tests
 coverage/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Tools
+.omc/
+
+# Media (large binaries)
+*.mov
+*.mp4
+*.avi

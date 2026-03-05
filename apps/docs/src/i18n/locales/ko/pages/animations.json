@@ -4,11 +4,15 @@
   "sections": {
     "philosophy": {
       "title": "철학",
-      "texts": ["Tac UI는 Dia Browser에서 영감을 받은 스프링 기반 애니메이션을 사용합니다. 요소에 질량과 운동량이 있어 기계적으로 슬라이드하는 대신 자연스러운 감속으로 제자리에 안착합니다. 시스템은 diaSpring이라는 다섯 가지 질량 차별화 프리셋을 갖춘 Framer Motion 스프링 위에 구축되었습니다."]
+      "texts": [
+        "Tac UI는 Dia Browser에서 영감을 받은 스프링 기반 애니메이션을 사용합니다. 요소에 질량과 운동량이 있어 기계적으로 슬라이드하는 대신 자연스러운 감속으로 제자리에 안착합니다. 시스템은 diaSpring이라는 다섯 가지 질량 차별화 프리셋을 갖춘 Framer Motion 스프링 위에 구축되었습니다."
+      ]
     },
     "spring-presets": {
       "title": "스프링 프리셋",
-      "texts": ["import { diaSpring } from '@tac-ui/tokens'으로 가져올 수 있습니다. 각 프리셋은 질량이 달라 고유한 물리적 특성을 만듭니다."]
+      "texts": [
+        "import { diaSpring } from '@tac-ui/tokens'으로 가져올 수 있습니다. 각 프리셋은 질량이 달라 고유한 물리적 특성을 만듭니다."
+      ]
     },
     "duration-scale": {
       "title": "듀레이션 스케일",
@@ -20,23 +24,31 @@
     },
     "motion-variants": {
       "title": "모션 배리언트",
-      "texts": ["일반적인 애니메이션 패턴을 위한 사전 빌드된 Framer Motion variant 객체입니다. @tac-ui/web 내부 상수에서 가져올 수 있습니다."]
+      "texts": [
+        "일반적인 애니메이션 패턴을 위한 사전 빌드된 Framer Motion variant 객체입니다. @tac-ui/web 내부 상수에서 가져올 수 있습니다."
+      ]
     },
     "interactive-hover": {
       "title": "인터랙티브 호버",
       "texts": ["인터랙티브 요소를 위한 스프링 기반 호버 및 탭 효과입니다. 클릭하거나 호버하여 물리 효과를 체험하세요."]
     },
     "animated-toggle": {
-      "title": "AnimatedToggle",
-      "texts": ["회전 애니메이션으로 아이콘을 전환하는 버튼입니다. 빠른 아이콘 전환을 위해 diaSpring.light를 사용합니다."]
+      "title": "Toggle",
+      "texts": [
+        "회전 애니메이션으로 아이콘을 전환하는 버튼입니다. 빠른 아이콘 전환을 위해 diaSpring.light를 사용합니다."
+      ]
     },
     "interaction-hooks": {
       "title": "인터랙션 훅",
-      "texts": ["커서 추적 효과를 위한 훅입니다. Card 컴포넌트의 glow 및 tilt props를 구동하며 독립적으로도 사용할 수 있습니다."]
+      "texts": [
+        "커서 추적 효과를 위한 훅입니다. Card 컴포넌트의 glow 및 tilt props를 구동하며 독립적으로도 사용할 수 있습니다."
+      ]
     },
     "reduced-motion": {
       "title": "모션 감소",
-      "texts": ["useReducedMotion()을 사용하여 prefers-reduced-motion을 존중합니다. 활성화 시 스프링을 noMotion(즉시, 0 지속 시간)으로 교체합니다."]
+      "texts": [
+        "useReducedMotion()을 사용하여 prefers-reduced-motion을 존중합니다. 활성화 시 스프링을 noMotion(즉시, 0 지속 시간)으로 교체합니다."
+      ]
     }
   }
 }

@@ -1,0 +1,55 @@
+{
+  "title": "Textarea",
+  "description": "라벨, 도움말 텍스트, 오류 상태, 행 높이 설정을 지원하는 여러 줄 텍스트 입력 컴포넌트입니다. multiline이 활성화된 React Native의 TextInput을 기반으로 합니다.",
+  "sections": {
+    "playground": {
+      "title": "플레이그라운드",
+      "texts": ["아래에서 Textarea props를 대화식으로 설정하세요."]
+    },
+    "sizes": {
+      "title": "크기",
+      "texts": ["세 가지 크기 옵션으로 텍스트 영역의 패딩, 폰트 크기, 최소 높이를 제어합니다."]
+    },
+    "default": {
+      "title": "기본",
+      "texts": [
+        "최소한의 여러 줄 입력 필드입니다. 기본적으로 4행 높이입니다. React Native의 모든 TextInput props를 상속합니다."
+      ]
+    },
+    "with-label": {
+      "title": "라벨 포함",
+      "texts": ["label prop은 텍스트 영역 위에 텍스트 라벨을 렌더링합니다. rows로 초기 표시 높이를 제어하세요."]
+    },
+    "with-helper-text": {
+      "title": "도움말 텍스트 포함",
+      "texts": ["helperText prop은 텍스트 영역 아래에 흐린 설명을 렌더링합니다. error가 true이면 숨겨집니다."]
+    },
+    "error-state": {
+      "title": "오류 상태",
+      "texts": [
+        "error를 true로 설정하면 빨간 테두리가 적용됩니다. errorMessage와 함께 사용하면 텍스트 영역 아래에 오류 설명이 표시됩니다."
+      ]
+    },
+    "disabled": {
+      "title": "비활성화",
+      "texts": [
+        "editable를 false로 설정하면 텍스트 영역이 비활성화됩니다. 낮은 투명도로 렌더링되며 모든 사용자 상호작용을 무시합니다."
+      ]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "textareaSize": "패딩, 폰트 크기, 최소 높이를 제어합니다.",
+    "label": "텍스트 영역 위에 렌더링되는 선택적 라벨.",
+    "placeholder": "비어 있을 때 표시되는 플레이스홀더 텍스트.",
+    "helperText": "텍스트 영역 아래에 렌더링되는 흐린 도움말 텍스트. error가 true이면 숨겨집니다.",
+    "error": "true일 때 오류 테두리 색상을 적용합니다.",
+    "errorMessage": "error가 true일 때 텍스트 영역 아래에 표시되는 오류 설명.",
+    "rows": "텍스트 행의 최소 수. 텍스트 영역의 최소 높이를 제어합니다.",
+    "containerStyle": "외부 컨테이너 View에 적용되는 추가 스타일.",
+    "editable": "false일 때 텍스트 영역을 비활성화하고 투명도를 낮춥니다.",
+    "TextInputProps": "모든 표준 React Native TextInput props를 지원합니다."
+  }
+}

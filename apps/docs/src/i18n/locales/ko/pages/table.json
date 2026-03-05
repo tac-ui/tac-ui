@@ -4,11 +4,15 @@
   "sections": {
     "basic": {
       "title": "기본",
-      "texts": ["TableHeader, TableBody, TableRow, TableHead, TableCell을 사용한 최소한의 테이블입니다. 행에는 기본적으로 호버 하이라이트가 적용됩니다."]
+      "texts": [
+        "TableHeader, TableBody, TableRow, TableHead, TableCell을 사용한 최소한의 테이블입니다. 행에는 기본적으로 호버 하이라이트가 적용됩니다."
+      ]
     },
     "invoice-example": {
       "title": "인보이스 예제",
-      "texts": ["헤더, 본문, 합계를 위한 푸터, 캡션, 상태 뱃지를 포함한 완전한 테이블로, 모든 하위 컴포넌트를 함께 보여줍니다."]
+      "texts": [
+        "헤더, 본문, 합계를 위한 푸터, 캡션, 상태 뱃지를 포함한 완전한 테이블로, 모든 하위 컴포넌트를 함께 보여줍니다."
+      ]
     },
     "with-caption": {
       "title": "캡션 포함",
@@ -16,7 +20,9 @@
     },
     "api-reference": {
       "title": "API 레퍼런스",
-      "texts": ["모든 하위 컴포넌트는 표준 HTML 요소 속성(className, style 등)을 받으며, ref를 기본 DOM 요소로 전달합니다."]
+      "texts": [
+        "모든 하위 컴포넌트는 표준 HTML 요소 속성(className, style 등)을 받으며, ref를 기본 DOM 요소로 전달합니다."
+      ]
     }
   },
   "props": {

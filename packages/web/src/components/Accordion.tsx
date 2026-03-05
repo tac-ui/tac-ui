@@ -1,9 +1,8 @@
 import React, { createContext, forwardRef, useCallback, useContext, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { diaSpring } from '../constants/motion';
+import { tacSpring } from '../constants/motion';
 import { focusRing } from '../constants/styles';
-
 
 interface AccordionContextValue {
   openItems: Set<string>;
@@ -12,7 +11,12 @@ interface AccordionContextValue {
   outline?: boolean;
 }
 
-const AccordionContext = createContext<AccordionContextValue>({ openItems: new Set(), toggle: () => {}, glass: false, outline: true });
+const AccordionContext = createContext<AccordionContextValue>({
+  openItems: new Set(),
+  toggle: () => {},
+  glass: false,
+  outline: true,
+});
 
 /** Controls whether one or multiple accordion items can be open simultaneously. */
 export type AccordionType = 'single' | 'multiple';
@@ -34,19 +38,24 @@ export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
   ({ type = 'single', defaultValue = [], glass, outline = true, className, ...props }, ref) => {
-    const [openItems, setOpenItems] = useState<Set<string>>(new Set(Array.isArray(defaultValue) ? defaultValue : [defaultValue]));
-    const toggle = useCallback((value: string) => {
-      setOpenItems((prev) => {
-        const next = new Set(prev);
-        if (next.has(value)) {
-          next.delete(value);
-        } else {
-          if (type === 'single') next.clear();
-          next.add(value);
-        }
-        return next;
-      });
-    }, [type]);
+    const [openItems, setOpenItems] = useState<Set<string>>(
+      new Set(Array.isArray(defaultValue) ? defaultValue : [defaultValue]),
+    );
+    const toggle = useCallback(
+      (value: string) => {
+        setOpenItems((prev) => {
+          const next = new Set(prev);
+          if (next.has(value)) {
+            next.delete(value);
+          } else {
+            if (type === 'single') next.clear();
+            next.add(value);
+          }
+          return next;
+        });
+      },
+      [type],
+    );
 
     return (
       <AccordionContext.Provider value={{ openItems, toggle, glass, outline }}>
@@ -71,27 +80,25 @@ export interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement>
   value: string;
 }
 
-export const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
-  ({ value, className, ...props }, ref) => {
-    const { glass, outline } = useContext(AccordionContext);
-    return (
-      <div
-        ref={ref}
-        data-value={value}
-        className={cn(
-          'rounded-[var(--radius-m)] overflow-hidden',
-          glass
-            ? 'bg-[var(--glass-bg)] backdrop-blur-[24px] saturate-[180%] border-[0.5px] border-solid border-[var(--glass-border)]'
-            : outline
-              ? 'border border-solid border-[var(--border)]'
-              : 'border-b border-solid border-[var(--border)] last:border-b-0',
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
-);
+export const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(({ value, className, ...props }, ref) => {
+  const { glass, outline } = useContext(AccordionContext);
+  return (
+    <div
+      ref={ref}
+      data-value={value}
+      className={cn(
+        'rounded-[var(--radius-m)] overflow-hidden',
+        glass
+          ? 'bg-[var(--glass-bg)] backdrop-blur-[24px] saturate-[180%] border-[0.5px] border-solid border-[var(--glass-border)]'
+          : outline
+            ? 'border-[0.5px] border-solid border-[var(--border)]'
+            : 'border-b border-solid border-[var(--border)] last:border-b-0',
+        className,
+      )}
+      {...props}
+    />
+  );
+});
 AccordionItem.displayName = 'AccordionItem';
 
 /** Props for the button that toggles an accordion item open or closed. */
@@ -112,7 +119,7 @@ export const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerPr
         id={`accordion-trigger-${value}`}
         onClick={() => toggle(value)}
         className={cn(
-          'flex items-center justify-between w-full py-3.5 px-4 text-sm font-medium text-[var(--foreground)] bg-transparent border-none cursor-pointer text-left',
+          'flex items-center justify-between w-full py-3 px-3.5 text-sm font-medium text-[var(--foreground)] bg-transparent border-none cursor-pointer text-left',
           'hover:bg-[var(--interactive-hover)]',
           focusRing,
           className,
@@ -125,9 +132,12 @@ export const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerPr
         {children}
         <motion.svg
           className="w-4 h-4 text-[var(--muted-foreground)] shrink-0"
-          viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
           animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={diaSpring.default}
+          transition={tacSpring.default}
         >
           <path d="M4 6l4 4 4-4" />
         </motion.svg>
@@ -156,7 +166,7 @@ export const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={diaSpring.default}
+            transition={tacSpring.default}
             style={{ overflow: 'hidden' }}
           >
             <div
@@ -164,7 +174,7 @@ export const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps
               id={`accordion-content-${value}`}
               role="region"
               aria-labelledby={`accordion-trigger-${value}`}
-              className={cn('text-sm text-[var(--muted-foreground)] px-4 pb-4', className)}
+              className={cn('text-sm text-[var(--muted-foreground)] px-3.5 pb-3.5', className)}
               {...props}
             >
               {children}

@@ -8,7 +8,9 @@
     },
     "variants": {
       "title": "변형",
-      "texts": ["success, error, warning, info 등 시맨틱 변형을 사용하여 메시지의 성격을 전달합니다. 각 변형은 디자인 토큰 시스템에서 일치하는 배경 틴트와 테두리 색상을 적용합니다."]
+      "texts": [
+        "success, error, warning, info 등 시맨틱 변형을 사용하여 메시지의 성격을 전달합니다. 각 변형은 디자인 토큰 시스템에서 일치하는 배경 틴트와 테두리 색상을 적용합니다."
+      ]
     },
     "glass": {
       "title": "글래스",
@@ -16,11 +18,15 @@
     },
     "with-icon": {
       "title": "아이콘 포함",
-      "texts": ["<code>icon</code> prop에 React 노드를 전달하면 알림 콘텐츠 왼쪽에 컨텍스트 아이콘이 표시됩니다. 아이콘 색상은 변형에 맞게 자동으로 조정됩니다."]
+      "texts": [
+        "<code>icon</code> prop에 React 노드를 전달하면 알림 콘텐츠 왼쪽에 컨텍스트 아이콘이 표시됩니다. 아이콘 색상은 변형에 맞게 자동으로 조정됩니다."
+      ]
     },
     "dismissible": {
       "title": "닫기 가능",
-      "texts": ["<code>dismissible</code>을 설정하면 닫기 버튼이 표시됩니다. 클릭 시 알림이 애니메이션과 함께 사라지며, 선택적인 <code>onDismiss</code> 콜백이 호출되어 외부에서 닫힘 상태를 동기화할 수 있습니다."]
+      "texts": [
+        "<code>dismissible</code>을 설정하면 닫기 버튼이 표시됩니다. 클릭 시 알림이 애니메이션과 함께 사라지며, 선택적인 <code>onDismiss</code> 콜백이 호출되어 외부에서 닫힘 상태를 동기화할 수 있습니다."
+      ]
     },
     "api-reference": {
       "title": "API 레퍼런스",

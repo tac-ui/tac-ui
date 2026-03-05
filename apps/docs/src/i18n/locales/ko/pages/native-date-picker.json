@@ -1,0 +1,49 @@
+{
+  "title": "DatePicker",
+  "description": "캘린더 모달이 있는 날짜 선택 컴포넌트입니다. 날짜, 날짜시간, 월 선택 모드와 최소/최대 제약을 지원합니다.",
+  "sections": {
+    "default": {
+      "title": "기본",
+      "texts": ["트리거를 눌러 캘린더 모달을 열고 날짜를 선택합니다."]
+    },
+    "with-label": {
+      "title": "라벨 포함",
+      "texts": ["label을 사용하여 트리거 위에 연결된 라벨을 렌더링합니다."]
+    },
+    "datetime-mode": {
+      "title": "DateTime 모드",
+      "texts": ["mode=\"datetime\"을 사용하여 캘린더와 함께 시간 선택(시, 분)을 추가합니다."]
+    },
+    "month-mode": {
+      "title": "월 모드",
+      "texts": ["mode=\"month\"를 사용하여 일 캘린더 대신 3×4 월 그리드를 표시합니다."]
+    },
+    "min-max-date": {
+      "title": "최소 / 최대 날짜",
+      "texts": ["minDate와 maxDate를 사용하여 선택 가능한 범위를 제한합니다. 범위 밖의 날짜는 클릭할 수 없습니다."]
+    },
+    "disabled": {
+      "title": "비활성화",
+      "texts": ["disabled가 true일 때 트리거는 상호작용이 불가능하며 캘린더 패널이 열리지 않습니다."]
+    },
+    "controlled-date": {
+      "title": "제어 모드 (날짜)",
+      "texts": [
+        "제어 사용을 위해 value와 onChange props를 사용합니다. 컴포넌트는 외부에서 값이 변경될 때마다 캘린더 뷰를 동기화합니다."
+      ]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "value": "현재 선택된 날짜 (제어).",
+    "onChange": "날짜가 선택되면 호출됩니다.",
+    "label": "트리거 위에 표시되는 라벨.",
+    "mode": "선택 모드: 날짜 전용, 날짜+시간, 또는 월 전용.",
+    "minDate": "선택 가능한 최소 날짜.",
+    "maxDate": "선택 가능한 최대 날짜.",
+    "disabled": "피커 트리거를 비활성화합니다.",
+    "style": "외부 컨테이너에 적용되는 추가 스타일."
+  }
+}

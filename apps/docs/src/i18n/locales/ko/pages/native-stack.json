@@ -1,0 +1,36 @@
+{
+  "title": "Stack",
+  "description": "시맨틱 간격 스케일, 정렬, 배치 제어를 사용하여 자식 요소를 수직 또는 수평 방향으로 배치하는 레이아웃 프리미티브입니다.",
+  "sections": {
+    "playground": {
+      "title": "플레이그라운드",
+      "texts": ["아래에서 VStack 및 HStack props를 대화식으로 설정하세요."]
+    },
+    "vstack-gap-variants": {
+      "title": "VStack — 간격 변형",
+      "texts": [
+        "VStack은 자식 요소를 수직 열로 배치합니다. gap prop은 시맨틱 간격 토큰을 받습니다: none(0), xs(4), sm(8), md(16), lg(24), xl(32), 2xl(48)."
+      ]
+    },
+    "hstack-align-and-justify": {
+      "title": "HStack — 정렬 및 배치",
+      "texts": [
+        "HStack은 자식 요소를 수평 행으로 배치합니다. align prop으로 교차축 정렬을, justify prop으로 주축 배분을 제어합니다."
+      ]
+    },
+    "hstack-wrap": {
+      "title": "HStack — 줄바꿈",
+      "texts": ["wrap을 true로 설정하면 컨테이너 너비를 초과할 때 자식 요소가 여러 줄로 줄 바꿈됩니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "gap": "자식 요소 간의 시맨틱 간격. VStack 기본값은 \"md\", HStack 기본값은 \"md\".",
+    "align": "자식 요소의 교차축 정렬 (alignItems).",
+    "justify": "자식 요소의 주축 배분 (justifyContent).",
+    "wrap": "true일 때 자식 요소가 여러 줄로 줄 바꿈됩니다.",
+    "style": "컨테이너 View에 적용되는 추가 React Native 스타일."
+  }
+}

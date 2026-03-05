@@ -1,0 +1,44 @@
+{
+  "title": "Card",
+  "description": "React Native에서 관련 콘텐츠를 그룹화하는 서피스 컨테이너 컴포넌트입니다. 구조화된 레이아웃을 위한 서브 컴포넌트와 선택적 press 인터랙션을 지원합니다.",
+  "sections": {
+    "playground": {
+      "title": "플레이그라운드",
+      "texts": ["아래에서 Card props를 대화식으로 설정하세요."]
+    },
+    "default": {
+      "title": "기본",
+      "texts": ["Card와 서브 컴포넌트를 사용하여 구조화된 콘텐츠 컨테이너를 구성하세요."]
+    },
+    "variants": {
+      "title": "변형",
+      "texts": [
+        "default 변형은 테두리와 그림자를 포함합니다. flat 변형은 내재된 컨텍스트를 위해 elevation 없이 서피스 색상을 사용합니다."
+      ]
+    },
+    "pressable-card": {
+      "title": "인터랙티브",
+      "texts": [
+        "interactive를 설정하거나 onPress 핸들러를 제공하면 미세한 스케일 애니메이션과 함께 카드 전체를 탭할 수 있게 됩니다."
+      ]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    },
+    "sub-component-api-reference": {
+      "title": "서브 컴포넌트 API 레퍼런스"
+    }
+  },
+  "props": {
+    "variant": "시각적 스타일. Default는 테두리와 그림자를 추가하고, flat은 elevation이 없습니다.",
+    "interactive": "true일 때 스케일 press 피드백이 있는 Pressable로 렌더링됩니다.",
+    "onPress": "Press 핸들러. 제공 시 카드를 자동으로 인터랙티브하게 만듭니다.",
+    "children": "카드 콘텐츠. 일반적으로 CardHeader, CardContent, CardFooter로 구성합니다.",
+    "style": "카드 컨테이너에 적용되는 추가 React Native 스타일.",
+    "CardHeader": "CardTitle과 CardDescription을 위한 작은 gap이 있는 세로 컨테이너.",
+    "CardTitle": "굵은 제목을 렌더링합니다. 문자열은 자동으로 Text 컴포넌트로 래핑됩니다.",
+    "CardDescription": "제목 아래 흐린 설명 텍스트를 렌더링합니다.",
+    "CardContent": "카드 본문 콘텐츠를 위한 스타일 없는 컨테이너.",
+    "CardFooter": "액션 버튼 및 푸터 요소를 위한 가로 행 컨테이너."
+  }
+}
