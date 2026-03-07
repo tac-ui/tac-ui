@@ -943,6 +943,10 @@ Z-Index: `--z-dropdown`, `--z-sticky`, `--z-overlay`, `--z-modal`, `--z-popover`
 
 Charts: `--chart-1` through `--chart-8`
 
+Breakpoints (screens): `sm` (640px), `md` (768px), `lg` (1024px), `xl` (1280px), `2xl` (1536px)
+
+> **Note:** Tailwind CSS v4 changed `max-w-sm` to use `--spacing-sm` instead of a fixed breakpoint value. Use `max-w-screen-sm` for breakpoint-based max-width, or `max-w-[24rem]` for the old v3 behavior.
+
 ---
 
 ## Hooks

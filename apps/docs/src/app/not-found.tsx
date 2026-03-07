@@ -8,7 +8,7 @@ import { TacLogo, ArrowLeft } from '@tac-ui/icon';
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] flex items-center justify-center px-6">
-      <div className="text-center max-w-md">
+      <div className="text-center max-w-[28rem]">
         <div className="flex items-center justify-center mb-8">
           <TacLogo size={40} className="text-[var(--muted-foreground)] opacity-30" />
         </div>

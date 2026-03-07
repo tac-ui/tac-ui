@@ -1,7 +1,7 @@
 import React, { createContext, forwardRef, useCallback, useContext, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { tacSpring } from '../constants/motion';
+import { tacSpring, EASING, DURATION } from '../constants/motion';
 import { focusRing } from '../constants/styles';
 
 interface AccordionContextValue {
@@ -124,7 +124,7 @@ export const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerPr
           focusRing,
           className,
         )}
-        style={{ transition: 'background-color 220ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+        style={{ transition: `background-color ${DURATION.normal} ${EASING}` }}
         aria-expanded={isOpen}
         aria-controls={`accordion-content-${value}`}
         {...props}

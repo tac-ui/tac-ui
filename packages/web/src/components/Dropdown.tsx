@@ -2,7 +2,7 @@ import React, { forwardRef, useState, useRef, useEffect, useCallback } from 'rea
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { useRovingIndex } from '../hooks/useAccessibility';
-import { tacSpring } from '../constants/motion';
+import { tacSpring, EXIT_DURATION } from '../constants/motion';
 import { focusRing } from '../constants/styles';
 import { mergeRefs } from '../utils/mergeRefs';
 
@@ -96,7 +96,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
               ref={mergeRefs(menuRef, ref)}
               initial={{ opacity: 0, scale: 0.97, y: 4, filter: 'blur(4px)' }}
               animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, scale: 0.97, y: 2, filter: 'blur(4px)', transition: { duration: 0.15 } }}
+              exit={{ opacity: 0, scale: 0.97, y: 2, filter: 'blur(4px)', transition: { duration: EXIT_DURATION } }}
               transition={tacSpring.magnetic}
               role="menu"
               className={cn(

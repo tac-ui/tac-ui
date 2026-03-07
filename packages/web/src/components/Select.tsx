@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { inputTransition } from '../constants/styles';
 import { useRovingIndex } from '../hooks/useAccessibility';
-import { dropdownMotionVariants, tacSpring } from '../constants/motion';
+import { dropdownMotionVariants, tacSpring, EASING, DURATION } from '../constants/motion';
 
 /** Size variant of the Select component. */
 export type SelectSize = 'sm' | 'md' | 'lg';
@@ -225,7 +225,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
                     }}
                     style={{
                       transition:
-                        'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)',
+                        `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
                     }}
                     className={cn(
                       'px-3 py-2.5 text-sm cursor-pointer',

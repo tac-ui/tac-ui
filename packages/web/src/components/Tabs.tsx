@@ -1,7 +1,7 @@
 import React, { createContext, forwardRef, useCallback, useContext, useState, useEffect, useId } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { tacSpring } from '../constants/motion';
+import { tacSpring, EASING, DURATION } from '../constants/motion';
 import { focusRing } from '../constants/styles';
 
 /** Visual style variant for the Tabs component. */
@@ -159,7 +159,7 @@ export const TabTrigger = forwardRef<HTMLButtonElement, TabTriggerProps>(
         onClick={() => onChange(tabValue)}
         style={{
           transition:
-            'color 220ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+            `color ${DURATION.normal} ${EASING}, background-color ${DURATION.normal} ${EASING}, border-color ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}, opacity ${DURATION.normal} ${EASING}`,
         }}
         className={cn(
           'relative cursor-pointer text-center',

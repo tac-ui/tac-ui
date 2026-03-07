@@ -2,7 +2,7 @@ import React, { forwardRef, useCallback, useContext, useEffect, useRef, useState
 import { motion, AnimatePresence } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../utils/cn';
-import { tacSpring } from '../constants/motion';
+import { tacSpring, EXIT_DURATION } from '../constants/motion';
 import type { MotionConflictingHandlers } from '../constants/types';
 import { focusRing } from '../constants/styles';
 
@@ -235,7 +235,7 @@ export const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>(
         className={cn(toastVariants({ variant }), className)}
         initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
         animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-        exit={{ opacity: 0, y: 6, filter: 'blur(2px)', transition: { duration: 0.15 } }}
+        exit={{ opacity: 0, y: 6, filter: 'blur(2px)', transition: { duration: EXIT_DURATION } }}
         transition={tacSpring.magnetic}
         {...props}
       >

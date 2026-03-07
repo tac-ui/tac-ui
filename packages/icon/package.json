@@ -1,6 +1,6 @@
 {
   "name": "@tac-ui/icon",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Icon package for Tac UI — re-exports lucide-react",
   "license": "MIT",
   "sideEffects": false,
@@ -9,9 +9,14 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     }
   },
   "files": [
@@ -28,14 +33,14 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "lucide-react": "^0.564.0"
+    "lucide-react": "^0.577.0"
   },
   "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0"
+    "react": "^19.0.0"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",
-    "react": "^19.0.0",
+    "react": "^19.2.4",
     "tsup": "^8.3.0",
     "typescript": "^5.7.0"
   }

@@ -939,8 +939,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     borderWidth: 0.5,
     borderRadius: 8,
-    // @ts-expect-error -- react-native-web: suppress browser default focus outline
-    outlineStyle: 'none',
+    outlineWidth: 0,
   },
   channelRow: {
     flexDirection: 'row',

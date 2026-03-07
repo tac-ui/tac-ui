@@ -25,7 +25,7 @@ export default function SplitExample() {
           <div className="w-20 h-20 rounded-full bg-[var(--primary)] flex items-center justify-center">
             <TacLogo size={36} fill="var(--primary-foreground)" />
           </div>
-          <div className="text-center max-w-md">
+          <div className="text-center max-w-[28rem]">
             <h1 className="text-3xl font-bold m-0 mb-3">Welcome Back</h1>
             <p className="text-base text-[var(--muted-foreground)] m-0 leading-relaxed">
               Sign in to your account to continue where you left off.

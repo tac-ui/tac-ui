@@ -2,6 +2,7 @@ import React, { forwardRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { focusRing } from '../constants/styles';
+import { EASING, DURATION, EXIT_DURATION } from '../constants/motion';
 
 /**
  * Displays a syntax-highlighted code block with a copy-to-clipboard button.
@@ -52,7 +53,7 @@ export const CodeBlock = forwardRef<HTMLDivElement, CodeBlockProps>(
             whileTap={{ scale: 0.95 }}
             style={{
               transition:
-                'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)',
+                `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
             }}
             className={cn(
               'text-xs text-[var(--muted-foreground)] bg-transparent border-none cursor-pointer px-2 py-0.5 rounded-[var(--radius-sm)]',
@@ -66,7 +67,7 @@ export const CodeBlock = forwardRef<HTMLDivElement, CodeBlockProps>(
                 initial={{ opacity: 0, y: 2 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -2 }}
-                transition={{ duration: 0.15 }}
+                transition={{ duration: EXIT_DURATION }}
               >
                 {copied ? 'Copied!' : 'Copy'}
               </motion.span>

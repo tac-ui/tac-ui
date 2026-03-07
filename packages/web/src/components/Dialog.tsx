@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useCallback, useRef, useId } from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { useFocusTrap, useFocusRestore } from '../hooks/useAccessibility';
-import { tacSpring } from '../constants/motion';
+import { tacSpring, EXIT_DURATION, OVERLAY_DURATION } from '../constants/motion';
 import { mergeRefs } from '../utils/mergeRefs';
 import type { MotionConflictingHandlers } from '../constants/types';
 
@@ -56,7 +56,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: OVERLAY_DURATION }}
             className={cn(
               'fixed inset-0 flex items-center justify-center z-[var(--z-modal)]',
               backdrop && 'bg-black/30 backdrop-blur-md',
@@ -70,7 +70,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
               layoutId={layoutId}
               initial={{ opacity: 0, scale: 0.97, filter: 'blur(4px)' }}
               animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, scale: 0.97, filter: 'blur(4px)', transition: { duration: 0.15 } }}
+              exit={{ opacity: 0, scale: 0.97, filter: 'blur(4px)', transition: { duration: EXIT_DURATION } }}
               transition={{ ...tacSpring.heavy, filter: { duration: 0.25 } }}
               role="dialog"
               aria-modal="true"

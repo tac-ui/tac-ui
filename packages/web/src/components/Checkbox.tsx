@@ -1,7 +1,7 @@
 import React, { forwardRef, useEffect, useRef, useImperativeHandle, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { tacSpring } from '../constants/motion';
+import { tacSpring, OVERLAY_DURATION } from '../constants/motion';
 import { peerFocusRing } from '../constants/styles';
 
 /** Props for the Checkbox component, a styled checkbox input with optional label and indeterminate state. */
@@ -71,7 +71,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
                 }
           }
           whileTap={{ scale: 0.95 }}
-          transition={{ ...tacSpring.light, backgroundColor: { duration: 0.2 }, borderColor: { duration: 0.2 } }}
+          transition={{ ...tacSpring.light, backgroundColor: { duration: OVERLAY_DURATION }, borderColor: { duration: OVERLAY_DURATION } }}
         >
           {indeterminate ? (
             <svg

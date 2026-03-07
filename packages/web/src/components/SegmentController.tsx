@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useCallback, useId, useEffect } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { tacSpring } from '../constants/motion';
+import { tacSpring, EASING, DURATION } from '../constants/motion';
 import { focusRing } from '../constants/styles';
 
 /** Size variant of the SegmentController. */
@@ -221,7 +221,7 @@ export const SegmentController = forwardRef<HTMLDivElement, SegmentControllerPro
           handleSingleSelect(option.value);
         }
       }}
-      style={{ transition: 'color 220ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+      style={{ transition: `color ${DURATION.normal} ${EASING}` }}
       className={cn(
         'relative flex items-center justify-center h-full rounded-[calc(var(--radius-m)-2px)] border-none cursor-pointer bg-transparent font-medium whitespace-nowrap',
         focusRing,

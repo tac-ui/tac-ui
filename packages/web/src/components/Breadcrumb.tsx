@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import { cn } from '../utils/cn';
+import { EASING, DURATION } from '../constants/motion';
 
 /** Props for the Breadcrumb root nav element. */
 export type BreadcrumbProps = React.HTMLAttributes<HTMLElement>;
@@ -56,7 +57,7 @@ export const BreadcrumbSeparator = forwardRef<HTMLSpanElement, React.HTMLAttribu
       ref={ref}
       role="presentation"
       className={cn('text-[var(--muted-foreground)] opacity-50', className)}
-      style={{ transition: 'opacity 150ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+      style={{ transition: `opacity ${DURATION.fast} ${EASING}` }}
       {...props}
     >
       {children || (

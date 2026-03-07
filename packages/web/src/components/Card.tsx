@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../utils/cn';
-import { tacSpring } from '../constants/motion';
+import { tacSpring, EASING, DURATION } from '../constants/motion';
 import { focusRingPoint } from '../constants/styles';
 
 const cardVariants = cva('rounded-[var(--card-radius)] p-[var(--card-padding)] flex flex-col gap-[var(--card-gap)]', {
@@ -68,7 +68,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
         {...props}
         style={{
           transition:
-            'box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1), border-color 200ms cubic-bezier(0.22, 1, 0.36, 1), background-color 200ms cubic-bezier(0.22, 1, 0.36, 1)',
+            `box-shadow ${DURATION.moderate} ${EASING}, border-color ${DURATION.moderate} ${EASING}, background-color ${DURATION.moderate} ${EASING}`,
           ...style,
         }}
         className={cn(cardVariants({ variant }), className)}

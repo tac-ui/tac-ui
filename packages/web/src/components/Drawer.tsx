@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useCallback, useRef, useId } from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { useFocusTrap, useFocusRestore } from '../hooks/useAccessibility';
-import { tacSpring } from '../constants/motion';
+import { tacSpring, OVERLAY_DURATION } from '../constants/motion';
 import { mergeRefs } from '../utils/mergeRefs';
 import type { MotionConflictingHandlers } from '../constants/types';
 
@@ -106,7 +106,7 @@ export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: OVERLAY_DURATION }}
             className={cn('fixed inset-0 z-[var(--z-modal)]', backdrop && 'bg-black/30 backdrop-blur-md')}
             onClick={(e) => {
               if (e.target === e.currentTarget) onClose();

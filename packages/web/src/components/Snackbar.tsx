@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../utils/cn';
 
-import { tacSpring } from '../constants/motion';
+import { tacSpring, EXIT_DURATION } from '../constants/motion';
 import type { MotionConflictingHandlers } from '../constants/types';
 import { focusRing } from '../constants/styles';
 
@@ -124,7 +124,7 @@ export const Snackbar = forwardRef<HTMLDivElement, SnackbarProps>(
         initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
         animate={
           closing
-            ? { opacity: 0, y: 6, filter: 'blur(2px)', transition: { duration: 0.15 } }
+            ? { opacity: 0, y: 6, filter: 'blur(2px)', transition: { duration: EXIT_DURATION } }
             : { opacity: 1, y: 0, filter: 'blur(0px)' }
         }
         transition={tacSpring.magnetic}

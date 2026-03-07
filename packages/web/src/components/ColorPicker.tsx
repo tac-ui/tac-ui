@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useRef, useEffect, useCallback, useId, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { dropdownMotionVariants, tacSpring } from '../constants/motion';
+import { dropdownMotionVariants, tacSpring, EASING, DURATION, EXIT_DURATION } from '../constants/motion';
 import { focusRing, inputTransition } from '../constants/styles';
 
 /* ─── EyeDropper API type declaration ─── */
@@ -119,7 +119,7 @@ function normalizeHex(hex: string): string {
 
 /* ─── Transition constants ─── */
 const btnTransition =
-  'background-color 220ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms cubic-bezier(0.22, 1, 0.36, 1)';
+  `background-color ${DURATION.normal} ${EASING}, opacity ${DURATION.normal} ${EASING}`;
 
 /* ─── Default colors ─── */
 const DEFAULT_COLORS = [
@@ -699,7 +699,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ ...tacSpring.magnetic, opacity: { duration: 0.15 } }}
+                        transition={{ ...tacSpring.magnetic, opacity: { duration: EXIT_DURATION } }}
                         style={{ overflow: 'hidden' }}
                       >
                         <div className="grid grid-cols-6 gap-1.5">
@@ -715,7 +715,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
                                 style={{
                                   backgroundColor: color,
                                   transition:
-                                    'transform 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+                                    `transform ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}`,
                                 }}
                                 className={cn(
                                   'w-8 h-8 rounded-[var(--radius-sm)] border-none cursor-pointer',

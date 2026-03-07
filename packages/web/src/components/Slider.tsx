@@ -1,5 +1,6 @@
 import React, { forwardRef, useId, useState, useCallback } from 'react';
 import { cn } from '../utils/cn';
+import { EASING, DURATION } from '../constants/motion';
 
 /** Props for the Slider component, a styled range input with optional label and current value display. */
 export interface SliderProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
@@ -113,7 +114,7 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
               ? `linear-gradient(to right, var(--point) 0%, var(--point) ${percent}%, var(--secondary) ${percent}%, var(--secondary) 100%)`
               : 'var(--secondary)',
             transition:
-              'background 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+              `background ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}`,
             ...style,
           }}
           className={cn(

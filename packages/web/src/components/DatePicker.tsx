@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useRef, useEffect, useCallback, useId, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { dropdownMotionVariants, tacSpring } from '../constants/motion';
+import { dropdownMotionVariants, tacSpring, EASING, DURATION } from '../constants/motion';
 import { focusRing, inputTransition } from '../constants/styles';
 
 /** Picker mode: date-only, date+time, or month-only. */
@@ -87,9 +87,9 @@ function defaultFormatDateByMode(date: Date, mode: DatePickerMode): string {
   return `${y}-${m}-${d}`;
 }
 
-const btnTransition = 'background-color 220ms cubic-bezier(0.22, 1, 0.36, 1)';
+const btnTransition = `background-color ${DURATION.normal} ${EASING}`;
 const cellTransition =
-  'background-color 220ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms cubic-bezier(0.22, 1, 0.36, 1)';
+  `background-color ${DURATION.normal} ${EASING}, color ${DURATION.normal} ${EASING}`;
 
 function clampNumber(val: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, val));

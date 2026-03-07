@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { PanelLeftOpen, PanelRightOpen, Menu } from '@tac-ui/icon';
 import { cn } from '../utils/cn';
 import { focusRing } from '../constants/styles';
-import { tacSpring } from '../constants/motion';
+import { tacSpring, EASING, DURATION } from '../constants/motion';
 
 /* ─── Layout Context ─── */
 export const LayoutContext = createContext<{
@@ -174,7 +174,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
       <header
         ref={ref}
         className={cn(headerVariants({ sticky, bordered, blur }), autoHide && hidden && '-translate-y-full', className)}
-        style={autoHide ? { transition: 'transform 350ms cubic-bezier(0.22, 1, 0.36, 1)' } : undefined}
+        style={autoHide ? { transition: `transform ${DURATION.slow} ${EASING}` } : undefined}
         {...props}
       >
         {hasSidebar && (
@@ -293,7 +293,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
     const hasHeader = label || icon || collapsible;
 
     const sidebarTransition =
-      'width 350ms cubic-bezier(0.22, 1, 0.36, 1), padding 350ms cubic-bezier(0.22, 1, 0.36, 1), background-color 350ms cubic-bezier(0.22, 1, 0.36, 1)';
+      `width ${DURATION.slow} ${EASING}, padding ${DURATION.slow} ${EASING}, background-color ${DURATION.slow} ${EASING}`;
 
     return (
       <aside
@@ -324,7 +324,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
                             : 'px-4',
                       ),
                 )}
-                style={{ transition: 'all 350ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+                style={{ transition: `all ${DURATION.slow} ${EASING}` }}
               >
                 {icon && (
                   <span
@@ -332,7 +332,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
                       'flex items-center justify-center shrink-0 text-[var(--foreground)]',
                       swapOnCollapse && !collapsed && 'w-0 opacity-0 overflow-hidden',
                     )}
-                    style={{ transition: 'all 350ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+                    style={{ transition: `all ${DURATION.slow} ${EASING}` }}
                   >
                     {icon}
                   </span>
@@ -343,7 +343,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
                       'text-sm font-medium text-[var(--foreground)] truncate overflow-hidden',
                       collapsed ? 'opacity-0 w-0' : 'opacity-100 flex-1',
                     )}
-                    style={{ transition: 'all 350ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+                    style={{ transition: `all ${DURATION.slow} ${EASING}` }}
                   >
                     {label}
                   </span>
@@ -355,7 +355,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
                   style={{
                     top: collapsed ? 'calc(100% - 22px)' : '50%',
                     left: collapsed ? '50%' : position === 'left' ? 'calc(100% - 24px)' : '24px',
-                    transition: 'all 350ms cubic-bezier(0.22, 1, 0.36, 1)',
+                    transition: `all ${DURATION.slow} ${EASING}`,
                   }}
                 >
                   <CollapseToggle collapsed={collapsed} position={position} onClick={handleToggle} />
@@ -414,7 +414,7 @@ export const SidebarGroup = forwardRef<HTMLDivElement, SidebarGroupProps>(
     const isOpen = collapsed ? showChildrenWhenCollapsed : !groupCollapsible || open;
     const showHeader = collapsed ? !showChildrenWhenCollapsed : true;
 
-    const groupTransition = 'all 200ms cubic-bezier(0.22, 1, 0.36, 1)';
+    const groupTransition = `all ${DURATION.moderate} ${EASING}`;
 
     return (
       <div ref={ref} className={cn('flex flex-col py-1.5', className)} {...props}>
@@ -462,7 +462,7 @@ export const SidebarGroup = forwardRef<HTMLDivElement, SidebarGroupProps>(
                   viewBox="0 0 12 12"
                   fill="none"
                   className={cn('shrink-0', isOpen && 'rotate-180')}
-                  style={{ transition: 'transform 200ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+                  style={{ transition: `transform ${DURATION.moderate} ${EASING}` }}
                 >
                   <path
                     d="M3 4.5L6 7.5L9 4.5"
@@ -486,7 +486,7 @@ export const SidebarGroup = forwardRef<HTMLDivElement, SidebarGroupProps>(
           className={cn('grid', isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0')}
           style={{
             transition:
-              'grid-template-rows 200ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms cubic-bezier(0.22, 1, 0.36, 1)',
+              `grid-template-rows ${DURATION.moderate} ${EASING}, opacity ${DURATION.moderate} ${EASING}`,
           }}
         >
           <div className="overflow-hidden min-h-0">
@@ -534,7 +534,7 @@ export const SidebarItem = forwardRef<HTMLDivElement, SidebarItemProps>(
       <div
         ref={ref}
         style={{
-          transition: 'color 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+          transition: `color ${DURATION.normal} ${EASING}`,
         }}
         className={cn(
           'relative flex items-center rounded-[var(--radius-m)] text-sm cursor-pointer overflow-hidden',
@@ -567,7 +567,7 @@ export const SidebarItem = forwardRef<HTMLDivElement, SidebarItemProps>(
             collapsed ? 'w-0 opacity-0 overflow-hidden' : 'flex-1 opacity-100',
           )}
           style={{
-            transition: 'opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), width 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+            transition: `opacity ${DURATION.normal} ${EASING}, width ${DURATION.normal} ${EASING}`,
           }}
         >
           {children}
@@ -595,7 +595,7 @@ export const SidebarContent = forwardRef<HTMLDivElement, React.HTMLAttributes<HT
         )}
         style={{
           transition:
-            'max-height 200ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms cubic-bezier(0.22, 1, 0.36, 1), padding 200ms cubic-bezier(0.22, 1, 0.36, 1)',
+            `max-height ${DURATION.moderate} ${EASING}, opacity ${DURATION.moderate} ${EASING}, padding ${DURATION.moderate} ${EASING}`,
         }}
         {...props}
       />
@@ -621,7 +621,7 @@ export const SidebarFooter = forwardRef<HTMLDivElement, React.HTMLAttributes<HTM
         )}
         style={{
           transition:
-            'max-height 200ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms cubic-bezier(0.22, 1, 0.36, 1), padding 200ms cubic-bezier(0.22, 1, 0.36, 1)',
+            `max-height ${DURATION.moderate} ${EASING}, opacity ${DURATION.moderate} ${EASING}, padding ${DURATION.moderate} ${EASING}`,
         }}
         {...props}
       />

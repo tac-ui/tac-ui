@@ -134,8 +134,7 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderRadius: tokens.borderRadius,
-    // @ts-expect-error -- react-native-web: suppress browser default focus outline
-    outlineStyle: 'none',
+    outlineWidth: 0,
   },
   iconLeft: { position: 'absolute', left: 12, zIndex: 1 },
   iconRight: { position: 'absolute', right: 12, zIndex: 1 },

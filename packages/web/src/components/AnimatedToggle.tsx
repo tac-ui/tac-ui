@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { tacSpring } from '../constants/motion';
+import { tacSpring, EASING, DURATION } from '../constants/motion';
 
 /** Props for the Toggle component, a button that swaps icons with a rotation animation on toggle. */
 export interface ToggleProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'> {
@@ -28,7 +28,7 @@ export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
         onClick={() => onChange?.(!checked)}
         style={{
           transition:
-            'background 220ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+            `background ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}`,
         }}
         className={cn(
           'relative w-10 h-10 flex items-center justify-center rounded-[var(--radius-m)] border-none cursor-pointer',

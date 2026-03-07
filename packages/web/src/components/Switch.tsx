@@ -1,7 +1,7 @@
 import React, { forwardRef, useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { tacSpring } from '../constants/motion';
+import { tacSpring, EASING, DURATION } from '../constants/motion';
 import { focusRing } from '../constants/styles';
 
 /** Props for the Switch component, a toggle control that supports controlled and uncontrolled usage. */
@@ -45,7 +45,7 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         onClick={handleClick}
         style={{
           transition:
-            'background-color 200ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1)',
+            `background-color ${DURATION.moderate} ${EASING}, box-shadow ${DURATION.moderate} ${EASING}`,
         }}
         className={cn(
           'relative w-[var(--switch-width)] h-[var(--switch-height)] rounded-[var(--radius-pill)] cursor-pointer',

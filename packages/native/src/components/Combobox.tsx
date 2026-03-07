@@ -259,10 +259,9 @@ export const Combobox = forwardRef<View, ComboboxProps>(
               {
                 color: theme.colors.foreground,
                 fontSize: 15,
+                outlineWidth: 0,
               },
             ]}
-            // @ts-expect-error -- react-native-web: suppress browser default focus outline
-            outlineStyle="none"
           />
           <Pressable onPress={handleChevronPress} style={styles.chevronBtn} hitSlop={8}>
             <Animated.View style={{ transform: [{ rotate: chevronRotation }] }}>

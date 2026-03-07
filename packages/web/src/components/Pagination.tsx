@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { focusRing } from '../constants/styles';
-import { tacSpring } from '../constants/motion';
+import { tacSpring, EASING, DURATION } from '../constants/motion';
 
 /** Props for the Pagination root nav element. */
 export interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
@@ -54,7 +54,7 @@ export const PaginationItem = forwardRef<HTMLButtonElement, PaginationItemProps>
         aria-current={active ? 'page' : undefined}
         style={{
           transition:
-            'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)',
+            `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
         }}
         className={cn(
           'w-9 h-9 flex items-center justify-center text-sm rounded-[var(--radius-m)] border-none cursor-pointer',
@@ -100,7 +100,7 @@ export const PaginationPrevious = forwardRef<HTMLButtonElement, PaginationPrevNe
         type="button"
         style={{
           transition:
-            'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)',
+            `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
         }}
         className={cn(
           'flex items-center gap-1 px-3 h-9 text-sm rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-[var(--foreground)] hover:bg-[var(--interactive-hover)] disabled:opacity-50 disabled:pointer-events-none',
@@ -129,7 +129,7 @@ export const PaginationNext = forwardRef<HTMLButtonElement, PaginationPrevNextPr
         type="button"
         style={{
           transition:
-            'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)',
+            `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
         }}
         className={cn(
           'flex items-center gap-1 px-3 h-9 text-sm rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-[var(--foreground)] hover:bg-[var(--interactive-hover)] disabled:opacity-50 disabled:pointer-events-none',

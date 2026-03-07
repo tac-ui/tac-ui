@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import { cn } from '../utils/cn';
+import { EASING, DURATION } from '../constants/motion';
 
 /** Responsive table wrapper with horizontal scroll overflow. */
 export const Table = forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
@@ -48,7 +49,7 @@ export const TableRow = forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTM
     <tr
       ref={ref}
       style={{
-        transition: 'background-color 220ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+        transition: `background-color ${DURATION.normal} ${EASING}, color ${DURATION.normal} ${EASING}`,
         ...style,
       }}
       className={cn(

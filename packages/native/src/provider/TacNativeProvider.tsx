@@ -22,7 +22,7 @@ function colorSchemeToMode(scheme: ColorSchemeName): ThemeMode {
  */
 export function TacNativeProvider({ children, defaultPreference = 'system' }: TacNativeProviderProps) {
   const [preference, setPreference] = useState<ThemePreference>(defaultPreference);
-  const [systemMode, setSystemMode] = useState<ThemeMode>(colorSchemeToMode(Appearance.getColorScheme()));
+  const [systemMode, setSystemMode] = useState<ThemeMode>(colorSchemeToMode(Appearance.getColorScheme() ?? 'light'));
 
   useEffect(() => {
     const subscription = Appearance.addChangeListener(({ colorScheme }) => {

@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../utils/cn';
-import { tacSpring, exitVariants } from '../constants/motion';
+import { tacSpring, exitVariants, EASING, DURATION } from '../constants/motion';
 
 const chipVariants = cva(
   'inline-flex items-center gap-2 py-2 px-4 text-[13px] rounded-[var(--radius-pill)] cursor-pointer disabled:opacity-50 disabled:pointer-events-none',
@@ -48,7 +48,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
       disabled={disabled}
       whileHover={!disabled ? { scale: 1, transition: tacSpring.light } : undefined}
       whileTap={!disabled ? { scale: 0.98 } : undefined}
-      style={{ transition: 'all 220ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+      style={{ transition: `all ${DURATION.normal} ${EASING}` }}
       className={cn(chipVariants({ variant }), leftIcon && 'py-2 px-3', className)}
       {...(props as React.ComponentPropsWithoutRef<typeof MotionButton>)}
     >
@@ -78,7 +78,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
                 onDismiss();
               }
             }}
-            style={{ transition: 'opacity 220ms cubic-bezier(0.22, 1, 0.36, 1)' }}
+            style={{ transition: `opacity ${DURATION.normal} ${EASING}` }}
             className="flex items-center justify-center w-3.5 h-3.5 shrink-0 bg-transparent border-none cursor-pointer opacity-70 hover:opacity-100"
             aria-label="Remove"
           >

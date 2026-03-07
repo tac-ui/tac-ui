@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { tacSpring } from '../constants/motion';
+import { tacSpring, EASING, DURATION, OVERLAY_DURATION } from '../constants/motion';
 import { focusRingPoint, focusRing } from '../constants/styles';
 
 /** Props for the MorphingCard component, which smoothly morphs between a compact preview and an expanded detail view. */
@@ -97,7 +97,7 @@ export const MorphingCard = forwardRef<HTMLDivElement, MorphingCardProps>(
             }}
             style={{
               transition:
-                'box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+                `box-shadow ${DURATION.normal} ${EASING}, border-color ${DURATION.normal} ${EASING}, background-color ${DURATION.normal} ${EASING}`,
             }}
             className={cn(
               glassClasses,
@@ -120,7 +120,7 @@ export const MorphingCard = forwardRef<HTMLDivElement, MorphingCardProps>(
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: OVERLAY_DURATION }}
               className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-[8px]"
               onClick={handleOverlayClick}
             >
@@ -140,7 +140,7 @@ export const MorphingCard = forwardRef<HTMLDivElement, MorphingCardProps>(
                   onClick={() => setExpanded(false)}
                   style={{
                     transition:
-                      'color 150ms cubic-bezier(0.22, 1, 0.36, 1), background-color 150ms cubic-bezier(0.22, 1, 0.36, 1)',
+                      `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
                   }}
                   className={cn(
                     'absolute top-3 right-3 flex items-center justify-center w-7 h-7 rounded-full bg-[var(--muted)] text-[var(--muted-foreground)] hover:bg-[var(--secondary)] cursor-pointer border-none',

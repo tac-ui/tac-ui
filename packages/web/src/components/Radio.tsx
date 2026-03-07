@@ -1,7 +1,7 @@
 import React, { createContext, forwardRef, useCallback, useContext, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
-import { tacSpring } from '../constants/motion';
+import { tacSpring, EASING, DURATION } from '../constants/motion';
 import { peerFocusRing } from '../constants/styles';
 
 interface RadioGroupContextValue {
@@ -83,7 +83,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
         <span
           style={{
             transition:
-              'border-color 200ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1), background-color 200ms cubic-bezier(0.22, 1, 0.36, 1)',
+              `border-color ${DURATION.moderate} ${EASING}, box-shadow ${DURATION.moderate} ${EASING}, background-color ${DURATION.moderate} ${EASING}`,
           }}
           className={cn(
             'relative w-5 h-5 rounded-full shrink-0 flex items-center justify-center border-[1.5px] border-solid',
