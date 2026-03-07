@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version bump type'
+        description: 'Version bump type (none = publish current versions)'
         required: true
         default: 'patch'
         type: choice
@@ -12,6 +12,7 @@ on:
           - patch
           - minor
           - major
+          - none
 
 jobs:
   publish:
@@ -35,6 +36,7 @@ jobs:
         run: pnpm build
 
       - name: Bump versions
+        if: inputs.version != 'none'
         run: |
           pnpm --filter @tac-ui/shared version ${{ inputs.version }} --no-git-tag-version
           pnpm --filter @tac-ui/tokens version ${{ inputs.version }} --no-git-tag-version
@@ -102,6 +104,7 @@ jobs:
         run: echo "version=$(node -p "require('./packages/web/package.json').version")" >> $GITHUB_OUTPUT
 
       - name: Commit version bump
+        if: inputs.version != 'none'
         run: |
           # Restore workspace deps before committing
           git checkout -- packages/tokens/package.json packages/web/package.json packages/native/package.json
@@ -120,3 +123,11 @@ jobs:
           git commit -m "release: v${{ steps.version.outputs.version }}"
           git tag "v${{ steps.version.outputs.version }}"
           git push && git push --tags
+
+      - name: Tag current version
+        if: inputs.version == 'none'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "v${{ steps.version.outputs.version }}"
+          git push --tags
