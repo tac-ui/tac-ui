@@ -3,8 +3,7 @@
 import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
-import { cn, SidebarGroup, Sidebar as SidebarShell, Drawer, useTacTheme, SegmentController } from '@tac-ui/web';
+import { SidebarGroup, SidebarItem, Sidebar as SidebarShell, Drawer, useTacTheme, SegmentController, HStack } from '@tac-ui/web';
 import {
   X,
   TacLogo,
@@ -66,46 +65,26 @@ function NavLinks({ onNavigate, navGroups = defaultNavGroups }: { onNavigate?: (
         const isActive = group.title === activeGroup;
         const isDefaultOpen = isActive || group.title === 'Getting Started';
         return (
-          <LayoutGroup key={group.title} id={`sidebar-${group.key}`}>
-            <SidebarGroup
-              label={t.nav.groups[group.key] ?? group.title}
-              icon={groupIcons[group.key]}
-              active={isActive}
-              collapseDisplay="group"
-              collapsible
-              defaultOpen={isDefaultOpen}
-            >
-              {group.items.map((item) => {
-                const isItemActive = pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={onNavigate}
-                    className={cn(
-                      'relative text-[13px] px-2 py-1.5 rounded-[var(--radius-md)] no-underline transition-colors duration-200',
-                      isItemActive
-                        ? 'text-[var(--point)] font-medium'
-                        : 'text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)]',
-                    )}
-                  >
-                    <AnimatePresence>
-                      {isItemActive && (
-                        <motion.span
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.2 }}
-                          className="absolute inset-0 bg-[var(--point-subtle)] rounded-[var(--radius-md)]"
-                        />
-                      )}
-                    </AnimatePresence>
-                    <span className="relative z-[1]">{t.nav.items[item.key] ?? item.title}</span>
-                  </Link>
-                );
-              })}
-            </SidebarGroup>
-          </LayoutGroup>
+          <SidebarGroup
+            key={group.title}
+            label={t.nav.groups[group.key] ?? group.title}
+            icon={groupIcons[group.key]}
+            active={isActive}
+            collapseDisplay="group"
+            collapsible
+            defaultOpen={isDefaultOpen}
+          >
+            {group.items.map((item) => {
+              const isItemActive = pathname === item.href;
+              return (
+                <Link key={item.href} href={item.href} onClick={onNavigate} className="no-underline">
+                  <SidebarItem active={isItemActive}>
+                    {t.nav.items[item.key] ?? item.title}
+                  </SidebarItem>
+                </Link>
+              );
+            })}
+          </SidebarGroup>
         );
       })}
     </nav>
@@ -176,7 +155,7 @@ export function MobileSidebar({
         side="left"
         className="w-[280px] rounded-none border-y-0 border-l-0 border-r border-solid border-[var(--border)] p-0"
       >
-        <div className="px-3 pt-4 pb-0 items-center justify-between mb-3 flex">
+        <HStack gap="sm" justify="between" className="px-3 pt-4 pb-0 mb-3">
           <Link href="/" className="flex items-center gap-2 no-underline text-[var(--primary)]" onClick={onClose}>
             <TacLogo size={20} className="shrink-0" />
             <span className="text-sm font-medium text-[var(--foreground)]">Tac UI</span>
@@ -188,7 +167,7 @@ export function MobileSidebar({
           >
             <X size={14} />
           </button>
-        </div>
+        </HStack>
         <div className="px-3 pb-3 shrink-0">
           <SearchTrigger />
         </div>
@@ -200,7 +179,7 @@ export function MobileSidebar({
           <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-6 z-10 bg-gradient-to-t from-[var(--background)] to-transparent" />
         </div>
         {/* Language & Theme controls */}
-        <div className="px-3 py-3 border-t border-solid border-[var(--border)] flex items-center gap-2">
+        <HStack gap="sm" className="px-3 py-3 border-t border-solid border-[var(--border)]">
           <SegmentController
             options={localeOptions}
             value={locale}
@@ -213,7 +192,7 @@ export function MobileSidebar({
             onChange={(v) => setPreference(v as 'light' | 'dark' | 'system')}
             size="sm"
           />
-        </div>
+        </HStack>
       </Drawer>
     </div>
   );

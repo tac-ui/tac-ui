@@ -47,12 +47,12 @@ export default function HolyGrailExample() {
       }
       leftSidebar={
         <SidebarGroup label="Documentation">
-          <SidebarItem icon={<BookOpen size={14} />} active>
+          <SidebarItem variant="filled" size="md" icon={<BookOpen size={14} />} active>
             Getting Started
           </SidebarItem>
-          <SidebarItem icon={<Layers size={14} />}>Components</SidebarItem>
-          <SidebarItem icon={<Code size={14} />}>API</SidebarItem>
-          <SidebarItem icon={<FileText size={14} />}>Guides</SidebarItem>
+          <SidebarItem variant="filled" size="md" icon={<Layers size={14} />}>Components</SidebarItem>
+          <SidebarItem variant="filled" size="md" icon={<Code size={14} />}>API</SidebarItem>
+          <SidebarItem variant="filled" size="md" icon={<FileText size={14} />}>Guides</SidebarItem>
         </SidebarGroup>
       }
       rightSidebar={
@@ -80,7 +80,7 @@ export default function HolyGrailExample() {
           </SidebarContent>
           <SidebarGroup label="Related">
             {relatedDocs.map((doc) => (
-              <SidebarItem key={doc.title}>
+              <SidebarItem variant="filled" size="md" key={doc.title}>
                 <div>
                   <div className="text-xs font-medium">{doc.title}</div>
                   <div className="text-[10px] text-[var(--muted-foreground)]">{doc.desc}</div>

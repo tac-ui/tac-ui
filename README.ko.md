@@ -47,12 +47,12 @@
 
 | 패키지 | 설명 | 버전 |
 |--------|------|------|
-| [`@tac-ui/web`](./packages/web) | React 웹 컴포넌트 라이브러리 (40+ 컴포넌트) | `1.0.0` |
-| [`@tac-ui/native`](./packages/native) | React Native 컴포넌트 라이브러리 (27 컴포넌트) | `1.0.0` |
-| [`@tac-ui/tokens`](./packages/tokens) | 디자인 토큰 (색상, 간격, 타이포그래피, 모션) | `1.0.0` |
-| [`@tac-ui/icon`](./packages/icon) | 웹 아이콘 패키지 (lucide-react + TacLogo) | `1.0.0` |
-| [`@tac-ui/icon-native`](./packages/icon-native) | 네이티브 아이콘 패키지 (lucide-react-native + TacLogo) | `1.0.0` |
-| [`@tac-ui/shared`](./packages/shared) | 공유 타입 및 인터페이스 | `1.0.0` |
+| [`@tac-ui/web`](./packages/web) | React 웹 컴포넌트 라이브러리 (40+ 컴포넌트) | `1.0.2` |
+| [`@tac-ui/native`](./packages/native) | React Native 컴포넌트 라이브러리 (27 컴포넌트) | `1.0.2` |
+| [`@tac-ui/tokens`](./packages/tokens) | 디자인 토큰 (색상, 간격, 타이포그래피, 모션) | `1.0.2` |
+| [`@tac-ui/icon`](./packages/icon) | 웹 아이콘 패키지 (lucide-react + TacLogo) | `1.0.2` |
+| [`@tac-ui/icon-native`](./packages/icon-native) | 네이티브 아이콘 패키지 (lucide-react-native + TacLogo) | `1.0.2` |
+| [`@tac-ui/shared`](./packages/shared) | 공유 타입 및 인터페이스 | `1.0.2` |
 
 ## 설치
 
@@ -115,7 +115,7 @@ export default function App() {
 
 ## 웹 컴포넌트
 
-Accordion · Alert · AnimatedToggle · Avatar · Badge · Breadcrumb · Button · Card · Chart (Bar, Line, Pie, Donut) · Checkbox · Chip · CodeBlock · ColorPicker · Combobox · DatePicker · Dialog · Divider · Drawer · Dropdown · EmptyState · FloatingMenuBar · Indicator · Input · Layout · Modal · MorphingCard · PageLayouts · Pagination · Popover · Progress · Radio · SegmentController · Select · Skeleton · Slider · Snackbar · Stack · Stepper · Switch · Table · Tabs · Textarea · Toast · Tooltip
+Accordion · Alert · AnimatedToggle · Avatar · Badge · Breadcrumb · Button · Card · Chart (Bar, Line, Pie, Donut) · Checkbox · Chip · CodeBlock · ColorPicker · Combobox · DatePicker · Dialog · Divider · Drawer · Dropdown · EmptyState · FloatingMenuBar · Indicator · Input · Layout (Header, Sidebar, SidebarGroup, SidebarItem, Main, Footer) · Modal · MorphingCard · PageLayouts (SidebarPage, DashboardPage 등) · Pagination · Popover · Progress · Radio · SegmentController · Select · Skeleton · Slider · Snackbar · Stack · Stepper · Switch · Table · Tabs · Textarea · Toast · Toggle · Tooltip
 
 ## 네이티브 컴포넌트
 

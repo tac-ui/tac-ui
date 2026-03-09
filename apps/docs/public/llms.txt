@@ -582,8 +582,8 @@ import {
 ```tsx
 <Sidebar width={240} collapsible collapsed={collapsed} onCollapse={setCollapsed} position="left" rounded>
   <SidebarGroup label="Nav" icon={<Menu size={14} />} collapsible defaultOpen>
-    <SidebarItem icon={<Home size={16} />} active>Dashboard</SidebarItem>
-    <SidebarItem icon={<Settings size={16} />}>Settings</SidebarItem>
+    <SidebarItem active>Dashboard</SidebarItem>
+    <SidebarItem>Settings</SidebarItem>
   </SidebarGroup>
 </Sidebar>
 ```

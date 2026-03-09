@@ -508,19 +508,24 @@ SidebarGroup.displayName = 'SidebarGroup';
  * When collapsed, only the icon is shown. If no icon, the item is hidden.
  */
 /** Active style variant for sidebar items. */
-export type SidebarItemVariant = 'filled' | 'foreground';
+export type SidebarItemVariant = 'filled' | 'foreground' | 'subtle';
+
+/** Size variant for sidebar items. */
+export type SidebarItemSize = 'sm' | 'md';
 
 export interface SidebarItemProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Icon rendered before the label. Shown alone when sidebar is collapsed. */
   icon?: React.ReactNode;
   /** Whether this item is currently active/selected. */
   active?: boolean;
-  /** Active style variant. @default "filled" */
+  /** Active style variant. @default "subtle" */
   variant?: SidebarItemVariant;
+  /** Size of the sidebar item. @default "sm" */
+  size?: SidebarItemSize;
 }
 
 export const SidebarItem = forwardRef<HTMLDivElement, SidebarItemProps>(
-  ({ icon, active, variant = 'filled', className, children, ...props }, ref) => {
+  ({ icon, active, variant = 'subtle', size = 'sm', className, children, ...props }, ref) => {
     const { collapsed } = useSidebarContext();
     const shouldHide = collapsed && !icon;
 
@@ -528,7 +533,19 @@ export const SidebarItem = forwardRef<HTMLDivElement, SidebarItemProps>(
       ? variant === 'filled'
         ? 'text-[var(--primary-foreground)]'
         : 'text-[var(--point)] font-medium'
-      : 'text-[var(--foreground)]';
+      : variant === 'subtle'
+        ? 'text-[var(--muted-foreground)]'
+        : 'text-[var(--foreground)]';
+
+    const hoverClass = !active && !shouldHide
+      ? variant === 'subtle'
+        ? 'hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)]'
+        : 'hover:bg-[var(--point-subtle)]'
+      : '';
+
+    const sizeClass = size === 'sm'
+      ? collapsed ? 'justify-center p-1.5 max-h-10' : 'px-2 py-1.5 max-h-10'
+      : collapsed ? 'justify-center p-2 max-h-12' : 'px-3 py-2 max-h-12';
 
     return (
       <div
@@ -537,11 +554,12 @@ export const SidebarItem = forwardRef<HTMLDivElement, SidebarItemProps>(
           transition: `color ${DURATION.normal} ${EASING}`,
         }}
         className={cn(
-          'relative flex items-center rounded-[var(--radius-m)] text-sm cursor-pointer overflow-hidden',
+          'relative flex items-center rounded-[var(--radius-m)] cursor-pointer overflow-hidden',
+          size === 'sm' ? 'text-[13px]' : 'text-sm',
           collapsed ? 'gap-0' : 'gap-3',
-          shouldHide ? 'max-h-0 opacity-0 p-0 m-0' : collapsed ? 'justify-center p-2 max-h-12' : 'px-3 py-2 max-h-12',
+          shouldHide ? 'max-h-0 opacity-0 p-0 m-0' : sizeClass,
           !shouldHide && textClass,
-          !active && !shouldHide && 'hover:bg-[var(--point-subtle)]',
+          hoverClass,
           className,
         )}
         {...props}
@@ -553,7 +571,7 @@ export const SidebarItem = forwardRef<HTMLDivElement, SidebarItemProps>(
             transition={tacSpring.default}
           />
         )}
-        {active && !shouldHide && variant === 'foreground' && (
+        {active && !shouldHide && (variant === 'foreground' || variant === 'subtle') && (
           <motion.div
             layoutId="sidebar-active-bg"
             className="absolute inset-0 bg-[var(--point-subtle)] rounded-[var(--radius-m)]"

@@ -60,7 +60,7 @@ export default function NativeIntroPage() {
       {/* ── Header ── */}
       <div className="relative flex flex-col gap-3 py-4">
         <div className="relative flex items-center gap-2">
-          <Badge variant="outline">v0.1.0</Badge>
+          <Badge variant="outline">v1.0.2</Badge>
           <Badge variant="secondary">React Native</Badge>
         </div>
         <h1 className="relative text-3xl font-bold tracking-tight leading-tight m-0 text-[var(--foreground)]">

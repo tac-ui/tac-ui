@@ -154,6 +154,7 @@ export type {
   SidebarGroupProps,
   SidebarItemProps,
   SidebarItemVariant,
+  SidebarItemSize,
   MainProps,
   FooterProps,
   ContainerProps,

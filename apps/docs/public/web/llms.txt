@@ -1,999 +1,820 @@
-# Tac UI
+# @tac-ui/web Detailed Documentation
 
-> Cross-platform design system with 39+ React components, design tokens, and icons.
+`@tac-ui/web` is a premium, cross-platform design system providing 39+ React components. This file serves as an extremely detailed usage and props specification for LLMs and developers.
 
-## Quick Start
+## Quick Start & Theming
 
 ```bash
 pnpm add @tac-ui/web @tac-ui/icon @tac-ui/tokens
 ```
 
-```tsx
-import { Button, Input, Card } from '@tac-ui/web';
-import { Search, Star } from '@tac-ui/icon';
-```
-
-Wrap your app with `TacProvider` for theming:
+Wrap your application in `TacProvider` to enable theming (Dark/Light mode) and context configuration:
 
 ```tsx
 import { TacProvider } from '@tac-ui/web';
 
 export default function App({ children }) {
+  // You can optionally pass defaultMode="dark" or "light"
   return <TacProvider>{children}</TacProvider>;
 }
 ```
 
-## Styling
-
-- Tailwind CSS with `cn()` utility (clsx + tailwind-merge)
-- CSS custom properties for tokens: `var(--point)`, `var(--border)`, etc.
-- CVA (class-variance-authority) for component variants
-- Add `tacPreset` to your Tailwind config: `presets: [tacPreset]`
-
-```tsx
-import { cn } from '@tac-ui/web';
+### Tailwind Configuration
+In your `tailwind.config.ts`, include the preset:
+```ts
 import { tacPreset } from '@tac-ui/web/tailwind';
+
+export default {
+  presets: [tacPreset],
+  content: [
+    // Ensure you scan the package for tailwind classes
+    './node_modules/@tac-ui/web/dist/**/*.js',
+    './src/**/*.{ts,tsx}'
+  ]
+};
 ```
 
 ---
 
-## Components
+## Components Detail Reference
 
-### Button
+### 1. Button
 
+An interactive element used to trigger actions. It supports various visual variants, sizes, and icon placements.
+
+**Usage:**
 ```tsx
-<Button variant="primary" size="md">Click</Button>
-<Button variant="point" leftIcon={<Star size={16} />}>Favorite</Button>
-<Button variant="outline" size="sm" iconOnly><Search size={16} /></Button>
-<Button variant="ghost" iconOnly><Search size={16} /></Button>
+import { Button } from '@tac-ui/web';
+import { Search } from '@tac-ui/icon';
+
+// Basic
+<Button variant="primary">Submit</Button>
+
+// With Icons
+<Button leftIcon={<Search size={16} />} variant="outline">Search</Button>
+
+// Icon Only
+<Button iconOnly aria-label="Search"><Search size={16} /></Button>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| variant | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'point' \| 'destructive'` | `'primary'` |
-| size | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| iconOnly | `boolean` | `false` |
-| leftIcon | `ReactNode` | - |
-| rightIcon | `ReactNode` | - |
-| disabled | `boolean` | `false` |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'point' \| 'destructive'` | `'primary'` | Defines the visual hierarchy and style of the button. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | The size of the button, affecting padding and font size. |
+| `iconOnly` | `boolean` | `false` | If true, adjusts padding to be perfectly square for icon-only usage. |
+| `leftIcon` | `React.ReactNode` | `undefined` | Icon element to render on the left side of the text. |
+| `rightIcon` | `React.ReactNode` | `undefined` | Icon element to render on the right side of the text. |
+| `disabled` | `boolean` | `false` | Disables interaction and dims the button visually. |
+| `onClick` | `(e: React.MouseEvent) => void` | `undefined` | Callback fired when the button is pressed. |
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Standard HTML button type. |
 
-### Input
+---
 
+### 2. Input
+
+A standard text entry field used to gather user input. Supports labels, helper text, and error states.
+
+**Usage:**
 ```tsx
-<Input label="Email" placeholder="you@example.com" />
-<Input inputSize="sm" placeholder="Small input" />
-<Input error errorMessage="Required" leftIcon={<Search size={16} />} />
+import { Input } from '@tac-ui/web';
+import { Mail } from '@tac-ui/icon';
+
+// Basic with Label
+<Input label="Email Address" placeholder="name@example.com" />
+
+// With Error State
+<Input 
+  label="Username" 
+  error={true} 
+  errorMessage="Username is already taken." 
+  leftIcon={<Mail size={16} />}
+/>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| inputSize | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| label | `string` | - |
-| helperText | `string` | - |
-| error | `boolean` | `false` |
-| errorMessage | `string` | - |
-| leftIcon | `ReactNode` | - |
-| rightIcon | `ReactNode` | - |
-| rightButton | `ReactNode` | - |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `inputSize` | `'sm' \| 'md' \| 'lg'` | `'md'` | Specifies the height and padding of the input field. |
+| `label` | `string` | `undefined` | Text rendered above the input field. |
+| `helperText` | `string` | `undefined` | Contextual text rendered below the input field. |
+| `error` | `boolean` | `false` | Toggles the error visual styling (usually red borders). |
+| `errorMessage` | `string` | `undefined` | Text displayed below the input when `error` is true. Overrides `helperText`. |
+| `leftIcon` | `React.ReactNode` | `undefined` | Icon rendered inside the input on the left side. |
+| `rightIcon` | `React.ReactNode` | `undefined` | Icon rendered inside the input on the right side. |
+| `rightButton` | `React.ReactNode` | `undefined` | Interactive element (like a clear button or password toggle) on the right side. |
+| `...props` | `InputHTMLAttributes` | - | Accepts all standard HTML input attributes (value, onChange, placeholder, disabled, etc). |
 
-### Textarea
+---
 
+### 3. Textarea
+
+A multi-line plain-text editing control.
+
+**Usage:**
 ```tsx
-<Textarea label="Message" placeholder="Type here..." />
-<Textarea textareaSize="sm" placeholder="Small textarea" />
-<Textarea error errorMessage="Too short" />
+import { Textarea } from '@tac-ui/web';
+
+<Textarea 
+  label="Biography" 
+  placeholder="Tell us about yourself..." 
+  rows={6}
+  helperText="Maximum 500 characters."
+/>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| textareaSize | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| label | `string` | - |
-| helperText | `string` | - |
-| error | `boolean` | `false` |
-| errorMessage | `string` | - |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `textareaSize` | `'sm' \| 'md' \| 'lg'` | `'md'` | Specifies the base font size and padding. |
+| `label` | `string` | `undefined` | Text rendered above the textarea. |
+| `helperText` | `string` | `undefined` | Contextual text rendered below the textarea. |
+| `error` | `boolean` | `false` | Toggles error visual styling. |
+| `errorMessage` | `string` | `undefined` | Text displayed below when `error` is true. |
+| `rows` | `number` | `3` | Number of visible text lines. |
+| `...props` | `TextareaHTMLAttributes` | - | Accepts standard HTML textarea attributes. |
 
-### Select
+---
 
+### 4. Select
+
+A dropdown interface for choosing a value from a predefined list.
+
+**Usage:**
 ```tsx
+import { Select } from '@tac-ui/web';
+import { useState } from 'react';
+
+const [country, setCountry] = useState('');
+
 <Select
   label="Country"
+  placeholder="Select your country..."
+  value={country}
+  onChange={setCountry}
   options={[
     { value: 'us', label: 'United States' },
     { value: 'kr', label: 'South Korea' },
+    { value: 'jp', label: 'Japan', disabled: true },
+  ]}
+/>
+```
+
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | `undefined` | Text rendered above the select. |
+| `options` | `Array<{ value: string; label: string; disabled?: boolean }>` | `[]` | The list of available options to display in the dropdown. |
+| `value` | `string` | `undefined` | The currently selected value. |
+| `onChange` | `(value: string) => void` | `undefined` | Callback fired when an option is selected. |
+| `placeholder` | `string` | `'Select...'` | Initial text shown when no value is selected. |
+| `selectSize` | `'sm' \| 'md' \| 'lg'` | `'md'` | The size of the trigger button. |
+| `error` | `boolean` | `false` | Toggles error visual styling. |
+| `errorMessage` | `string` | `undefined` | Text displayed below when `error` is true. |
+| `disabled` | `boolean` | `false` | Disables the entire select interaction. |
+
+---
+
+### 5. Combobox
+
+An input widget with a dropdown list of options, typically used when options need to be searchable.
+
+**Usage:**
+```tsx
+import { Combobox } from '@tac-ui/web';
+
+<Combobox
+  placeholder="Search for a framework..."
+  options={[
+    { value: 'react', label: 'React' },
+    { value: 'vue', label: 'Vue' },
+    { value: 'angular', label: 'Angular' }
   ]}
   value={selected}
   onChange={setSelected}
+  emptyText="No frameworks found."
 />
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| label | `string` | - |
-| options | `{ value: string; label: string; disabled?: boolean }[]` | `[]` |
-| value | `string` | - |
-| onChange | `(value: string) => void` | - |
-| placeholder | `string` | `'Select...'` |
-| selectSize | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| error | `boolean` | `false` |
-| errorMessage | `string` | - |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `options` | `Array<{ value: string; label: string; disabled?: boolean }>` | `[]` | The list of available searchable options. |
+| `value` | `string` | `undefined` | The currently selected value. |
+| `onChange` | `(value: string) => void` | `undefined` | Callback fired when an option is selected. |
+| `placeholder` | `string` | `undefined` | Placeholder text for the search input. |
+| `emptyText` | `string` | `'No results found'` | Text displayed when the search yields no matching options. |
 
-### Combobox
+---
 
+### 6. Card
+
+A container used to encapsulate related information and actions. Often composed with sub-components.
+
+**Usage:**
 ```tsx
-<Combobox
-  options={[{ value: 'react', label: 'React' }, { value: 'vue', label: 'Vue' }]}
-  value={value}
-  onChange={setValue}
-  placeholder="Search framework..."
-/>
-```
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, Button } from '@tac-ui/web';
 
-| Prop | Type | Default |
-|------|------|---------|
-| options | `{ value: string; label: string; disabled?: boolean }[]` | `[]` |
-| value | `string` | - |
-| onChange | `(value: string) => void` | - |
-| placeholder | `string` | - |
-| emptyText | `string` | `'No results found'` |
-
-### Card
-
-```tsx
-<Card variant="default">
+<Card variant="accent" interactive>
   <CardHeader>
-    <CardTitle>Title</CardTitle>
-    <CardDescription>Description</CardDescription>
+    <CardTitle>Premium Subscription</CardTitle>
+    <CardDescription>Upgrade to unlock advanced features.</CardDescription>
   </CardHeader>
-  <CardContent>Body content</CardContent>
-  <CardFooter><Button size="sm">Action</Button></CardFooter>
+  <CardContent>
+    <p>Access unlimited projects and priority support.</p>
+  </CardContent>
+  <CardFooter>
+    <Button variant="point">Upgrade Now</Button>
+  </CardFooter>
 </Card>
-
-<Card interactive tilt variant="accent">Premium card</Card>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| variant | `'default' \| 'accent' \| 'glass' \| 'flat'` | `'default'` |
-| interactive | `boolean` | `false` |
+**Props (Card Root):**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'accent' \| 'glass' \| 'flat'` | `'default'` | Determines the background and border styling of the card. |
+| `interactive` | `boolean` | `false` | If true, adds hover transformations and focuses styling to make the card act like a button. |
+| `tilt` | `boolean` | `false` | If true, adds a 3D tilt effect on hover (often requires Framer Motion). |
 
-Sub-components: `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`
+**Sub-components:**
+- **`CardHeader`**: Wraps `CardTitle` and `CardDescription` with appropriate spacing.
+- **`CardTitle`**: Renders an `h3` styling for the card title.
+- **`CardDescription`**: Renders muted text for subtitles.
+- **`CardContent`**: The main body wrapper with padding.
+- **`CardFooter`**: A wrapper for actions at the bottom of the card, usually flexbox layout.
 
-### MorphingCard
+---
 
+### 7. Badge
+
+A small component typically used to display a status, label, or count.
+
+**Usage:**
 ```tsx
-<MorphingCard
-  layoutId="demo"
-  preview={<CardTitle>Project Alpha</CardTitle>}
-  detail={
-    <div>
-      <CardTitle>Project Alpha</CardTitle>
-      <CardDescription>Full project details shown in expanded overlay.</CardDescription>
-      <Button size="sm">Get Started</Button>
-    </div>
-  }
+import { Badge } from '@tac-ui/web';
+
+<Badge variant="success">Completed</Badge>
+<Badge variant="destructive" interactive>Delete</Badge>
+<Badge count={12} /> // Renders a small numerical dot
+```
+
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'success' \| 'error' \| 'warning' \| 'info' \| 'glass'` | `'default'` | The color thematic variant of the badge. |
+| `interactive` | `boolean` | `false` | If true, applies hover styling. |
+| `count` | `number` | `undefined` | If provided, styles the badge as a numerical counter circle. |
+
+---
+
+### 8. Checkbox
+
+A control that allows the user to toggle a true/false or selected/unselected state.
+
+**Usage:**
+```tsx
+import { Checkbox } from '@tac-ui/web';
+
+<Checkbox 
+  label="I agree to the Terms of Service" 
+  checked={isChecked} 
+  onChange={(e) => setIsChecked(e.target.checked)} 
 />
+
+// Indeterminate state (useful for "Select All" functionality)
+<Checkbox label="Select All" indeterminate={isIndeterminate} />
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| layoutId | `string` | - |
-| expanded | `boolean` | `false` |
-| onExpandedChange | `(expanded: boolean) => void` | - |
-| preview | `React.ReactNode` | - |
-| detail | `React.ReactNode` | - |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | `undefined` | Text rendered next to the checkbox input. |
+| `checked` | `boolean` | `undefined` | Controlled value representing the checked state. |
+| `defaultChecked` | `boolean` | `false` | Uncontrolled initial checked state. |
+| `indeterminate` | `boolean` | `false` | Displays a dash icon instead of a checkmark, overriding `checked` visually. |
+| `filled` | `boolean` | `false` | Uses a filled background variant instead of a border outline when unchecked. |
+| `disabled` | `boolean` | `false` | Disables interaction and dims opacity. |
+| `onChange` | `(e: React.ChangeEvent<HTMLInputElement>) => void` | `undefined` | Native change event handler. |
 
-### Badge
+---
 
+### 9. Radio & RadioGroup
+
+Mutually exclusive option selection.
+
+**Usage:**
 ```tsx
-<Badge>Default</Badge>
-<Badge variant="success">Active</Badge>
-<Badge variant="glass" interactive>Click me</Badge>
-<Badge count={5} />
-```
+import { RadioGroup, Radio } from '@tac-ui/web';
 
-| Prop | Type | Default |
-|------|------|---------|
-| variant | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'success' \| 'error' \| 'warning' \| 'info' \| 'glass'` | `'default'` |
-| interactive | `boolean` | `false` |
-| count | `number` | - |
-
-### Checkbox
-
-```tsx
-<Checkbox label="Accept terms" />
-<Checkbox checked={checked} onChange={(e) => setChecked(e.target.checked)} />
-<Checkbox indeterminate />
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| label | `string` | - |
-| checked | `boolean` | - |
-| defaultChecked | `boolean` | `false` |
-| indeterminate | `boolean` | `false` |
-| filled | `boolean` | `false` |
-| disabled | `boolean` | `false` |
-
-### Radio & RadioGroup
-
-```tsx
-<RadioGroup value={value} onValueChange={setValue}>
-  <Radio radioValue="a" label="Option A" />
-  <Radio radioValue="b" label="Option B" />
-  <Radio radioValue="c" label="Option C" disabled />
+<RadioGroup value={plan} onValueChange={setPlan}>
+  <Radio radioValue="basic" label="Basic Plan - $9/mo" />
+  <Radio radioValue="pro" label="Pro Plan - $29/mo" />
+  <Radio radioValue="enterprise" label="Enterprise" disabled />
 </RadioGroup>
 ```
 
-| Prop (RadioGroup) | Type | Default |
-|------|------|---------|
-| value | `string` | - |
-| defaultValue | `string` | - |
-| onValueChange | `(value: string) => void` | - |
+**Props (RadioGroup):**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | `undefined` | Controlled value matching a child Radio `radioValue`. |
+| `defaultValue` | `string` | `undefined` | Uncontrolled initial value. |
+| `onValueChange` | `(value: string) => void` | `undefined` | Callback fired when a child Radio is selected. |
 
-| Prop (Radio) | Type | Default |
-|------|------|---------|
-| radioValue | `string` | required |
-| label | `string` | - |
-| disabled | `boolean` | `false` |
+**Props (Radio):**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `radioValue` | `string` | *Required* | The string value this radio button represents. |
+| `label` | `string` | `undefined` | Text rendered next to the radio circle. |
+| `disabled` | `boolean` | `false` | Disables interaction for this specific option. |
 
-### Switch
+---
 
+### 10. Switch
+
+A physical toggle switch used for boolean preferences.
+
+**Usage:**
 ```tsx
-<Switch />
-<Switch label="Dark Mode" defaultChecked />
-<Switch checked={on} onChange={setOn} />
-```
+import { Switch } from '@tac-ui/web';
 
-| Prop | Type | Default |
-|------|------|---------|
-| label | `string` | - |
-| checked | `boolean` | - |
-| defaultChecked | `boolean` | `false` |
-| onChange | `(checked: boolean) => void` | - |
-| disabled | `boolean` | `false` |
-
-### AnimatedToggle
-
-```tsx
-<AnimatedToggle
-  checked={dark}
-  onChange={setDark}
-  iconOn={<Moon size={14} />}
-  iconOff={<Sun size={14} />}
+<Switch 
+  label="Enable Notifications" 
+  checked={notificationsEnabled} 
+  onChange={setNotificationsEnabled} 
 />
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| checked | `boolean` | `false` |
-| onChange | `(checked: boolean) => void` | - |
-| iconOn | `ReactNode` | - |
-| iconOff | `ReactNode` | - |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | `undefined` | Text rendered next to the switch track. |
+| `checked` | `boolean` | `undefined` | Controlled checked state. |
+| `defaultChecked` | `boolean` | `false` | Uncontrolled initial checked state. |
+| `onChange` | `(checked: boolean) => void` | `undefined` | Callback fired when toggled, providing the new boolean state. |
+| `disabled` | `boolean` | `false` | Disables interaction. |
 
-### Slider
+---
 
+### 11. Slider
+
+An input where the user selects a value from within a given range by sliding a thumb.
+
+**Usage:**
 ```tsx
-<Slider defaultValue={50} min={0} max={100} />
-<Slider label="Volume" showValue value={vol} onChange={(e) => setVol(+e.target.value)} />
-<Slider filled={false} defaultValue={50} />
+import { Slider } from '@tac-ui/web';
+
+<Slider 
+  label="Brightness" 
+  min={0} 
+  max={100} 
+  step={5}
+  value={brightness} 
+  onChange={(e) => setBrightness(Number(e.target.value))} 
+  showValue
+/>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| label | `string` | - |
-| showValue | `boolean` | `false` |
-| filled | `boolean` | `true` |
-| min | `number` | `0` |
-| max | `number` | `100` |
-| step | `number` | `1` |
-| value | `number` | - |
-| defaultValue | `number` | - |
-| disabled | `boolean` | `false` |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | `undefined` | Text rendered above the slider. |
+| `showValue` | `boolean` | `false` | If true, renders the current numerical value next to the label. |
+| `filled` | `boolean` | `true` | Determines if the track before the thumb should be filled with color. |
+| `min` | `number` | `0` | The minimum allowed value. |
+| `max` | `number` | `100` | The maximum allowed value. |
+| `step` | `number` | `1` | The increment interval. |
+| `value` | `number` | `undefined` | Controlled value. |
+| `defaultValue` | `number` | `undefined` | Uncontrolled initial value. |
+| `disabled` | `boolean` | `false` | Disables interaction. |
 
-### SegmentController
+---
 
+### 12. SegmentController
+
+A linear set of two or more segments, each of which functions as a toggle. Often used as an alternative to Tabs or a Select dropdown for a small number of options.
+
+**Usage:**
 ```tsx
+import { SegmentController } from '@tac-ui/web';
+
 <SegmentController
+  value={view}
+  onChange={setView}
   options={[
-    { value: 'day', label: 'Day' },
-    { value: 'week', label: 'Week' },
-    { value: 'month', label: 'Month' },
+    { value: 'list', label: 'List View', icon: <List /> },
+    { value: 'grid', label: 'Grid View', icon: <Grid /> }
   ]}
-  value={period}
-  onChange={setPeriod}
+  fullWidth
 />
-
-<SegmentController options={opts} mode="multi" size="sm" collapsible />
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| options | `{ value: string; label: string; icon?: ReactNode; disabled?: boolean }[]` | required |
-| mode | `'single' \| 'multi'` | `'single'` |
-| value | `string \| string[]` | - |
-| defaultValue | `string \| string[]` | - |
-| onChange | `(value: string \| string[]) => void` | - |
-| size | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| fullWidth | `boolean` | `false` |
-| collapsible | `boolean` | `false` |
-| disabled | `boolean` | `false` |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `options` | `Array<{ value: string; label: string; icon?: ReactNode; disabled?: boolean }>` | *Required* | The segments to render. |
+| `mode` | `'single' \| 'multi'` | `'single'` | Determines if multiple segments can be active simultaneously. |
+| `value` | `string \| string[]` | `undefined` | Controlled value (`string[]` if `mode="multi"`). |
+| `defaultValue` | `string \| string[]` | `undefined` | Uncontrolled initial value. |
+| `onChange` | `(value: string \| string[]) => void` | `undefined` | Event handler when a segment is tapped. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Scale of the controller. |
+| `fullWidth` | `boolean` | `false` | If true, expands to fill the parent container, distributing segments evenly. |
+| `collapsible` | `boolean` | `false` | For use in responsive layouts (collapses options into a dropdown conditionally). |
 
-### DatePicker
+---
 
+### 13. DatePicker
+
+A fully featured calendar and date selection interface.
+
+**Usage:**
 ```tsx
-<DatePicker label="Start date" value={date} onChange={setDate} />
-<DatePicker mode="datetime" use24Hour />
-<DatePicker mode="month" />
+import { DatePicker } from '@tac-ui/web';
+
+<DatePicker 
+  label="Meeting Date" 
+  mode="datetime" 
+  value={date} 
+  onChange={setDate} 
+  use24Hour={true}
+/>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| value | `Date \| null` | - |
-| onChange | `(date: Date \| null) => void` | - |
-| label | `string` | - |
-| placeholder | `string` | `'Select date'` |
-| mode | `'date' \| 'datetime' \| 'month'` | `'date'` |
-| use24Hour | `boolean` | `true` |
-| minuteStep | `number` | `1` |
-| minDate | `Date` | - |
-| maxDate | `Date` | - |
-| error | `boolean` | `false` |
-| errorMessage | `string` | - |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `Date \| null` | `null` | The currently selected date object. |
+| `onChange` | `(date: Date \| null) => void` | `undefined` | Callback fired when the user selects a date/time. |
+| `label` | `string` | `undefined` | Text rendered above the input trigger. |
+| `placeholder` | `string` | `'Select date'` | Text in the input trigger when value is null. |
+| `mode` | `'date' \| 'datetime' \| 'month'` | `'date'` | The selection mode. `datetime` shows time pickers; `month` only allows picking a year/month. |
+| `use24Hour` | `boolean` | `true` | Formats time options in 24-hour style (e.g. 14:00 vs 2:00 PM). |
+| `minuteStep` | `number` | `1` | Interval for the minutes dropdown in datetime mode. |
+| `minDate` | `Date` | `undefined` | Prevents selection of dates before this date. |
+| `maxDate` | `Date` | `undefined` | Prevents selection of dates after this date. |
 
-### ColorPicker
+---
 
+### 14. ColorPicker
+
+An interactive UI for selecting colors.
+
+**Usage:**
 ```tsx
-<ColorPicker label="Brand color" value={color} onChange={setColor} />
+import { ColorPicker } from '@tac-ui/web';
+
+<ColorPicker 
+  label="Theme Primary Color" 
+  value={hexColor} 
+  onChange={setHexColor} 
+/>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| value | `string` | - |
-| onChange | `(color: string) => void` | - |
-| label | `string` | - |
-| disabled | `boolean` | `false` |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | `undefined` | The currently selected color in hex format (e.g., `'#ff0000'`). |
+| `onChange` | `(color: string) => void` | `undefined` | Callback fired when the color changes. |
+| `label` | `string` | `undefined` | Label text describing the picker. |
+| `disabled` | `boolean` | `false` | Disables the component. |
 
-### Tabs
+---
 
+### 15. Tabs
+
+A set of layered sections of content, displaying one panel at a time.
+
+**Usage:**
 ```tsx
-<Tabs defaultValue="tab1" variant="underline">
+import { Tabs, TabsList, TabTrigger, TabContent } from '@tac-ui/web';
+
+<Tabs defaultValue="account" variant="pill">
   <TabsList>
-    <TabTrigger value="tab1">General</TabTrigger>
-    <TabTrigger value="tab2">Settings</TabTrigger>
+    <TabTrigger value="account">Account</TabTrigger>
+    <TabTrigger value="billing">Billing</TabTrigger>
   </TabsList>
-  <TabContent value="tab1">General content</TabContent>
-  <TabContent value="tab2">Settings content</TabContent>
+  
+  <TabContent value="account">
+    <p>Update your account details here.</p>
+  </TabContent>
+  
+  <TabContent value="billing">
+    <p>Manage payment methods.</p>
+  </TabContent>
 </Tabs>
 ```
 
-| Prop (Tabs) | Type | Default |
-|------|------|---------|
-| value | `string` | - |
-| defaultValue | `string` | `''` |
-| onValueChange | `(value: string) => void` | - |
-| variant | `'underline' \| 'pill' \| 'outline' \| 'icon'` | `'underline'` |
+**Props (Tabs):**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | `undefined` | Controlled value representing the active `TabContent`. |
+| `defaultValue` | `string` | `''` | Initial uncontrolled active tab. |
+| `onValueChange` | `(value: string) => void` | `undefined` | Fired when a different `TabTrigger` is clicked. |
+| `variant` | `'underline' \| 'pill' \| 'outline' \| 'icon'` | `'underline'` | Visual styling mechanism for the active trigger indicators. |
 
-### Accordion
+---
 
+### 16. Accordion
+
+A vertically stacked set of interactive headings that each reveal a section of content.
+
+**Usage:**
 ```tsx
-<Accordion type="single" defaultValue="item-1">
-  <AccordionItem value="item-1">
-    <AccordionTrigger value="item-1">Section 1</AccordionTrigger>
-    <AccordionContent value="item-1">Content 1</AccordionContent>
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@tac-ui/web';
+
+<Accordion type="single" outline>
+  <AccordionItem value="faq-1">
+    <AccordionTrigger>What is Tac UI?</AccordionTrigger>
+    <AccordionContent>Tac UI is a premium UI component library.</AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="faq-2">
+    <AccordionTrigger>Is it accessible?</AccordionTrigger>
+    <AccordionContent>Yes, it follows WAI-ARIA guidelines.</AccordionContent>
   </AccordionItem>
 </Accordion>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| type | `'single' \| 'multiple'` | `'single'` |
-| defaultValue | `string \| string[]` | - |
-| glass | `boolean` | `false` |
-| outline | `boolean` | `true` |
+**Props (Accordion Root):**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `'single' \| 'multiple'` | `'single'` | Defines if only one item can open at a time (`single`) or many (`multiple`). |
+| `defaultValue` | `string \| string[]` | `undefined` | Initial open items. String array for `multiple` type. |
+| `outline` | `boolean` | `true` | Renders borders around the accordion items. |
+| `glass` | `boolean` | `false` | Uses a glassmorphism blurred background for items. |
 
-### Dialog
+---
 
+### 17. Dialog
+
+A window overlaid on either the primary window or another dialog window. Often used for confirmation prompts.
+
+**Usage:**
 ```tsx
-<Dialog open={open} onClose={() => setOpen(false)}>
+import { Dialog, DialogHeader, DialogTitle, DialogDescription, DialogFooter, Button } from '@tac-ui/web';
+
+<Dialog open={isOpen} onClose={() => setIsOpen(false)}>
   <DialogHeader>
-    <DialogTitle>Confirm</DialogTitle>
-    <DialogDescription>Are you sure?</DialogDescription>
+    <DialogTitle>Delete Project?</DialogTitle>
+    <DialogDescription>This action cannot be undone.</DialogDescription>
   </DialogHeader>
   <DialogFooter>
-    <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
-    <Button onClick={handleConfirm}>Confirm</Button>
+    <Button variant="ghost" onClick={() => setIsOpen(false)}>Cancel</Button>
+    <Button variant="destructive" onClick={performDelete}>Delete</Button>
   </DialogFooter>
 </Dialog>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| open | `boolean` | required |
-| onClose | `() => void` | required |
-| backdrop | `boolean` | `true` |
-| layoutId | `string` | - |
+**Props (Dialog Root):**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | *Required* | Controlled boolean determining if the dialog is visible. |
+| `onClose` | `() => void` | *Required* | Callback fired to close the dialog (e.g. clicking backdrop or pressing ESC). |
+| `backdrop` | `boolean` | `true` | Renders a darkened semi-transparent backdrop behind the dialog. |
+| `layoutId` | `string` | `undefined` | Used with Framer Motion for shared layout animation transitions. |
 
-Sub-components: `DialogHeader`, `DialogTitle`, `DialogDescription`, `DialogFooter`
+---
 
-### Modal
+### 18. Modal
 
+Similar to `Dialog` but generally used for larger, more complex interactions (like forms or large views) rather than simple confirmations.
+
+**Usage:**
 ```tsx
-<Modal open={open} onClose={() => setOpen(false)} size="md">
+import { Modal, ModalHeader, ModalTitle, ModalFooter, Input, Button } from '@tac-ui/web';
+
+<Modal open={isOpen} onClose={() => setIsOpen(false)} size="lg">
   <ModalHeader>
-    <ModalTitle>Edit Profile</ModalTitle>
+    <ModalTitle>Create New Organization</ModalTitle>
   </ModalHeader>
-  <Input label="Name" />
+  {/* Modal body content is placed directly as children */}
+  <div className="py-4">
+    <Input label="Organization Name" />
+  </div>
   <ModalFooter>
-    <Button>Save</Button>
+    <Button variant="primary">Create</Button>
   </ModalFooter>
 </Modal>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| open | `boolean` | required |
-| onClose | `() => void` | required |
-| size | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| backdrop | `boolean` | `true` |
-| layoutId | `string` | - |
+**Props (Modal Root):**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | *Required* | Visibility state. |
+| `onClose` | `() => void` | *Required* | Handler for close requests. |
+| `size` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Controls the `max-width` of the modal container. |
+| `backdrop` | `boolean` | `true` | Toggles the overlay backdrop. |
 
-Sub-components: `ModalHeader`, `ModalIcon`, `ModalTitle`, `ModalDescription`, `ModalFooter`
+---
 
-### Drawer
+### 19. Drawer
 
+A panel that slides in from the edge of the screen, useful for side navigation or responsive bottom sheets.
+
+**Usage:**
 ```tsx
-<Drawer open={open} onClose={() => setOpen(false)} side="right">
+import { Drawer, DrawerHeader, DrawerTitle, DrawerBody } from '@tac-ui/web';
+
+<Drawer open={isOpen} onClose={() => setIsOpen(false)} side="right">
   <DrawerHeader>
     <DrawerTitle>Settings</DrawerTitle>
   </DrawerHeader>
-  <DrawerBody>Content here</DrawerBody>
-  <DrawerFooter><Button>Save</Button></DrawerFooter>
+  <DrawerBody>
+    <p>Configuration options go here.</p>
+  </DrawerBody>
 </Drawer>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| open | `boolean` | required |
-| onClose | `() => void` | required |
-| side | `'left' \| 'right' \| 'top' \| 'bottom'` | `'right'` |
-| backdrop | `boolean` | `true` |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | *Required* | Visibility state. |
+| `onClose` | `() => void` | *Required* | Handler for close requests. |
+| `side` | `'left' \| 'right' \| 'top' \| 'bottom'` | `'right'` | Which edge of the screen the drawer slides from. |
+| `backdrop` | `boolean` | `true` | Toggles the overlay backdrop. |
 
-Sub-components: `DrawerHeader`, `DrawerTitle`, `DrawerDescription`, `DrawerBody`, `DrawerFooter`
+---
 
-### Alert
+### 20. Tooltip
 
+A popup that displays information related to an element when hovered or focused.
+
+**Usage:**
 ```tsx
-<Alert variant="success" icon={<CheckCircle size={16} />} dismissible>
-  <AlertTitle>Saved</AlertTitle>
-  <AlertDescription>Your changes have been saved.</AlertDescription>
-</Alert>
-```
+import { Tooltip, Button } from '@tac-ui/web';
+import { HelpCircle } from '@tac-ui/icon';
 
-| Prop | Type | Default |
-|------|------|---------|
-| variant | `'default' \| 'success' \| 'error' \| 'warning' \| 'info' \| 'glass'` | `'default'` |
-| icon | `ReactNode` | - |
-| dismissible | `boolean` | `false` |
-| onDismiss | `() => void` | - |
-
-### Toast
-
-```tsx
-// Wrap app with ToastProvider
-<ToastProvider position="bottom-right" maxToasts={5}>
-  <App />
-</ToastProvider>
-
-// Use in components
-const { toast, dismiss, dismissAll } = useToast();
-toast('Saved successfully', { variant: 'success', duration: 3000 });
-toast('Error occurred', { variant: 'error', action: <Button size="sm">Retry</Button> });
-```
-
-| Option | Type | Default |
-|------|------|---------|
-| variant | `'default' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'default'` |
-| duration | `number` (ms, 0 = no auto-dismiss) | `5000` |
-| icon | `ReactNode` | - |
-| action | `ReactNode` | - |
-
-### Snackbar
-
-```tsx
-<Snackbar open={open} onClose={() => setOpen(false)} variant="success" icon={<Check size={16} />} action="Undo" onAction={handleUndo}>
-  Item deleted
-</Snackbar>
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| open | `boolean` | required |
-| onClose | `() => void` | - |
-| variant | `'default' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'default'` |
-| autoHideDuration | `number` (ms, 0 = no auto-dismiss) | `5000` |
-| icon | `ReactNode` | - |
-| action | `ReactNode` | - |
-| onAction | `() => void` | - |
-| closeLabel | `string` | `'Close'` |
-
-### Dropdown
-
-```tsx
-<Dropdown trigger={<Button variant="outline">Menu</Button>} align="start">
-  <DropdownItem onClick={handleEdit}>Edit</DropdownItem>
-  <DropdownDivider />
-  <DropdownItem destructive onClick={handleDelete}>Delete</DropdownItem>
-</Dropdown>
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| trigger | `ReactNode` | required |
-| open | `boolean` | - |
-| onOpenChange | `(open: boolean) => void` | - |
-| align | `'start' \| 'center' \| 'end'` | `'start'` |
-
-Sub-components: `DropdownTitle`, `DropdownDivider`, `DropdownItem`, `DropdownSearch`
-
-### Tooltip
-
-```tsx
-<Tooltip content="Save changes" placement="top">
-  <Button iconOnly><Save size={16} /></Button>
-</Tooltip>
-
-<Tooltip content="Premium feature" description="Upgrade to unlock" placement="bottom">
-  <Badge>Pro</Badge>
+<Tooltip content="Provides extra context about this feature" placement="top">
+  <Button variant="ghost" iconOnly><HelpCircle size={16} /></Button>
 </Tooltip>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| content | `ReactNode` | required |
-| description | `string` | - |
-| placement | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` |
-| delay | `number` (ms) | `200` |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `content` | `React.ReactNode` | *Required* | The primary text or element shown inside the tooltip bubble. |
+| `description` | `string` | `undefined` | Optional secondary muted text under the main content. |
+| `placement` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` | Preferred position relative to the trigger element. |
+| `delay` | `number` | `200` | Delay in milliseconds before showing the tooltip on hover. |
 
-### Popover
+---
 
+### 21. Popover
+
+Floating content attached to an element, displayed on click. Unlike a tooltip, it usually contains interactive elements like forms or filters.
+
+**Usage:**
 ```tsx
-<Popover trigger={<Button>Options</Button>} side="bottom" align="start">
-  <PopoverHeader>Filter</PopoverHeader>
-  <PopoverBody><Input placeholder="Search..." /></PopoverBody>
-  <PopoverFooter><Button size="sm">Apply</Button></PopoverFooter>
+import { Popover, PopoverHeader, PopoverBody, Button, Input } from '@tac-ui/web';
+
+<Popover trigger={<Button>Filter Options</Button>} side="bottom" align="start">
+  <PopoverHeader>Quick Filter</PopoverHeader>
+  <PopoverBody>
+    <Input placeholder="Search criteria..." />
+  </PopoverBody>
 </Popover>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| trigger | `ReactNode` | required |
-| open | `boolean` | - |
-| onOpenChange | `(open: boolean) => void` | - |
-| side | `'top' \| 'bottom' \| 'left' \| 'right'` | `'bottom'` |
-| align | `'start' \| 'center' \| 'end'` | `'center'` |
+**Props (Popover Root):**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `trigger` | `React.ReactNode` | *Required* | The element the user clicks to open the popover. |
+| `open` | `boolean` | `undefined` | Optional controlled state. |
+| `onOpenChange` | `(open: boolean) => void` | `undefined` | Callback for state changes. |
+| `side` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'bottom'` | Position relative to the trigger. |
+| `align` | `'start' \| 'center' \| 'end'` | `'center'` | Alignment along the orthogonal axis. |
 
-### Avatar
+---
 
+### 22. Dropdown
+
+Displays a list of action options upon interaction.
+
+**Usage:**
 ```tsx
-<Avatar src="/photo.jpg" alt="User" size="md" />
-<Avatar initials="JH" size="lg" showStatus />
-<Avatar icon={<User size={20} />} animated />
+import { Dropdown, DropdownItem, DropdownDivider, Button } from '@tac-ui/web';
+
+<Dropdown trigger={<Button>Actions</Button>} align="end">
+  <DropdownItem onClick={() => edit()}>Edit</DropdownItem>
+  <DropdownItem onClick={() => duplicate()}>Duplicate</DropdownItem>
+  <DropdownDivider />
+  <DropdownItem onClick={() => destroy()} destructive>Delete</DropdownItem>
+</Dropdown>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| size | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| src | `string` | - |
-| alt | `string` | - |
-| initials | `string` | - |
-| icon | `ReactNode` | - |
-| showStatus | `boolean` | `false` |
-| statusColor | `string` | `'var(--success)'` |
-| animated | `boolean` | `false` |
+**Props (Dropdown Root):**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `trigger` | `React.ReactNode` | *Required* | Element that opens the dropdown. |
+| `align` | `'start' \| 'center' \| 'end'` | `'start'` | Alignment of the dropdown menu relative to the trigger. |
+| `open` / `onOpenChange` | `boolean` / `function` | - | Controlled state options. |
 
-### Chip
+---
 
+### 23. Toast
+
+A succinct, non-blocking notification. Requires setting up the Context provider.
+
+**Setup & Usage:**
 ```tsx
-<Chip variant="filter">Active</Chip>
-<Chip variant="input" leftIcon={<Tag size={12} />} onDelete={() => {}}>React</Chip>
-<Chip variant="glass">Premium</Chip>
+// 1. In your App root
+import { ToastProvider, useToast, Button } from '@tac-ui/web';
+
+export default function App() {
+  return (
+    <ToastProvider position="bottom-right" maxToasts={3}>
+      <ExamplePage />
+    </ToastProvider>
+  );
+}
+
+// 2. In your component
+function ExamplePage() {
+  const { toast } = useToast();
+
+  return (
+    <Button onClick={() => {
+      toast('Operation successful!', { 
+        variant: 'success', 
+        duration: 3000 
+      });
+    }}>
+      Save
+    </Button>
+  );
+}
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| variant | `'filter' \| 'assist' \| 'suggestion' \| 'input' \| 'glass'` | `'filter'` |
-| leftIcon | `ReactNode` | - |
-| onDelete | `() => void` | - |
-| disabled | `boolean` | `false` |
+**Toast Options (second argument to `toast()`):**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'default'` | Visual coloring. |
+| `duration` | `number` | `5000` | Time in ms before auto-dismissal. `0` means never auto-dismiss. |
+| `action` | `React.ReactNode` | `undefined` | Custom React element, usually a button like "Undo". |
+| `icon` | `React.ReactNode` | `undefined` | Custom icon override. |
 
-### Progress
+---
 
+### 24. Table
+
+A structured grid to display data rows and columns natively formatted.
+
+**Usage:**
 ```tsx
-<Progress value={75} />
-<Progress value={60} variant="circular" size={80} showLabel />
-<Progress value={40} barSize="lg" />
-```
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@tac-ui/web';
 
-| Prop | Type | Default |
-|------|------|---------|
-| value | `number` | `0` |
-| max | `number` | `100` |
-| variant | `'linear' \| 'circular'` | `'linear'` |
-| size | `number` | `64` |
-| barSize | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| showLabel | `boolean` | `false` |
-
-### Table
-
-```tsx
 <Table>
   <TableHeader>
     <TableRow>
+      <TableHead>User ID</TableHead>
       <TableHead>Name</TableHead>
-      <TableHead>Email</TableHead>
+      <TableHead>Role</TableHead>
     </TableRow>
   </TableHeader>
   <TableBody>
     <TableRow>
-      <TableCell>John</TableCell>
-      <TableCell>john@example.com</TableCell>
+      <TableCell>1</TableCell>
+      <TableCell>Alice</TableCell>
+      <TableCell>Admin</TableCell>
     </TableRow>
   </TableBody>
 </Table>
 ```
 
-Sub-components: `Table`, `TableHeader`, `TableBody`, `TableFooter`, `TableRow`, `TableHead`, `TableCell`, `TableCaption`
+---
 
-### Breadcrumb
+### 25. Pagination
 
+Controls for navigating between pages of content.
+
+**Usage:**
 ```tsx
-<Breadcrumb>
-  <BreadcrumbList>
-    <BreadcrumbItem><BreadcrumbLink href="/">Home</BreadcrumbLink></BreadcrumbItem>
-    <BreadcrumbSeparator />
-    <BreadcrumbItem><BreadcrumbLink href="/docs">Docs</BreadcrumbLink></BreadcrumbItem>
-  </BreadcrumbList>
-</Breadcrumb>
-```
+import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationNext, PaginationEllipsis } from '@tac-ui/web';
 
-### Pagination
-
-```tsx
 <Pagination>
   <PaginationContent>
-    <PaginationPrevious onClick={prev} />
-    <PaginationItem>1</PaginationItem>
-    <PaginationItem>2</PaginationItem>
+    <PaginationPrevious onClick={() => setPage(p => p - 1)} />
+    <PaginationItem isActive>1</PaginationItem>
+    <PaginationItem onClick={() => setPage(2)}>2</PaginationItem>
     <PaginationEllipsis />
-    <PaginationItem>10</PaginationItem>
-    <PaginationNext onClick={next} />
+    <PaginationItem onClick={() => setPage(10)}>10</PaginationItem>
+    <PaginationNext onClick={() => setPage(p => p + 1)} />
   </PaginationContent>
 </Pagination>
 ```
-
-### Stepper
-
-```tsx
-<Stepper activeStep={1} orientation="horizontal">
-  <Step title="Account" description="Create account" />
-  <Step title="Profile" description="Set up profile" />
-  <Step title="Done" />
-</Stepper>
-```
-
-| Prop (Stepper) | Type | Default |
-|------|------|---------|
-| activeStep | `number` | `0` |
-| orientation | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| alignLabels | `'edge' \| 'center'` | `'edge'` |
-
-| Prop (Step) | Type | Default |
-|------|------|---------|
-| title | `string` | required |
-| description | `string` | - |
-| icon | `ReactNode` | - |
-
-### Divider
-
-```tsx
-<Divider />
-<Divider variant="thick" />
-<Divider variant="inset" />
-<Divider label="OR" />
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| variant | `'full' \| 'inset' \| 'thick' \| 'withLabel'` | `'full'` |
-| label | `string` | - |
-
-### Skeleton
-
-```tsx
-<Skeleton variant="text" lines={3} />
-<Skeleton variant="circular" width={48} height={48} />
-<Skeleton variant="rectangular" width="100%" height={200} />
-<Skeleton animation="pulse" width="100%" height={20} />
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| variant | `'rectangular' \| 'circular' \| 'text'` | `'rectangular'` |
-| animation | `'shimmer' \| 'pulse'` | `'shimmer'` |
-| width | `string \| number` | - |
-| height | `string \| number` | - |
-| lines | `number` (for text variant) | `3` |
-
-### Indicator
-
-```tsx
-<Indicator variant="linear" />
-<Indicator variant="circular" size={32} />
-<Indicator variant="circular" size={48} color="var(--error)" />
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| variant | `'linear' \| 'circular'` | `'linear'` |
-| size | `number` | `32` |
-| color | `string` | `'var(--point)'` |
-
-### CodeBlock
-
-```tsx
-<CodeBlock code={`const x = 1;`} language="typescript" showLineNumbers showCopyButton />
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| code | `string` | required |
-| language | `string` | - |
-| showLineNumbers | `boolean` | `false` |
-| showCopyButton | `boolean` | `false` |
-
-### EmptyState
-
-```tsx
-<EmptyState
-  icon={<Inbox size={48} />}
-  title="No items"
-  description="Create your first item to get started."
-  action={<Button>Create Item</Button>}
-/>
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| icon | `ReactNode` | - |
-| title | `string` | required |
-| description | `string` | - |
-| action | `ReactNode` | - |
-
-### MorphingCard
-
-```tsx
-<MorphingCard
-  layoutId="card-1"
-  expanded={expanded}
-  onExpandedChange={setExpanded}
-  preview={<div>Compact view</div>}
-  detail={<div>Expanded view with more content</div>}
-/>
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| layoutId | `string` | required |
-| expanded | `boolean` | - |
-| onExpandedChange | `(expanded: boolean) => void` | - |
-| preview | `ReactNode` | - |
-| detail | `ReactNode` | - |
-
-### VStack & HStack
-
-```tsx
-<VStack gap="md" align="center">
-  <Input label="Name" />
-  <Button>Submit</Button>
-</VStack>
-
-<HStack gap="sm" justify="between">
-  <Badge>Tag 1</Badge>
-  <Badge>Tag 2</Badge>
-</HStack>
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| gap | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'md'` |
-| align | `'start' \| 'center' \| 'end' \| 'stretch' \| 'baseline'` | VStack: `'stretch'`, HStack: `'center'` |
-| justify | `'start' \| 'center' \| 'end' \| 'between' \| 'around' \| 'evenly'` | `'start'` |
-| wrap | `boolean` | `false` |
+*Note: `PaginationItem` takes an `isActive` boolean prop to highlight the current page.*
 
 ---
 
-## Charts
+### Additional Primitives
 
-```tsx
-import { BarChart, LineChart, PieChart, DonutChart } from '@tac-ui/web';
-```
+- **`Avatar`**: Prop `src` (string), `initials` (string), `size` ('sm'|'md'|'lg'|'xl'), `showStatus` (boolean). Displays user images or fallback initials.
+- **`Chip`**: Prop `variant` ('filter'|'input'|'glass'), `onDelete` (function). Small text labels.
+- **`Progress`**: Prop `value` (number 0-100), `variant` ('linear'|'circular'). Shows loading completion.
+- **`Skeleton`**: Prop `variant` ('text'|'circular'|'rectangular'), `animation` ('shimmer'|'pulse'). Loading placeholders.
+- **`Alert`**: Prop `variant` ('success'|'error'|'info'|'warning'), `dismissible` (boolean). Static inline messages.
+- **`CodeBlock`**: Prop `code` (string), `language` (string), `showLineNumbers` (boolean). Syntax highlighted code snippet.
+- **`EmptyState`**: Prop `icon` (node), `title` (string), `description` (string), `action` (node). Illustration for empty tables/pages.
+- **`Stepper`**: Prop `activeStep` (number 0-indexed), `orientation` ('horizontal'|'vertical'). Shows workflow progress through `<Step title="..." />` children.
+- **`Divider`**: Visual HR line. Prop `label` allows rendering text in the center like "OR".
+- **`MorphingCard`**: Advanced Framer Motion component. Prop `layoutId` (required), renders a `preview` prop and morphs into a full `detail` prop node on click.
 
-### BarChart
-
-```tsx
-<BarChart
-  data={[{ label: 'Jan', value: 30 }, { label: 'Feb', value: 45 }]}
-  height={200}
-  showGrid
-  showValues
-/>
-```
-
-### LineChart
-
-```tsx
-<LineChart
-  data={[{ label: 'Mon', value: 10 }, { label: 'Tue', value: 25 }]}
-  height={200}
-  showArea
-  showDots
-  color="var(--point)"
-/>
-```
-
-### PieChart / DonutChart
-
-```tsx
-<PieChart
-  data={[
-    { label: 'A', value: 40, color: 'var(--chart-1)' },
-    { label: 'B', value: 30, color: 'var(--chart-2)' },
-  ]}
-  size={200}
-  showLabels
-/>
-
-<DonutChart data={data} size={200} strokeWidth={20} />
-```
-
----
-
-## Layout
-
-```tsx
-import {
-  PageLayout, Header, Sidebar, SidebarGroup, SidebarItem,
-  Main, Footer, Container, FloatingMenuBar, FloatingMenuItem,
-} from '@tac-ui/web';
-```
-
-### Sidebar with groups
-
-```tsx
-<Sidebar width={240} collapsible collapsed={collapsed} onCollapse={setCollapsed} position="left" rounded>
-  <SidebarGroup label="Navigation" icon={<Menu size={14} />} collapsible defaultOpen>
-    <SidebarItem icon={<Home size={16} />} active>Dashboard</SidebarItem>
-    <SidebarItem icon={<Settings size={16} />}>Settings</SidebarItem>
-  </SidebarGroup>
-</Sidebar>
-```
-
-### Header
-
-```tsx
-<Header sticky bordered blur autoHide>
-  <Logo />
-  <nav>...</nav>
-</Header>
-```
-
-### Preset Page Layouts
-
-```tsx
-import { SidebarPage, DashboardPage, HolyGrailPage } from '@tac-ui/web';
-```
-
-Available: `SingleColumnPage`, `SidebarPage`, `GridPage`, `DashboardPage`, `SplitPage`, `StackedPage`, `DualSidebarPage`, `HolyGrailPage`, `AsymmetricPage`, `AppPage`
-
-### FloatingMenuBar
-
-```tsx
-<FloatingMenuBar position="bottom-center" blur bordered>
-  <FloatingMenuItem icon={<Home size={18} />} label="Home" active />
-  <FloatingMenuItem icon={<Search size={18} />} label="Search" />
-</FloatingMenuBar>
-```
-
----
-
-## Icons
-
-```tsx
-import { Search, Star, Check, X, ArrowRight, TacLogo } from '@tac-ui/icon';
-
-<Search size={16} />
-<TacLogo size={24} />
-```
-
-All [lucide-react](https://lucide.dev/icons) icons are re-exported from `@tac-ui/icon`, plus the custom `TacLogo`.
-
----
-
-## Design Tokens
-
-```tsx
-import { primitiveColors, semanticTokens, spacing, typography, motion, diaSpring } from '@tac-ui/tokens';
-```
-
-### CSS Custom Properties
-
-Colors: `--background`, `--foreground`, `--border`, `--card`, `--primary`, `--point`, `--muted-foreground`, `--success`, `--error`, `--warning`, `--info`
-
-Spacing: `--spacing-2xs` through `--spacing-3xl`
-
-Radius: `--radius-none`, `--radius-xs`, `--radius-sm`, `--radius-m`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-pill`
-
-Shadows: `--shadow-sm`, `--shadow-m`, `--shadow-lg`, `--shadow-xl`
-
-Motion: `--duration-instant` (80ms), `--duration-fast` (150ms), `--duration-normal` (220ms), `--duration-slow` (320ms), `--duration-complex` (450ms)
-
-Easing: `--ease-standard`, `--ease-in`, `--ease-out`, `--ease-in-out`, `--ease-bounce`, `--ease-spring`
-
-Z-Index: `--z-dropdown`, `--z-sticky`, `--z-overlay`, `--z-modal`, `--z-popover`, `--z-tooltip`, `--z-toast`
-
-Charts: `--chart-1` through `--chart-8`
-
-Breakpoints (screens): `sm` (640px), `md` (768px), `lg` (1024px), `xl` (1280px), `2xl` (1536px)
-
-> **Note:** Tailwind CSS v4 changed `max-w-sm` to use `--spacing-sm` instead of a fixed breakpoint value. Use `max-w-screen-sm` for breakpoint-based max-width, or `max-w-[24rem]` for the old v3 behavior.
-
----
-
-## Hooks
-
-```tsx
-import {
-  useFocusTrap,     // Trap focus within element
-  useFocusRestore,  // Restore focus on unmount
-  useRovingIndex,   // Arrow key navigation
-  useReducedMotion, // Check prefers-reduced-motion
-  useTilt,          // Cursor-tracking 3D tilt
-  useSpotlight,     // Spotlight reveal effect
-  useSidebarContext // Get sidebar collapsed state
-} from '@tac-ui/web';
-```
-
----
-
-## Theming
-
-Tac UI supports light/dark themes via CSS custom properties and `TacProvider`:
-
-```tsx
-import { TacProvider, useTacTheme } from '@tac-ui/web';
-
-function App() {
-  return (
-    <TacProvider defaultTheme="system">
-      <MyApp />
-    </TacProvider>
-  );
-}
-
-function ThemeToggle() {
-  const { preference, setPreference } = useTacTheme();
-  // preference: 'light' | 'dark' | 'system'
-}
-```
-
-Themes are applied via `data-theme` attribute on the root element. Use `data-no-bg-transition` attribute on elements that should not animate during theme changes.
-
----
-
-## Tech Stack
-
-- TypeScript (strict), React 18/19, Tailwind CSS 4
-- Framer Motion for animations
-- CVA + clsx + tailwind-merge for styling
-- lucide-react for icons
-- ES2020 target, dual CJS/ESM
+*(All styling leverages the underlying Tailwind utility sets configured by the `tacPreset` in the tailwind config and the design tokens injected by `TacProvider`).*

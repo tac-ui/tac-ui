@@ -47,7 +47,7 @@ export default function DualSidebarExample() {
       leftSidebar={
         <SidebarGroup label="Channels">
           {channels.map((ch) => (
-            <SidebarItem key={ch.name} icon={<Hash size={14} />} active={ch.name === 'general'}>
+            <SidebarItem variant="filled" size="md" key={ch.name} icon={<Hash size={14} />} active={ch.name === 'general'}>
               <span className="flex-1">{ch.name}</span>
               {ch.unread > 0 && (
                 <span className="text-[10px] bg-[var(--primary)] text-[var(--primary-foreground)] px-1.5 py-0.5 rounded-full font-medium">
@@ -71,7 +71,7 @@ export default function DualSidebarExample() {
           </SidebarContent>
           <SidebarGroup label="Members">
             {members.map((m) => (
-              <SidebarItem key={m.name}>
+              <SidebarItem variant="filled" size="md" key={m.name}>
                 <div className="w-6 h-6 rounded-full bg-[var(--secondary)] flex items-center justify-center text-[10px] font-medium shrink-0">
                   {m.name[0]}
                 </div>

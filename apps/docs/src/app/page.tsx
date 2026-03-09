@@ -186,7 +186,7 @@ function HeroSection() {
         variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
       >
         <motion.div variants={fadeUp} custom={0} className="flex items-center justify-center gap-2 mb-8">
-          <Badge variant="outline">v0.1.0</Badge>
+          <Badge variant="outline">v1.0.2</Badge>
           <Badge variant="secondary">Open Source</Badge>
         </motion.div>
 
@@ -609,7 +609,7 @@ function ShowcaseSection() {
                     </span>
                     <div className="flex flex-wrap gap-2 items-center">
                       <Badge>New</Badge>
-                      <Badge variant="outline">v0.1.0</Badge>
+                      <Badge variant="outline">v1.0.2</Badge>
                       <Badge variant="secondary">Beta</Badge>
                       <Chip>React</Chip>
                       <Chip>TypeScript</Chip>

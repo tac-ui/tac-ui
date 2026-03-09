@@ -27,14 +27,14 @@ export default function SidebarExample() {
       }
       sidebar={
         <SidebarGroup label="Navigation">
-          <SidebarItem icon={<Home size={16} />}>Home</SidebarItem>
-          <SidebarItem icon={<Inbox size={16} />} active>
+          <SidebarItem variant="filled" size="md" icon={<Home size={16} />}>Home</SidebarItem>
+          <SidebarItem variant="filled" size="md" icon={<Inbox size={16} />} active>
             Inbox
           </SidebarItem>
-          <SidebarItem icon={<FileText size={16} />}>Documents</SidebarItem>
-          <SidebarItem icon={<Users size={16} />}>Team</SidebarItem>
-          <SidebarItem icon={<BarChart3 size={16} />}>Analytics</SidebarItem>
-          <SidebarItem icon={<Settings size={16} />}>Settings</SidebarItem>
+          <SidebarItem variant="filled" size="md" icon={<FileText size={16} />}>Documents</SidebarItem>
+          <SidebarItem variant="filled" size="md" icon={<Users size={16} />}>Team</SidebarItem>
+          <SidebarItem variant="filled" size="md" icon={<BarChart3 size={16} />}>Analytics</SidebarItem>
+          <SidebarItem variant="filled" size="md" icon={<Settings size={16} />}>Settings</SidebarItem>
         </SidebarGroup>
       }
     >

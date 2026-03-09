@@ -79,7 +79,7 @@ function ExamplesShell({ children }: { children: React.ReactNode }) {
                 <span className="text-[var(--foreground)]">Tac UI</span>
               </Link>
               <span className="text-[10px] font-mono text-[var(--muted-foreground)] bg-[var(--secondary)] px-1.5 py-0.5 rounded-full leading-none">
-                v0.1.0
+                v1.0.2
               </span>
 
               {/* Platform switcher */}

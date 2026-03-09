@@ -47,12 +47,12 @@
 
 | Package | Description | Version |
 |---------|------------|---------|
-| [`@tac-ui/web`](./packages/web) | React web component library (40+ components) | `1.0.0` |
-| [`@tac-ui/native`](./packages/native) | React Native component library (27 components) | `1.0.0` |
-| [`@tac-ui/tokens`](./packages/tokens) | Design tokens (color, spacing, typography, motion) | `1.0.0` |
-| [`@tac-ui/icon`](./packages/icon) | Web icon package (lucide-react + TacLogo) | `1.0.0` |
-| [`@tac-ui/icon-native`](./packages/icon-native) | Native icon package (lucide-react-native + TacLogo) | `1.0.0` |
-| [`@tac-ui/shared`](./packages/shared) | Shared types and interfaces | `1.0.0` |
+| [`@tac-ui/web`](./packages/web) | React web component library (40+ components) | `1.0.2` |
+| [`@tac-ui/native`](./packages/native) | React Native component library (27 components) | `1.0.2` |
+| [`@tac-ui/tokens`](./packages/tokens) | Design tokens (color, spacing, typography, motion) | `1.0.2` |
+| [`@tac-ui/icon`](./packages/icon) | Web icon package (lucide-react + TacLogo) | `1.0.2` |
+| [`@tac-ui/icon-native`](./packages/icon-native) | Native icon package (lucide-react-native + TacLogo) | `1.0.2` |
+| [`@tac-ui/shared`](./packages/shared) | Shared types and interfaces | `1.0.2` |
 
 ## Installation
 
@@ -115,7 +115,7 @@ export default function App() {
 
 ## Web Components
 
-Accordion · Alert · AnimatedToggle · Avatar · Badge · Breadcrumb · Button · Card · Chart (Bar, Line, Pie, Donut) · Checkbox · Chip · CodeBlock · ColorPicker · Combobox · DatePicker · Dialog · Divider · Drawer · Dropdown · EmptyState · FloatingMenuBar · Indicator · Input · Layout · Modal · MorphingCard · PageLayouts · Pagination · Popover · Progress · Radio · SegmentController · Select · Skeleton · Slider · Snackbar · Stack · Stepper · Switch · Table · Tabs · Textarea · Toast · Tooltip
+Accordion · Alert · AnimatedToggle · Avatar · Badge · Breadcrumb · Button · Card · Chart (Bar, Line, Pie, Donut) · Checkbox · Chip · CodeBlock · ColorPicker · Combobox · DatePicker · Dialog · Divider · Drawer · Dropdown · EmptyState · FloatingMenuBar · Indicator · Input · Layout (Header, Sidebar, SidebarGroup, SidebarItem, Main, Footer) · Modal · MorphingCard · PageLayouts (SidebarPage, DashboardPage, etc.) · Pagination · Popover · Progress · Radio · SegmentController · Select · Skeleton · Slider · Snackbar · Stack · Stepper · Switch · Table · Tabs · Textarea · Toast · Toggle · Tooltip
 
 ## Native Components
 

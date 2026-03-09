@@ -2,7 +2,7 @@
 
 import React, { useState, useSyncExternalStore, useCallback } from 'react';
 import Link from 'next/link';
-import { useTacTheme, Header, ToastProvider, Button, SegmentController } from '@tac-ui/web';
+import { useTacTheme, Header, ToastProvider, Button, SegmentController, HStack, Main } from '@tac-ui/web';
 import { Menu, Sun, Moon, Monitor, Globe, TacLogo } from '@tac-ui/icon';
 import { useTranslation } from '@/i18n';
 import type { Locale } from '@/i18n/config';
@@ -57,7 +57,7 @@ function DocsShell({ children }: { children: React.ReactNode }) {
             bordered
             className="h-14 justify-between px-4 lg:px-6 bg-[var(--background)]/95 backdrop-blur-lg"
           >
-            <div className="flex items-center gap-3">
+            <HStack gap="sm">
               {/* Mobile menu */}
               <Button
                 variant="ghost"
@@ -79,11 +79,11 @@ function DocsShell({ children }: { children: React.ReactNode }) {
                 <span className="text-[var(--foreground)]">Tac UI</span>
               </Link>
               <span className="text-[10px] font-mono text-[var(--muted-foreground)] bg-[var(--secondary)] px-1.5 py-0.5 rounded-full leading-none">
-                v0.1.0
+                v1.0.2
               </span>
 
               {/* Platform switcher */}
-              <div className="hidden sm:flex items-center gap-1">
+              <HStack gap="xs" className="hidden sm:flex">
                 <Link
                   href="/web/docs"
                   className="text-[10px] font-mono text-[var(--muted-foreground)] hover:text-[var(--foreground)] px-1.5 py-0.5 rounded-full leading-none no-underline transition-colors"
@@ -93,14 +93,14 @@ function DocsShell({ children }: { children: React.ReactNode }) {
                 <span className="text-[10px] font-mono text-[var(--point)] bg-[var(--point-subtle)] px-1.5 py-0.5 rounded-full leading-none">
                   Native
                 </span>
-              </div>
-            </div>
+              </HStack>
+            </HStack>
 
             {/* Right: mobile search + locale + theme */}
-            <div className="flex items-center gap-1.5">
+            <HStack gap="xs">
               <MobileSearchButton />
               {mounted && (
-                <div className="hidden lg:flex items-center gap-1.5">
+                <HStack gap="xs" className="hidden lg:flex">
                   <SegmentController options={localeOptions} value={locale} onChange={handleLocaleChange} size="sm" />
                   <SegmentController
                     options={themeOptions}
@@ -109,17 +109,17 @@ function DocsShell({ children }: { children: React.ReactNode }) {
                     size="sm"
                     collapsible
                   />
-                </div>
+                </HStack>
               )}
-            </div>
+            </HStack>
           </Header>
 
           {/* Body */}
-          <div className="flex">
+          <HStack gap="none" align="start">
             <Sidebar navGroups={nativeNavGroups} />
             <MobileSidebar open={mobileNavOpen} onClose={() => setMobileNavOpen(false)} navGroups={nativeNavGroups} />
-            <main className="flex-1 min-w-0">{children}</main>
-          </div>
+            <Main className="min-w-0">{children}</Main>
+          </HStack>
         </div>
       </CommandPaletteProvider>
     </ToastProvider>

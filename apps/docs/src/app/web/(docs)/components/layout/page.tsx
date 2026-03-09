@@ -1050,8 +1050,8 @@ export default function LayoutPage() {
   footer={<SidebarFooter>Settings</SidebarFooter>}
 >
   <SidebarGroup label="Menu">
-    <SidebarItem icon={<Home />} active>Home</SidebarItem>
-    <SidebarItem icon={<Settings />}>Settings</SidebarItem>
+    <SidebarItem variant="filled" size="md" icon={<Home />} active>Home</SidebarItem>
+    <SidebarItem variant="filled" size="md" icon={<Settings />}>Settings</SidebarItem>
   </SidebarGroup>
 </Sidebar>`}
         >
@@ -1238,7 +1238,7 @@ export default function LayoutPage() {
           <DocText>
             {pt?.sections?.['sidebar-sub-components']?.texts?.[0]
               ? 'SidebarItem은 선택적 아이콘과 활성 상태를 가진 개별 내비게이션 항목입니다.'
-              : 'Individual navigation item with optional icon and active state. When the sidebar is collapsed, only the icon is visible. Items without icons are hidden when collapsed. Supports two active style variants: "filled" (primary background) and "foreground" (primary text + bold).'}
+              : 'Individual navigation item with optional icon and active state. When the sidebar is collapsed, only the icon is visible. Items without icons are hidden when collapsed. Supports three active style variants: "subtle" (muted text, point color active), "filled" (primary background), and "foreground" (primary text + bold).'}
           </DocText>
           <PropsTable
             data={[
@@ -1258,11 +1258,19 @@ export default function LayoutPage() {
               },
               {
                 name: 'variant',
-                type: '"filled" | "foreground"',
-                default: '"filled"',
+                type: '"subtle" | "filled" | "foreground"',
+                default: '"subtle"',
                 description:
                   pt?.props?.['SidebarItem.variant'] ??
-                  'Active style variant. "filled" uses primary background color, "foreground" uses primary text color with bold weight.',
+                  'Active style variant. "subtle" uses muted text with point color when active, "filled" uses primary background color, "foreground" uses primary text color with bold weight.',
+              },
+              {
+                name: 'size',
+                type: '"sm" | "md"',
+                default: '"sm"',
+                description:
+                  pt?.props?.['SidebarItem.size'] ??
+                  'Size of the sidebar item. "sm" uses compact padding and 13px text, "md" uses standard padding and 14px text.',
               },
             ]}
           />

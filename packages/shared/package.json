@@ -1,6 +1,6 @@
 {
   "name": "@tac-ui/shared",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Shared types and interfaces for Tac UI",
   "license": "MIT",
   "sideEffects": false,

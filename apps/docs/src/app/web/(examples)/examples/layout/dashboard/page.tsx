@@ -44,13 +44,13 @@ export default function DashboardExample() {
       }
       sidebar={
         <SidebarGroup label="Menu">
-          <SidebarItem icon={<LayoutDashboard size={16} />} active>
+          <SidebarItem variant="filled" size="md" icon={<LayoutDashboard size={16} />} active>
             Dashboard
           </SidebarItem>
-          <SidebarItem icon={<ShoppingCart size={16} />}>Orders</SidebarItem>
-          <SidebarItem icon={<Package size={16} />}>Products</SidebarItem>
-          <SidebarItem icon={<Users size={16} />}>Customers</SidebarItem>
-          <SidebarItem icon={<Settings size={16} />}>Settings</SidebarItem>
+          <SidebarItem variant="filled" size="md" icon={<ShoppingCart size={16} />}>Orders</SidebarItem>
+          <SidebarItem variant="filled" size="md" icon={<Package size={16} />}>Products</SidebarItem>
+          <SidebarItem variant="filled" size="md" icon={<Users size={16} />}>Customers</SidebarItem>
+          <SidebarItem variant="filled" size="md" icon={<Settings size={16} />}>Settings</SidebarItem>
         </SidebarGroup>
       }
     >

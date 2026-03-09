@@ -1,799 +1,387 @@
-# Tac UI Native
+# @tac-ui/native Detailed Documentation
 
-> Cross-platform design system — React Native component library with 30+ components, design tokens, and icons.
+`@tac-ui/native` is a cross-platform (iOS/Android) React Native design system featuring 30+ highly optimized, beautifully animated UI components. This document provides an exhaustive usage and props specification for LLMs and developers.
 
-## Quick Start
+## Quick Start & Theming
 
 ```bash
 pnpm add @tac-ui/native @tac-ui/icon-native @tac-ui/tokens
 ```
 
-```tsx
-import { Button, Input, Card } from '@tac-ui/native';
-import { Search, Star } from '@tac-ui/icon-native';
-```
-
-Wrap your app with `TacNativeProvider` for theming:
+Wrap your application root with `TacNativeProvider` to unlock semantic tokens, colors, and dynamic theme switching:
 
 ```tsx
 import { TacNativeProvider } from '@tac-ui/native';
 
 export default function App() {
+  // optionally pass defaultMode="light" | "dark" | "system"
   return (
-    <TacNativeProvider>
+    <TacNativeProvider defaultMode="system">
       <YourApp />
     </TacNativeProvider>
   );
 }
 ```
 
-## Styling
-
-- No Tailwind — uses React Native `StyleSheet.create()`
-- Theme values from `useTacNativeTheme()` context hook
-- Colors: `theme.colors.*` (e.g. `theme.colors.foreground`, `theme.colors.point`)
-- Spacing, radius, shadows from `@tac-ui/tokens/native`
-- Animation via React Native `Animated` API with spring configs from `constants/motion`
+### Styling Methodology
+The library **does not use Tailwind**. Instead, it passes `theme.colors` from `useTacNativeTheme()` directly into `StyleSheet.create()` outputs.
 
 ```tsx
-import { useTacNativeTheme } from '@tac-ui/native';
-import { StyleSheet, View } from 'react-native';
+import { useTacNativeTheme, createStyles } from '@tac-ui/native';
+import { View, Text } from 'react-native';
+
+const useStyles = createStyles((theme) => ({
+  container: {
+    backgroundColor: theme.colors.background,
+    padding: 16,
+    borderRadius: 12
+  },
+  text: {
+    color: theme.colors.primary,
+    fontWeight: '600'
+  }
+}));
 
 function MyComponent() {
-  const { theme } = useTacNativeTheme();
+  const styles = useStyles();
   return (
-    <View style={[styles.box, { backgroundColor: theme.colors.card }]} />
+    <View style={styles.container}>
+      <Text style={styles.text}>Hello World</Text>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  box: { padding: 16, borderRadius: 12 },
-});
 ```
 
 ---
 
-## Components
+## Components Detail Reference
 
-### Button
+### 1. Button
 
+An interactive touchable wrapper for executing logic operations.
+
+**Usage:**
 ```tsx
-<Button variant="primary" size="md">Click</Button>
-<Button variant="point" leftIcon={<Star size={16} />}>Favorite</Button>
-<Button variant="outline" size="sm" iconOnly leftIcon={<Search size={16} />} />
-<Button variant="ghost" iconOnly leftIcon={<Search size={16} />} />
+import { Button } from '@tac-ui/native';
+import { Download } from '@tac-ui/icon-native';
+
+// Standard 
+<Button variant="primary" onPress={() => save()}>Save Draft</Button>
+
+// With Icon
+<Button variant="outline" leftIcon={<Download size={18} />}>Download</Button>
+
+// Destructive
+<Button variant="destructive" size="lg">Delete Account</Button>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| variant | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'point' \| 'destructive'` | `'primary'` |
-| size | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| iconOnly | `boolean` | `false` |
-| leftIcon | `React.ReactNode` | - |
-| rightIcon | `React.ReactNode` | - |
-| disabled | `boolean` | `false` |
-| style | `ViewStyle` | - |
-| onPress | `() => void` | - |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'point' \| 'destructive'` | `'primary'` | Visual thematic variant of the button. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Scale of the button. Influences padding and height (e.g., md is usually 48px height for touch targets). |
+| `iconOnly` | `boolean` | `false` | Squares off the button if it only contains an icon. |
+| `leftIcon` | `React.ReactNode` | `undefined` | Native SVG icon element drawn before text. |
+| `rightIcon` | `React.ReactNode` | `undefined` | Native SVG icon element drawn after text. |
+| `disabled` | `boolean` | `false` | Sets `opacity: 0.5` and prevents `onPress` firing. |
+| `style` | `ViewStyle` | `undefined` | Custom style override for the outermost wrapper. |
+| `onPress` | `() => void` | `undefined` | Standard React Native press event callback. |
 
-### Input
+---
 
+### 2. Input
+
+A styled wrapper around React Native's pure `TextInput`, including label, helper text, inline icons, and error handling natively.
+
+**Usage:**
 ```tsx
-<Input label="Email" placeholder="you@example.com" />
-<Input inputSize="sm" placeholder="Small input" />
-<Input error errorMessage="Required" leftIcon={<Search size={16} />} />
+import { Input } from '@tac-ui/native';
+import { Search } from '@tac-ui/icon-native';
+
+// Standard Email Input
+<Input 
+  label="Email" 
+  keyboardType="email-address" 
+  autoCapitalize="none" 
+/>
+
+// Search Input
+<Input 
+  leftIcon={<Search size={16} />} 
+  placeholder="Search..." 
+  returnKeyType="search" 
+/>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| inputSize | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| label | `string` | - |
-| helperText | `string` | - |
-| error | `boolean` | `false` |
-| errorMessage | `string` | - |
-| leftIcon | `React.ReactNode` | - |
-| rightIcon | `React.ReactNode` | - |
-| containerStyle | `ViewStyle` | - |
-| editable | `boolean` | `true` |
+**Props (Extends `TextInputProps`):**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `inputSize` | `'sm' \| 'md' \| 'lg'` | `'md'` | Vertical thickness and typography size. |
+| `label` | `string` | `undefined` | Text rendered above the form entry. |
+| `error` | `boolean` | `false` | Switches borders and text to error variants. |
+| `errorMessage` | `string` | `undefined` | Text rendered below the input on error, overrides helperText. |
+| `helperText` | `string` | `undefined` | Guidance text below the input. |
+| `leftIcon` | `React.ReactNode` | `undefined` | Fixed icon overlaid on the left edge inside the border. |
+| `rightIcon` | `React.ReactNode` | `undefined` | Fixed icon overlaid on the right edge. |
+| `containerStyle` | `ViewStyle` | `undefined` | Overrides for the `View` wrapping the label and input. |
 
-Extends `TextInputProps` from React Native.
+---
 
-### Textarea
+### 3. Textarea
 
+Mobile-optimized multi-line text input field.
+
+**Usage:**
 ```tsx
-<Textarea label="Message" placeholder="Type here..." rows={4} />
-<Textarea error errorMessage="Too short" rows={6} />
+import { Textarea } from '@tac-ui/native';
+
+<Textarea 
+  label="Feedback" 
+  placeholder="What can we improve?" 
+  rows={6} 
+  textAlignVertical="top"
+/>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| label | `string` | - |
-| helperText | `string` | - |
-| error | `boolean` | `false` |
-| errorMessage | `string` | - |
-| rows | `number` | `4` |
-| containerStyle | `ViewStyle` | - |
-| editable | `boolean` | `true` |
+**Props (Extends `TextInputProps`):**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | `undefined` | Text rendered above the textarea. |
+| `error` | `boolean` | `false` | Applies error states to borders/backgrounds. |
+| `errorMessage` | `string` | `undefined` | Error reason string. |
+| `rows` | `number` | `4` | Used to calculate a fixed initial minHeight based on font bounds. |
 
-Extends `TextInputProps` from React Native.
+---
 
-### Select
+### 4. Select
 
+A native modal picker that replicates standard HTML select behavior in a mobile-friendly bottom sheet list or modal.
+
+**Usage:**
 ```tsx
+import { Select } from '@tac-ui/native';
+import { useState } from 'react';
+
+const [state, setState] = useState('');
+
 <Select
-  label="Country"
+  label="State"
+  placeholder="Choose a state..."
+  value={state}
+  onChange={setState}
   options={[
-    { value: 'us', label: 'United States' },
-    { value: 'kr', label: 'South Korea' },
+    { value: 'ca', label: 'California' },
+    { value: 'tx', label: 'Texas' }
   ]}
-  value={selected}
-  onChange={setSelected}
 />
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| label | `string` | - |
-| options | `SelectOption[]` | - |
-| value | `string` | - |
-| onChange | `(value: string) => void` | - |
-| placeholder | `string` | `'Select an option'` |
-| selectSize | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| helperText | `string` | - |
-| error | `boolean` | `false` |
-| errorMessage | `string` | - |
-| disabled | `boolean` | `false` |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `options` | `Array<{ value: string; label: string; disabled?: boolean }>` | *Required* | Data source for the picker. |
+| `value` | `string` | `undefined` | Selected string. |
+| `onChange` | `(value: string) => void` | `undefined` | Selection callback. |
+| `label` | `string` | `undefined` | Field label. |
+| `placeholder` | `string` | `'Select an option'` | Text drawn when value is empty. |
 
-### Combobox
+---
 
+### 5. Card
+
+A foundational container view with pre-configured shadows/borders depending on the variant.
+
+**Usage:**
 ```tsx
-<Combobox
-  options={[{ value: 'react', label: 'React' }, { value: 'vue', label: 'Vue' }]}
-  value={value}
-  onChange={setValue}
-  placeholder="Search framework..."
-/>
-```
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@tac-ui/native';
 
-| Prop | Type | Default |
-|------|------|---------|
-| options | `ComboboxOption[]` | - |
-| value | `string` | - |
-| onChange | `(value: string) => void` | - |
-| placeholder | `string` | `'Search…'` |
-| emptyText | `string` | `'No results found'` |
-
-### Card
-
-```tsx
-<Card variant="default">
+<Card variant="accent" interactive onPress={() => openDetails()}>
   <CardHeader>
-    <CardTitle>Title</CardTitle>
-    <CardDescription>Description</CardDescription>
+    <CardTitle>Report Summary</CardTitle>
+    <CardDescription>March 2026</CardDescription>
   </CardHeader>
-  <CardContent>Body content</CardContent>
-  <CardFooter><Button size="sm">Action</Button></CardFooter>
+  <CardContent>
+    {/* Charts or Metrics */}
+  </CardContent>
 </Card>
-
-<Card interactive onPress={handlePress} variant="accent">Premium card</Card>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| variant | `'default' \| 'accent' \| 'flat'` | `'default'` |
-| interactive | `boolean` | `false` |
-| onPress | `() => void` | - |
+**Props (Card Root):**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'accent' \| 'flat'` | `'default'` | Background style (`flat` removes borders and elevation shadows). |
+| `interactive` | `boolean` | `false` | Enables scale depression animations when pressed via `react-native-reanimated`. |
+| `onPress` | `() => void` | `undefined` | Touch up event handler. |
 
-Sub-components: `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`
+---
 
-### Badge
+### 6. Badge
 
+Inline visual chips primarily used for unread counts, status flags, and metadata tags natively.
+
+**Usage:**
 ```tsx
-<Badge>Default</Badge>
-<Badge variant="success">Active</Badge>
-<Badge variant="error" interactive onPress={handlePress}>Error</Badge>
-<Badge count={5} />
+import { Badge } from '@tac-ui/native';
+
+<Badge variant="success">Paid</Badge>
+<Badge count={99} /> // For notification overlays
+<Badge variant="outline" interactive onPress={() => showFilter()}>Tag</Badge>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| variant | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'default'` |
-| interactive | `boolean` | `false` |
-| onPress | `() => void` | - |
-| count | `number` | - |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'default'` | Thematic coloring. |
+| `interactive` | `boolean` | `false` | If true, applies opacity transformations on tap. |
+| `onPress` | `() => void` | `undefined` | Tap event. |
+| `count` | `number` | `undefined` | Renders a small numerical dot format circle. |
 
-### Checkbox
+---
 
+### 7. Switch
+
+Animated binary toggle switch, replacing the stock iOS/Android toggles with a unified brand.
+
+**Usage:**
 ```tsx
-<Checkbox label="Accept terms" />
-<Checkbox checked={checked} onChange={(val) => setChecked(val)} />
-<Checkbox indeterminate label="Select all" />
-<Checkbox filled label="With background" />
-```
+import { Switch } from '@tac-ui/native';
 
-| Prop | Type | Default |
-|------|------|---------|
-| label | `string` | - |
-| checked | `boolean` | - |
-| defaultChecked | `boolean` | `false` |
-| indeterminate | `boolean` | `false` |
-| filled | `boolean` | `false` |
-| disabled | `boolean` | `false` |
-| onChange | `(checked: boolean) => void` | - |
-
-### RadioGroup & Radio
-
-```tsx
-<RadioGroup value={value} onChange={setValue}>
-  <Radio value="a" label="Option A" />
-  <Radio value="b" label="Option B" />
-  <Radio value="c" label="Option C" disabled />
-</RadioGroup>
-```
-
-| Prop (RadioGroup) | Type | Default |
-|------|------|---------|
-| value | `string` | - |
-| defaultValue | `string` | - |
-| onChange | `(value: string) => void` | - |
-
-| Prop (Radio) | Type | Default |
-|------|------|---------|
-| value | `string` | required |
-| label | `string` | - |
-| disabled | `boolean` | `false` |
-| filled | `boolean` | `false` |
-
-### Switch
-
-```tsx
-<Switch />
-<Switch label="Dark Mode" defaultChecked />
-<Switch checked={on} onChange={(val) => setOn(val)} />
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| label | `string` | - |
-| checked | `boolean` | - |
-| defaultChecked | `boolean` | `false` |
-| onChange | `(checked: boolean) => void` | - |
-| disabled | `boolean` | `false` |
-
-### Toggle
-
-```tsx
-import { Moon, Sun } from '@tac-ui/icon-native';
-
-<Toggle
-  checked={isDark}
-  onChange={(checked) => setIsDark(checked)}
-  iconOn={<Moon size={16} />}
-  iconOff={<Sun size={16} />}
+<Switch 
+  label="Dark Mode" 
+  checked={isDark} 
+  onChange={(val) => setIsDark(val)} 
 />
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| checked | `boolean` | `false` |
-| onChange | `(checked: boolean) => void` | - |
-| iconOn | `React.ReactNode` | - |
-| iconOff | `React.ReactNode` | - |
-| disabled | `boolean` | `false` |
-| style | `ViewStyle` | - |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | `undefined` | Associated text. |
+| `checked` | `boolean` | `undefined` | Controlled value. |
+| `defaultChecked` | `boolean` | `false` | Initial boolean without control. |
+| `onChange` | `(checked: boolean) => void` | `undefined` | Value dispatcher. |
 
-### Slider
+---
 
+### 8. SegmentController
+
+A heavily animated horizontal tab structure specifically for iOS segmented control parity or dense filtering.
+
+**Usage:**
 ```tsx
-<Slider defaultValue={50} min={0} max={100} />
-<Slider label="Volume" showValue value={vol} onChange={setVol} />
-<Slider filled={false} defaultValue={50} />
-```
+import { SegmentController } from '@tac-ui/native';
 
-| Prop | Type | Default |
-|------|------|---------|
-| label | `string` | - |
-| showValue | `boolean` | `false` |
-| filled | `boolean` | `true` |
-| min | `number` | `0` |
-| max | `number` | `100` |
-| step | `number` | `1` |
-| value | `number` | - |
-| defaultValue | `number` | `0` |
-| disabled | `boolean` | `false` |
-| onChange | `(value: number) => void` | - |
-| onChangeEnd | `(value: number) => void` | - |
-
-### SegmentController
-
-```tsx
 <SegmentController
-  items={['Day', 'Week', 'Month']}
-  selectedIndex={selectedIndex}
-  onSelect={(index) => setSelectedIndex(index)}
+  items={['Map', 'Transit', 'Satellite']}
+  selectedIndex={activeIndex}
+  onSelect={(index) => setActiveIndex(index)}
 />
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| items | `string[]` | required |
-| selectedIndex | `number` | `0` |
-| onSelect | `(index: number) => void` | - |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `items` | `string[]` | *Required* | Array of text labels for segments. |
+| `selectedIndex` | `number` | `0` | Controlled active index. |
+| `onSelect` | `(index: number) => void` | `undefined` | Tap dispatcher with the new index. |
 
-### DatePicker
+---
 
+### 9. Stepper
+
+Workflow progress visualizer, mostly using horizontal dot/line connections on mobile apps.
+
+**Usage:**
 ```tsx
-<DatePicker label="Start date" value={date} onChange={setDate} />
-<DatePicker mode="datetime" label="Date & Time" />
-<DatePicker mode="month" label="Month" />
+import { Stepper } from '@tac-ui/native';
+
+<Stepper 
+  steps={['Cart', 'Address', 'Payment']} 
+  currentStep={1} // Address is active
+  orientation="horizontal" 
+/>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| value | `Date` | - |
-| onChange | `(date: Date) => void` | - |
-| label | `string` | - |
-| mode | `'date' \| 'datetime' \| 'month'` | `'date'` |
-| minDate | `Date` | - |
-| maxDate | `Date` | - |
-| disabled | `boolean` | `false` |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `steps` | `string[]` | *Required* | The names/labels of all the steps in the sequence. |
+| `currentStep` | `number` | *Required* | The 0-indexed integer of the currently active step. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Drawing axis. Horizontal fits top navigation well, vertical is great for forms. |
 
-### ColorPicker
+---
 
+### 10. DatePicker
+
+Cross-platform wrapper opening the native OS date picker dialogs (iOS wheel or Android calendar) safely.
+
+**Usage:**
 ```tsx
-<ColorPicker label="Brand color" value={color} onChange={setColor} />
-<ColorPicker label="Color" showInput value="#3B82F6" />
-<ColorPicker label="Theme" colors={['#EF4444', '#22C55E', '#3B82F6']} />
+import { DatePicker } from '@tac-ui/native';
+
+<DatePicker 
+  label="Birth Date" 
+  value={dob} 
+  onChange={setDob} 
+  mode="date"
+  maxDate={new Date()} // No future dates
+/>
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| value | `string` | `'#000000'` |
-| onChange | `(color: string) => void` | - |
-| label | `string` | - |
-| colors | `string[]` | Default palette |
-| showInput | `boolean` | `false` |
-| disabled | `boolean` | `false` |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `Date` | `undefined` | Current Date object. |
+| `onChange` | `(date: Date) => void` | `undefined` | Output value upon closing picker. |
+| `mode` | `'date' \| 'datetime' \| 'month'` | `'date'` | Selection capability scope. |
+| `minDate` | `Date` | `undefined` | Earliest selectable date. |
+| `maxDate` | `Date` | `undefined` | Latest selectable date. |
 
-### Tabs
+---
 
+### 11. Snackbar
+
+An animated floating bar matching Material Design specifications, rising from the screen base.
+
+**Usage:**
 ```tsx
-<Tabs defaultValue="tab1" variant="underline">
-  <TabsList>
-    <TabTrigger value="tab1">Account</TabTrigger>
-    <TabTrigger value="tab2">Password</TabTrigger>
-  </TabsList>
-  <TabContent value="tab1">Account settings content</TabContent>
-  <TabContent value="tab2">Password settings content</TabContent>
-</Tabs>
-```
+import { Snackbar } from '@tac-ui/native';
 
-| Prop (Tabs) | Type | Default |
-|------|------|---------|
-| value | `string` | - |
-| defaultValue | `string` | `''` |
-| onValueChange | `(value: string) => void` | - |
-| variant | `'underline' \| 'pill' \| 'outline'` | `'underline'` |
-
-| Prop (TabTrigger) | Type | Default |
-|------|------|---------|
-| value | `string` | required |
-| icon | `React.ReactNode` | - |
-
-Sub-components: `TabsList`, `TabTrigger`, `TabContent`
-
-### Accordion
-
-```tsx
-<Accordion type="single" defaultValue={['item-1']}>
-  <AccordionItem value="item-1">
-    <AccordionTrigger>Section 1</AccordionTrigger>
-    <AccordionContent>Content 1</AccordionContent>
-  </AccordionItem>
-</Accordion>
-<Accordion type="multiple" outline>...</Accordion>
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| type | `'single' \| 'multiple'` | `'single'` |
-| defaultValue | `string[]` | `[]` |
-| glass | `boolean` | `false` |
-| outline | `boolean` | `false` |
-
-Sub-components: `AccordionItem`, `AccordionTrigger`, `AccordionContent`
-
-### Dialog
-
-```tsx
-<Dialog open={open} onClose={() => setOpen(false)}>
-  <DialogHeader>
-    <DialogTitle>Confirm</DialogTitle>
-    <DialogDescription>Are you sure?</DialogDescription>
-  </DialogHeader>
-  <DialogFooter>
-    <Button variant="outline" onPress={() => setOpen(false)}>Cancel</Button>
-    <Button onPress={handleConfirm}>Confirm</Button>
-  </DialogFooter>
-</Dialog>
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| open | `boolean` | `false` |
-| onClose | `() => void` | - |
-| backdrop | `'opaque' \| 'blur' \| 'transparent'` | `'opaque'` |
-
-Sub-components: `DialogHeader`, `DialogTitle`, `DialogDescription`, `DialogFooter`
-
-### Alert
-
-```tsx
-import { CheckCircle } from '@tac-ui/icon-native';
-
-<Alert variant="success" icon={<CheckCircle size={16} />}>
-  <AlertTitle>Saved</AlertTitle>
-  <AlertDescription>Your changes have been saved.</AlertDescription>
-</Alert>
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| variant | `'default' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'default'` |
-| icon | `React.ReactNode` | - |
-
-Sub-components: `AlertTitle`, `AlertDescription`
-
-### Snackbar
-
-```tsx
 <Snackbar
-  message="Item deleted"
-  variant="success"
-  visible={visible}
+  visible={isVisible}
+  message="Document moved to trash"
+  variant="warning"
   duration={4000}
-  onDismiss={() => setVisible(false)}
-  action={{ label: 'Undo', onPress: handleUndo }}
+  onDismiss={() => setIsVisible(false)}
+  action={{
+    label: 'Undo',
+    onPress: revertMove
+  }}
 />
 ```
 
-| Prop | Type | Default |
-|------|------|---------|
-| message | `string` | required |
-| variant | `'default' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'default'` |
-| visible | `boolean` | `true` |
-| duration | `number` (ms, 0 = no auto-dismiss) | `4000` |
-| onDismiss | `() => void` | - |
-| action | `{ label: string; onPress: () => void }` | - |
-| icon | `React.ReactNode` | - |
-
-### Dropdown
-
-```tsx
-<Dropdown trigger={<Button variant="outline">Menu</Button>} align="start">
-  <DropdownTitle>Actions</DropdownTitle>
-  <DropdownItem onPress={handleEdit}>Edit</DropdownItem>
-  <DropdownDivider />
-  <DropdownItem destructive onPress={handleDelete}>Delete</DropdownItem>
-</Dropdown>
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| trigger | `React.ReactNode` | required |
-| open | `boolean` | - |
-| onOpenChange | `(open: boolean) => void` | - |
-| align | `'start' \| 'center' \| 'end'` | `'start'` |
-
-Sub-components: `DropdownItem`, `DropdownTitle`, `DropdownDivider`
-
-### Avatar
-
-```tsx
-<Avatar src="https://example.com/photo.jpg" alt="User" size="md" />
-<Avatar fallback="JH" size="lg" status="online" />
-<Avatar size="sm" status="busy" />
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| size | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
-| src | `ImageSourcePropType \| string` | - |
-| alt | `string` | - |
-| fallback | `string` | - |
-| status | `'online' \| 'offline' \| 'busy' \| 'away'` | - |
-
-### Chip
-
-```tsx
-<Chip variant="filter" selected={isActive} onPress={() => setActive(!isActive)}>Active</Chip>
-<Chip variant="input" leftIcon={<Tag size={12} />} onDismiss={() => {}}>React</Chip>
-<Chip variant="suggestion">Suggestion</Chip>
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| variant | `'filter' \| 'assist' \| 'suggestion' \| 'input' \| 'glass'` | `'filter'` |
-| selected | `boolean` | `false` |
-| onPress | `() => void` | - |
-| onDismiss | `() => void` | - |
-| leftIcon | `React.ReactNode` | - |
-
-### Progress
-
-```tsx
-<Progress value={75} />
-<Progress value={60} variant="circular" size={80} showLabel />
-<Progress value={40} barSize="lg" />
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| value | `number` | `0` |
-| max | `number` | `100` |
-| variant | `'linear' \| 'circular'` | `'linear'` |
-| size | `number` | `32` |
-| barSize | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| showLabel | `boolean` | `false` |
-| color | `string` | theme point |
-
-### Table
-
-```tsx
-<Table>
-  <TableHeader>
-    <TableRow>
-      <TableHead>Name</TableHead>
-      <TableHead>Email</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>John</TableCell>
-      <TableCell>john@example.com</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-```
-
-Sub-components: `Table`, `TableHeader`, `TableBody`, `TableFooter`, `TableRow`, `TableHead`, `TableCell`, `TableCaption`
-
-| Prop (TableRow) | Type | Default |
-|------|------|---------|
-| selected | `boolean` | `false` |
-
-### Stepper
-
-```tsx
-<Stepper
-  steps={['Account', 'Profile', 'Done']}
-  currentStep={1}
-  orientation="horizontal"
-/>
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| steps | `string[]` | required |
-| currentStep | `number` | required |
-| orientation | `'horizontal' \| 'vertical'` | `'horizontal'` |
-
-### Divider
-
-```tsx
-<Divider />
-<Divider variant="thick" />
-<Divider variant="inset" />
-<Divider variant="withLabel" label="OR" />
-<Divider orientation="vertical" />
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| variant | `'full' \| 'inset' \| 'thick' \| 'withLabel'` | `'full'` |
-| orientation | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| label | `string` | - |
-
-### Skeleton
-
-```tsx
-<Skeleton variant="text" width="100%" height={16} />
-<Skeleton variant="circular" width={48} height={48} />
-<Skeleton variant="rectangular" width="100%" height={200} />
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| variant | `'rectangular' \| 'circular' \| 'text'` | `'rectangular'` |
-| width | `DimensionValue` | - |
-| height | `DimensionValue` | `16` |
-| borderRadius | `number` | auto by variant |
-
-### Indicator
-
-```tsx
-<Indicator variant="linear" />
-<Indicator variant="circular" size={32} />
-<Indicator variant="circular" size={48} color="#3B82F6" />
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| variant | `'linear' \| 'circular'` | `'linear'` |
-| size | `number` | `32` |
-| color | `string` | theme point |
-
-### CodeBlock
-
-```tsx
-<CodeBlock code={`const x = 1;`} language="typescript" />
-<CodeBlock glass language="jsx" code={`<Button>Click</Button>`} />
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| code | `string` | required |
-| language | `string` | - |
-| glass | `boolean` | `false` |
-
-### EmptyState
-
-```tsx
-import { Inbox } from '@tac-ui/icon-native';
-
-<EmptyState
-  icon={<Inbox size={48} />}
-  title="No items"
-  description="Create your first item to get started."
-  action={<Button>Create Item</Button>}
-/>
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| icon | `React.ReactNode` | - |
-| title | `string` | required |
-| description | `string` | - |
-| action | `React.ReactNode` | - |
-
-### VStack & HStack
-
-```tsx
-<VStack gap="md" align="center">
-  <Input label="Name" />
-  <Button>Submit</Button>
-</VStack>
-
-<HStack gap="sm" justify="between">
-  <Badge>Tag 1</Badge>
-  <Badge>Tag 2</Badge>
-</HStack>
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| gap | `'none' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'md'` |
-| align | `'start' \| 'center' \| 'end' \| 'stretch' \| 'baseline'` | VStack: `'stretch'`, HStack: `'center'` |
-| justify | `'start' \| 'center' \| 'end' \| 'between' \| 'around' \| 'evenly'` | `'start'` |
-| wrap | `boolean` | `false` |
-
-### FloatingMenuBar
-
-```tsx
-import { FloatingMenuBar } from '@tac-ui/native';
-import { Home, Search, Bell, User } from '@tac-ui/icon-native';
-
-const tabs = [
-  { key: 'home', icon: (p) => <Home {...p} />, label: 'Home' },
-  { key: 'search', icon: (p) => <Search {...p} />, label: 'Search' },
-  { key: 'inbox', icon: (p) => <Bell {...p} />, label: 'Inbox', badge: 3 },
-  { key: 'profile', icon: (p) => <User {...p} />, label: 'Profile' },
-];
-
-<FloatingMenuBar items={tabs} activeKey="home" onSelect={setTab} />
-<FloatingMenuBar items={tabs} activeKey="home" onSelect={setTab} glass />
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| items | `FloatingMenuBarItem[]` | required |
-| activeKey | `string` | required |
-| onSelect | `(key: string) => void` | required |
-| glass | `boolean` | `false` |
-| style | `ViewStyle` | — |
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `message` | `string` | *Required* | Primary error/success text. |
+| `visible` | `boolean` | `false` | Trigger state. |
+| `variant` | `'default' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'default'` | Semantic color thematic setup. |
+| `duration` | `number` | `4000` | Auto-hide timer duration. `0` keeps it open indefinitely. |
+| `onDismiss` | `() => void` | `undefined` | Triggered visually exiting after duration elapses. |
+| `action` | `{ label: string; onPress: () => void }` | `undefined` | Optional clickable button on the right edge. |
 
 ---
 
-## Icons
+### Additional Native Primitives
 
-```tsx
-import { Search, Star, Check, X, ArrowRight, TacLogo } from '@tac-ui/icon-native';
+- **`FloatingMenuBar`**: An elevated floating bottom navigation bar specifically for modern mobile layout patterns. Props include `items` (array with `key`, `icon`, `label`), `activeKey`, and `onSelect`. Includes native fluid spring animations when tapping item icons.
+- **`Accordion`**: Expand/collapse list arrays built on reanimated height interpolations. `type="single"`, `type="multiple"`.
+- **`Dialog`**: Custom modal layer. Used via `<Dialog open={...} onClose={...} />`. Includes backdrop blur options via `backdrop={'blur' | 'opaque' | 'transparent'}`.
+- **`Alert`**: Static info. Renders an icon + `<AlertTitle>` + `<AlertDescription>`.
+- **`Tabs`**: Composable custom header navigation blocks. Use `<TabsList>` and `<TabTrigger>` mapped to `<TabContent>`.
+- **`Skeleton`**: Uses Reanimated shimmer effects for loading. Props `width`, `height`, `variant='rectangular'|'circular'`. Use `DimensionValue` strings ("100%") or integers (pixels).
+- **`ColorPicker`**: Prop format `colors={['#fff', '#000']}` to show preset palettes for user tapping.
+- **`Divider`**: Standard separator `1px` high. Prop `variant={'inset'}` to keep left-aligned margin for list grouping.
+- **`HStack` / `VStack`**: Equivalent to robust `View` with flex configurations out-of-the-box via explicit `gap` enum ('sm', 'md', 'lg') avoiding manual array styles.
 
-<Search size={16} color={theme.colors.foreground} />
-<TacLogo size={24} />
-```
-
-All [lucide-react-native](https://lucide.dev/icons) icons are re-exported from `@tac-ui/icon-native`, plus the custom `TacLogo`.
-
----
-
-## Design Tokens
-
-```tsx
-import { diaSpring, duration, springConfigs } from '@tac-ui/native';
-import { primitiveColors, semanticTokens, spacing, typography, motion } from '@tac-ui/tokens';
-```
-
-### Theme Colors (via `useTacNativeTheme`)
-
-```tsx
-const { theme } = useTacNativeTheme();
-// theme.colors.*
-// theme.mode: 'light' | 'dark'
-```
-
-Key color tokens: `background`, `foreground`, `border`, `card`, `cardForeground`, `primary`, `primaryForeground`, `secondary`, `secondaryForeground`, `muted`, `mutedForeground`, `point`, `pointForeground`, `success`, `successBg`, `successForeground`, `error`, `errorBg`, `errorForeground`, `warning`, `warningBg`, `warningForeground`, `info`, `infoBg`, `infoForeground`, `surface`, `inputBg`, `inputBorderRest`
-
-### Motion Constants
-
-```tsx
-import { duration, springConfigs, diaSpring } from '@tac-ui/native';
-
-// Duration (ms)
-duration.instant  // 80
-duration.fast     // 150
-duration.normal   // 220
-duration.slow     // 320
-duration.complex  // 450
-
-// Spring configs (for Animated.spring or withSpring)
-springConfigs.snappy   // { stiffness: 260, damping: 32, mass: 1 }
-springConfigs.gentle   // { stiffness: 180, damping: 30, mass: 1 }
-springConfigs.bouncy   // { stiffness: 260, damping: 30, mass: 1 }
-springConfigs.magnetic // { stiffness: 400, damping: 40, mass: 0.8 }
-springConfigs.entrance // { stiffness: 180, damping: 28, mass: 0.9 }
-```
-
-### Utils
-
-```tsx
-import { createStyles } from '@tac-ui/native';
-
-// Helper for typed StyleSheet.create() with theme
-const useStyles = createStyles((theme) => ({
-  container: { backgroundColor: theme.colors.card, padding: 16 },
-}));
-```
-
----
-
-## Theming
-
-`TacNativeProvider` injects the theme context. Access it with `useTacNativeTheme()`:
-
-```tsx
-import { TacNativeProvider, useTacNativeTheme } from '@tac-ui/native';
-
-function App() {
-  return (
-    <TacNativeProvider defaultMode="system">
-      <MyApp />
-    </TacNativeProvider>
-  );
-}
-
-function ThemedComponent() {
-  const { theme, mode, setMode } = useTacNativeTheme();
-  // mode: 'light' | 'dark' | 'system'
-  // theme.colors.* — resolved color values for current mode
-}
-```
-
----
-
-## Tech Stack
-
-- TypeScript (strict), React Native, React 18/19
-- React Native Animated API for animations
-- Spring configs compatible with react-native-reanimated `withSpring()`
-- lucide-react-native for icons
-- ES2020 target, dual CJS/ESM
+*(Using standard React Native layout tools (Flexbox, KeyboardAvoidingView, SafeAreaView) is highly recommended around these components for complete integration.)*
