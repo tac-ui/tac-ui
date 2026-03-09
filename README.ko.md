@@ -47,12 +47,12 @@
 
 | 패키지 | 설명 | 버전 |
 |--------|------|------|
-| [`@tac-ui/web`](./packages/web) | React 웹 컴포넌트 라이브러리 (40+ 컴포넌트) | `1.0.2` |
-| [`@tac-ui/native`](./packages/native) | React Native 컴포넌트 라이브러리 (27 컴포넌트) | `1.0.2` |
-| [`@tac-ui/tokens`](./packages/tokens) | 디자인 토큰 (색상, 간격, 타이포그래피, 모션) | `1.0.2` |
-| [`@tac-ui/icon`](./packages/icon) | 웹 아이콘 패키지 (lucide-react + TacLogo) | `1.0.2` |
-| [`@tac-ui/icon-native`](./packages/icon-native) | 네이티브 아이콘 패키지 (lucide-react-native + TacLogo) | `1.0.2` |
-| [`@tac-ui/shared`](./packages/shared) | 공유 타입 및 인터페이스 | `1.0.2` |
+| [`@tac-ui/web`](./packages/web) | React 웹 컴포넌트 라이브러리 (40+ 컴포넌트) | [![npm version](https://img.shields.io/npm/v/@tac-ui/web?style=flat-square)](https://www.npmjs.com/package/@tac-ui/web) |
+| [`@tac-ui/native`](./packages/native) | React Native 컴포넌트 라이브러리 (27 컴포넌트) | [![npm version](https://img.shields.io/npm/v/@tac-ui/native?style=flat-square)](https://www.npmjs.com/package/@tac-ui/native) |
+| [`@tac-ui/tokens`](./packages/tokens) | 디자인 토큰 (색상, 간격, 타이포그래피, 모션) | [![npm version](https://img.shields.io/npm/v/@tac-ui/tokens?style=flat-square)](https://www.npmjs.com/package/@tac-ui/tokens) |
+| [`@tac-ui/icon`](./packages/icon) | 웹 아이콘 패키지 (lucide-react + TacLogo) | [![npm version](https://img.shields.io/npm/v/@tac-ui/icon?style=flat-square)](https://www.npmjs.com/package/@tac-ui/icon) |
+| [`@tac-ui/icon-native`](./packages/icon-native) | 네이티브 아이콘 패키지 (lucide-react-native + TacLogo) | [![npm version](https://img.shields.io/npm/v/@tac-ui/icon-native?style=flat-square)](https://www.npmjs.com/package/@tac-ui/icon-native) |
+| [`@tac-ui/shared`](./packages/shared) | 공유 타입 및 인터페이스 | [![npm version](https://img.shields.io/npm/v/@tac-ui/shared?style=flat-square)](https://www.npmjs.com/package/@tac-ui/shared) |
 
 ## 설치
 

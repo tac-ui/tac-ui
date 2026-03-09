@@ -47,12 +47,12 @@
 
 | Package | Description | Version |
 |---------|------------|---------|
-| [`@tac-ui/web`](./packages/web) | React web component library (40+ components) | `1.0.2` |
-| [`@tac-ui/native`](./packages/native) | React Native component library (27 components) | `1.0.2` |
-| [`@tac-ui/tokens`](./packages/tokens) | Design tokens (color, spacing, typography, motion) | `1.0.2` |
-| [`@tac-ui/icon`](./packages/icon) | Web icon package (lucide-react + TacLogo) | `1.0.2` |
-| [`@tac-ui/icon-native`](./packages/icon-native) | Native icon package (lucide-react-native + TacLogo) | `1.0.2` |
-| [`@tac-ui/shared`](./packages/shared) | Shared types and interfaces | `1.0.2` |
+| [`@tac-ui/web`](./packages/web) | React web component library (40+ components) | [![npm version](https://img.shields.io/npm/v/@tac-ui/web?style=flat-square)](https://www.npmjs.com/package/@tac-ui/web) |
+| [`@tac-ui/native`](./packages/native) | React Native component library (27 components) | [![npm version](https://img.shields.io/npm/v/@tac-ui/native?style=flat-square)](https://www.npmjs.com/package/@tac-ui/native) |
+| [`@tac-ui/tokens`](./packages/tokens) | Design tokens (color, spacing, typography, motion) | [![npm version](https://img.shields.io/npm/v/@tac-ui/tokens?style=flat-square)](https://www.npmjs.com/package/@tac-ui/tokens) |
+| [`@tac-ui/icon`](./packages/icon) | Web icon package (lucide-react + TacLogo) | [![npm version](https://img.shields.io/npm/v/@tac-ui/icon?style=flat-square)](https://www.npmjs.com/package/@tac-ui/icon) |
+| [`@tac-ui/icon-native`](./packages/icon-native) | Native icon package (lucide-react-native + TacLogo) | [![npm version](https://img.shields.io/npm/v/@tac-ui/icon-native?style=flat-square)](https://www.npmjs.com/package/@tac-ui/icon-native) |
+| [`@tac-ui/shared`](./packages/shared) | Shared types and interfaces | [![npm version](https://img.shields.io/npm/v/@tac-ui/shared?style=flat-square)](https://www.npmjs.com/package/@tac-ui/shared) |
 
 ## Installation
 
