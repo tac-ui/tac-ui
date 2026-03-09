@@ -1,3 +1,6 @@
+// Version
+export { version } from './version';
+
 // Provider
 export { TacNativeProvider, useTacNativeTheme, type TacNativeProviderProps } from './provider/TacNativeProvider';
 

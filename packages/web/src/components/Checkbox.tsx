@@ -71,7 +71,11 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
                 }
           }
           whileTap={{ scale: 0.95 }}
-          transition={{ ...tacSpring.light, backgroundColor: { duration: OVERLAY_DURATION }, borderColor: { duration: OVERLAY_DURATION } }}
+          transition={{
+            ...tacSpring.light,
+            backgroundColor: { duration: OVERLAY_DURATION },
+            borderColor: { duration: OVERLAY_DURATION },
+          }}
         >
           {indeterminate ? (
             <svg

@@ -2,7 +2,7 @@
 
 import React, { useState, useSyncExternalStore, useCallback } from 'react';
 import Link from 'next/link';
-import { useTacTheme, Header, ToastProvider, Button, SegmentController, HStack, Main } from '@tac-ui/web';
+import { useTacTheme, Header, ToastProvider, Button, SegmentController, HStack, Main, version } from '@tac-ui/web';
 import { Menu, Sun, Moon, Monitor, Globe, TacLogo } from '@tac-ui/icon';
 import { useTranslation } from '@/i18n';
 import type { Locale } from '@/i18n/config';
@@ -79,7 +79,7 @@ function DocsShell({ children }: { children: React.ReactNode }) {
                 <span className="text-[var(--foreground)]">Tac UI</span>
               </Link>
               <span className="text-[10px] font-mono text-[var(--muted-foreground)] bg-[var(--secondary)] px-1.5 py-0.5 rounded-full leading-none">
-                v1.0.2
+                v{version}
               </span>
 
               {/* Platform switcher */}

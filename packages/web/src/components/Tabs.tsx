@@ -158,8 +158,7 @@ export const TabTrigger = forwardRef<HTMLButtonElement, TabTriggerProps>(
         aria-controls={`tabpanel-${tabValue}`}
         onClick={() => onChange(tabValue)}
         style={{
-          transition:
-            `color ${DURATION.normal} ${EASING}, background-color ${DURATION.normal} ${EASING}, border-color ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}, opacity ${DURATION.normal} ${EASING}`,
+          transition: `color ${DURATION.normal} ${EASING}, background-color ${DURATION.normal} ${EASING}, border-color ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}, opacity ${DURATION.normal} ${EASING}`,
         }}
         className={cn(
           'relative cursor-pointer text-center',

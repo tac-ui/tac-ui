@@ -88,8 +88,7 @@ function defaultFormatDateByMode(date: Date, mode: DatePickerMode): string {
 }
 
 const btnTransition = `background-color ${DURATION.normal} ${EASING}`;
-const cellTransition =
-  `background-color ${DURATION.normal} ${EASING}, color ${DURATION.normal} ${EASING}`;
+const cellTransition = `background-color ${DURATION.normal} ${EASING}, color ${DURATION.normal} ${EASING}`;
 
 function clampNumber(val: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, val));

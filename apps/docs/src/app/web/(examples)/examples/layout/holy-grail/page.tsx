@@ -50,9 +50,15 @@ export default function HolyGrailExample() {
           <SidebarItem variant="filled" size="md" icon={<BookOpen size={14} />} active>
             Getting Started
           </SidebarItem>
-          <SidebarItem variant="filled" size="md" icon={<Layers size={14} />}>Components</SidebarItem>
-          <SidebarItem variant="filled" size="md" icon={<Code size={14} />}>API</SidebarItem>
-          <SidebarItem variant="filled" size="md" icon={<FileText size={14} />}>Guides</SidebarItem>
+          <SidebarItem variant="filled" size="md" icon={<Layers size={14} />}>
+            Components
+          </SidebarItem>
+          <SidebarItem variant="filled" size="md" icon={<Code size={14} />}>
+            API
+          </SidebarItem>
+          <SidebarItem variant="filled" size="md" icon={<FileText size={14} />}>
+            Guides
+          </SidebarItem>
         </SidebarGroup>
       }
       rightSidebar={

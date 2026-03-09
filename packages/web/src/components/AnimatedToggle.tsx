@@ -27,8 +27,7 @@ export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
         aria-pressed={checked}
         onClick={() => onChange?.(!checked)}
         style={{
-          transition:
-            `background ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}`,
+          transition: `background ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}`,
         }}
         className={cn(
           'relative w-10 h-10 flex items-center justify-center rounded-[var(--radius-m)] border-none cursor-pointer',

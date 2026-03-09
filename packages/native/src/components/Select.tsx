@@ -53,7 +53,7 @@ export interface SelectProps {
   style?: ViewStyle;
 }
 
-const tokens = componentTokens.input;
+const tokens = componentTokens.input.md;
 
 const sizeConfig: Record<SelectSize, { height: number; fontSize: number }> = {
   sm: { height: 36, fontSize: 13 },

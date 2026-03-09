@@ -1,6 +1,6 @@
 {
   "name": "@tac-ui/icon",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Icon package for Tac UI — re-exports lucide-react",
   "license": "MIT",
   "sideEffects": false,

@@ -47,7 +47,13 @@ export default function DualSidebarExample() {
       leftSidebar={
         <SidebarGroup label="Channels">
           {channels.map((ch) => (
-            <SidebarItem variant="filled" size="md" key={ch.name} icon={<Hash size={14} />} active={ch.name === 'general'}>
+            <SidebarItem
+              variant="filled"
+              size="md"
+              key={ch.name}
+              icon={<Hash size={14} />}
+              active={ch.name === 'general'}
+            >
               <span className="flex-1">{ch.name}</span>
               {ch.unread > 0 && (
                 <span className="text-[10px] bg-[var(--primary)] text-[var(--primary-foreground)] px-1.5 py-0.5 rounded-full font-medium">

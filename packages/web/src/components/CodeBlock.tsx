@@ -52,8 +52,7 @@ export const CodeBlock = forwardRef<HTMLDivElement, CodeBlockProps>(
             aria-live="polite"
             whileTap={{ scale: 0.95 }}
             style={{
-              transition:
-                `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
+              transition: `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
             }}
             className={cn(
               'text-xs text-[var(--muted-foreground)] bg-transparent border-none cursor-pointer px-2 py-0.5 rounded-[var(--radius-sm)]',

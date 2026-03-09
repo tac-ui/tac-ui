@@ -45,6 +45,14 @@ jobs:
           pnpm --filter @tac-ui/web version ${{ inputs.version }} --no-git-tag-version
           pnpm --filter @tac-ui/native version ${{ inputs.version }} --no-git-tag-version
 
+      - name: Sync version.ts files
+        if: inputs.version != 'none'
+        run: |
+          WEB_VERSION=$(node -p "require('./packages/web/package.json').version")
+          NATIVE_VERSION=$(node -p "require('./packages/native/package.json').version")
+          echo "export const version = '$WEB_VERSION';" > packages/web/src/version.ts
+          echo "export const version = '$NATIVE_VERSION';" > packages/native/src/version.ts
+
       - name: Resolve workspace dependencies
         run: |
           SHARED_VERSION=$(node -p "require('./packages/shared/package.json').version")

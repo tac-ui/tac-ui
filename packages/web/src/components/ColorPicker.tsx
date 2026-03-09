@@ -118,8 +118,7 @@ function normalizeHex(hex: string): string {
 }
 
 /* ─── Transition constants ─── */
-const btnTransition =
-  `background-color ${DURATION.normal} ${EASING}, opacity ${DURATION.normal} ${EASING}`;
+const btnTransition = `background-color ${DURATION.normal} ${EASING}, opacity ${DURATION.normal} ${EASING}`;
 
 /* ─── Default colors ─── */
 const DEFAULT_COLORS = [
@@ -714,8 +713,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
                                 onClick={() => handleSwatchClick(color)}
                                 style={{
                                   backgroundColor: color,
-                                  transition:
-                                    `transform ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}`,
+                                  transition: `transform ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}`,
                                 }}
                                 className={cn(
                                   'w-8 h-8 rounded-[var(--radius-sm)] border-none cursor-pointer',

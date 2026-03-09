@@ -67,8 +67,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
         ref={ref}
         {...props}
         style={{
-          transition:
-            `box-shadow ${DURATION.moderate} ${EASING}, border-color ${DURATION.moderate} ${EASING}, background-color ${DURATION.moderate} ${EASING}`,
+          transition: `box-shadow ${DURATION.moderate} ${EASING}, border-color ${DURATION.moderate} ${EASING}, background-color ${DURATION.moderate} ${EASING}`,
           ...style,
         }}
         className={cn(cardVariants({ variant }), className)}

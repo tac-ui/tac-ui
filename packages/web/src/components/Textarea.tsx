@@ -20,9 +20,9 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
 }
 
 const textareaSizeClasses = {
-  sm: 'py-2 px-3 text-xs min-h-[60px]',
-  md: 'py-3 px-4 text-sm min-h-[80px]',
-  lg: 'py-3.5 px-5 text-base min-h-[100px]',
+  sm: 'px-[var(--input-sm-px)] text-[length:var(--input-sm-font-size)] rounded-[var(--input-sm-radius)] min-h-[60px] py-2',
+  md: 'px-[var(--input-md-px)] text-[length:var(--input-md-font-size)] rounded-[var(--input-md-radius)] min-h-[80px] py-3',
+  lg: 'px-[var(--input-lg-px)] text-[length:var(--input-lg-font-size)] rounded-[var(--input-lg-radius)] min-h-[100px] py-3.5',
 };
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
@@ -45,7 +45,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             aria-describedby={error && errorMessage ? errorId : helperText ? errorId : undefined}
             style={{ transition: inputTransition }}
             className={cn(
-              'peer relative z-10 w-full font-[var(--font-primary)] text-[var(--foreground)] bg-[var(--input-bg)] border-[0.5px] border-solid rounded-[var(--input-radius)] outline-none resize-y',
+              'peer relative z-10 w-full font-[var(--font-primary)] text-[var(--foreground)] bg-[var(--input-bg)] border-[0.5px] border-solid outline-none resize-y',
               textareaSizeClasses[textareaSize],
               'placeholder:text-[var(--muted-foreground)]',
               'border-[var(--input-border-rest)]',

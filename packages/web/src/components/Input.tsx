@@ -26,14 +26,27 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 }
 
 const sizeClasses = {
-  sm: 'h-8 text-xs px-3',
-  md: 'h-10 text-sm px-4',
-  lg: 'h-12 text-base px-4',
+  sm: 'h-[var(--input-sm-height)] text-[length:var(--input-sm-font-size)] px-[var(--input-sm-px)] rounded-[var(--input-sm-radius)]',
+  md: 'h-[var(--input-md-height)] text-[length:var(--input-md-font-size)] px-[var(--input-md-px)] rounded-[var(--input-md-radius)]',
+  lg: 'h-[var(--input-lg-height)] text-[length:var(--input-lg-font-size)] px-[var(--input-lg-px)] rounded-[var(--input-lg-radius)]',
 };
 
-const iconLeftPadding = { sm: 'pl-8', md: 'pl-10', lg: 'pl-11' };
-const iconRightPadding = { sm: 'pr-8', md: 'pr-10', lg: 'pr-11' };
+const iconLeftPadding = {
+  sm: 'pl-[var(--input-sm-icon-padding)]',
+  md: 'pl-[var(--input-md-icon-padding)]',
+  lg: 'pl-[var(--input-lg-icon-padding)]',
+};
+const iconRightPadding = {
+  sm: 'pr-[var(--input-sm-icon-padding)]',
+  md: 'pr-[var(--input-md-icon-padding)]',
+  lg: 'pr-[var(--input-lg-icon-padding)]',
+};
 const buttonRightPadding = { sm: 'pr-16', md: 'pr-20', lg: 'pr-22' };
+const iconSizeClasses = {
+  sm: '[&_svg]:w-[var(--input-sm-icon-size)] [&_svg]:h-[var(--input-sm-icon-size)]',
+  md: '[&_svg]:w-[var(--input-md-icon-size)] [&_svg]:h-[var(--input-md-icon-size)]',
+  lg: '[&_svg]:w-[var(--input-lg-icon-size)] [&_svg]:h-[var(--input-lg-icon-size)]',
+};
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
@@ -68,7 +81,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <span
               className={cn(
                 'absolute left-3 z-20 flex items-center text-[var(--muted-foreground)] pointer-events-none',
-                inputSize === 'sm' ? '[&_svg]:w-4 [&_svg]:h-4' : '[&_svg]:w-5 [&_svg]:h-5',
+                iconSizeClasses[inputSize],
               )}
             >
               {leftIcon}
@@ -81,7 +94,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             aria-describedby={error && errorMessage ? errorId : helperText ? helperId : undefined}
             style={{ transition: inputTransition }}
             className={cn(
-              'peer relative z-10 w-full font-[var(--font-primary)] text-[var(--foreground)] bg-[var(--input-bg)] border-[0.5px] border-solid rounded-[var(--input-radius)] outline-none',
+              'peer relative z-10 w-full font-[var(--font-primary)] text-[var(--foreground)] bg-[var(--input-bg)] border-[0.5px] border-solid outline-none',
               sizeClasses[inputSize],
               'placeholder:text-[var(--muted-foreground)]',
               'border-[var(--input-border-rest)]',
@@ -100,7 +113,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <div
               className={cn(
                 'absolute right-3 z-20 flex items-center text-[var(--muted-foreground)]',
-                inputSize === 'sm' ? '[&_svg]:w-4 [&_svg]:h-4' : '[&_svg]:w-5 [&_svg]:h-5',
+                iconSizeClasses[inputSize],
               )}
             >
               {rightIcon}

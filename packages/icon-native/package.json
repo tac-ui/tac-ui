@@ -1,6 +1,6 @@
 {
   "name": "@tac-ui/icon-native",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Icon package for Tac UI React Native — lucide-react-native + TacLogo",
   "license": "MIT",
   "sideEffects": false,

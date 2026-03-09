@@ -44,8 +44,7 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         disabled={disabled}
         onClick={handleClick}
         style={{
-          transition:
-            `background-color ${DURATION.moderate} ${EASING}, box-shadow ${DURATION.moderate} ${EASING}`,
+          transition: `background-color ${DURATION.moderate} ${EASING}, box-shadow ${DURATION.moderate} ${EASING}`,
         }}
         className={cn(
           'relative w-[var(--switch-width)] h-[var(--switch-height)] rounded-[var(--radius-pill)] cursor-pointer',

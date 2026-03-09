@@ -53,8 +53,7 @@ export const PaginationItem = forwardRef<HTMLButtonElement, PaginationItemProps>
         type="button"
         aria-current={active ? 'page' : undefined}
         style={{
-          transition:
-            `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
+          transition: `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
         }}
         className={cn(
           'w-9 h-9 flex items-center justify-center text-sm rounded-[var(--radius-m)] border-none cursor-pointer',
@@ -99,8 +98,7 @@ export const PaginationPrevious = forwardRef<HTMLButtonElement, PaginationPrevNe
         ref={ref}
         type="button"
         style={{
-          transition:
-            `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
+          transition: `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
         }}
         className={cn(
           'flex items-center gap-1 px-3 h-9 text-sm rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-[var(--foreground)] hover:bg-[var(--interactive-hover)] disabled:opacity-50 disabled:pointer-events-none',
@@ -128,8 +126,7 @@ export const PaginationNext = forwardRef<HTMLButtonElement, PaginationPrevNextPr
         ref={ref}
         type="button"
         style={{
-          transition:
-            `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
+          transition: `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
         }}
         className={cn(
           'flex items-center gap-1 px-3 h-9 text-sm rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-[var(--foreground)] hover:bg-[var(--interactive-hover)] disabled:opacity-50 disabled:pointer-events-none',

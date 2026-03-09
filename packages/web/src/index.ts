@@ -1,3 +1,6 @@
+// Version
+export { version } from './version';
+
 // Provider
 export { TacProvider, useTacTheme } from './provider/ThemeProvider';
 export type { TacProviderProps } from './provider/ThemeProvider';

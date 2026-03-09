@@ -18,13 +18,19 @@ export interface InputProps extends TextInputProps {
   containerStyle?: ViewStyle;
 }
 
-const tokens = componentTokens.input;
+const tokens = componentTokens.input.md;
 
 const sizeConfig: Record<
   InputSize,
   { height: number; fontSize: number; paddingHorizontal: number; iconSize: number; iconPadding: number }
 > = {
-  sm: { height: 36, fontSize: 13, paddingHorizontal: 12, iconSize: 16, iconPadding: 36 },
+  sm: {
+    height: componentTokens.input.sm.height,
+    fontSize: componentTokens.input.sm.fontSize,
+    paddingHorizontal: componentTokens.input.sm.paddingX,
+    iconSize: componentTokens.input.sm.iconSize,
+    iconPadding: componentTokens.input.sm.iconPadding,
+  },
   md: {
     height: tokens.height,
     fontSize: tokens.fontSize,
@@ -32,7 +38,13 @@ const sizeConfig: Record<
     iconSize: tokens.iconSize,
     iconPadding: tokens.iconPadding,
   },
-  lg: { height: 48, fontSize: 16, paddingHorizontal: 16, iconSize: 20, iconPadding: 46 },
+  lg: {
+    height: componentTokens.input.lg.height,
+    fontSize: componentTokens.input.lg.fontSize,
+    paddingHorizontal: componentTokens.input.lg.paddingX,
+    iconSize: componentTokens.input.lg.iconSize,
+    iconPadding: componentTokens.input.lg.iconPadding,
+  },
 };
 
 export const Input = forwardRef<TextInput, InputProps>(

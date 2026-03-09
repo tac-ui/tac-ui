@@ -224,8 +224,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
                       if (e.key === 'Escape') handleClose();
                     }}
                     style={{
-                      transition:
-                        `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
+                      transition: `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
                     }}
                     className={cn(
                       'px-3 py-2.5 text-sm cursor-pointer',

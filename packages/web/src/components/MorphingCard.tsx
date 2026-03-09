@@ -96,8 +96,7 @@ export const MorphingCard = forwardRef<HTMLDivElement, MorphingCardProps>(
               }
             }}
             style={{
-              transition:
-                `box-shadow ${DURATION.normal} ${EASING}, border-color ${DURATION.normal} ${EASING}, background-color ${DURATION.normal} ${EASING}`,
+              transition: `box-shadow ${DURATION.normal} ${EASING}, border-color ${DURATION.normal} ${EASING}, background-color ${DURATION.normal} ${EASING}`,
             }}
             className={cn(
               glassClasses,
@@ -139,8 +138,7 @@ export const MorphingCard = forwardRef<HTMLDivElement, MorphingCardProps>(
                   aria-label="Close"
                   onClick={() => setExpanded(false)}
                   style={{
-                    transition:
-                      `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
+                    transition: `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
                   }}
                   className={cn(
                     'absolute top-3 right-3 flex items-center justify-center w-7 h-7 rounded-full bg-[var(--muted)] text-[var(--muted-foreground)] hover:bg-[var(--secondary)] cursor-pointer border-none',

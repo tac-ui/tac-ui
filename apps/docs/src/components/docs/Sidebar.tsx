@@ -3,7 +3,15 @@
 import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { SidebarGroup, SidebarItem, Sidebar as SidebarShell, Drawer, useTacTheme, SegmentController, HStack } from '@tac-ui/web';
+import {
+  SidebarGroup,
+  SidebarItem,
+  Sidebar as SidebarShell,
+  Drawer,
+  useTacTheme,
+  SegmentController,
+  HStack,
+} from '@tac-ui/web';
 import {
   X,
   TacLogo,
@@ -78,9 +86,7 @@ function NavLinks({ onNavigate, navGroups = defaultNavGroups }: { onNavigate?: (
               const isItemActive = pathname === item.href;
               return (
                 <Link key={item.href} href={item.href} onClick={onNavigate} className="no-underline">
-                  <SidebarItem active={isItemActive}>
-                    {t.nav.items[item.key] ?? item.title}
-                  </SidebarItem>
+                  <SidebarItem active={isItemActive}>{t.nav.items[item.key] ?? item.title}</SidebarItem>
                 </Link>
               );
             })}

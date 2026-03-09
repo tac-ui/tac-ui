@@ -17,20 +17,30 @@ export interface TextareaProps extends TextInputProps {
   rows?: number;
 }
 
-const tokens = componentTokens.input;
+const tokens = componentTokens.input.md;
 
 const sizeConfig: Record<
   TextareaSize,
   { fontSize: number; paddingHorizontal: number; paddingVertical: number; minHeight: number }
 > = {
-  sm: { fontSize: 13, paddingHorizontal: 12, paddingVertical: 8, minHeight: 60 },
+  sm: {
+    fontSize: componentTokens.input.sm.fontSize,
+    paddingHorizontal: componentTokens.input.sm.paddingX,
+    paddingVertical: 8,
+    minHeight: 60,
+  },
   md: {
     fontSize: tokens.fontSize,
     paddingHorizontal: tokens.paddingX,
-    paddingVertical: tokens.paddingY,
+    paddingVertical: 12,
     minHeight: 80,
   },
-  lg: { fontSize: 16, paddingHorizontal: 20, paddingVertical: 14, minHeight: 100 },
+  lg: {
+    fontSize: componentTokens.input.lg.fontSize,
+    paddingHorizontal: componentTokens.input.lg.paddingX,
+    paddingVertical: 14,
+    minHeight: 100,
+  },
 };
 
 export const Textarea = forwardRef<TextInput, TextareaProps>(

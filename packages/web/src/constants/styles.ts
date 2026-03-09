@@ -10,5 +10,4 @@ export const focusRingPoint = 'outline-none focus-visible:shadow-[var(--point-gl
 import { EASING, DURATION } from './motion';
 
 /** Shared inline transition for input-type elements (border, shadow, color, bg). */
-export const inputTransition =
-  `border-color ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}, color ${DURATION.normal} ${EASING}, background-color ${DURATION.normal} ${EASING}`;
+export const inputTransition = `border-color ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}, color ${DURATION.normal} ${EASING}, background-color ${DURATION.normal} ${EASING}`;

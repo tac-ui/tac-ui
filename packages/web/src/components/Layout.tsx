@@ -292,8 +292,7 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 
     const hasHeader = label || icon || collapsible;
 
-    const sidebarTransition =
-      `width ${DURATION.slow} ${EASING}, padding ${DURATION.slow} ${EASING}, background-color ${DURATION.slow} ${EASING}`;
+    const sidebarTransition = `width ${DURATION.slow} ${EASING}, padding ${DURATION.slow} ${EASING}, background-color ${DURATION.slow} ${EASING}`;
 
     return (
       <aside
@@ -485,8 +484,7 @@ export const SidebarGroup = forwardRef<HTMLDivElement, SidebarGroupProps>(
         <div
           className={cn('grid', isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0')}
           style={{
-            transition:
-              `grid-template-rows ${DURATION.moderate} ${EASING}, opacity ${DURATION.moderate} ${EASING}`,
+            transition: `grid-template-rows ${DURATION.moderate} ${EASING}, opacity ${DURATION.moderate} ${EASING}`,
           }}
         >
           <div className="overflow-hidden min-h-0">
@@ -537,15 +535,21 @@ export const SidebarItem = forwardRef<HTMLDivElement, SidebarItemProps>(
         ? 'text-[var(--muted-foreground)]'
         : 'text-[var(--foreground)]';
 
-    const hoverClass = !active && !shouldHide
-      ? variant === 'subtle'
-        ? 'hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)]'
-        : 'hover:bg-[var(--point-subtle)]'
-      : '';
+    const hoverClass =
+      !active && !shouldHide
+        ? variant === 'subtle'
+          ? 'hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)]'
+          : 'hover:bg-[var(--point-subtle)]'
+        : '';
 
-    const sizeClass = size === 'sm'
-      ? collapsed ? 'justify-center p-1.5 max-h-10' : 'px-2 py-1.5 max-h-10'
-      : collapsed ? 'justify-center p-2 max-h-12' : 'px-3 py-2 max-h-12';
+    const sizeClass =
+      size === 'sm'
+        ? collapsed
+          ? 'justify-center p-1.5 max-h-10'
+          : 'px-2 py-1.5 max-h-10'
+        : collapsed
+          ? 'justify-center p-2 max-h-12'
+          : 'px-3 py-2 max-h-12';
 
     return (
       <div
@@ -612,8 +616,7 @@ export const SidebarContent = forwardRef<HTMLDivElement, React.HTMLAttributes<HT
           className,
         )}
         style={{
-          transition:
-            `max-height ${DURATION.moderate} ${EASING}, opacity ${DURATION.moderate} ${EASING}, padding ${DURATION.moderate} ${EASING}`,
+          transition: `max-height ${DURATION.moderate} ${EASING}, opacity ${DURATION.moderate} ${EASING}, padding ${DURATION.moderate} ${EASING}`,
         }}
         {...props}
       />
@@ -638,8 +641,7 @@ export const SidebarFooter = forwardRef<HTMLDivElement, React.HTMLAttributes<HTM
           className,
         )}
         style={{
-          transition:
-            `max-height ${DURATION.moderate} ${EASING}, opacity ${DURATION.moderate} ${EASING}, padding ${DURATION.moderate} ${EASING}`,
+          transition: `max-height ${DURATION.moderate} ${EASING}, opacity ${DURATION.moderate} ${EASING}, padding ${DURATION.moderate} ${EASING}`,
         }}
         {...props}
       />

@@ -113,8 +113,7 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
             background: filled
               ? `linear-gradient(to right, var(--point) 0%, var(--point) ${percent}%, var(--secondary) ${percent}%, var(--secondary) 100%)`
               : 'var(--secondary)',
-            transition:
-              `background ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}`,
+            transition: `background ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}`,
             ...style,
           }}
           className={cn(
