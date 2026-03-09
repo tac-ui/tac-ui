@@ -3,9 +3,6 @@
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "permissions": {
-    "allow": [
-      "Bash(grep -r '\"\"version\"\"' packages/*/package.json apps/*/package.json package.json)",
-      "Bash(git add apps/docs/package.json apps/docs/public/web/llms.txt apps/docs/src/app/not-found.tsx \"apps/docs/src/app/web/\\(examples\\)/examples/layout/split/page.tsx\" apps/native-docs-app/package.json package.json packages/icon-native/package.json packages/icon/package.json packages/icon/tsup.config.ts packages/native/package.json packages/native/src/components/ColorPicker.tsx packages/native/src/components/Combobox.tsx packages/native/src/components/Input.tsx packages/native/src/components/Textarea.tsx packages/native/src/provider/TacNativeProvider.tsx packages/shared/package.json packages/tokens/package.json packages/web/package.json packages/web/src/components/*.tsx packages/web/src/constants/motion.ts packages/web/src/constants/styles.ts pnpm-lock.yaml .claude/settings.json)"
-    ]
+    "allow": []
   }
 }

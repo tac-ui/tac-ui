@@ -670,7 +670,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
                 )}
 
                 {/* ─── Preset swatches ─── */}
-                <div className={showSpectrum ? 'mt-3 pt-3 border-t border-solid border-[var(--border)]' : ''}>
+                <div className={showSpectrum ? 'mt-3 pt-3 border-t border-solid border-[var(--border)]' : 'mt-2 pt-2'}>
                   <button
                     type="button"
                     onClick={() => setPresetsOpen((prev) => !prev)}

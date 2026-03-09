@@ -43,6 +43,11 @@ import {
 } from '@/components/docs/DocPage';
 import { Playground } from '@/components/docs/Playground';
 
+function PlaygroundToggle(props: React.ComponentProps<typeof Toggle>) {
+  const [on, setOn] = useState(false);
+  return <Toggle {...props} checked={on} onChange={setOn} />;
+}
+
 export default function TogglePage() {
   const [checked1, setChecked1] = useState(false);
   const [checked2, setChecked2] = useState(false);
@@ -97,7 +102,7 @@ export default function TogglePage() {
               'eye/eyeOff': [<Eye key="on" />, <EyeOff key="off" />],
             };
             const [iconOn, iconOff] = iconMap[values.iconPair as string] ?? iconMap['sun/moon'];
-            return <Toggle iconOn={iconOn} iconOff={iconOff} disabled={values.disabled as boolean} />;
+            return <PlaygroundToggle iconOn={iconOn} iconOff={iconOff} disabled={values.disabled as boolean} />;
           }}
           code={(values) => {
             const iconCodeMap: Record<string, [string, string]> = {

@@ -130,7 +130,7 @@ export const MorphingCard = forwardRef<HTMLDivElement, MorphingCardProps>(
                 className={cn(
                   glassClasses,
                   'p-[var(--card-padding)] flex flex-col gap-[var(--card-gap)]',
-                  'relative w-full max-w-lg mx-4 outline-none',
+                  'relative w-full max-w-[100vw] mx-4 outline-none',
                   className,
                 )}
               >
