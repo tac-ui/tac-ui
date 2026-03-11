@@ -18,7 +18,12 @@ export const LayoutContext = createContext<{
 
 /* ─── Sidebar Context ─── */
 
-const SidebarContext = createContext<{ collapsed: boolean }>({ collapsed: false });
+const SidebarContext = createContext<{
+  collapsed: boolean;
+  collapsible: boolean;
+  position: 'left' | 'right';
+  onCollapse?: (collapsed: boolean) => void;
+}>({ collapsed: false, collapsible: false, position: 'left' });
 
 /** Returns the current sidebar collapsed state. Use inside Sidebar children. */
 export const useSidebarContext = () => useContext(SidebarContext);
@@ -263,6 +268,94 @@ const CollapseToggle = ({
   );
 };
 
+/**
+ * Header area for the Sidebar. Renders label, icon, and collapse toggle.
+ * When used as a child of Sidebar, reads collapsed/collapsible/position from SidebarContext.
+ * Pass custom children to fully control the header content (children can use useSidebarContext for collapsed state).
+ */
+export interface SidebarHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Label displayed in the sidebar header. */
+  label?: React.ReactNode;
+  /** Icon displayed before the label in the sidebar header. */
+  icon?: React.ReactNode;
+  /** When true, the icon is hidden when expanded and the label is hidden when collapsed, swapping between them. @default false */
+  swapOnCollapse?: boolean;
+}
+
+export const SidebarHeader = forwardRef<HTMLDivElement, SidebarHeaderProps>(
+  ({ label, icon, swapOnCollapse = false, className, children, ...props }, ref) => {
+    const { collapsed, collapsible, position, onCollapse } = useSidebarContext();
+
+    const handleToggle = () => {
+      if (collapsible && onCollapse) {
+        onCollapse(!collapsed);
+      }
+    };
+
+    return (
+      <div ref={ref} className={cn('relative border-b border-solid border-[var(--border)] shrink-0', className)} {...props}>
+        <div
+          className={cn(
+            'flex items-center w-full',
+            collapsed
+              ? 'gap-0 justify-center px-2 pt-3 pb-12'
+              : cn(
+                  swapOnCollapse ? 'gap-0' : 'gap-2',
+                  'py-3',
+                  collapsible && position === 'left'
+                    ? 'pl-4 pr-12'
+                    : collapsible && position === 'right'
+                      ? 'pl-12 pr-4'
+                      : 'px-4',
+                ),
+          )}
+          style={{ transition: `all ${DURATION.slow} ${EASING}` }}
+        >
+          {children ?? (
+            <>
+              {icon && (
+                <span
+                  className={cn(
+                    'flex items-center justify-center shrink-0 text-[var(--foreground)]',
+                    swapOnCollapse && !collapsed && 'w-0 opacity-0 overflow-hidden',
+                  )}
+                  style={{ transition: `all ${DURATION.slow} ${EASING}` }}
+                >
+                  {icon}
+                </span>
+              )}
+              {label && (
+                <span
+                  className={cn(
+                    'text-sm font-medium text-[var(--foreground)] truncate overflow-hidden',
+                    collapsed ? 'opacity-0 w-0' : 'opacity-100 flex-1',
+                  )}
+                  style={{ transition: `all ${DURATION.slow} ${EASING}` }}
+                >
+                  {label}
+                </span>
+              )}
+            </>
+          )}
+        </div>
+        {collapsible && (
+          <div
+            className="absolute -translate-x-1/2 -translate-y-1/2"
+            style={{
+              top: collapsed ? 'calc(100% - 22px)' : '50%',
+              left: collapsed ? '50%' : position === 'left' ? 'calc(100% - 24px)' : '24px',
+              transition: `all ${DURATION.slow} ${EASING}`,
+            }}
+          >
+            <CollapseToggle collapsed={collapsed} position={position} onClick={handleToggle} />
+          </div>
+        )}
+      </div>
+    );
+  },
+);
+SidebarHeader.displayName = 'SidebarHeader';
+
 export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
   (
     {
@@ -284,12 +377,6 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
     },
     ref,
   ) => {
-    const handleToggle = () => {
-      if (collapsible && onCollapse) {
-        onCollapse(!collapsed);
-      }
-    };
-
     const hasHeader = label || icon || collapsible;
 
     const sidebarTransition = `width ${DURATION.slow} ${EASING}, padding ${DURATION.slow} ${EASING}, background-color ${DURATION.slow} ${EASING}`;
@@ -305,63 +392,8 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
         }}
         {...props}
       >
-        <SidebarContext.Provider value={{ collapsed }}>
-          {hasHeader && (
-            <div className="relative border-b border-solid border-[var(--border)] shrink-0">
-              <div
-                className={cn(
-                  'flex items-center w-full',
-                  collapsed
-                    ? 'gap-0 justify-center px-2 pt-3 pb-12'
-                    : cn(
-                        swapOnCollapse ? 'gap-0' : 'gap-2',
-                        'py-3',
-                        collapsible && position === 'left'
-                          ? 'pl-4 pr-12'
-                          : collapsible && position === 'right'
-                            ? 'pl-12 pr-4'
-                            : 'px-4',
-                      ),
-                )}
-                style={{ transition: `all ${DURATION.slow} ${EASING}` }}
-              >
-                {icon && (
-                  <span
-                    className={cn(
-                      'flex items-center justify-center shrink-0 text-[var(--foreground)]',
-                      swapOnCollapse && !collapsed && 'w-0 opacity-0 overflow-hidden',
-                    )}
-                    style={{ transition: `all ${DURATION.slow} ${EASING}` }}
-                  >
-                    {icon}
-                  </span>
-                )}
-                {label && (
-                  <span
-                    className={cn(
-                      'text-sm font-medium text-[var(--foreground)] truncate overflow-hidden',
-                      collapsed ? 'opacity-0 w-0' : 'opacity-100 flex-1',
-                    )}
-                    style={{ transition: `all ${DURATION.slow} ${EASING}` }}
-                  >
-                    {label}
-                  </span>
-                )}
-              </div>
-              {collapsible && (
-                <div
-                  className="absolute -translate-x-1/2 -translate-y-1/2"
-                  style={{
-                    top: collapsed ? 'calc(100% - 22px)' : '50%',
-                    left: collapsed ? '50%' : position === 'left' ? 'calc(100% - 24px)' : '24px',
-                    transition: `all ${DURATION.slow} ${EASING}`,
-                  }}
-                >
-                  <CollapseToggle collapsed={collapsed} position={position} onClick={handleToggle} />
-                </div>
-              )}
-            </div>
-          )}
+        <SidebarContext.Provider value={{ collapsed, collapsible, position, onCollapse }}>
+          {hasHeader && <SidebarHeader label={label} icon={icon} swapOnCollapse={swapOnCollapse} />}
           <div className="flex-1 overflow-y-auto">{children}</div>
           {footer && <div className="border-t border-solid border-[var(--border)] shrink-0">{footer}</div>}
         </SidebarContext.Provider>

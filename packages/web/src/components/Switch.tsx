@@ -49,7 +49,7 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         className={cn(
           'relative w-[var(--switch-width)] h-[var(--switch-height)] rounded-[var(--radius-pill)] cursor-pointer',
           focusRing,
-          checked ? 'bg-[var(--point)]' : 'bg-[var(--secondary)]',
+          checked ? 'bg-[var(--point)]' : 'bg-[var(--muted-foreground)]/25',
           disabled && 'opacity-40 cursor-not-allowed saturate-0',
           !disabled && 'hover:shadow-sm',
           !label && className,

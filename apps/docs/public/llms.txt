@@ -708,7 +708,7 @@ import { BarChart, LineChart, PieChart, DonutChart } from '@tac-ui/web';
 
 ```tsx
 import {
-  PageLayout, Header, Sidebar, SidebarGroup, SidebarItem,
+  PageLayout, Header, Sidebar, SidebarHeader, SidebarGroup, SidebarItem,
   Main, Footer, Container, FloatingMenuBar, FloatingMenuItem,
 } from '@tac-ui/web';
 ```
@@ -717,6 +717,7 @@ import {
 
 ```tsx
 <Sidebar width={240} collapsible collapsed={collapsed} onCollapse={setCollapsed} position="left" rounded>
+  <SidebarHeader label="Navigation" icon={<Menu size={18} />} />
   <SidebarGroup label="Nav" icon={<Menu size={14} />} collapsible defaultOpen>
     <SidebarItem active>Dashboard</SidebarItem>
     <SidebarItem>Settings</SidebarItem>

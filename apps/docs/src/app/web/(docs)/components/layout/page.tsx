@@ -1174,6 +1174,50 @@ export default function LayoutPage() {
             'Components designed to be used inside Sidebar for structured navigation. They automatically respond to the parent Sidebar\u0027s collapsed state via SidebarContext.'}
         </DocText>
 
+        <DocSubSection title="SidebarHeader">
+          <DocText>
+            {pt?.sections?.['sidebar-sub-components']?.texts?.[0]
+              ? 'SidebarHeader는 사이드바 헤더 영역을 렌더링합니다. label/icon props로 간단하게 사용하거나, children을 전달하여 접힘/펼침 상태에 따른 커스텀 콘텐츠를 렌더링할 수 있습니다. SidebarContext에서 collapsed, collapsible, position 상태를 읽어옵니다.'
+              : 'Renders the sidebar header area. Use label/icon props for simple usage, or pass custom children for full control over collapsed/expanded rendering. Reads collapsed, collapsible, and position from SidebarContext. The collapse toggle button is automatically rendered when collapsible is enabled in the parent Sidebar.'}
+          </DocText>
+          <PropsTable
+            data={[
+              {
+                name: 'label',
+                type: 'React.ReactNode',
+                default: '-',
+                description:
+                  pt?.props?.['SidebarHeader.label'] ??
+                  'Label displayed in the sidebar header. Hidden when collapsed.',
+              },
+              {
+                name: 'icon',
+                type: 'React.ReactNode',
+                default: '-',
+                description:
+                  pt?.props?.['SidebarHeader.icon'] ??
+                  'Icon displayed before the label. Shown alone when collapsed.',
+              },
+              {
+                name: 'swapOnCollapse',
+                type: 'boolean',
+                default: 'false',
+                description:
+                  pt?.props?.['SidebarHeader.swapOnCollapse'] ??
+                  'When true, the icon is hidden when expanded and the label is hidden when collapsed, swapping between them.',
+              },
+              {
+                name: 'children',
+                type: 'React.ReactNode',
+                default: '-',
+                description:
+                  pt?.props?.['SidebarHeader.children'] ??
+                  'Custom content that replaces the default label/icon rendering. Use useSidebarContext() inside children to react to collapsed state.',
+              },
+            ]}
+          />
+        </DocSubSection>
+
         <DocSubSection title="SidebarGroup">
           <DocText>
             {pt?.sections?.['sidebar-sub-components']?.texts?.[0]
@@ -1458,11 +1502,11 @@ export default function LayoutPage() {
           data={[
             {
               name: 'useSidebarContext()',
-              type: '{ collapsed: boolean }',
+              type: '{ collapsed: boolean; collapsible: boolean; position: "left" | "right"; onCollapse?: (collapsed: boolean) => void }',
               default: '-',
               description:
                 pt?.props?.['useSidebarContext'] ??
-                'Returns the current sidebar collapsed state. Use inside Sidebar children to conditionally render content based on collapsed state.',
+                'Returns the current sidebar context including collapsed state, collapsible flag, position, and onCollapse callback. Use inside Sidebar children to conditionally render content based on sidebar state.',
             },
           ]}
         />
