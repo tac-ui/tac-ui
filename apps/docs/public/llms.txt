@@ -1,6 +1,6 @@
 # Tac UI
 
-> Cross-platform design system — 40+ React web components, 27 React Native components, design tokens, and icons.
+> Cross-platform design system — 47+ React web components, 27 React Native components, design tokens, and icons.
 
 ## Packages
 
@@ -262,6 +262,36 @@ Sub-components: `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `Ca
 <ColorPicker label="Brand color" value={color} onChange={setColor} />
 ```
 
+#### Label
+
+```tsx
+<Label htmlFor="email">Email</Label>
+<Label required>Username</Label>
+<Label showOptional>Nickname</Label>
+<Label tooltip="We'll never share your email">Email</Label>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| htmlFor | `string` | - |
+| required | `boolean` | `false` |
+| showOptional | `boolean` | `false` |
+| tooltip | `ReactNode` | - |
+
+#### SensitiveInput
+
+```tsx
+<SensitiveInput value={apiKey} onChange={(e) => setApiKey(e.target.value)} placeholder="Enter API key" />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| value | `string` | - |
+| onCopy | `() => void` | - |
+| onReveal | `() => void` | - |
+
+States: `masked` → click/Enter/Space to reveal, `revealed` → Escape to re-mask, `empty` → standard text input. Hover shows copy button.
+
 #### Tabs
 
 ```tsx
@@ -295,6 +325,24 @@ Sub-components: `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `Ca
 | type | `'single' \| 'multiple'` | `'single'` |
 | glass | `boolean` | `false` |
 | outline | `boolean` | `true` |
+
+#### Collapsible
+
+```tsx
+<Collapsible label="Show details">
+  <p>Hidden content revealed on toggle.</p>
+</Collapsible>
+<Collapsible label="Open by default" defaultOpen>
+  <p>Visible initially.</p>
+</Collapsible>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| label | `ReactNode` | - |
+| open | `boolean` | - |
+| defaultOpen | `boolean` | `false` |
+| onOpenChange | `(open: boolean) => void` | - |
 
 #### Dialog
 
@@ -355,6 +403,24 @@ Sub-components: `ModalHeader`, `ModalIcon`, `ModalTitle`, `ModalDescription`, `M
 | variant | `'default' \| 'success' \| 'error' \| 'warning' \| 'info' \| 'glass'` | `'default'` |
 | dismissible | `boolean` | `false` |
 
+#### Banner
+
+```tsx
+<Banner variant="default" title="New feature available" description="Check out the latest updates." />
+<Banner variant="warning" title="Maintenance scheduled" dismissible onDismiss={() => {}} />
+<Banner variant="error" title="Service disruption" />
+<Banner variant="success" title="Deployment complete" />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| variant | `'default' \| 'warning' \| 'error' \| 'success'` | `'default'` |
+| title | `string` | - |
+| description | `string` | - |
+| icon | `ReactNode` | - |
+| dismissible | `boolean` | `false` |
+| onDismiss | `() => void` | - |
+
 #### Toast
 
 ```tsx
@@ -404,6 +470,19 @@ Sub-components: `DropdownTitle`, `DropdownDivider`, `DropdownItem`, `DropdownSea
 | placement | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` |
 | delay | `number` (ms) | `200` |
 
+#### Link
+
+```tsx
+<Link href="/docs" variant="inline">Documentation</Link>
+<Link href="/about" variant="plain">About</Link>
+<Link href="https://github.com" variant="inline" external>GitHub</Link>
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| variant | `'inline' \| 'plain' \| 'current'` | `'inline'` |
+| external | `boolean` | `false` |
+
 #### Popover
 
 ```tsx
@@ -450,6 +529,26 @@ Sub-components: `DropdownTitle`, `DropdownDivider`, `DropdownItem`, `DropdownSea
 |------|------|---------|
 | variant | `'linear' \| 'circular'` | `'linear'` |
 | barSize | `'sm' \| 'md' \| 'lg'` | `'md'` |
+
+#### Meter
+
+```tsx
+<Meter value={42} label="Storage used" />
+<Meter value={75} label="High usage" />
+<Meter value={72} label="Storage" customValue="7.2 GB / 10 GB" />
+<Meter value={60} label="Progress" showValue={false} />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| value | `number` | - |
+| min | `number` | `0` |
+| max | `number` | `100` |
+| label | `string` | - |
+| customValue | `string` | - |
+| showValue | `boolean` | `true` |
+
+Bar color changes by fill level: green (<60%), yellow (60–80%), red (>80%).
 
 #### Table
 
@@ -537,6 +636,20 @@ Sub-components: `DropdownTitle`, `DropdownDivider`, `DropdownItem`, `DropdownSea
 <CodeBlock code={`const x = 1;`} language="typescript" showLineNumbers showCopyButton />
 ```
 
+#### ClipboardText
+
+```tsx
+<ClipboardText text="npm install @tac-ui/web" />
+<ClipboardText text="sk-abc123..." size="sm" />
+<ClipboardText text="192.168.1.1" size="lg" />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| text | `string` | - |
+| size | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| onCopy | `() => void` | - |
+
 #### EmptyState
 
 ```tsx
@@ -556,6 +669,29 @@ Sub-components: `DropdownTitle`, `DropdownDivider`, `DropdownItem`, `DropdownSea
   <Badge>Tag 2</Badge>
 </HStack>
 ```
+
+#### Grid
+
+```tsx
+<Grid variant="3up" gap="md">
+  <GridItem>A</GridItem>
+  <GridItem>B</GridItem>
+  <GridItem>C</GridItem>
+</Grid>
+<Grid variant="2-1" gap="lg">
+  <GridItem>Wide</GridItem>
+  <GridItem>Narrow</GridItem>
+</Grid>
+```
+
+| Prop (Grid) | Type | Default |
+|------|------|---------|
+| variant | `'2up' \| 'side-by-side' \| '2-1' \| '1-2' \| '1-3up' \| '3up' \| '4up' \| '6up' \| '1-2-4up'` | `'2up'` |
+| gap | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` |
+
+| Prop (GridItem) | Type | Default |
+|------|------|---------|
+| span | `number` | - |
 
 ### Charts
 

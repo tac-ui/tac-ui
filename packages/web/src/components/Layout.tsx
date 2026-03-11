@@ -558,7 +558,7 @@ export const SidebarItem = forwardRef<HTMLDivElement, SidebarItemProps>(
           transition: `color ${DURATION.normal} ${EASING}`,
         }}
         className={cn(
-          'relative flex items-center rounded-[var(--radius-m)] cursor-pointer overflow-hidden',
+          'relative flex items-center rounded-[var(--radius-m)] cursor-pointer',
           size === 'sm' ? 'text-[13px]' : 'text-sm',
           collapsed ? 'gap-0' : 'gap-3',
           shouldHide ? 'max-h-0 opacity-0 p-0 m-0' : sizeClass,

@@ -1,0 +1,38 @@
+{
+  "title": "Meter",
+  "description": "저장 용량, 점수, 할당량 소비 등 알려진 범위 내의 스칼라 측정값을 표시합니다.",
+  "sections": {
+    "default": {
+      "title": "기본",
+      "texts": ["라벨이 있는 기본 미터로, 퍼센트 값을 함께 표시합니다."]
+    },
+    "various-values": {
+      "title": "다양한 값",
+      "texts": ["미터 바 색상은 채움 수준에 따라 변합니다 — 60% 미만은 녹색, 60–80%는 노란색, 80% 초과는 빨간색."]
+    },
+    "custom-value": {
+      "title": "커스텀 값",
+      "texts": ["customValue를 사용하면 기본 퍼센트 대신 포맷된 문자열을 표시할 수 있습니다."]
+    },
+    "hidden-value": {
+      "title": "값 숨기기",
+      "texts": ["showValue를 false로 설정하면 값 텍스트를 숨기고 라벨과 바만 표시합니다."]
+    },
+    "vs-progress": {
+      "title": "Meter vs Progress",
+      "texts": ["Meter는 알려진 범위 내의 정적 스칼라 값(예: 저장 용량, 점수)을 나타낼 때 사용합니다. Progress는 진행 중인 작업의 완료 상태(예: 파일 업로드, 로딩)를 나타낼 때 사용합니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "value": "현재 미터 값.",
+    "min": "범위의 최소값.",
+    "max": "범위의 최대값.",
+    "label": "값 왼쪽에 표시되는 라벨.",
+    "customValue": "값의 커스텀 표시 텍스트. 생략 시 퍼센트를 표시합니다.",
+    "showValue": "true일 때 라벨 오른쪽에 값/퍼센트를 표시합니다.",
+    "className": "추가 CSS 클래스명."
+  }
+}

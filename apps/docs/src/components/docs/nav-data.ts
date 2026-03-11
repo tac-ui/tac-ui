@@ -39,12 +39,14 @@ export const navGroups: NavGroup[] = [
       { key: 'dropdown', title: 'Dropdown', href: '/web/components/dropdown' },
       { key: 'popover', title: 'Popover', href: '/web/components/popover' },
       { key: 'tooltip', title: 'Tooltip', href: '/web/components/tooltip' },
+      { key: 'link', title: 'Link', href: '/web/components/link' },
     ],
   },
   {
     key: 'form',
     title: 'Form',
     items: [
+      { key: 'label', title: 'Label', href: '/web/components/label' },
       { key: 'input', title: 'Input', href: '/web/components/input' },
       { key: 'textarea', title: 'Textarea', href: '/web/components/textarea' },
       { key: 'select', title: 'Select', href: '/web/components/select' },
@@ -57,6 +59,7 @@ export const navGroups: NavGroup[] = [
       { key: 'segment-controller', title: 'SegmentController', href: '/web/components/segment-controller' },
       { key: 'date-picker', title: 'DatePicker', href: '/web/components/date-picker' },
       { key: 'color-picker', title: 'ColorPicker', href: '/web/components/color-picker' },
+      { key: 'sensitive-input', title: 'SensitiveInput', href: '/web/components/sensitive-input' },
     ],
   },
   {
@@ -67,10 +70,12 @@ export const navGroups: NavGroup[] = [
       { key: 'avatar', title: 'Avatar', href: '/web/components/avatar' },
       { key: 'chip', title: 'Chip', href: '/web/components/chip' },
       { key: 'progress', title: 'Progress', href: '/web/components/progress' },
+      { key: 'meter', title: 'Meter', href: '/web/components/meter' },
       { key: 'table', title: 'Table', href: '/web/components/table' },
       { key: 'indicator', title: 'Indicator', href: '/web/components/indicator' },
       { key: 'skeleton', title: 'Skeleton', href: '/web/components/skeleton' },
       { key: 'codeblock', title: 'CodeBlock', href: '/web/components/codeblock' },
+      { key: 'clipboard-text', title: 'ClipboardText', href: '/web/components/clipboard-text' },
       { key: 'card', title: 'Card', href: '/web/components/card' },
       { key: 'morphing-card', title: 'MorphingCard', href: '/web/components/morphing-card' },
       { key: 'empty-state', title: 'EmptyState', href: '/web/components/empty-state' },
@@ -85,6 +90,7 @@ export const navGroups: NavGroup[] = [
     key: 'feedback',
     title: 'Feedback',
     items: [
+      { key: 'banner', title: 'Banner', href: '/web/components/banner' },
       { key: 'alert', title: 'Alert', href: '/web/components/alert' },
       { key: 'toast', title: 'Toast', href: '/web/components/toast' },
       { key: 'snackbar', title: 'Snackbar', href: '/web/components/snackbar' },
@@ -97,6 +103,7 @@ export const navGroups: NavGroup[] = [
     items: [
       { key: 'tabs', title: 'Tabs', href: '/web/components/tabs' },
       { key: 'accordion', title: 'Accordion', href: '/web/components/accordion' },
+      { key: 'collapsible', title: 'Collapsible', href: '/web/components/collapsible' },
       { key: 'breadcrumb', title: 'Breadcrumb', href: '/web/components/breadcrumb' },
       { key: 'pagination', title: 'Pagination', href: '/web/components/pagination' },
       { key: 'stepper', title: 'Stepper', href: '/web/components/stepper' },
@@ -115,6 +122,7 @@ export const navGroups: NavGroup[] = [
     key: 'layout',
     title: 'Layout',
     items: [
+      { key: 'grid', title: 'Grid', href: '/web/components/grid' },
       { key: 'stack', title: 'Stack', href: '/web/components/stack' },
       { key: 'layout', title: 'Layout', href: '/web/components/layout' },
     ],

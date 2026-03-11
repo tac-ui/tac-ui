@@ -1,0 +1,41 @@
+{
+  "title": "SensitiveInput",
+  "description": "기본적으로 값을 마스킹하고 사용자의 명시적 동작으로 공개하는 보안 입력입니다. 공개 없이 복사와 키보드 상태 전환을 지원합니다.",
+  "sections": {
+    "default": {
+      "title": "기본 (값 입력됨)",
+      "texts": ["값이 제공되면 컴포넌트는 마스킹 상태로 시작하여 불릿 문자를 표시합니다. 클릭하거나 Enter/Space를 눌러 실제 값을 공개할 수 있습니다."]
+    },
+    "empty-state": {
+      "title": "빈 상태",
+      "texts": ["값이 없으면 입력은 일반 텍스트 필드로 렌더링됩니다. 값을 입력하고 컴포넌트를 다시 마운트하면 마스킹 상태로 시작합니다."]
+    },
+    "disabled": {
+      "title": "비활성화",
+      "texts": ["비활성화된 SensitiveInput은 투명도가 낮아지고 상호작용이 불가능합니다."]
+    },
+    "with-label": {
+      "title": "레이블과 함께 사용",
+      "texts": ["Label 컴포넌트와 조합하여 접근성 있는 레이블 필드를 만들 수 있습니다. id와 htmlFor를 맞춰 전달합니다."]
+    },
+    "keyboard-navigation": {
+      "title": "키보드 내비게이션",
+      "texts": ["SensitiveInput은 완전한 키보드 접근성을 지원합니다:"]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "value": "제어 값. 비어있지 않으면 마스킹 상태로 시작합니다.",
+    "defaultValue": "비제어 기본값.",
+    "placeholder": "빈 상태에서 표시되는 플레이스홀더 텍스트.",
+    "onCopy": "마스킹 상태에서 값이 클립보드에 복사된 후 호출됩니다.",
+    "onReveal": "마스킹 상태에서 공개 상태로 전환될 때 호출됩니다.",
+    "onChange": "표준 입력 변경 핸들러.",
+    "onKeyDown": "키보드 핸들러. Escape는 재마스킹에 사용되며, 나머지 키는 전달됩니다.",
+    "disabled": "입력을 비활성화합니다.",
+    "id": "입력 요소의 HTML id. 제공하지 않으면 자동 생성됩니다.",
+    "className": "추가 CSS 클래스명."
+  }
+}

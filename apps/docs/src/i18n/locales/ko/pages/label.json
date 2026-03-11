@@ -1,0 +1,38 @@
+{
+  "title": "Label",
+  "description": "필수 표시, 선택 사항 접미사, 툴팁을 지원하는 접근성 높은 폼 레이블입니다.",
+  "sections": {
+    "default": {
+      "title": "기본",
+      "texts": ["별도의 수식어 없이 스타일링된 HTML label 요소를 렌더링합니다."]
+    },
+    "required": {
+      "title": "필수",
+      "texts": ["required prop을 설정하면 레이블 텍스트 뒤에 빨간 별표(*)가 추가됩니다. 별표는 aria-hidden으로 보조 기술에서 숨겨집니다."]
+    },
+    "optional": {
+      "title": "선택 사항",
+      "texts": ["showOptional을 설정하면 회색 \"(optional)\" 접미사가 추가되어, 해당 필드가 필수가 아님을 나타냅니다."]
+    },
+    "with-tooltip": {
+      "title": "툴팁 포함",
+      "texts": ["tooltip prop에 React 노드를 전달하면 레이블 옆에 정보 아이콘이 표시됩니다. 호버 또는 포커스 시 툴팁이 나타납니다."]
+    },
+    "with-input": {
+      "title": "입력과 함께 사용",
+      "texts": ["Label에 htmlFor를, Input에 id를 맞춰 전달하면 레이블 클릭 시 입력 필드에 포커스됩니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스",
+      "texts": ["Label props:"]
+    }
+  },
+  "props": {
+    "required": "true일 때 필수 필드를 나타내는 빨간 별표를 추가합니다.",
+    "showOptional": "true일 때 회색 \"(optional)\" 접미사를 추가합니다.",
+    "tooltip": "정보 아이콘을 통해 레이블 옆에 표시되는 툴팁 콘텐츠.",
+    "htmlFor": "id를 통해 폼 컨트롤과 레이블을 연결합니다.",
+    "className": "추가 CSS 클래스명.",
+    "children": "레이블 텍스트 또는 콘텐츠."
+  }
+}

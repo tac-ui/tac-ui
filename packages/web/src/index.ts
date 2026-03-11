@@ -238,6 +238,30 @@ export type { DatePickerProps, DatePickerMode } from './components/DatePicker';
 export { ColorPicker } from './components/ColorPicker';
 export type { ColorPickerProps } from './components/ColorPicker';
 
+export { Label } from './components/Label';
+export type { LabelProps } from './components/Label';
+
+export { Banner, bannerVariants } from './components/Banner';
+export type { BannerProps, BannerVariant } from './components/Banner';
+
+export { Grid, GridItem } from './components/Grid';
+export type { GridProps, GridItemProps, GridVariant, GridGap } from './components/Grid';
+
+export { Link, linkVariants } from './components/Link';
+export type { LinkProps, LinkVariant } from './components/Link';
+
+export { ClipboardText, clipboardTextVariants } from './components/ClipboardText';
+export type { ClipboardTextProps, ClipboardTextSize } from './components/ClipboardText';
+
+export { SensitiveInput } from './components/SensitiveInput';
+export type { SensitiveInputProps } from './components/SensitiveInput';
+
+export { Collapsible } from './components/Collapsible';
+export type { CollapsibleProps } from './components/Collapsible';
+
+export { Meter } from './components/Meter';
+export type { MeterProps } from './components/Meter';
+
 // Hooks
 export { useFocusTrap, useFocusRestore, useRovingIndex } from './hooks/useAccessibility';
 export { useSpotlight } from './hooks/useSpotlight';

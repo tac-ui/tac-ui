@@ -1,6 +1,6 @@
 # @tac-ui/web Detailed Documentation
 
-`@tac-ui/web` is a premium, cross-platform design system providing 39+ React components. This file serves as an extremely detailed usage and props specification for LLMs and developers.
+`@tac-ui/web` is a premium, cross-platform design system providing 47+ React components. This file serves as an extremely detailed usage and props specification for LLMs and developers.
 
 ## Quick Start & Theming
 
@@ -801,6 +801,282 @@ import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, Pagi
 </Pagination>
 ```
 *Note: `PaginationItem` takes an `isActive` boolean prop to highlight the current page.*
+
+---
+
+### 26. Label
+
+An accessible form label with optional required indicator, optional suffix, and tooltip support.
+
+**Usage:**
+```tsx
+import { Label } from '@tac-ui/web';
+
+// Basic
+<Label htmlFor="email">Email address</Label>
+
+// Required field
+<Label htmlFor="password" required>Password</Label>
+
+// Optional field
+<Label htmlFor="bio" showOptional>Bio</Label>
+
+// With tooltip
+<Label htmlFor="api-key" required tooltip="Your secret API key from the dashboard.">
+  API Key
+</Label>
+```
+
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `required` | `boolean` | `false` | When true, appends a red asterisk to indicate the field is required. |
+| `showOptional` | `boolean` | `false` | When true, appends a grey "(optional)" suffix. |
+| `tooltip` | `React.ReactNode` | `undefined` | Tooltip content shown next to the label via an info icon. |
+| `htmlFor` | `string` | `undefined` | Associates the label with a form control by its id. |
+| `...props` | `LabelHTMLAttributes` | - | Accepts all standard HTML label attributes. |
+
+---
+
+### 27. Banner
+
+A full-width page-level notification bar, typically placed at the top of a page or section. Use Banner for page-level alerts; use Alert for inline content-level feedback.
+
+**Usage:**
+```tsx
+import { Banner } from '@tac-ui/web';
+import { Info, AlertTriangle } from '@tac-ui/icon';
+
+// Basic
+<Banner title="New feature available" description="Try the updated dashboard." />
+
+// With icon and variant
+<Banner variant="warning" icon={<AlertTriangle />} title="Trial ending soon" description="Upgrade to keep access." />
+
+// Dismissible
+<Banner variant="error" title="Payment failed" dismissible onDismiss={() => console.log('dismissed')} />
+```
+
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'warning' \| 'error' \| 'success'` | `'default'` | Visual style variant. Default uses info color tokens. |
+| `title` | `string` | `undefined` | Optional title displayed in bold. |
+| `description` | `string` | `undefined` | Optional description text below the title. |
+| `icon` | `React.ReactNode` | `undefined` | Optional icon displayed to the left. Icon color matches the variant. |
+| `dismissible` | `boolean` | `false` | When true, shows a close button that animates the banner out. |
+| `onDismiss` | `() => void` | `undefined` | Called when the dismiss button is clicked. |
+
+---
+
+### 28. Link
+
+A styled anchor element with variant styles and optional external link support.
+
+**Usage:**
+```tsx
+import { Link } from '@tac-ui/web';
+
+// Inline (default) — colored underlined link for body text
+<p>Read the <Link href="/docs">full documentation</Link> for details.</p>
+
+// Plain — no underline, for navigation
+<Link href="/settings" variant="plain">Go to settings</Link>
+
+// Current — marks the active page, non-interactive
+<Link href="/about" variant="current">About</Link>
+
+// External — opens in new tab with icon
+<Link href="https://example.com" external>Visit Example</Link>
+```
+
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'inline' \| 'plain' \| 'current'` | `'inline'` | Visual style variant. |
+| `external` | `boolean` | `false` | When true, opens in a new tab and appends an external link icon. |
+| `...props` | `AnchorHTMLAttributes` | - | Accepts all standard HTML anchor attributes (href, target, etc). |
+
+---
+
+### 29. Grid & GridItem
+
+Responsive grid layout with predefined column presets. Provides 9 layout variants that adapt across breakpoints.
+
+**Usage:**
+```tsx
+import { Grid, GridItem } from '@tac-ui/web';
+
+// Three equal columns
+<Grid variant="3up" gap="md">
+  <GridItem>Column 1</GridItem>
+  <GridItem>Column 2</GridItem>
+  <GridItem>Column 3</GridItem>
+</Grid>
+
+// Wide-left layout (2:1 ratio)
+<Grid variant="2-1" gap="lg">
+  <GridItem>Main content</GridItem>
+  <GridItem>Sidebar</GridItem>
+</Grid>
+
+// GridItem with explicit span
+<Grid variant="4up">
+  <GridItem span={2}>Wide item</GridItem>
+  <GridItem>Item</GridItem>
+  <GridItem>Item</GridItem>
+</Grid>
+```
+
+**Grid Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'2up' \| 'side-by-side' \| '2-1' \| '1-2' \| '1-3up' \| '3up' \| '4up' \| '6up' \| '1-2-4up'` | `'2up'` | Layout preset that defines the column structure. |
+| `gap` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Gap size between grid cells. |
+
+**GridItem Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `span` | `number` | `undefined` | Number of columns this item should span. |
+
+---
+
+### 30. Collapsible
+
+A single disclosure panel with animated expand/collapse. Supports both controlled and uncontrolled modes. Use Collapsible for a single panel; use Accordion for multiple related sections.
+
+**Usage:**
+```tsx
+import { Collapsible } from '@tac-ui/web';
+
+// Uncontrolled
+<Collapsible label="Show details">
+  Hidden content revealed on click.
+</Collapsible>
+
+// Default open
+<Collapsible label="FAQ" defaultOpen>
+  This content is visible by default.
+</Collapsible>
+
+// Controlled
+const [open, setOpen] = useState(false);
+<Collapsible label="Settings" open={open} onOpenChange={setOpen}>
+  Controlled panel content.
+</Collapsible>
+```
+
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `React.ReactNode` | *Required* | The label displayed in the trigger button. |
+| `open` | `boolean` | `undefined` | Controlled open state. |
+| `onOpenChange` | `(open: boolean) => void` | `undefined` | Called when the open state changes. |
+| `defaultOpen` | `boolean` | `false` | Initial open state for uncontrolled mode. |
+| `children` | `React.ReactNode` | *Required* | Content revealed when the panel is open. |
+
+---
+
+### 31. Meter
+
+Displays a scalar measurement within a known range. The bar color changes based on fill level: green under 60%, yellow 60-80%, red above 80%. Use Meter for static values (storage, scores); use Progress for ongoing operations (uploads, loading).
+
+**Usage:**
+```tsx
+import { Meter } from '@tac-ui/web';
+
+// Basic percentage
+<Meter value={42} label="Storage used" />
+
+// Custom value display
+<Meter value={72} label="Storage" customValue="7.2 GB / 10 GB" />
+
+// Custom range
+<Meter value={3} min={0} max={5} label="Rating" customValue="3 / 5 stars" />
+
+// Hidden value
+<Meter value={60} label="Progress" showValue={false} />
+```
+
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `number` | *Required* | Current meter value. |
+| `min` | `number` | `0` | Minimum value of the range. |
+| `max` | `number` | `100` | Maximum value of the range. |
+| `label` | `string` | *Required* | Label displayed to the left of the value. |
+| `customValue` | `string` | `undefined` | Custom display text. When omitted, shows percentage. |
+| `showValue` | `boolean` | `true` | When true, displays the value to the right of the label. |
+
+---
+
+### 32. ClipboardText
+
+Displays a monospace text value with a one-click copy-to-clipboard button that appears on hover.
+
+**Usage:**
+```tsx
+import { ClipboardText } from '@tac-ui/web';
+
+// Basic
+<ClipboardText text="npm install @tac-ui/web" />
+
+// Small size
+<ClipboardText text="sk-proj-abc123" size="sm" />
+
+// With callback
+<ClipboardText text="https://api.example.com" onCopy={() => console.log('copied!')} />
+```
+
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `text` | `string` | *Required* | The text value to display and copy to clipboard. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Controls padding, font size, and icon size. |
+| `onCopy` | `() => void` | `undefined` | Called after the text is successfully copied. |
+
+---
+
+### 33. SensitiveInput
+
+A secure input that masks its value by default and reveals on explicit user action. Has three visual states: masked (shows bullets with hover-to-copy), revealed (editable text input), and empty (standard input). Keyboard accessible: Enter/Space to reveal, Escape to re-mask.
+
+**Usage:**
+```tsx
+import { SensitiveInput, Label } from '@tac-ui/web';
+
+// Basic controlled
+const [apiKey, setApiKey] = useState('sk-proj-abc123...');
+<SensitiveInput value={apiKey} onChange={(e) => setApiKey(e.target.value)} />
+
+// With Label
+<div className="flex flex-col gap-1.5">
+  <Label htmlFor="secret" required>API Key</Label>
+  <SensitiveInput
+    id="secret"
+    value={apiKey}
+    onChange={(e) => setApiKey(e.target.value)}
+    placeholder="Enter your API key"
+  />
+</div>
+
+// With callbacks
+<SensitiveInput
+  value={token}
+  onChange={(e) => setToken(e.target.value)}
+  onCopy={() => console.log('copied without revealing')}
+  onReveal={() => console.log('value revealed')}
+/>
+```
+
+**Props:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | `undefined` | Controlled value. When non-empty, starts in masked state. |
+| `defaultValue` | `string` | `undefined` | Uncontrolled default value. |
+| `onCopy` | `() => void` | `undefined` | Called after the value is copied from the masked state. |
+| `onReveal` | `() => void` | `undefined` | Called when transitioning from masked to revealed state. |
+| `...props` | `InputHTMLAttributes` | - | Accepts all standard HTML input attributes except `type` (managed internally). |
 
 ---
 

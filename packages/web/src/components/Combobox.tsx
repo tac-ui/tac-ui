@@ -143,11 +143,11 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
             onKeyDown={handleInputKeyDown}
             style={{ transition: inputTransition }}
             className={cn(
-              'w-full h-[var(--input-height)] px-[var(--input-px)] pr-9',
-              'text-[var(--input-font-size)] font-[var(--font-primary)] text-[var(--foreground)]',
-              'bg-[var(--input-bg)] border border-solid',
-              'rounded-[var(--input-radius)] outline-none',
-              'placeholder:text-[var(--gray-400)]',
+              'w-full h-[var(--input-md-height)] px-[var(--input-md-px)] pr-9',
+              'text-[length:var(--input-md-font-size)] font-[var(--font-primary)] text-[var(--foreground)]',
+              'bg-[var(--input-bg)] border-[0.5px] border-solid',
+              'rounded-[var(--input-md-radius)] outline-none',
+              'placeholder:text-[var(--muted-foreground)]',
               'border-[var(--input-border-rest)]',
               'hover:border-[var(--input-border-hover)]',
               'focus:border-[var(--point)] focus:shadow-[var(--input-focus-glow)]',

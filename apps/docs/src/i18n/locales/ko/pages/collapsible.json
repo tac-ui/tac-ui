@@ -1,0 +1,37 @@
+{
+  "title": "Collapsible",
+  "description": "부드러운 애니메이션으로 펼치고 접을 수 있는 단일 디스클로저 패널입니다. 제어 및 비제어 모드를 모두 지원합니다.",
+  "sections": {
+    "default": {
+      "title": "기본",
+      "texts": ["기본 접기 패널은 닫힌 상태로 시작하며, 트리거를 클릭하면 콘텐츠가 나타납니다."]
+    },
+    "default-open": {
+      "title": "기본 펼침",
+      "texts": ["defaultOpen을 설정하면 패널이 펼쳐진 상태로 시작합니다."]
+    },
+    "controlled": {
+      "title": "제어 모드",
+      "texts": ["open과 onOpenChange를 전달하여 외부 상태에서 패널을 제어합니다."]
+    },
+    "nested": {
+      "title": "중첩",
+      "texts": ["접기 패널을 중첩하여 계층적 디스클로저 패턴을 만들 수 있습니다."]
+    },
+    "vs-accordion": {
+      "title": "Collapsible vs Accordion",
+      "texts": ["단독 디스클로저 패널에는 Collapsible을 사용합니다. 여러 관련 섹션에서 하나를 펼치면 다른 것이 접히도록 하려면 Accordion을 사용합니다."]
+    },
+    "api-reference": {
+      "title": "API 레퍼런스"
+    }
+  },
+  "props": {
+    "label": "트리거 버튼에 표시되는 레이블.",
+    "open": "제어 모드의 열림 상태.",
+    "onOpenChange": "열림 상태가 변경될 때 호출됩니다.",
+    "defaultOpen": "비제어 모드의 초기 열림 상태.",
+    "children": "패널이 열렸을 때 나타나는 콘텐츠.",
+    "className": "추가 CSS 클래스명."
+  }
+}
