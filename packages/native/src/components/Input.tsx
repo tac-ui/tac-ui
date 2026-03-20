@@ -8,7 +8,7 @@ export type InputSize = 'sm' | 'md' | 'lg';
 
 export interface InputProps extends TextInputProps {
   /** Controls the height and font size of the input element. */
-  inputSize?: InputSize;
+  size?: InputSize;
   label?: string;
   helperText?: string;
   error?: boolean;
@@ -59,7 +59,7 @@ export const Input = forwardRef<TextInput, InputProps>(
       containerStyle,
       style,
       editable = true,
-      inputSize = 'md',
+      size: sizeProp = 'md',
       onFocus: onFocusProp,
       onBlur: onBlurProp,
       ...props
@@ -69,7 +69,7 @@ export const Input = forwardRef<TextInput, InputProps>(
     const { theme } = useTacNativeTheme();
     const disabled = editable === false;
     const [focused, setFocused] = useState(false);
-    const size = sizeConfig[inputSize];
+    const size = sizeConfig[sizeProp];
 
     const borderColor = error ? theme.colors.error : focused ? theme.colors.ring : theme.colors.inputBorderRest;
 

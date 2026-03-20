@@ -8,7 +8,7 @@ export type TextareaSize = 'sm' | 'md' | 'lg';
 
 export interface TextareaProps extends TextInputProps {
   /** Controls the padding and font size of the textarea element. */
-  textareaSize?: TextareaSize;
+  size?: TextareaSize;
   label?: string;
   helperText?: string;
   error?: boolean;
@@ -52,7 +52,7 @@ export const Textarea = forwardRef<TextInput, TextareaProps>(
       errorMessage,
       containerStyle,
       rows = 4,
-      textareaSize = 'md',
+      size: sizeProp = 'md',
       style,
       editable = true,
       onFocus: onFocusProp,
@@ -63,7 +63,7 @@ export const Textarea = forwardRef<TextInput, TextareaProps>(
   ) => {
     const { theme } = useTacNativeTheme();
     const disabled = editable === false;
-    const size = sizeConfig[textareaSize];
+    const size = sizeConfig[sizeProp];
     const minHeight = Math.max(size.minHeight, rows * 20 + size.paddingVertical * 2);
     const [focused, setFocused] = useState(false);
 

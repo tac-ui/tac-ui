@@ -39,7 +39,7 @@ export default function NativeInputPage() {
         </DocText>
         <NativePlayground
           controls={{
-            inputSize: {
+            size: {
               type: 'select',
               label: 'Size',
               options: ['sm', 'md', 'lg'],
@@ -63,7 +63,7 @@ export default function NativeInputPage() {
           }}
           render={(values) => (
             <Input
-              inputSize={values.inputSize as 'sm' | 'md' | 'lg'}
+              size={values.size as 'sm' | 'md' | 'lg'}
               placeholder={values.placeholder as string}
               editable={!(values.disabled as boolean)}
               error={values.error as boolean}
@@ -71,7 +71,7 @@ export default function NativeInputPage() {
             />
           )}
           code={(values) =>
-            `<Input${values.inputSize !== 'md' ? ` inputSize="${values.inputSize}"` : ''} placeholder="${values.placeholder}"${values.disabled ? ' editable={false}' : ''}${values.error ? ' error errorMessage="This field has an error."' : ''} />`
+            `<Input${values.size !== 'md' ? ` size="${values.size}"` : ''} placeholder="${values.placeholder}"${values.disabled ? ' editable={false}' : ''}${values.error ? ' error errorMessage="This field has an error."' : ''} />`
           }
         />
       </DocSection>
@@ -81,13 +81,13 @@ export default function NativeInputPage() {
           {pt?.sections?.['sizes']?.texts?.[0] ?? 'Three size options control the height and font size of the input.'}
         </DocText>
         <NativeShowcase
-          code={`<Input inputSize="sm" placeholder="Small" />
-<Input inputSize="md" placeholder="Medium (default)" />
-<Input inputSize="lg" placeholder="Large" />`}
+          code={`<Input size="sm" placeholder="Small" />
+<Input size="md" placeholder="Medium (default)" />
+<Input size="lg" placeholder="Large" />`}
         >
-          <Input inputSize="sm" placeholder="Small" />
-          <Input inputSize="md" placeholder="Medium (default)" />
-          <Input inputSize="lg" placeholder="Large" />
+          <Input size="sm" placeholder="Small" />
+          <Input size="md" placeholder="Medium (default)" />
+          <Input size="lg" placeholder="Large" />
         </NativeShowcase>
       </DocSection>
 
@@ -153,10 +153,10 @@ export default function NativeInputPage() {
         <PropsTable
           data={[
             {
-              name: 'inputSize',
+              name: 'size',
               type: '"sm" | "md" | "lg"',
               default: '"md"',
-              description: pt?.props?.['inputSize'] ?? 'Controls the height and font size of the input.',
+              description: pt?.props?.['size'] ?? 'Controls the height and font size of the input.',
             },
             {
               name: 'label',

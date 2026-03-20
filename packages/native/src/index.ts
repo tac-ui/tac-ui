@@ -45,8 +45,8 @@ export { Switch, type SwitchProps } from './components/Switch';
 export { Toggle, type ToggleProps, AnimatedToggle, type AnimatedToggleProps } from './components/AnimatedToggle';
 
 // Components — Phase 2
-export { Input, type InputProps } from './components/Input';
-export { Textarea, type TextareaProps } from './components/Textarea';
+export { Input, type InputProps, type InputSize } from './components/Input';
+export { Textarea, type TextareaProps, type TextareaSize } from './components/Textarea';
 export {
   Tabs,
   TabsList,

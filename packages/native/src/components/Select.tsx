@@ -46,7 +46,7 @@ export interface SelectProps {
   /** Placeholder shown when no value is selected. */
   placeholder?: string;
   /** Controls the height and font size of the trigger. */
-  selectSize?: SelectSize;
+  size?: SelectSize;
   /** When true, the trigger is not pressable. */
   disabled?: boolean;
   /** Optional style applied to the outer container. */
@@ -72,7 +72,7 @@ export const Select = forwardRef<View, SelectProps>(
       error = false,
       errorMessage,
       placeholder = 'Select an option',
-      selectSize = 'md',
+      size: sizeProp = 'md',
       disabled = false,
       style,
     },
@@ -85,7 +85,7 @@ export const Select = forwardRef<View, SelectProps>(
     const dropdownScale = useRef(new Animated.Value(0.95)).current;
     const dropdownOpacity = useRef(new Animated.Value(0)).current;
 
-    const size = sizeConfig[selectSize];
+    const size = sizeConfig[sizeProp];
     const selectedOption = options.find((o) => o.value === value);
     const shadow = nativeShadows[theme.mode].m;
 
