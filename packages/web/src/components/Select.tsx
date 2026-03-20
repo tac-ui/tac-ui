@@ -33,7 +33,7 @@ export interface SelectProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   /** Placeholder option shown when no value is selected. */
   placeholder?: string;
   /** Controls the height and font size of the select element. */
-  selectSize?: SelectSize;
+  size?: SelectSize;
   /** Currently selected value. */
   value?: string;
   /** Called when an option is selected. */
@@ -45,9 +45,9 @@ export interface SelectProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
 }
 
 const sizeClasses = {
-  sm: 'h-8 text-xs pl-3',
-  md: 'h-10 text-sm pl-4',
-  lg: 'h-12 text-base pl-4',
+  sm: 'h-[var(--input-sm-height)] text-[length:var(--input-sm-font-size)] px-[var(--input-sm-px)] rounded-[var(--input-sm-radius)]',
+  md: 'h-[var(--input-md-height)] text-[length:var(--input-md-font-size)] px-[var(--input-md-px)] rounded-[var(--input-md-radius)]',
+  lg: 'h-[var(--input-lg-height)] text-[length:var(--input-lg-font-size)] px-[var(--input-lg-px)] rounded-[var(--input-lg-radius)]',
 };
 
 export const Select = forwardRef<HTMLDivElement, SelectProps>(
@@ -60,7 +60,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
       errorMessage,
       options,
       placeholder,
-      selectSize = 'md',
+      size = 'md',
       id,
       value,
       onChange,
@@ -165,13 +165,13 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
             disabled={disabled}
             style={{ transition: inputTransition }}
             className={cn(
-              'w-full appearance-none font-[var(--font-primary)] bg-[var(--input-bg)] border-[0.5px] border-solid rounded-[var(--input-radius)] outline-none text-[var(--foreground)] pr-10 cursor-pointer text-left truncate',
+              'w-full appearance-none font-[var(--font-primary)] bg-[var(--input-bg)] border-[0.5px] border-solid outline-none text-[var(--foreground)] pr-10 cursor-pointer text-left truncate',
               'border-[var(--input-border-rest)]',
               'hover:border-[var(--input-border-hover)]',
               'focus:border-[var(--point)] focus:shadow-[var(--input-focus-glow)]',
               error && 'border-[var(--error)] focus:border-[var(--point)]',
               !selectedOption && 'text-[var(--muted-foreground)]',
-              sizeClasses[selectSize],
+              sizeClasses[size],
               className,
             )}
           >

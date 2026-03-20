@@ -1,10 +1,22 @@
-import React, { forwardRef, useEffect, useCallback, useRef, useId } from 'react';
+import React, { forwardRef, useEffect, useCallback, useRef, useId, createContext, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { useFocusTrap, useFocusRestore } from '../hooks/useAccessibility';
 import { tacSpring, EXIT_DURATION, OVERLAY_DURATION } from '../constants/motion';
 import { mergeRefs } from '../utils/mergeRefs';
 import type { MotionConflictingHandlers } from '../constants/types';
+
+const DialogContext = createContext<{ titleId?: string }>({});
+
+/** Size variant of the Dialog component. */
+export type DialogSize = 'sm' | 'md' | 'lg' | 'xl';
+
+const dialogSizeClasses: Record<DialogSize, string> = {
+  sm: 'w-[280px]',
+  md: 'w-[var(--dialog-width)]',
+  lg: 'w-[480px]',
+  xl: 'w-[560px]',
+};
 
 /**
  * Modal dialog with a fixed-width layout, backdrop, and keyboard (Escape) dismissal.
@@ -21,10 +33,12 @@ export interface DialogProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   layoutId?: string;
   /** When false, the dark backdrop overlay is hidden. @default true */
   backdrop?: boolean;
+  /** Controls the width of the dialog panel. @default 'md' */
+  size?: DialogSize;
 }
 
 export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
-  ({ className, open, onClose, layoutId, backdrop = true, children, ...props }, ref) => {
+  ({ className, open, onClose, layoutId, backdrop = true, size = 'md', children, ...props }, ref) => {
     const panelRef = useRef<HTMLDivElement>(null);
     const titleId = useId();
 
@@ -76,13 +90,16 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
               aria-modal="true"
               aria-labelledby={titleId}
               className={cn(
-                'w-[var(--dialog-width)] max-w-[90vw] [backdrop-filter:blur(24px)_saturate(180%)] bg-[var(--background)] border-[0.5px] border-solid border-[var(--input-border-rest)] rounded-[var(--dialog-radius)] [box-shadow:var(--glass-inset),var(--glass-panel-shadow)] overflow-hidden',
+                'max-w-[90vw] [backdrop-filter:blur(24px)_saturate(180%)] bg-[var(--background)] border-[0.5px] border-solid border-[var(--input-border-rest)] rounded-[var(--dialog-radius)] [box-shadow:var(--glass-inset),var(--glass-panel-shadow)] overflow-hidden',
+                dialogSizeClasses[size],
                 className,
               )}
               onClick={(e) => e.stopPropagation()}
               {...props}
             >
-              {children}
+              <DialogContext.Provider value={{ titleId }}>
+                {children}
+              </DialogContext.Provider>
             </motion.div>
           </motion.div>
         )}
@@ -93,16 +110,20 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
 Dialog.displayName = 'Dialog';
 
 export const DialogTitle = forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
-  ({ className, ...props }, ref) => (
-    <h3
-      ref={ref}
-      className={cn(
-        'text-[length:var(--dialog-title-size)] font-semibold text-[var(--foreground)] tracking-tight text-center',
-        className,
-      )}
-      {...props}
-    />
-  ),
+  ({ className, id: idProp, ...props }, ref) => {
+    const { titleId } = useContext(DialogContext);
+    return (
+      <h3
+        ref={ref}
+        id={idProp || titleId}
+        className={cn(
+          'text-[length:var(--dialog-title-size)] font-semibold text-[var(--foreground)] tracking-tight text-center',
+          className,
+        )}
+        {...props}
+      />
+    );
+  },
 );
 DialogTitle.displayName = 'DialogTitle';
 

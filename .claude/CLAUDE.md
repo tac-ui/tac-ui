@@ -52,8 +52,8 @@ tac-ui/                     # Monorepo root
 │   │       └── TacLogo.tsx
 │   ├── web/                    # @tac-ui/web — React web component library
 │   │   └── src/
-│   │       ├── components/     # 39+ components (Button, Input, Modal, Chart, etc.)
-│   │       ├── hooks/          # Accessibility hooks (useFocusTrap, useRovingIndex)
+│   │       ├── components/     # 42+ components (Button, Input, Modal, Chart, etc.)
+│   │       ├── hooks/          # Accessibility & utility hooks (useFocusTrap, useRovingIndex, useReducedMotion)
 │   │       ├── provider/       # ThemeProvider (TacProvider)
 │   │       ├── tailwind/       # Tailwind preset
 │   │       └── utils/          # cn() utility (clsx + tailwind-merge)
@@ -80,7 +80,7 @@ Workspaces managed by pnpm with Turborepo orchestration.
 | `packages/tokens` | `@tac-ui/tokens` | Design tokens (exports web + native) |
 | `packages/icon` | `@tac-ui/icon` | Web icon package (lucide-react + TacLogo) |
 | `packages/icon-native` | `@tac-ui/icon-native` | Native icon package (lucide-react-native + TacLogo) |
-| `packages/web` | `@tac-ui/web` | React web component library (39 components) |
+| `packages/web` | `@tac-ui/web` | React web component library (42+ components) |
 | `packages/native` | `@tac-ui/native` | React Native component library (20 components) |
 | `apps/docs` | `docs` | Documentation site (Next.js, port 3001) |
 

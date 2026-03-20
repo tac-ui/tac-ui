@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/tac-ui/tac-ui/main/apps/docs/public/tac-logo.svg" width="64" height="64" alt="Tac UI 로고" />
+  <img src="./apps/docs/public/logo.svg" width="64" height="64" alt="Tac UI 로고" />
 </p>
 
 <h1 align="center">Tac UI</h1>

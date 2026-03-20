@@ -4,6 +4,8 @@ import { cn } from '../utils/cn';
 import { tacSpring, EASING, DURATION } from '../constants/motion';
 import { focusRing } from '../constants/styles';
 
+export type SwitchSize = 'sm' | 'md';
+
 /** Props for the Switch component, a toggle control that supports controlled and uncontrolled usage. */
 export interface SwitchProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'> {
   /** The controlled checked state. */
@@ -14,19 +16,36 @@ export interface SwitchProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
   onChange?: (checked: boolean) => void;
   /** Label text displayed next to the switch. */
   label?: string;
+  /** Size variant of the switch. @default 'md' */
+  size?: SwitchSize;
 }
 
 // Pixel values sourced from packages/tokens/src/component.ts switch tokens:
 // thumbTranslateOff: 2, thumbTranslateOn: 22
 // Framer Motion cannot animate CSS custom properties, so we use literals.
-const THUMB_X_OFF = 2;
-const THUMB_X_ON = 22;
+const switchSizes = {
+  sm: {
+    track: 'w-[34px] h-[20px]',
+    thumb: 'w-[16px] h-[16px]',
+    thumbXOff: 2,
+    thumbXOn: 16,
+    thumbTop: 'calc(50% - 8px)',
+  },
+  md: {
+    track: 'w-[var(--switch-width)] h-[var(--switch-height)]',
+    thumb: 'w-[var(--switch-thumb-size)] h-[var(--switch-thumb-size)]',
+    thumbXOff: 2,
+    thumbXOn: 22,
+    thumbTop: 'calc(50% - var(--switch-thumb-size) / 2)',
+  },
+};
 
 export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
-  ({ className, checked: controlledChecked, defaultChecked = false, onChange, label, disabled, ...props }, ref) => {
+  ({ className, checked: controlledChecked, defaultChecked = false, onChange, label, size = 'md', disabled, ...props }, ref) => {
     const [internalChecked, setInternalChecked] = useState(defaultChecked);
     const isControlled = controlledChecked !== undefined;
     const checked = isControlled ? controlledChecked : internalChecked;
+    const sizeConfig = switchSizes[size];
 
     const handleClick = useCallback(() => {
       if (disabled) return;
@@ -47,7 +66,8 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
           transition: `background-color ${DURATION.moderate} ${EASING}, box-shadow ${DURATION.moderate} ${EASING}`,
         }}
         className={cn(
-          'relative w-[var(--switch-width)] h-[var(--switch-height)] rounded-[var(--radius-pill)] cursor-pointer',
+          'relative rounded-[var(--radius-pill)] cursor-pointer',
+          sizeConfig.track,
           focusRing,
           checked ? 'bg-[var(--point)]' : 'bg-[var(--muted-foreground)]/25',
           disabled && 'opacity-40 cursor-not-allowed saturate-0',
@@ -57,9 +77,12 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         {...props}
       >
         <motion.span
-          className="absolute left-0 w-[var(--switch-thumb-size)] h-[var(--switch-thumb-size)] rounded-full bg-[var(--background)] shadow-[var(--shadow-sm)] pointer-events-none"
-          style={{ top: 'calc(50% - var(--switch-thumb-size) / 2)' }}
-          animate={{ x: checked ? THUMB_X_ON : THUMB_X_OFF, scale: 1 }}
+          className={cn(
+            'absolute left-0 rounded-full bg-[var(--background)] shadow-[var(--shadow-sm)] pointer-events-none',
+            sizeConfig.thumb,
+          )}
+          style={{ top: sizeConfig.thumbTop }}
+          animate={{ x: checked ? sizeConfig.thumbXOn : sizeConfig.thumbXOff, scale: 1 }}
           transition={tacSpring.magnetic}
         />
       </button>

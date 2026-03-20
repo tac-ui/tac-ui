@@ -59,17 +59,27 @@ export interface ButtonProps
   leftIcon?: React.ReactNode;
   /** Icon rendered to the right of the button label. */
   rightIcon?: React.ReactNode;
+  /** When true, shows a loading spinner and disables the button. */
+  loading?: boolean;
 }
 
+const Spinner = ({ className }: { className?: string }) => (
+  <svg className={cn('animate-spin', className)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+  </svg>
+);
+
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, iconOnly, leftIcon, rightIcon, children, disabled, ...props }, ref) => {
+  ({ className, variant, size, iconOnly, leftIcon, rightIcon, loading, children, disabled, ...props }, ref) => {
+    const isDisabled = disabled || loading;
     const isGhost = variant === 'ghost';
     // Small buttons feel snappy; medium/large feel controlled and weighty
     const spring = tacSpring.light;
 
     const whileHoverProps = {};
 
-    const whileTapProps = disabled
+    const whileTapProps = isDisabled
       ? {}
       : isGhost
         ? { scale: 0.99, transition: spring }
@@ -82,13 +92,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         style={{
           transition: `color ${DURATION.normal} ${EASING}, background-color ${DURATION.normal} ${EASING}, border-color ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}`,
         }}
-        disabled={disabled}
+        disabled={isDisabled}
         whileHover={whileHoverProps}
         whileTap={whileTapProps}
         transition={spring}
         {...(props as React.ComponentPropsWithoutRef<typeof motion.button>)}
       >
-        {leftIcon && <span className="shrink-0 [&>svg]:w-5 [&>svg]:h-5">{leftIcon}</span>}
+        {leftIcon && !loading && <span className="shrink-0 [&>svg]:w-5 [&>svg]:h-5">{leftIcon}</span>}
+        {loading && <span className="shrink-0 [&>svg]:w-5 [&>svg]:h-5"><Spinner /></span>}
         {children}
         {rightIcon && <span className="shrink-0 [&>svg]:w-5 [&>svg]:h-5">{rightIcon}</span>}
       </motion.button>

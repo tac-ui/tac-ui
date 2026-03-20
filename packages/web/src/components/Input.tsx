@@ -6,9 +6,9 @@ import { inputTransition } from '../constants/styles';
 export type InputSize = 'sm' | 'md' | 'lg';
 
 /** Props for the Input component, a styled text input with optional label, icons, and error state. */
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   /** Controls the height and font size of the input element. */
-  inputSize?: InputSize;
+  size?: InputSize;
   /** Label text displayed above the input. */
   label?: string;
   /** Helper text displayed below the input when there is no error. */
@@ -59,7 +59,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       leftIcon,
       rightIcon,
       rightButton,
-      inputSize = 'md',
+      size = 'md',
       id,
       ...props
     },
@@ -81,7 +81,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <span
               className={cn(
                 'absolute left-3 z-20 flex items-center text-[var(--muted-foreground)] pointer-events-none',
-                iconSizeClasses[inputSize],
+                iconSizeClasses[size],
               )}
             >
               {leftIcon}
@@ -95,16 +95,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             style={{ transition: inputTransition }}
             className={cn(
               'peer relative z-10 w-full font-[var(--font-primary)] text-[var(--foreground)] bg-[var(--input-bg)] border-[0.5px] border-solid outline-none',
-              sizeClasses[inputSize],
+              sizeClasses[size],
               'placeholder:text-[var(--muted-foreground)]',
               'border-[var(--input-border-rest)]',
               'hover:border-[var(--input-border-hover)]',
               'focus:border-[var(--point)] focus:shadow-[var(--input-focus-glow)]',
               error && 'border-[var(--error)] focus:border-[var(--point)]',
               'disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
-              leftIcon && iconLeftPadding[inputSize],
-              rightIcon && iconRightPadding[inputSize],
-              rightButton && buttonRightPadding[inputSize],
+              leftIcon && iconLeftPadding[size],
+              rightIcon && iconRightPadding[size],
+              rightButton && buttonRightPadding[size],
               className,
             )}
             {...props}
@@ -113,7 +113,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <div
               className={cn(
                 'absolute right-3 z-20 flex items-center text-[var(--muted-foreground)]',
-                iconSizeClasses[inputSize],
+                iconSizeClasses[size],
               )}
             >
               {rightIcon}

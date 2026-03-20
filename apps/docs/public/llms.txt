@@ -1,6 +1,6 @@
 # Tac UI
 
-> Cross-platform design system — 47+ React web components, 27 React Native components, design tokens, and icons.
+> Cross-platform design system — 50+ React web components, 27 React Native components, design tokens, and icons.
 
 ## Packages
 
@@ -54,6 +54,7 @@ import { cn } from '@tac-ui/web';
 <Button variant="primary" size="md">Click</Button>
 <Button variant="point" leftIcon={<Star size={16} />}>Favorite</Button>
 <Button variant="outline" size="sm" iconOnly><Search size={16} /></Button>
+<Button loading>Saving...</Button>
 ```
 
 | Prop | Type | Default |
@@ -63,6 +64,7 @@ import { cn } from '@tac-ui/web';
 | iconOnly | `boolean` | `false` |
 | leftIcon / rightIcon | `ReactNode` | - |
 | disabled | `boolean` | `false` |
+| loading | `boolean` | `false` |
 
 #### Input
 
@@ -109,7 +111,7 @@ import { cn } from '@tac-ui/web';
 | options | `{ value: string; label: string; disabled?: boolean }[]` | `[]` |
 | value | `string` | - |
 | onChange | `(value: string) => void` | - |
-| selectSize | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| size | `'sm' \| 'md' \| 'lg'` | `'md'` |
 
 #### Combobox
 
@@ -126,6 +128,7 @@ import { cn } from '@tac-ui/web';
 |------|------|---------|
 | options | `{ value: string; label: string; disabled?: boolean }[]` | `[]` |
 | emptyText | `string` | `'No results found'` |
+| size | `'sm' \| 'md' \| 'lg'` | `'md'` |
 
 #### Card
 
@@ -203,7 +206,12 @@ Sub-components: `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `Ca
 
 ```tsx
 <Switch label="Dark Mode" checked={on} onChange={setOn} />
+<Switch label="Notifications" size="sm" checked={on} onChange={setOn} />
 ```
+
+| Prop | Type | Default |
+|------|------|---------|
+| size | `'sm' \| 'md'` | `'md'` |
 
 #### AnimatedToggle
 
@@ -357,7 +365,12 @@ States: `masked` → click/Enter/Space to reveal, `revealed` → Escape to re-ma
     <Button onClick={handleConfirm}>Confirm</Button>
   </DialogFooter>
 </Dialog>
+<Dialog open={open} onClose={() => setOpen(false)} size="lg">...</Dialog>
 ```
+
+| Prop | Type | Default |
+|------|------|---------|
+| size | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` |
 
 #### Modal
 
@@ -469,6 +482,8 @@ Sub-components: `DropdownTitle`, `DropdownDivider`, `DropdownItem`, `DropdownSea
 |------|------|---------|
 | placement | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` |
 | delay | `number` (ms) | `200` |
+
+Renders via portal. Automatically flips placement when near viewport edges (collision detection).
 
 #### Link
 
@@ -628,7 +643,14 @@ Bar color changes by fill level: green (<60%), yellow (60–80%), red (>80%).
 ```tsx
 <Indicator variant="success" animated />
 <Indicator variant="error" size="lg" />
+<Indicator variant="warning" visible={hasAlerts} />
 ```
+
+| Prop | Type | Default |
+|------|------|---------|
+| visible | `boolean` | `true` |
+
+Supports enter/exit animation when `visible` changes.
 
 #### CodeBlock
 
@@ -692,6 +714,67 @@ Bar color changes by fill level: green (<60%), yellow (60–80%), red (>80%).
 | Prop (GridItem) | Type | Default |
 |------|------|---------|
 | span | `number` | - |
+
+#### StatusDot
+
+```tsx
+<StatusDot status="online" />
+<StatusDot status="busy" size="lg" pulse />
+<StatusDot status="offline" size="sm" />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| status | `'online' \| 'offline' \| 'busy' \| 'away' \| 'error'` | - |
+| size | `'sm' \| 'md' \| 'lg'` | `'md'` |
+| pulse | `boolean` | `false` |
+
+#### CopyButton
+
+```tsx
+<CopyButton value="npm install @tac-ui/web" />
+<CopyButton value={apiKey} label="Copy key" variant="outline" size="sm" />
+```
+
+| Prop | Type | Default |
+|------|------|---------|
+| value | `string` | - |
+| label | `string` | - |
+| variant | `'primary' \| 'secondary' \| 'outline' \| 'ghost'` | `'ghost'` |
+| size | `'sm' \| 'md' \| 'lg'` | `'md'` |
+
+#### ConfirmProvider & useConfirm
+
+Promise-based confirm dialog. Wrap your app with `ConfirmProvider` and call `useConfirm()` to trigger dialogs imperatively.
+
+```tsx
+// App root
+<ConfirmProvider>
+  <App />
+</ConfirmProvider>
+
+// Usage in components
+const confirm = useConfirm();
+
+const handleDelete = async () => {
+  const ok = await confirm({
+    title: 'Delete item?',
+    description: 'This action cannot be undone.',
+    confirmLabel: 'Delete',
+    cancelLabel: 'Cancel',
+    variant: 'destructive',
+  });
+  if (ok) deleteItem();
+};
+```
+
+| ConfirmOptions | Type | Default |
+|------|------|---------|
+| title | `string` | - |
+| description | `string` | - |
+| confirmLabel | `string` | `'Confirm'` |
+| cancelLabel | `string` | `'Cancel'` |
+| variant | `'default' \| 'destructive'` | `'default'` |
 
 ### Charts
 

@@ -5,6 +5,15 @@ import { inputTransition } from '../constants/styles';
 import { useRovingIndex } from '../hooks/useAccessibility';
 import { dropdownMotionVariants, tacSpring, EASING, DURATION } from '../constants/motion';
 
+/** Size variant of the Combobox component. */
+export type ComboboxSize = 'sm' | 'md' | 'lg';
+
+const sizeClasses: Record<ComboboxSize, string> = {
+  sm: 'h-[var(--input-sm-height)] px-[var(--input-sm-px)] text-[length:var(--input-sm-font-size)] rounded-[var(--input-sm-radius)]',
+  md: 'h-[var(--input-md-height)] px-[var(--input-md-px)] text-[length:var(--input-md-font-size)] rounded-[var(--input-md-radius)]',
+  lg: 'h-[var(--input-lg-height)] px-[var(--input-lg-px)] text-[length:var(--input-lg-font-size)] rounded-[var(--input-lg-radius)]',
+};
+
 /** A single selectable option in the Combobox dropdown. */
 export interface ComboboxOption {
   /** The value submitted when this option is selected. */
@@ -16,7 +25,7 @@ export interface ComboboxOption {
 }
 
 /** Props for the Combobox component, a searchable select input with a filterable dropdown. */
-export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {
+export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value' | 'size'> {
   /** Available options to filter and select from. */
   options: ComboboxOption[];
   /** Currently selected value. */
@@ -27,6 +36,8 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   placeholder?: string;
   /** Text shown when no options match the filter. @default 'No results found' */
   emptyText?: string;
+  /** Controls the height and font size. @default 'md' */
+  size?: ComboboxSize;
 }
 
 /**
@@ -43,7 +54,7 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
  */
 
 export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
-  ({ className, options, value, onChange, placeholder, emptyText = 'No results found', id, ...props }, ref) => {
+  ({ className, options, value, onChange, placeholder, emptyText = 'No results found', size = 'md', id, ...props }, ref) => {
     const generatedId = useId();
     const inputId = id ?? generatedId;
     const listboxId = `${inputId}-listbox`;
@@ -143,10 +154,11 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
             onKeyDown={handleInputKeyDown}
             style={{ transition: inputTransition }}
             className={cn(
-              'w-full h-[var(--input-md-height)] px-[var(--input-md-px)] pr-9',
-              'text-[length:var(--input-md-font-size)] font-[var(--font-primary)] text-[var(--foreground)]',
+              'w-full pr-9',
+              sizeClasses[size],
+              'font-[var(--font-primary)] text-[var(--foreground)]',
               'bg-[var(--input-bg)] border-[0.5px] border-solid',
-              'rounded-[var(--input-md-radius)] outline-none',
+              'outline-none',
               'placeholder:text-[var(--muted-foreground)]',
               'border-[var(--input-border-rest)]',
               'hover:border-[var(--input-border-hover)]',

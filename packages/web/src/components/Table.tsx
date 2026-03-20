@@ -5,7 +5,7 @@ import { EASING, DURATION } from '../constants/motion';
 /** Responsive table wrapper with horizontal scroll overflow. */
 export const Table = forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
   ({ className, ...props }, ref) => (
-    <div className="w-full overflow-auto">
+    <div className="w-full overflow-x-auto overflow-y-visible">
       <table ref={ref} className={cn('w-full caption-bottom text-sm border-collapse', className)} {...props} />
     </div>
   ),

@@ -19,7 +19,7 @@ export { Select } from './components/Select';
 export type { SelectProps, SelectOption, SelectSize } from './components/Select';
 
 export { Combobox } from './components/Combobox';
-export type { ComboboxProps, ComboboxOption } from './components/Combobox';
+export type { ComboboxProps, ComboboxOption, ComboboxSize } from './components/Combobox';
 
 export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, cardVariants } from './components/Card';
 export type { CardProps, CardVariant } from './components/Card';
@@ -37,7 +37,7 @@ export { RadioGroup, Radio } from './components/Radio';
 export type { RadioGroupProps, RadioProps } from './components/Radio';
 
 export { Switch } from './components/Switch';
-export type { SwitchProps } from './components/Switch';
+export type { SwitchProps, SwitchSize } from './components/Switch';
 
 export { Toggle, AnimatedToggle } from './components/AnimatedToggle';
 export type { ToggleProps, AnimatedToggleProps } from './components/AnimatedToggle';
@@ -46,7 +46,7 @@ export { Tabs, TabsList, TabTrigger, TabContent } from './components/Tabs';
 export type { TabsProps, TabTriggerProps, TabContentProps, TabVariant } from './components/Tabs';
 
 export { Dialog, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from './components/Dialog';
-export type { DialogProps } from './components/Dialog';
+export type { DialogProps, DialogSize } from './components/Dialog';
 
 export { Modal, ModalHeader, ModalIcon, ModalTitle, ModalDescription, ModalFooter } from './components/Modal';
 export type { ModalProps, ModalSize } from './components/Modal';
@@ -264,9 +264,19 @@ export type { CollapsibleProps } from './components/Collapsible';
 export { Meter } from './components/Meter';
 export type { MeterProps } from './components/Meter';
 
+export { StatusDot } from './components/StatusDot';
+export type { StatusDotProps, StatusDotStatus, StatusDotSize } from './components/StatusDot';
+
+export { CopyButton } from './components/CopyButton';
+export type { CopyButtonProps } from './components/CopyButton';
+
+export { ConfirmProvider, useConfirm } from './components/ConfirmDialog';
+export type { ConfirmOptions, ConfirmProviderProps } from './components/ConfirmDialog';
+
 // Hooks
 export { useFocusTrap, useFocusRestore, useRovingIndex } from './hooks/useAccessibility';
 export { useSpotlight } from './hooks/useSpotlight';
+export { useReducedMotion } from './hooks/useReducedMotion';
 
 // Motion
 export {
