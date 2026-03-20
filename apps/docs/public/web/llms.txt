@@ -95,7 +95,7 @@ import { Mail } from '@tac-ui/icon';
 **Props:**
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `inputSize` | `'sm' \| 'md' \| 'lg'` | `'md'` | Specifies the height and padding of the input field. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Specifies the height and padding of the input field. |
 | `label` | `string` | `undefined` | Text rendered above the input field. |
 | `helperText` | `string` | `undefined` | Contextual text rendered below the input field. |
 | `error` | `boolean` | `false` | Toggles the error visual styling (usually red borders). |
@@ -126,7 +126,7 @@ import { Textarea } from '@tac-ui/web';
 **Props:**
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
-| `textareaSize` | `'sm' \| 'md' \| 'lg'` | `'md'` | Specifies the base font size and padding. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Specifies the base font size and padding. |
 | `label` | `string` | `undefined` | Text rendered above the textarea. |
 | `helperText` | `string` | `undefined` | Contextual text rendered below the textarea. |
 | `error` | `boolean` | `false` | Toggles error visual styling. |
@@ -168,7 +168,7 @@ const [country, setCountry] = useState('');
 | `value` | `string` | `undefined` | The currently selected value. |
 | `onChange` | `(value: string) => void` | `undefined` | Callback fired when an option is selected. |
 | `placeholder` | `string` | `'Select...'` | Initial text shown when no value is selected. |
-| `selectSize` | `'sm' \| 'md' \| 'lg'` | `'md'` | The size of the trigger button. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | The size of the trigger button. |
 | `error` | `boolean` | `false` | Toggles error visual styling. |
 | `errorMessage` | `string` | `undefined` | Text displayed below when `error` is true. |
 | `disabled` | `boolean` | `false` | Disables the entire select interaction. |
