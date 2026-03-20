@@ -57,7 +57,7 @@ export default function InputPage() {
         <DocText>Interactively configure the Input props below.</DocText>
         <Playground
           controls={{
-            inputSize: {
+            size: {
               type: 'select',
               label: 'Size',
               options: ['sm', 'md', 'lg'],
@@ -82,7 +82,7 @@ export default function InputPage() {
           previewClassName="flex-col items-stretch"
           render={(values) => (
             <Input
-              inputSize={values.inputSize as 'sm' | 'md' | 'lg'}
+              size={values.size as 'sm' | 'md' | 'lg'}
               placeholder={values.placeholder as string}
               disabled={values.disabled as boolean}
               error={values.error as boolean}
@@ -90,7 +90,7 @@ export default function InputPage() {
             />
           )}
           code={(values) =>
-            `<Input${values.inputSize !== 'md' ? ` inputSize="${values.inputSize}"` : ''} placeholder="${values.placeholder}"${values.disabled ? ' disabled' : ''}${values.error ? ' error errorMessage="This field has an error."' : ''} />`
+            `<Input${values.size !== 'md' ? ` size="${values.size}"` : ''} placeholder="${values.placeholder}"${values.disabled ? ' disabled' : ''}${values.error ? ' error errorMessage="This field has an error."' : ''} />`
           }
         />
       </DocSection>
@@ -102,13 +102,13 @@ export default function InputPage() {
         </DocText>
         <Showcase
           className="flex-col items-stretch"
-          code={`<Input inputSize="sm" placeholder="Small" />
-<Input inputSize="md" placeholder="Medium (default)" />
-<Input inputSize="lg" placeholder="Large" />`}
+          code={`<Input size="sm" placeholder="Small" />
+<Input size="md" placeholder="Medium (default)" />
+<Input size="lg" placeholder="Large" />`}
         >
-          <Input inputSize="sm" placeholder="Small" />
-          <Input inputSize="md" placeholder="Medium (default)" />
-          <Input inputSize="lg" placeholder="Large" />
+          <Input size="sm" placeholder="Small" />
+          <Input size="md" placeholder="Medium (default)" />
+          <Input size="lg" placeholder="Large" />
         </Showcase>
       </DocSection>
 
@@ -209,10 +209,10 @@ export default function InputPage() {
         <PropsTable
           data={[
             {
-              name: 'inputSize',
+              name: 'size',
               type: '"sm" | "md" | "lg"',
               default: '"md"',
-              description: pt?.props?.['inputSize'] ?? 'Controls the height and font size of the input.',
+              description: pt?.props?.['size'] ?? 'Controls the height and font size of the input.',
             },
             {
               name: 'label',

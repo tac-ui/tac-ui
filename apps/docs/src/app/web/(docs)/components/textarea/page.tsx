@@ -35,7 +35,7 @@ export default function TextareaPage() {
         <DocText>Interactively configure the Textarea props below.</DocText>
         <Playground
           controls={{
-            textareaSize: {
+            size: {
               type: 'select',
               label: 'Size',
               options: ['sm', 'md', 'lg'],
@@ -60,7 +60,7 @@ export default function TextareaPage() {
           previewClassName="flex-col items-stretch"
           render={(values) => (
             <Textarea
-              textareaSize={values.textareaSize as 'sm' | 'md' | 'lg'}
+              size={values.size as 'sm' | 'md' | 'lg'}
               placeholder={values.placeholder as string}
               disabled={values.disabled as boolean}
               error={values.error as boolean}
@@ -68,7 +68,7 @@ export default function TextareaPage() {
             />
           )}
           code={(values) =>
-            `<Textarea${values.textareaSize !== 'md' ? ` textareaSize="${values.textareaSize}"` : ''} placeholder="${values.placeholder}"${values.disabled ? ' disabled' : ''}${values.error ? ' error errorMessage="This field has an error."' : ''} />`
+            `<Textarea${values.size !== 'md' ? ` size="${values.size}"` : ''} placeholder="${values.placeholder}"${values.disabled ? ' disabled' : ''}${values.error ? ' error errorMessage="This field has an error."' : ''} />`
           }
         />
       </DocSection>
@@ -80,13 +80,13 @@ export default function TextareaPage() {
         </DocText>
         <Showcase
           className="flex-col items-stretch"
-          code={`<Textarea textareaSize="sm" placeholder="Small textarea" />
-<Textarea textareaSize="md" placeholder="Medium textarea (default)" />
-<Textarea textareaSize="lg" placeholder="Large textarea" />`}
+          code={`<Textarea size="sm" placeholder="Small textarea" />
+<Textarea size="md" placeholder="Medium textarea (default)" />
+<Textarea size="lg" placeholder="Large textarea" />`}
         >
-          <Textarea textareaSize="sm" placeholder="Small textarea" />
-          <Textarea textareaSize="md" placeholder="Medium textarea (default)" />
-          <Textarea textareaSize="lg" placeholder="Large textarea" />
+          <Textarea size="sm" placeholder="Small textarea" />
+          <Textarea size="md" placeholder="Medium textarea (default)" />
+          <Textarea size="lg" placeholder="Large textarea" />
         </Showcase>
       </DocSection>
 
@@ -158,10 +158,10 @@ export default function TextareaPage() {
         <PropsTable
           data={[
             {
-              name: 'textareaSize',
+              name: 'size',
               type: '"sm" | "md" | "lg"',
               default: '"md"',
-              description: pt?.props?.['textareaSize'] ?? 'Controls the padding, font size, and minimum height.',
+              description: pt?.props?.['size'] ?? 'Controls the padding, font size, and minimum height.',
             },
             {
               name: 'label',

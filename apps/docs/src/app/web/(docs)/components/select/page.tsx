@@ -89,17 +89,17 @@ export default function SelectPage() {
       <DocSection title={pt?.sections?.['sizes']?.title ?? 'Sizes'}>
         <DocText>
           {pt?.sections?.['sizes']?.texts?.[0] ??
-            'Three size variants are available via selectSize: sm (32px), md (40px, default), and lg (48px). Font size scales accordingly.'}
+            'Three size variants are available via size: sm (32px), md (40px, default), and lg (48px). Font size scales accordingly.'}
         </DocText>
         <Showcase
           className="items-start"
-          code={`<Select options={options} label="Small" placeholder="Choose an option" selectSize="sm" />
-<Select options={options} label="Medium" placeholder="Choose an option" selectSize="md" />
-<Select options={options} label="Large" placeholder="Choose an option" selectSize="lg" />`}
+          code={`<Select options={options} label="Small" placeholder="Choose an option" size="sm" />
+<Select options={options} label="Medium" placeholder="Choose an option" size="md" />
+<Select options={options} label="Large" placeholder="Choose an option" size="lg" />`}
         >
-          <Select options={options} label="Small" placeholder="Choose an option" selectSize="sm" />
-          <Select options={options} label="Medium" placeholder="Choose an option" selectSize="md" />
-          <Select options={options} label="Large" placeholder="Choose an option" selectSize="lg" />
+          <Select options={options} label="Small" placeholder="Choose an option" size="sm" />
+          <Select options={options} label="Medium" placeholder="Choose an option" size="md" />
+          <Select options={options} label="Large" placeholder="Choose an option" size="lg" />
         </Showcase>
       </DocSection>
 
@@ -182,10 +182,10 @@ export default function SelectPage() {
                 pt?.props?.['helperText'] ?? 'Helper text displayed below the select when there is no error.',
             },
             {
-              name: 'selectSize',
+              name: 'size',
               type: '"sm" | "md" | "lg"',
               default: '"md"',
-              description: pt?.props?.['selectSize'] ?? 'Visual size of the select element.',
+              description: pt?.props?.['size'] ?? 'Visual size of the select element.',
             },
             {
               name: 'value',

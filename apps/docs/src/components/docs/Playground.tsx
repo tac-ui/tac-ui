@@ -81,7 +81,7 @@ export function Playground({ controls, render, code, previewWrapper, previewClas
                     {def.label}
                   </label>
                   <Select
-                    selectSize="sm"
+                    size="sm"
                     value={values[key] as string}
                     onChange={(v) => setValue(key, v)}
                     options={def.options.map((o) => ({ value: o, label: o }))}
