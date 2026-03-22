@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useCallback, useId, useEffect } from 'react';
+import React, { forwardRef, useState, useCallback, useId } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { tacSpring, EASING, DURATION } from '../constants/motion';
@@ -113,8 +113,7 @@ export const SegmentController = forwardRef<HTMLDivElement, SegmentControllerPro
   );
   const multiValue = isMulti ? ((props as SegmentControllerMultiProps).value ?? multiInternal) : [];
 
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const indicatorLayoutId = `${layoutId}-indicator`;
 
   const handleSingleSelect = useCallback(
     (optionValue: string) => {
@@ -205,8 +204,9 @@ export const SegmentController = forwardRef<HTMLDivElement, SegmentControllerPro
   };
 
   const renderButton = (option: SegmentOption, isActive: boolean, isDisabled: boolean) => (
-    <button
+    <motion.button
       key={option.value}
+      layout="position"
       type="button"
       role={isMulti ? 'checkbox' : 'radio'}
       aria-checked={isActive}
@@ -240,23 +240,18 @@ export const SegmentController = forwardRef<HTMLDivElement, SegmentControllerPro
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.92 }}
               transition={tacSpring.default}
-              className="absolute inset-0 bg-[var(--surface)] rounded-[calc(var(--radius-m)-2px)] shadow-[var(--shadow-sm)]"
+              className="absolute inset-0 bg-[var(--surface-elevated-high)] rounded-[calc(var(--radius-m)-2px)] shadow-[var(--shadow-sm)]"
             />
           )}
         </AnimatePresence>
       ) : (
-        <>
-          {isActive && mounted && (
-            <motion.div
-              layoutId="segment-indicator"
-              className="absolute inset-0 bg-[var(--surface)] rounded-[calc(var(--radius-m)-2px)] shadow-[var(--shadow-sm)]"
-              transition={tacSpring.default}
-            />
-          )}
-          {isActive && !mounted && (
-            <div className="absolute inset-0 bg-[var(--surface)] rounded-[calc(var(--radius-m)-2px)] shadow-[var(--shadow-sm)]" />
-          )}
-        </>
+        isActive && (
+          <motion.div
+            layoutId={indicatorLayoutId}
+            className="absolute inset-0 bg-[var(--surface-elevated-high)] rounded-[calc(var(--radius-m)-2px)] shadow-[var(--shadow-sm)]"
+            transition={tacSpring.default}
+          />
+        )
       )}
 
       {/* Check icon (multi mode only) */}
@@ -279,7 +274,7 @@ export const SegmentController = forwardRef<HTMLDivElement, SegmentControllerPro
 
       {option.icon && <span className="relative z-10 w-4 h-4 [&>svg]:w-4 [&>svg]:h-4">{option.icon}</span>}
       {option.label && <span className="relative z-10">{option.label}</span>}
-    </button>
+    </motion.button>
   );
 
   const container = (
