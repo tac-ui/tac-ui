@@ -1,4 +1,4 @@
-import React, { createContext, forwardRef, useCallback, useContext, useState, useEffect, useId } from 'react';
+import React, { createContext, forwardRef, useCallback, useContext, useMemo, useRef, useState, useId } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { tacSpring, EASING, DURATION } from '../constants/motion';
@@ -11,14 +11,14 @@ interface TabsContextValue {
   value: string;
   onChange: (value: string) => void;
   variant: TabVariant;
-  mounted: boolean;
+  tabsId: string;
 }
 
 const TabsContext = createContext<TabsContextValue>({
   value: '',
   onChange: () => {},
   variant: 'underline',
-  mounted: false,
+  tabsId: '',
 });
 
 /**
@@ -39,7 +39,7 @@ export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
 export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
   ({ value: controlledValue, defaultValue = '', onValueChange, variant = 'underline', className, ...props }, ref) => {
     const [uncontrolled, setUncontrolled] = useState(defaultValue);
-    const [mounted, setMounted] = useState(false);
+    const tabsId = useId();
     const value = controlledValue ?? uncontrolled;
     const onChange = useCallback(
       (v: string) => {
@@ -49,10 +49,13 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
       [onValueChange],
     );
 
-    useEffect(() => setMounted(true), []);
+    const ctx = useMemo(
+      () => ({ value, onChange, variant, tabsId }),
+      [value, onChange, variant, tabsId],
+    );
 
     return (
-      <TabsContext.Provider value={{ value, onChange, variant, mounted }}>
+      <TabsContext.Provider value={ctx}>
         <div ref={ref} className={cn('flex flex-col', className)} {...props} />
       </TabsContext.Provider>
     );
@@ -61,15 +64,51 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
 Tabs.displayName = 'Tabs';
 
 export const TabsList = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, children, ...props }, ref) => {
+  ({ className, children, onKeyDown, ...props }, ref) => {
     const { variant } = useContext(TabsContext);
-    const id = useId();
+    const layoutId = useId();
+    const listRef = useRef<HTMLDivElement>(null);
+
+    const handleKeyDown = useCallback(
+      (e: React.KeyboardEvent<HTMLDivElement>) => {
+        onKeyDown?.(e);
+        const tabs = Array.from(
+          (listRef.current ?? (ref as React.RefObject<HTMLDivElement>)?.current)?.querySelectorAll<HTMLElement>('[role="tab"]') ?? [],
+        );
+        const current = tabs.indexOf(e.target as HTMLElement);
+        if (current === -1) return;
+
+        let next = current;
+        switch (e.key) {
+          case 'ArrowRight':
+            next = (current + 1) % tabs.length;
+            break;
+          case 'ArrowLeft':
+            next = (current - 1 + tabs.length) % tabs.length;
+            break;
+          case 'Home':
+            next = 0;
+            break;
+          case 'End':
+            next = tabs.length - 1;
+            break;
+          default:
+            return;
+        }
+        e.preventDefault();
+        tabs[next].focus();
+        tabs[next].click();
+      },
+      [onKeyDown, ref],
+    );
 
     return (
-      <LayoutGroup id={id}>
+      <LayoutGroup id={layoutId}>
         <div
-          ref={ref}
+          ref={listRef}
           role="tablist"
+          aria-orientation="horizontal"
+          onKeyDown={handleKeyDown}
           className={cn(
             variant === 'underline' && 'flex gap-1 pb-1 border-b border-solid border-[var(--border)]',
             variant === 'pill' && 'relative inline-flex gap-1 p-1 bg-[var(--muted)] rounded-[var(--radius-m)]',
@@ -88,28 +127,43 @@ export const TabsList = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivE
 );
 TabsList.displayName = 'TabsList';
 
+/** Class names for internal elements of TabTrigger. */
+export interface TabTriggerClassNames {
+  /** The active indicator element (underline bar, pill background, etc.). */
+  indicator?: string;
+  /** The text label wrapper. */
+  label?: string;
+  /** The icon wrapper (icon variant only). */
+  icon?: string;
+}
+
 /** Props for an individual tab trigger button. */
 export interface TabTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** The value this trigger activates; must match a TabContent value. */
   value: string;
   /** Icon element to display (only used with icon variant). */
   icon?: React.ReactNode;
+  /** Custom class names for internal elements. */
+  classNames?: TabTriggerClassNames;
 }
 
 export const TabTrigger = forwardRef<HTMLButtonElement, TabTriggerProps>(
-  ({ value: tabValue, className, children, icon, ...props }, ref) => {
-    const { value, onChange, variant, mounted } = useContext(TabsContext);
+  ({ value: tabValue, className, classNames: slotClassNames, children, icon, onDrag: _onDrag, ...props }, ref) => {
+    const { value, onChange, variant, tabsId } = useContext(TabsContext);
     const active = value === tabValue;
+    const indicatorId = `${tabsId}-indicator`;
 
     if (variant === 'icon') {
       return (
-        <button
+        <motion.button
           ref={ref}
+          layout
           role="tab"
           type="button"
-          id={`tab-${tabValue}`}
+          tabIndex={active ? 0 : -1}
+          id={`${tabsId}-tab-${tabValue}`}
           aria-selected={active}
-          aria-controls={`tabpanel-${tabValue}`}
+          aria-controls={`${tabsId}-tabpanel-${tabValue}`}
           onClick={() => onChange(tabValue)}
           className={cn(
             'relative flex items-center py-2 px-3 rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-[var(--muted-foreground)] transition-colors duration-fast ease-standard',
@@ -117,45 +171,43 @@ export const TabTrigger = forwardRef<HTMLButtonElement, TabTriggerProps>(
             active && 'text-[var(--point-foreground)]',
             className,
           )}
-          {...props}
+          {...(props as React.ComponentProps<typeof motion.button>)}
         >
           {active && (
             <motion.div
-              layoutId="tab-indicator"
-              className="absolute inset-0 bg-[var(--point)] rounded-[var(--radius-m)] shadow-none"
+              layoutId={indicatorId}
+              className={cn('absolute inset-0 bg-[var(--point)] rounded-[var(--radius-m)] shadow-none', slotClassNames?.indicator)}
               transition={tacSpring.default}
             />
           )}
-          {icon && <span className="relative z-10 w-5 h-5 [&>svg]:w-5 [&>svg]:h-5">{icon}</span>}
-          {mounted ? (
-            <AnimatePresence initial={false}>
-              {active && (
-                <motion.span
-                  className="relative z-10 text-[13px] font-semibold overflow-hidden whitespace-nowrap inline-block"
-                  initial={{ width: 0, marginLeft: 0 }}
-                  animate={{ width: 'auto', marginLeft: 8 }}
-                  exit={{ width: 0, marginLeft: 0 }}
-                  transition={tacSpring.default}
-                >
-                  {children}
-                </motion.span>
-              )}
-            </AnimatePresence>
-          ) : active ? (
-            <span className="relative z-10 text-[13px] font-semibold whitespace-nowrap ml-2">{children}</span>
-          ) : null}
-        </button>
+          {icon && <span className={cn('relative z-10 w-5 h-5 [&>svg]:w-5 [&>svg]:h-5', slotClassNames?.icon)}>{icon}</span>}
+          <AnimatePresence initial={false}>
+            {active && (
+              <motion.span
+                className={cn('relative z-10 text-[13px] font-semibold overflow-hidden whitespace-nowrap inline-block', slotClassNames?.label)}
+                initial={{ width: 0, marginLeft: 0 }}
+                animate={{ width: 'auto', marginLeft: 8 }}
+                exit={{ width: 0, marginLeft: 0 }}
+                transition={tacSpring.default}
+              >
+                {children}
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </motion.button>
       );
     }
 
     return (
-      <button
+      <motion.button
         ref={ref}
+        layout="position"
         role="tab"
         type="button"
-        id={`tab-${tabValue}`}
+        tabIndex={active ? 0 : -1}
+        id={`${tabsId}-tab-${tabValue}`}
         aria-selected={active}
-        aria-controls={`tabpanel-${tabValue}`}
+        aria-controls={`${tabsId}-tabpanel-${tabValue}`}
         onClick={() => onChange(tabValue)}
         style={{
           transition: `color ${DURATION.normal} ${EASING}, background-color ${DURATION.normal} ${EASING}, border-color ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}, opacity ${DURATION.normal} ${EASING}`,
@@ -173,46 +225,46 @@ export const TabTrigger = forwardRef<HTMLButtonElement, TabTriggerProps>(
             ),
           variant === 'pill' &&
             cn(
-              'py-2 px-4 text-[13px] font-medium text-[var(--muted-foreground)] bg-transparent border-none rounded-[var(--radius-m)] transition-colors',
+              'py-2 px-4 text-[13px] font-medium text-[var(--muted-foreground)] bg-transparent border-none rounded-[var(--radius-m)]',
               active
                 ? 'text-[var(--point-foreground)] font-semibold opacity-100'
                 : 'opacity-60 hover:text-[var(--foreground)] hover:opacity-100 hover:bg-[var(--interactive-hover)]',
             ),
           variant === 'outline' &&
             cn(
-              'relative py-[6px] px-4 text-[13px] font-medium transition-colors bg-transparent border-none rounded-[calc(var(--radius-m)-2px)]',
+              'relative py-[6px] px-4 text-[13px] font-medium bg-transparent border-none rounded-[calc(var(--radius-m)-2px)]',
               active
                 ? 'text-[var(--point-foreground)]'
                 : 'text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)]',
             ),
           className,
         )}
-        {...props}
+        {...(props as React.ComponentProps<typeof motion.button>)}
       >
         {active && variant === 'underline' && (
           <motion.div
-            layoutId="tab-indicator"
-            className="absolute bottom-[-1px] left-0 right-0 h-[2px] bg-[var(--point)] rounded-full shadow-none"
+            layoutId={indicatorId}
+            className={cn('absolute bottom-[-1px] left-0 right-0 h-[2px] bg-[var(--point)] rounded-full shadow-none', slotClassNames?.indicator)}
             transition={tacSpring.default}
           />
         )}
         {active && variant === 'pill' && (
           <motion.div
-            layoutId="tab-indicator"
-            className="absolute inset-0 bg-[var(--point)] rounded-[var(--radius-m)] shadow-none"
+            layoutId={indicatorId}
+            className={cn('absolute inset-0 bg-[var(--point)] rounded-[var(--radius-m)] shadow-none', slotClassNames?.indicator)}
             transition={tacSpring.default}
           />
         )}
         {active && variant === 'outline' && (
           <motion.div
-            layoutId="tab-indicator"
-            className="absolute inset-0 bg-[var(--point)] rounded-[calc(var(--radius-m)-2px)] shadow-sm"
+            layoutId={indicatorId}
+            className={cn('absolute inset-0 bg-[var(--point)] rounded-[calc(var(--radius-m)-2px)] shadow-sm', slotClassNames?.indicator)}
             transition={tacSpring.default}
           />
         )}
         {variant === 'outline' ? (
           <motion.span
-            className="relative z-10"
+            className={cn('relative z-10', slotClassNames?.label)}
             initial={false}
             animate={{ color: active ? 'var(--point-foreground)' : 'var(--muted-foreground)' }}
             transition={tacSpring.default}
@@ -220,9 +272,9 @@ export const TabTrigger = forwardRef<HTMLButtonElement, TabTriggerProps>(
             {children}
           </motion.span>
         ) : (
-          <span className="relative z-10">{children}</span>
+          <span className={cn('relative z-10', slotClassNames?.label)}>{children}</span>
         )}
-      </button>
+      </motion.button>
     );
   },
 );
@@ -236,14 +288,14 @@ export interface TabContentProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const TabContent = forwardRef<HTMLDivElement, TabContentProps>(
   ({ value: tabValue, className, ...props }, ref) => {
-    const { value } = useContext(TabsContext);
+    const { value, tabsId } = useContext(TabsContext);
     const isActive = value === tabValue;
     return (
       <div
         ref={ref}
         role="tabpanel"
-        id={`tabpanel-${tabValue}`}
-        aria-labelledby={`tab-${tabValue}`}
+        id={`${tabsId}-tabpanel-${tabValue}`}
+        aria-labelledby={`${tabsId}-tab-${tabValue}`}
         hidden={!isActive}
         aria-hidden={!isActive}
         className={cn('mt-4 text-sm text-[var(--foreground)]', className)}

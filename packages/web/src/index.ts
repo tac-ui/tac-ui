@@ -43,7 +43,7 @@ export { Toggle, AnimatedToggle } from './components/AnimatedToggle';
 export type { ToggleProps, AnimatedToggleProps } from './components/AnimatedToggle';
 
 export { Tabs, TabsList, TabTrigger, TabContent } from './components/Tabs';
-export type { TabsProps, TabTriggerProps, TabContentProps, TabVariant } from './components/Tabs';
+export type { TabsProps, TabTriggerProps, TabTriggerClassNames, TabContentProps, TabVariant } from './components/Tabs';
 
 export { Dialog, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from './components/Dialog';
 export type { DialogProps, DialogSize } from './components/Dialog';

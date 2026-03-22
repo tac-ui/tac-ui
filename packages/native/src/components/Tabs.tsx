@@ -1,4 +1,4 @@
-import React, { forwardRef, createContext, useContext, useState, useCallback, useRef, useEffect } from 'react';
+import React, { forwardRef, createContext, useContext, useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import {
   View,
   Pressable,
@@ -7,6 +7,7 @@ import {
   StyleSheet,
   type ViewProps,
   type ViewStyle,
+  type TextStyle,
   type LayoutChangeEvent,
 } from 'react-native';
 import { useTacNativeTheme } from '../provider/TacNativeProvider';
@@ -29,7 +30,6 @@ interface TabsContextValue {
   setActiveTab: (tab: string) => void;
   registerLayout: (value: string, layout: TabLayout) => void;
   getIndicatorAnim: () => { x: Animated.Value; width: Animated.Value };
-  hasLayout: (value: string) => boolean;
   variant: TabVariant;
 }
 
@@ -52,6 +52,9 @@ export const Tabs = forwardRef<View, TabsProps>(
     const [internalValue, setInternalValue] = useState(defaultValue);
     const isControlled = controlledValue !== undefined;
     const activeTab = isControlled ? controlledValue : internalValue;
+    const activeTabRef = useRef(activeTab);
+    activeTabRef.current = activeTab;
+
     const layoutsRef = useRef<Record<string, TabLayout>>({});
     const indicatorX = useRef(new Animated.Value(0)).current;
     const indicatorWidth = useRef(new Animated.Value(0)).current;
@@ -93,17 +96,13 @@ export const Tabs = forwardRef<View, TabsProps>(
     const registerLayout = useCallback(
       (value: string, layout: TabLayout) => {
         layoutsRef.current[value] = layout;
-        if (value === activeTab) {
-          animateIndicator(activeTab, !initializedRef.current);
+        if (value === activeTabRef.current) {
+          animateIndicator(activeTabRef.current, !initializedRef.current);
           initializedRef.current = true;
         }
       },
-      [activeTab, animateIndicator],
+      [animateIndicator],
     );
-
-    const hasLayout = useCallback((value: string) => {
-      return !!layoutsRef.current[value];
-    }, []);
 
     useEffect(() => {
       if (initializedRef.current) {
@@ -119,8 +118,13 @@ export const Tabs = forwardRef<View, TabsProps>(
       [indicatorX, indicatorWidth],
     );
 
+    const ctx = useMemo(
+      () => ({ activeTab, setActiveTab, registerLayout, getIndicatorAnim, variant }),
+      [activeTab, setActiveTab, registerLayout, getIndicatorAnim, variant],
+    );
+
     return (
-      <TabsContext.Provider value={{ activeTab, setActiveTab, registerLayout, getIndicatorAnim, hasLayout, variant }}>
+      <TabsContext.Provider value={ctx}>
         <View ref={ref} style={[{ width: '100%' }, style]} {...props}>
           {children}
         </View>
@@ -132,16 +136,17 @@ Tabs.displayName = 'Tabs';
 
 export interface TabsListProps extends ViewProps {
   children?: React.ReactNode;
+  /** Custom style for the sliding indicator element. */
+  indicatorStyle?: ViewStyle;
 }
 
-export const TabsList = forwardRef<ScrollView, TabsListProps>(({ children, style, ...props }, ref) => {
+export const TabsList = forwardRef<ScrollView, TabsListProps>(({ children, style, indicatorStyle, ...props }, ref) => {
   const { theme } = useTacNativeTheme();
   const ctx = useContext(TabsContext);
   const variant = ctx?.variant ?? 'underline';
   const anim = ctx?.getIndicatorAnim();
   const shadow = nativeShadows[theme.mode].sm;
 
-  // Pill / outline: full-background sliding indicator
   const isPill = variant === 'pill';
   const isOutline = variant === 'outline';
   const isUnderline = variant === 'underline';
@@ -168,22 +173,7 @@ export const TabsList = forwardRef<ScrollView, TabsListProps>(({ children, style
   ];
 
   return (
-    <View style={containerStyle}>
-      {/* Sliding background indicator for pill/outline/icon */}
-      {(isPill || isOutline || variant === 'icon') && anim && (
-        <Animated.View
-          style={{
-            position: 'absolute',
-            top: isOutline ? 2 : segTokens.containerPadding,
-            bottom: isOutline ? 2 : segTokens.containerPadding,
-            backgroundColor: isOutline ? theme.colors.muted : theme.colors.background,
-            borderRadius: segTokens.itemRadius,
-            left: anim.x,
-            width: anim.width,
-            ...(isOutline ? { ...shadow } : {}),
-          }}
-        />
-      )}
+    <View style={containerStyle} accessibilityRole="tablist">
       <ScrollView
         ref={ref}
         horizontal
@@ -191,6 +181,22 @@ export const TabsList = forwardRef<ScrollView, TabsListProps>(({ children, style
         contentContainerStyle={styles.listContent}
         {...props}
       >
+        {/* Sliding background indicator for pill/outline/icon */}
+        {(isPill || isOutline || variant === 'icon') && anim && (
+          <Animated.View
+            style={{
+              position: 'absolute',
+              top: isOutline ? 0 : 0,
+              bottom: isOutline ? 0 : 0,
+              backgroundColor: isOutline ? theme.colors.muted : theme.colors.background,
+              borderRadius: segTokens.itemRadius,
+              left: anim.x,
+              width: anim.width,
+              ...(isOutline ? { ...shadow } : {}),
+              ...indicatorStyle,
+            }}
+          />
+        )}
         {children}
         {/* Underline sliding indicator */}
         {isUnderline && anim && (
@@ -203,6 +209,7 @@ export const TabsList = forwardRef<ScrollView, TabsListProps>(({ children, style
               borderRadius: tokens.indicatorHeight / 2,
               left: anim.x,
               width: anim.width,
+              ...indicatorStyle,
             }}
           />
         )}
@@ -212,31 +219,41 @@ export const TabsList = forwardRef<ScrollView, TabsListProps>(({ children, style
 });
 TabsList.displayName = 'TabsList';
 
+/** Style overrides for internal elements of TabTrigger. */
+export interface TabTriggerStyles {
+  /** Style for the text label. */
+  label?: TextStyle;
+  /** Style for the icon wrapper. */
+  icon?: ViewStyle;
+}
+
 export interface TabTriggerProps extends Omit<ViewProps, 'children'> {
   value: string;
   /** Icon element to display alongside the label. */
   icon?: React.ReactNode;
+  /** Custom styles for internal elements. */
+  styles?: TabTriggerStyles;
   children?: React.ReactNode;
 }
 
-export const TabTrigger = forwardRef<View, TabTriggerProps>(({ value, children, icon, style, ...props }, ref) => {
+export const TabTrigger = forwardRef<View, TabTriggerProps>(({ value, children, icon, styles: slotStyles, style, ...props }, ref) => {
   const { theme } = useTacNativeTheme();
   const ctx = useContext(TabsContext);
   const variant = ctx?.variant ?? 'underline';
   const isActive = ctx?.activeTab === value;
 
+  const registerLayout = ctx?.registerLayout;
   const handleLayout = useCallback(
     (e: LayoutChangeEvent) => {
       const { x, width } = e.nativeEvent.layout;
-      ctx?.registerLayout(value, { x, width });
+      registerLayout?.(value, { x, width });
     },
-    [ctx, value],
+    [registerLayout, value],
   );
 
   const isPillOrOutline = variant === 'pill' || variant === 'outline';
   const isPillOutlineIcon = isPillOrOutline || variant === 'icon';
 
-  // For pill/outline/icon, padding matches segment controller
   const paddingH = isPillOutlineIcon ? segTokens.paddingX : tokens.paddingX;
   const paddingV = isPillOutlineIcon ? segTokens.paddingY : tokens.paddingY;
   const fontSize = isPillOutlineIcon ? segTokens.fontSize : tokens.fontSize;
@@ -274,16 +291,22 @@ export const TabTrigger = forwardRef<View, TabTriggerProps>(({ value, children, 
     }).start();
   }, [isActive, colorAnim]);
 
-  const animatedColor = colorAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [inactiveColor, activeColor],
-  });
+  const animatedColor = useMemo(
+    () =>
+      colorAnim.interpolate({
+        inputRange: [0, 1],
+        outputRange: [inactiveColor, activeColor],
+      }),
+    [colorAnim, inactiveColor, activeColor],
+  );
 
   const animatedFontWeight = isActive ? '600' : '500';
 
   return (
     <Pressable
       ref={ref}
+      accessibilityRole="tab"
+      accessibilityState={{ selected: isActive }}
       onPress={() => ctx?.setActiveTab(value)}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
@@ -302,7 +325,7 @@ export const TabTrigger = forwardRef<View, TabTriggerProps>(({ value, children, 
       {...props}
     >
       <Animated.View style={{ transform: [{ scale: scaleAnim }], flexDirection: 'row', alignItems: 'center' }}>
-        {icon && <View style={styles.iconWrapper}>{icon}</View>}
+        {icon && <View style={[styles.iconWrapper, slotStyles?.icon]}>{icon}</View>}
         {(variant !== 'icon' || isActive) &&
           (typeof children === 'string' ? (
             <Animated.Text
@@ -315,6 +338,7 @@ export const TabTrigger = forwardRef<View, TabTriggerProps>(({ value, children, 
                   zIndex: 1,
                   marginLeft: icon && variant === 'icon' ? 6 : 0,
                 },
+                slotStyles?.label,
               ]}
               numberOfLines={1}
             >
@@ -338,7 +362,7 @@ export const TabContent = forwardRef<View, TabContentProps>(({ value, children, 
   const ctx = useContext(TabsContext);
   if (ctx?.activeTab !== value) return null;
   return (
-    <View ref={ref} style={[styles.content, style]} {...props}>
+    <View ref={ref} accessible style={[styles.content, style]} {...props}>
       {children}
     </View>
   );

@@ -511,6 +511,20 @@ import { Tabs, TabsList, TabTrigger, TabContent } from '@tac-ui/web';
 | `onValueChange` | `(value: string) => void` | `undefined` | Fired when a different `TabTrigger` is clicked. |
 | `variant` | `'underline' \| 'pill' \| 'outline' \| 'icon'` | `'underline'` | Visual styling mechanism for the active trigger indicators. |
 
+**Props (TabTrigger):**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | *Required* | The value this trigger activates; must match a `TabContent` value. |
+| `icon` | `React.ReactNode` | `undefined` | Icon element to display (only used with `icon` variant). |
+| `classNames` | `TabTriggerClassNames` | `undefined` | Custom class names for internal elements. |
+
+**TabTriggerClassNames:**
+| Name | Type | Description |
+|------|------|-------------|
+| `indicator` | `string` | The active indicator element (underline bar, pill background, etc.). |
+| `label` | `string` | The text label wrapper. |
+| `icon` | `string` | The icon wrapper (icon variant only). |
+
 ---
 
 ### 16. Accordion

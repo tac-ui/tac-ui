@@ -306,7 +306,7 @@ States: `masked` → click/Enter/Space to reveal, `revealed` → Escape to re-ma
 <Tabs defaultValue="tab1" variant="underline">
   <TabsList>
     <TabTrigger value="tab1">General</TabTrigger>
-    <TabTrigger value="tab2">Settings</TabTrigger>
+    <TabTrigger value="tab2" classNames={{ indicator: "bg-blue-500" }}>Settings</TabTrigger>
   </TabsList>
   <TabContent value="tab1">General content</TabContent>
   <TabContent value="tab2">Settings content</TabContent>
@@ -316,6 +316,8 @@ States: `masked` → click/Enter/Space to reveal, `revealed` → Escape to re-ma
 | Prop | Type | Default |
 |------|------|---------|
 | variant | `'underline' \| 'pill' \| 'outline' \| 'icon'` | `'underline'` |
+
+`TabTrigger` accepts a `classNames` prop (`TabTriggerClassNames`) to style internal elements: `indicator` (active bar/background), `label` (text wrapper), `icon` (icon wrapper).
 
 #### Accordion
 
@@ -1007,11 +1009,13 @@ const { theme } = useTacNativeTheme();
 <Tabs defaultValue="tab1" variant="underline">
   <TabsList>
     <TabTrigger value="tab1">General</TabTrigger>
-    <TabTrigger value="tab2">Settings</TabTrigger>
+    <TabTrigger value="tab2" classNames={{ indicator: "bg-blue-500" }}>Settings</TabTrigger>
   </TabsList>
   <TabContent value="tab1">General content</TabContent>
 </Tabs>
 ```
+
+`TabTrigger` accepts a `classNames` prop to style internal elements: `indicator`, `label`, `icon`.
 
 #### SegmentController
 

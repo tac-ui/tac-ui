@@ -378,7 +378,7 @@ import { Snackbar } from '@tac-ui/native';
 - **`Accordion`**: Expand/collapse list arrays built on reanimated height interpolations. `type="single"`, `type="multiple"`.
 - **`Dialog`**: Custom modal layer. Used via `<Dialog open={...} onClose={...} />`. Includes backdrop blur options via `backdrop={'blur' | 'opaque' | 'transparent'}`.
 - **`Alert`**: Static info. Renders an icon + `<AlertTitle>` + `<AlertDescription>`.
-- **`Tabs`**: Composable custom header navigation blocks. Use `<TabsList>` and `<TabTrigger>` mapped to `<TabContent>`.
+- **`Tabs`**: Composable custom header navigation blocks. Use `<TabsList>` and `<TabTrigger>` mapped to `<TabContent>`. `TabsList` accepts `indicatorStyle` (ViewStyle) to customize the sliding indicator. `TabTrigger` accepts a `styles` prop (`TabTriggerStyles`) with `label` (TextStyle) and `icon` (ViewStyle) slots for internal element customization.
 - **`Skeleton`**: Uses Reanimated shimmer effects for loading. Props `width`, `height`, `variant='rectangular'|'circular'`. Use `DimensionValue` strings ("100%") or integers (pixels).
 - **`ColorPicker`**: Prop format `colors={['#fff', '#000']}` to show preset palettes for user tapping.
 - **`Divider`**: Standard separator `1px` high. Prop `variant={'inset'}` to keep left-aligned margin for list grouping.

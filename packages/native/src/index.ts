@@ -55,6 +55,7 @@ export {
   type TabsProps,
   type TabsListProps,
   type TabTriggerProps,
+  type TabTriggerStyles,
   type TabContentProps,
   type TabVariant,
 } from './components/Tabs';
