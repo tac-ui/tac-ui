@@ -124,6 +124,8 @@ export const Button = forwardRef<View, ButtonProps>(
         <Pressable
           ref={ref}
           disabled={disabled}
+          accessibilityRole="button"
+          accessibilityState={{ disabled: !!disabled }}
           onPressIn={disabled ? undefined : handlePressIn}
           onPressOut={disabled ? undefined : handlePressOut}
           style={[

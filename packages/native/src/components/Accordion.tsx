@@ -185,6 +185,8 @@ export const AccordionTrigger = forwardRef<View, AccordionTriggerProps>(({ icon,
       onPress={handlePress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
+      accessibilityRole="button"
+      accessibilityState={{ expanded: isOpen }}
       style={[{ backgroundColor: triggerBackground }, style]}
       {...props}
     >

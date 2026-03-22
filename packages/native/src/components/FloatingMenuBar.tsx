@@ -98,7 +98,14 @@ function AnimatedTab({ item, active, activeColor, inactiveColor, onPress }: Anim
   });
 
   return (
-    <Pressable onPress={onPress} onPressIn={handlePressIn} onPressOut={handlePressOut} style={styles.tab}>
+    <Pressable
+      onPress={onPress}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      accessibilityRole="tab"
+      accessibilityState={{ selected: active }}
+      style={styles.tab}
+    >
       <Animated.View
         style={[
           styles.tabContent,

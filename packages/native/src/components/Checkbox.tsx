@@ -92,6 +92,8 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
         onPressIn={disabled ? undefined : handlePressIn}
         onPressOut={disabled ? undefined : handlePressOut}
         disabled={disabled}
+        accessibilityRole="checkbox"
+        accessibilityState={{ checked: isChecked, disabled: !!disabled }}
         style={[
           styles.wrapper,
           filled && {

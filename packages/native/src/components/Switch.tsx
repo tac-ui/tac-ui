@@ -52,7 +52,12 @@ export const Switch = forwardRef<View, SwitchProps>(
     });
 
     const toggle = (
-      <Pressable onPress={handlePress} disabled={disabled}>
+      <Pressable
+        onPress={handlePress}
+        disabled={disabled}
+        accessibilityRole="switch"
+        accessibilityState={{ checked }}
+      >
         <Animated.View style={[styles.track, { backgroundColor: trackColor }, disabled && styles.disabled]}>
           <Animated.View
             style={[

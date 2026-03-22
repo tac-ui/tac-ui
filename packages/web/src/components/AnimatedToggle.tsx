@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect } from 'react';
+import React, { forwardRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { tacSpring, EASING, DURATION } from '../constants/motion';
@@ -17,9 +17,6 @@ export interface ToggleProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
 
 export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
   ({ className, checked = false, onChange, iconOn, iconOff, ...props }, ref) => {
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => setMounted(true), []);
-
     return (
       <button
         ref={ref}
@@ -36,22 +33,18 @@ export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
         )}
         {...props}
       >
-        {mounted ? (
-          <AnimatePresence initial={false}>
-            <motion.span
-              key={checked ? 'on' : 'off'}
-              initial={{ opacity: 0, scale: 0.5, rotate: -90 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              exit={{ opacity: 0, scale: 0.5, rotate: 90 }}
-              transition={tacSpring.light}
-              className="absolute w-5 h-5 text-[var(--foreground)] [&>svg]:w-5 [&>svg]:h-5"
-            >
-              {checked ? iconOn : iconOff}
-            </motion.span>
-          </AnimatePresence>
-        ) : (
-          <span className="w-5 h-5 text-[var(--foreground)] [&>svg]:w-5 [&>svg]:h-5">{checked ? iconOn : iconOff}</span>
-        )}
+        <AnimatePresence initial={false}>
+          <motion.span
+            key={checked ? 'on' : 'off'}
+            initial={{ opacity: 0, scale: 0.5, rotate: -90 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            exit={{ opacity: 0, scale: 0.5, rotate: 90 }}
+            transition={tacSpring.light}
+            className="absolute w-5 h-5 text-[var(--foreground)] [&>svg]:w-5 [&>svg]:h-5"
+          >
+            {checked ? iconOn : iconOff}
+          </motion.span>
+        </AnimatePresence>
       </button>
     );
   },

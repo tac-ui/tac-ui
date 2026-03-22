@@ -94,6 +94,8 @@ export const Radio = forwardRef<View, RadioProps>(
         ref={ref}
         onPress={handlePress}
         disabled={disabled}
+        accessibilityRole="radio"
+        accessibilityState={{ checked: isSelected, disabled: !!disabled }}
         style={({ pressed }) => [
           styles.wrapper,
           filled && {

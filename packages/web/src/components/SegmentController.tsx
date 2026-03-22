@@ -204,9 +204,8 @@ export const SegmentController = forwardRef<HTMLDivElement, SegmentControllerPro
   };
 
   const renderButton = (option: SegmentOption, isActive: boolean, isDisabled: boolean) => (
-    <motion.button
+    <button
       key={option.value}
-      layout="position"
       type="button"
       role={isMulti ? 'checkbox' : 'radio'}
       aria-checked={isActive}
@@ -274,12 +273,13 @@ export const SegmentController = forwardRef<HTMLDivElement, SegmentControllerPro
 
       {option.icon && <span className="relative z-10 w-4 h-4 [&>svg]:w-4 [&>svg]:h-4">{option.icon}</span>}
       {option.label && <span className="relative z-10">{option.label}</span>}
-    </motion.button>
+    </button>
   );
 
   const container = (
-    <div
+    <motion.div
       ref={ref}
+      layout
       role={isMulti ? 'group' : 'radiogroup'}
       aria-label={isMulti ? 'Toggle options' : undefined}
       aria-expanded={collapsible ? isExpanded : undefined}
@@ -303,7 +303,7 @@ export const SegmentController = forwardRef<HTMLDivElement, SegmentControllerPro
         collapsible && !isExpanded && 'cursor-pointer',
         className,
       )}
-      {...domProps}
+      {...(domProps as React.ComponentProps<typeof motion.div>)}
     >
       <AnimatePresence initial={false}>
         {options.map((option) => {
@@ -336,7 +336,7 @@ export const SegmentController = forwardRef<HTMLDivElement, SegmentControllerPro
           return btn;
         })}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 
   // Single mode needs LayoutGroup for shared layoutId indicator

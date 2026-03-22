@@ -88,6 +88,8 @@ function SegmentItem({
       onLayout={onLayout}
       onPress={onPress}
       disabled={isDisabled}
+      accessibilityRole="tab"
+      accessibilityState={{ selected: isActive, disabled: isDisabled }}
       style={[
         styles.segment,
         {
@@ -223,7 +225,7 @@ export const SegmentController = forwardRef<View, SegmentControllerProps>(
             style={[
               styles.indicator,
               {
-                backgroundColor: theme.colors.background,
+                backgroundColor: theme.colors.surfaceElevatedHigh,
                 borderRadius: tokens.itemRadius,
                 ...shadow,
                 top: tokens.containerPadding,

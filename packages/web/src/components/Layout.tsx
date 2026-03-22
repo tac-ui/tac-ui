@@ -602,14 +602,14 @@ export const SidebarItem = forwardRef<HTMLDivElement, SidebarItemProps>(
       >
         {active && !shouldHide && variant === 'filled' && (
           <motion.div
-            layoutId="sidebar-active-bg"
+            layoutId="sidebar-active-filled"
             className="absolute inset-0 bg-[var(--point)] rounded-[var(--radius-m)]"
             transition={tacSpring.default}
           />
         )}
         {active && !shouldHide && (variant === 'foreground' || variant === 'subtle') && (
           <motion.div
-            layoutId="sidebar-active-bg"
+            layoutId="sidebar-active-subtle"
             className="absolute inset-0 bg-[var(--point-subtle)] rounded-[var(--radius-m)]"
             transition={tacSpring.default}
           />
