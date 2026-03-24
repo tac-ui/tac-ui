@@ -110,6 +110,7 @@ export const TabsList = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivE
           aria-orientation="horizontal"
           onKeyDown={handleKeyDown}
           className={cn(
+            'overflow-x-auto scrollbar-none',
             variant === 'underline' && 'flex gap-1 pb-1 border-b border-solid border-[var(--border)]',
             variant === 'pill' && 'relative inline-flex gap-1 p-1 bg-[var(--muted)] rounded-[var(--radius-m)]',
             variant === 'outline' &&
@@ -166,7 +167,7 @@ export const TabTrigger = forwardRef<HTMLButtonElement, TabTriggerProps>(
           aria-controls={`${tabsId}-tabpanel-${tabValue}`}
           onClick={() => onChange(tabValue)}
           className={cn(
-            'relative flex items-center py-2 px-3 rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-[var(--muted-foreground)] transition-colors duration-fast ease-standard',
+            'relative shrink-0 flex items-center py-2 px-3 rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-[var(--muted-foreground)] transition-colors duration-fast ease-standard',
             focusRing,
             active && 'text-[var(--point-foreground)]',
             className,
@@ -213,7 +214,7 @@ export const TabTrigger = forwardRef<HTMLButtonElement, TabTriggerProps>(
           transition: `color ${DURATION.normal} ${EASING}, background-color ${DURATION.normal} ${EASING}, border-color ${DURATION.normal} ${EASING}, box-shadow ${DURATION.normal} ${EASING}, opacity ${DURATION.normal} ${EASING}`,
         }}
         className={cn(
-          'relative cursor-pointer text-center',
+          'relative shrink-0 cursor-pointer text-center',
           focusRing,
           variant === 'underline' &&
             cn(

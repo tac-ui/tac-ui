@@ -222,7 +222,7 @@ export const SegmentController = forwardRef<HTMLDivElement, SegmentControllerPro
       }}
       style={{ transition: `color ${DURATION.normal} ${EASING}` }}
       className={cn(
-        'relative flex items-center justify-center h-full rounded-[calc(var(--radius-m)-2px)] border-none cursor-pointer bg-transparent font-medium whitespace-nowrap',
+        'relative shrink-0 flex items-center justify-center h-full rounded-[calc(var(--radius-m)-2px)] border-none cursor-pointer bg-transparent font-medium whitespace-nowrap',
         focusRing,
         sc.item,
         fullWidth && 'flex-1',
@@ -295,7 +295,7 @@ export const SegmentController = forwardRef<HTMLDivElement, SegmentControllerPro
           : undefined
       }
       className={cn(
-        'inline-flex items-center bg-[var(--background-subtle)] rounded-[var(--radius-m)]',
+        'inline-flex items-center overflow-x-auto scrollbar-none bg-[var(--background-subtle)] rounded-[var(--radius-m)]',
         !collapsible && 'gap-0.5',
         sc.root,
         fullWidth && 'w-full',
