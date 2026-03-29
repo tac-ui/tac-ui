@@ -1,4 +1,7 @@
+'use client';
+
 import React, { forwardRef, useState, useRef, useEffect, useCallback, useId } from 'react';
+import { useDropdownPosition } from '../hooks/useDropdownPosition';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { inputTransition } from '../constants/styles';
@@ -45,9 +48,9 @@ export interface SelectProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
 }
 
 const sizeClasses = {
-  sm: 'h-[var(--input-sm-height)] text-[length:var(--input-sm-font-size)] px-[var(--input-sm-px)] rounded-[var(--input-sm-radius)]',
-  md: 'h-[var(--input-md-height)] text-[length:var(--input-md-font-size)] px-[var(--input-md-px)] rounded-[var(--input-md-radius)]',
-  lg: 'h-[var(--input-lg-height)] text-[length:var(--input-lg-font-size)] px-[var(--input-lg-px)] rounded-[var(--input-lg-radius)]',
+  sm: 'h-[var(--input-sm-height)] text-[length:var(--input-sm-font-size)] pl-[var(--input-sm-px)] rounded-[var(--input-sm-radius)]',
+  md: 'h-[var(--input-md-height)] text-[length:var(--input-md-font-size)] pl-[var(--input-md-px)] rounded-[var(--input-md-radius)]',
+  lg: 'h-[var(--input-lg-height)] text-[length:var(--input-lg-font-size)] pl-[var(--input-lg-px)] rounded-[var(--input-lg-radius)]',
 };
 
 export const Select = forwardRef<HTMLDivElement, SelectProps>(
@@ -77,7 +80,9 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
     const [open, setOpen] = useState(false);
     const [internalValue, setInternalValue] = useState<string | undefined>(undefined);
     const containerRef = useRef<HTMLDivElement>(null);
+    const triggerBtnRef = useRef<HTMLButtonElement>(null);
     const listboxRef = useRef<HTMLDivElement>(null);
+    const side = useDropdownPosition(triggerBtnRef, listboxRef, open);
 
     const currentValue = value ?? internalValue;
     const selectedOption = options.find((o) => o.value === currentValue);
@@ -156,6 +161,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
           <button
             type="button"
             id={inputId}
+            ref={triggerBtnRef}
             aria-expanded={open}
             aria-controls={listboxId}
             aria-invalid={error || undefined}
@@ -197,7 +203,8 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
                 id={listboxId}
                 role="listbox"
                 className={cn(
-                  'absolute top-full mt-1 w-max min-w-full',
+                  'absolute w-max min-w-full',
+                  side === 'bottom' ? 'top-full mt-1' : 'bottom-full mb-1',
                   'bg-[var(--dropdown-bg)] backdrop-blur-[40px] backdrop-saturate-[180%]',
                   'rounded-[var(--radius-m)] border-[0.5px] border-solid border-[var(--input-border-rest)] shadow-[var(--dropdown-shadow)]',
                   'max-h-[280px] overflow-y-auto',
@@ -208,7 +215,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
                 animate="visible"
                 exit="hidden"
                 transition={tacSpring.magnetic}
-                style={{ originY: 0 }}
+                style={{ originY: side === 'bottom' ? 0 : 1 }}
               >
                 {options.map((option, index) => (
                   <div

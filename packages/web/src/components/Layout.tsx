@@ -1,3 +1,5 @@
+'use client';
+
 import React, { forwardRef, createContext, useContext, useState, useEffect, useRef, useId } from 'react';
 import { motion, LayoutGroup } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';

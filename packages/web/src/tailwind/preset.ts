@@ -21,6 +21,10 @@ ${generateCSSBlock('dark')}
 @layer base {
   * {
     border-color: var(--border);
+    -webkit-tap-highlight-color: transparent;
+  }
+  button, a, input, select, textarea, [role="button"], [role="tab"], [role="menuitem"], [role="checkbox"], [role="radio"], [role="option"] {
+    touch-action: manipulation;
   }
   *:not([data-no-bg-transition]) {
     transition-property: background-color, color, border-color, box-shadow;
@@ -112,6 +116,8 @@ ${generateCSSBlock('dark')}
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 }
 

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { forwardRef, useEffect, useCallback, useRef, useId } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
@@ -70,7 +72,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
             exit={{ opacity: 0 }}
             transition={{ duration: OVERLAY_DURATION }}
             className={cn(
-              'fixed inset-0 flex items-center justify-center px-4 z-[var(--z-modal)]',
+              'fixed inset-0 flex items-center justify-center px-4 max-sm:items-end z-[var(--z-modal)]',
               backdrop && 'bg-black/30 backdrop-blur-md',
             )}
             onClick={(e) => {
@@ -88,7 +90,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
               aria-modal="true"
               aria-labelledby={titleId}
               className={cn(
-                'w-full [backdrop-filter:blur(24px)_saturate(180%)] bg-[var(--background)] border-[0.5px] border-solid border-[var(--input-border-rest)] rounded-[var(--radius-xl)] [box-shadow:var(--glass-inset),var(--glass-panel-shadow)] overflow-hidden',
+                'w-full [backdrop-filter:blur(24px)_saturate(180%)] bg-[var(--background)] border-[0.5px] border-solid border-[var(--input-border-rest)] rounded-[var(--radius-xl)] [box-shadow:var(--glass-inset),var(--glass-panel-shadow)] overflow-hidden max-sm:max-w-none max-sm:mx-0 max-sm:rounded-b-none max-sm:max-h-[90vh] max-sm:overflow-y-auto',
                 sizeClasses[size],
                 className,
               )}

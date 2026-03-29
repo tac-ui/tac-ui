@@ -1,3 +1,5 @@
+'use client';
+
 import React, { forwardRef, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';

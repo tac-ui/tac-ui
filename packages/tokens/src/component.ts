@@ -10,7 +10,7 @@ export const component = {
   },
   input: {
     sm: { height: 32, paddingX: 12, fontSize: 13, borderRadius: 8, iconSize: 16, iconPadding: 34 },
-    md: { height: 44, paddingX: 16, fontSize: 15, borderRadius: 12, iconSize: 18, iconPadding: 42 },
+    md: { height: 44, paddingX: 16, fontSize: 16, borderRadius: 12, iconSize: 18, iconPadding: 42 },
     lg: { height: 50, paddingX: 20, fontSize: 17, borderRadius: 14, iconSize: 20, iconPadding: 46 },
   },
   card: {

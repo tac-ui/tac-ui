@@ -1,3 +1,5 @@
+'use client';
+
 import React, { forwardRef, useState } from 'react';
 import { cn } from '../utils/cn';
 import { Sidebar, LayoutContext } from './Layout';

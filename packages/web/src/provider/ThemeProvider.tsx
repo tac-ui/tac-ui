@@ -67,7 +67,9 @@ function TacThemeInner({ children }: { children: React.ReactNode }) {
 
 export interface TacProviderProps {
   children: React.ReactNode;
+  /** Default theme mode. @default 'light' */
   defaultTheme?: ThemeMode;
+  /** localStorage key for persisting the theme preference. @default 'tac-theme' */
   storageKey?: string;
 }
 

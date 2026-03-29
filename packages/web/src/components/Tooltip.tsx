@@ -1,4 +1,6 @@
-import React, { forwardRef, useState, useRef, useCallback, useId, useEffect, useLayoutEffect } from 'react';
+'use client';
+
+import React, { forwardRef, useState, useRef, useCallback, useId, useEffect, useLayoutEffect, type PointerEvent as RPointerEvent } from 'react';
 import ReactDOM from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
@@ -115,7 +117,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
       setMeasured(true);
     }, [visible, placement]);
 
-    // Recalculate on scroll/resize while visible
+    // Recalculate on scroll/resize while visible; dismiss on outside tap (touch devices)
     useEffect(() => {
       if (!visible) return;
       const recalc = () => {
@@ -125,13 +127,21 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
         const { top, left } = getTooltipPosition(triggerRect, tooltipRect, placement);
         setCoords({ top, left });
       };
+      const dismissOnOutsideTap = (e: globalThis.PointerEvent) => {
+        if (e.pointerType !== 'touch') return;
+        if (triggerRef.current && !triggerRef.current.contains(e.target as Node)) {
+          hide();
+        }
+      };
       window.addEventListener('scroll', recalc, true);
       window.addEventListener('resize', recalc);
+      document.addEventListener('pointerdown', dismissOnOutsideTap);
       return () => {
         window.removeEventListener('scroll', recalc, true);
         window.removeEventListener('resize', recalc);
+        document.removeEventListener('pointerdown', dismissOnOutsideTap);
       };
-    }, [visible, placement]);
+    }, [visible, placement, hide]);
 
     const trigger = React.isValidElement(children)
       ? React.cloneElement(children as React.ReactElement<React.HTMLAttributes<HTMLElement>>, {
@@ -151,6 +161,13 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
         onMouseLeave={hide}
         onFocus={show}
         onBlur={hide}
+        onPointerDown={(e: RPointerEvent) => {
+          if (e.pointerType === 'touch') {
+            e.preventDefault();
+            if (visible) hide();
+            else show();
+          }
+        }}
         tabIndex={0}
       >
         {trigger}

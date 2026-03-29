@@ -1,4 +1,7 @@
+'use client';
+
 import React, { forwardRef, useState, useRef, useEffect, useCallback, useId, useMemo } from 'react';
+import { useDropdownPosition } from '../hooks/useDropdownPosition';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { dropdownMotionVariants, tacSpring, EASING, DURATION } from '../constants/motion';
@@ -130,6 +133,9 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     const [viewYear, setViewYear] = useState((value ?? today).getFullYear());
     const [viewMonth, setViewMonth] = useState((value ?? today).getMonth());
     const containerRef = useRef<HTMLDivElement>(null);
+    const triggerBtnRef = useRef<HTMLButtonElement>(null);
+    const panelRef = useRef<HTMLDivElement>(null);
+    const side = useDropdownPosition(triggerBtnRef, panelRef, open);
 
     // Time state for datetime mode
     const [pendingHour, setPendingHour] = useState(value?.getHours() ?? 0);
@@ -289,7 +295,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
         aria-label={ariaLabel}
         style={{ transition: btnTransition }}
         className={cn(
-          'w-7 h-7 flex items-center justify-center rounded-[var(--radius-sm)] border-none bg-transparent cursor-pointer text-[var(--muted-foreground)] hover:bg-[var(--interactive-hover)] hover:text-[var(--foreground)]',
+          'w-10 h-10 flex items-center justify-center rounded-[var(--radius-sm)] border-none bg-transparent cursor-pointer text-[var(--muted-foreground)] hover:bg-[var(--interactive-hover)] hover:text-[var(--foreground)]',
           focusRing,
         )}
       >
@@ -319,6 +325,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
           <button
             type="button"
             id={inputId}
+            ref={triggerBtnRef}
             aria-expanded={open}
             aria-invalid={error || undefined}
             aria-describedby={error && errorMessage ? errorId : helperText ? errorId : undefined}
@@ -368,18 +375,20 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
           <AnimatePresence>
             {open && (
               <motion.div
+                ref={panelRef}
                 className={cn(
-                  'absolute top-full mt-1 left-0 z-[var(--z-dropdown)]',
+                  'absolute left-0 z-[var(--z-dropdown)]',
+                  side === 'bottom' ? 'top-full mt-1' : 'bottom-full mb-1',
                   'bg-[var(--dropdown-bg)] backdrop-blur-[40px] backdrop-saturate-[180%]',
                   'rounded-[var(--radius-m)] border-[0.5px] border-solid border-[var(--input-border-rest)] shadow-[var(--dropdown-shadow)]',
-                  'p-3 w-[280px]',
+                  'p-3 w-[304px]',
                 )}
                 variants={dropdownMotionVariants}
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
                 transition={tacSpring.magnetic}
-                style={{ originY: 0 }}
+                style={{ originY: side === 'bottom' ? 0 : 1 }}
               >
                 {mode === 'month' ? (
                   /* ─── Month Mode ─── */
@@ -460,7 +469,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                       {DAYS.map((day) => (
                         <div
                           key={day}
-                          className="h-8 flex items-center justify-center text-xs font-medium text-[var(--muted-foreground)]"
+                          className="h-10 flex items-center justify-center text-xs font-medium text-[var(--muted-foreground)]"
                         >
                           {day}
                         </div>
@@ -471,7 +480,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                     <div className="grid grid-cols-7">
                       {calendarDays.map((day, i) => {
                         if (day === null) {
-                          return <div key={`empty-${i}`} className="h-8" />;
+                          return <div key={`empty-${i}`} className="h-10" />;
                         }
 
                         const dateObj = new Date(viewYear, viewMonth, day);
@@ -487,7 +496,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                             onClick={() => handleSelectDate(day)}
                             style={{ transition: cellTransition }}
                             className={cn(
-                              'h-8 w-full flex items-center justify-center text-sm rounded-[var(--radius-sm)] border-none cursor-pointer bg-transparent',
+                              'h-10 w-full flex items-center justify-center text-sm rounded-[var(--radius-sm)] border-none cursor-pointer bg-transparent',
                               focusRing,
                               isSelected
                                 ? 'bg-[var(--point)] text-white font-medium'

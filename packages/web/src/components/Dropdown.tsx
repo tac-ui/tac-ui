@@ -1,4 +1,7 @@
+'use client';
+
 import React, { forwardRef, useState, useRef, useEffect, useCallback } from 'react';
+import { useDropdownPosition } from '../hooks/useDropdownPosition';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { useRovingIndex } from '../hooks/useAccessibility';
@@ -39,7 +42,9 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       [onOpenChange],
     );
     const containerRef = useRef<HTMLDivElement>(null);
+    const triggerAreaRef = useRef<HTMLDivElement>(null);
     const menuRef = useRef<HTMLDivElement>(null);
+    const side = useDropdownPosition(triggerAreaRef, menuRef, open);
 
     useRovingIndex(menuRef, open, {
       itemSelector: '[role="menuitem"]',
@@ -75,6 +80,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     return (
       <div ref={containerRef} className={cn('relative inline-block', className)} {...props}>
         <div
+          ref={triggerAreaRef}
           onClick={() => setOpen(!open)}
           onKeyDown={handleTriggerKeyDown}
           tabIndex={0}
@@ -94,13 +100,15 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
           {open && (
             <motion.div
               ref={mergeRefs(menuRef, ref)}
-              initial={{ opacity: 0, scale: 0.97, y: 4, filter: 'blur(4px)' }}
+              initial={{ opacity: 0, scale: 0.97, y: side === 'bottom' ? 4 : -4, filter: 'blur(4px)' }}
               animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, scale: 0.97, y: 2, filter: 'blur(4px)', transition: { duration: EXIT_DURATION } }}
+              exit={{ opacity: 0, scale: 0.97, y: side === 'bottom' ? 2 : -2, filter: 'blur(4px)', transition: { duration: EXIT_DURATION } }}
               transition={tacSpring.magnetic}
               role="menu"
+              style={{ originY: side === 'bottom' ? 0 : 1 }}
               className={cn(
-                'absolute top-full mt-1 min-w-[200px] bg-[var(--dropdown-bg)] [backdrop-filter:blur(24px)_saturate(180%)] border-[0.5px] border-solid border-[var(--input-border-rest)] rounded-[var(--radius-m)] [box-shadow:var(--dropdown-shadow)] p-1 z-[var(--z-dropdown)]',
+                'absolute min-w-[200px] bg-[var(--dropdown-bg)] [backdrop-filter:blur(24px)_saturate(180%)] border-[0.5px] border-solid border-[var(--input-border-rest)] rounded-[var(--radius-m)] [box-shadow:var(--dropdown-shadow)] p-1 z-[var(--z-dropdown)]',
+                side === 'bottom' ? 'top-full mt-1' : 'bottom-full mb-1',
                 alignClasses[align],
               )}
             >

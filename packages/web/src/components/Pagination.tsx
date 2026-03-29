@@ -1,3 +1,5 @@
+'use client';
+
 import React, { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '../utils/cn';
@@ -56,7 +58,7 @@ export const PaginationItem = forwardRef<HTMLButtonElement, PaginationItemProps>
           transition: `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
         }}
         className={cn(
-          'w-9 h-9 flex items-center justify-center text-sm rounded-[var(--radius-m)] border-none cursor-pointer',
+          'w-11 h-11 flex items-center justify-center text-sm rounded-[var(--radius-m)] border-none cursor-pointer',
           focusRing,
           active
             ? 'bg-[var(--point-subtle)] text-[var(--point)] font-semibold'
@@ -78,7 +80,7 @@ export const PaginationEllipsis = forwardRef<HTMLSpanElement, React.HTMLAttribut
     <li className="list-none">
       <span
         ref={ref}
-        className={cn('w-9 h-9 flex items-center justify-center text-[var(--muted-foreground)]', className)}
+        className={cn('w-11 h-11 flex items-center justify-center text-[var(--muted-foreground)]', className)}
         {...props}
       >
         ...
@@ -101,7 +103,7 @@ export const PaginationPrevious = forwardRef<HTMLButtonElement, PaginationPrevNe
           transition: `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
         }}
         className={cn(
-          'flex items-center gap-1 px-3 h-9 text-sm rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-[var(--foreground)] hover:bg-[var(--interactive-hover)] disabled:opacity-50 disabled:pointer-events-none',
+          'flex items-center gap-1 px-3 h-11 text-sm rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-[var(--foreground)] hover:bg-[var(--interactive-hover)] disabled:opacity-50 disabled:pointer-events-none',
           focusRing,
           className,
         )}
@@ -129,7 +131,7 @@ export const PaginationNext = forwardRef<HTMLButtonElement, PaginationPrevNextPr
           transition: `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
         }}
         className={cn(
-          'flex items-center gap-1 px-3 h-9 text-sm rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-[var(--foreground)] hover:bg-[var(--interactive-hover)] disabled:opacity-50 disabled:pointer-events-none',
+          'flex items-center gap-1 px-3 h-11 text-sm rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-[var(--foreground)] hover:bg-[var(--interactive-hover)] disabled:opacity-50 disabled:pointer-events-none',
           focusRing,
           className,
         )}

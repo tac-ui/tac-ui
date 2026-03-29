@@ -33,7 +33,7 @@ export default function GettingStartedPage() {
         <DocText>{pt?.sections?.['tailwind']?.texts?.[1] ?? 'In your Tailwind config, use the Tac UI preset:'}</DocText>
         <CodeBlock
           language="typescript"
-          code={`// tailwind.config.ts\nimport { tacPreset, generateThemeCSS } from '@tac-ui/web/tailwind';\n\nexport default {\n  presets: [tacPreset],\n  plugins: [\n    { handler: ({ addBase }) => addBase({}) }, // theme CSS injected via preset\n  ],\n};`}
+          code={`// tailwind.config.ts\nimport type { Config } from 'tailwindcss';\nimport { tacPreset } from '@tac-ui/web/tailwind';\nimport { generateCSSVariables } from '@tac-ui/tokens/web';\nimport plugin from 'tailwindcss/plugin';\n\nconst tacThemePlugin = plugin(({ addBase }) => {\n  const lightVars = generateCSSVariables('light');\n  const darkVars = generateCSSVariables('dark');\n  addBase({\n    ':root': lightVars,\n    '[data-theme="light"]': lightVars,\n    '[data-theme="dark"]': darkVars,\n    '@media (prefers-color-scheme: dark)': {\n      ':root:not([data-theme="light"])': darkVars,\n    },\n  });\n});\n\nconst config: Config = {\n  content: [\n    './src/**/*.{js,ts,jsx,tsx}',\n    './node_modules/@tac-ui/web/dist/**/*.{js,mjs}',\n  ],\n  presets: [tacPreset],\n  plugins: [tacThemePlugin],\n};\n\nexport default config;`}
         />
       </DocSection>
 
@@ -48,7 +48,7 @@ export default function GettingStartedPage() {
         </DocText>
         <CodeBlock
           language="tsx"
-          code={`import { TacProvider } from '@tac-ui/web';\n\nexport default function App({ children }) {\n  return (\n    <TacProvider defaultMode="system">\n      {children}\n    </TacProvider>\n  );\n}`}
+          code={`import { TacProvider } from '@tac-ui/web';\n\nexport default function App({ children }) {\n  return (\n    <TacProvider defaultTheme="light">\n      {children}\n    </TacProvider>\n  );\n}`}
         />
       </DocSection>
 

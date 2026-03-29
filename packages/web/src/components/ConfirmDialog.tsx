@@ -1,3 +1,5 @@
+'use client';
+
 import React, { createContext, useContext, useState, useCallback, useRef } from 'react';
 import { Dialog, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from './Dialog';
 import { Button } from './Button';

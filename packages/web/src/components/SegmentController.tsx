@@ -1,3 +1,5 @@
+'use client';
+
 import React, { forwardRef, useState, useCallback, useId } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { cn } from '../utils/cn';
@@ -286,6 +288,7 @@ export const SegmentController = forwardRef<HTMLDivElement, SegmentControllerPro
       onKeyDown={handleKeyDown}
       onMouseEnter={collapsible ? () => setIsExpanded(true) : undefined}
       onMouseLeave={collapsible ? () => setIsExpanded(false) : undefined}
+      onClick={collapsible && !isExpanded ? (e: React.MouseEvent) => { e.stopPropagation(); setIsExpanded(true); } : undefined}
       onFocus={collapsible ? () => setIsExpanded(true) : undefined}
       onBlur={
         collapsible

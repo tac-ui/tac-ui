@@ -1,4 +1,7 @@
+'use client';
+
 import React, { forwardRef, useState, useRef, useEffect, useCallback, useId, useMemo } from 'react';
+import { useDropdownPosition } from '../hooks/useDropdownPosition';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { dropdownMotionVariants, tacSpring, EASING, DURATION, EXIT_DURATION } from '../constants/motion';
@@ -260,6 +263,9 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
 
     const [open, setOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
+    const triggerBtnRef = useRef<HTMLButtonElement>(null);
+    const panelRef = useRef<HTMLDivElement>(null);
+    const side = useDropdownPosition(triggerBtnRef, panelRef, open);
     const svRef = useRef<HTMLDivElement>(null);
     const hueRef = useRef<HTMLDivElement>(null);
 
@@ -546,6 +552,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
           <button
             type="button"
             id={inputId}
+            ref={triggerBtnRef}
             aria-expanded={open}
             aria-invalid={error || undefined}
             aria-describedby={error && errorMessage ? errorId : helperText ? errorId : undefined}
@@ -592,8 +599,10 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
           <AnimatePresence>
             {open && (
               <motion.div
+                ref={panelRef}
                 className={cn(
-                  'absolute top-full mt-1 left-0 z-[var(--z-dropdown)]',
+                  'absolute left-0 z-[var(--z-dropdown)]',
+                  side === 'bottom' ? 'top-full mt-1' : 'bottom-full mb-1',
                   'bg-[var(--dropdown-bg)] backdrop-blur-[40px] backdrop-saturate-[180%]',
                   'rounded-[var(--radius-m)] border-[0.5px] border-solid border-[var(--input-border-rest)] shadow-[var(--dropdown-shadow)]',
                   'p-3 w-[300px]',
@@ -603,7 +612,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
                 animate="visible"
                 exit="hidden"
                 transition={tacSpring.magnetic}
-                style={{ originY: 0 }}
+                style={{ originY: side === 'bottom' ? 0 : 1 }}
               >
                 {/* ─── Spectrum Picker ─── */}
                 {showSpectrum && (

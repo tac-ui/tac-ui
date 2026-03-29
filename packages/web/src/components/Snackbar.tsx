@@ -1,3 +1,5 @@
+'use client';
+
 import React, { forwardRef, useEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
@@ -8,7 +10,7 @@ import type { MotionConflictingHandlers } from '../constants/types';
 import { focusRing } from '../constants/styles';
 
 const snackbarVariants = cva(
-  'group fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3 pl-5 pr-4 py-3.5 min-w-[320px] max-w-[560px] w-auto rounded-[var(--radius-lg)] z-[var(--z-toast)] [backdrop-filter:blur(40px)_saturate(180%)] bg-[var(--card)]',
+  'group fixed bottom-6 left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 flex items-center gap-3 pl-5 pr-4 py-3.5 sm:min-w-[320px] max-w-[560px] sm:w-auto rounded-[var(--radius-lg)] z-[var(--z-toast)] [backdrop-filter:blur(40px)_saturate(180%)] bg-[var(--card)]',
   {
     variants: {
       variant: {

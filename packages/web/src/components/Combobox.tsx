@@ -1,4 +1,7 @@
+'use client';
+
 import React, { forwardRef, useState, useRef, useEffect, useCallback, useId } from 'react';
+import { useDropdownPosition } from '../hooks/useDropdownPosition';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { inputTransition } from '../constants/styles';
@@ -64,7 +67,9 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
     const [isSearching, setIsSearching] = useState(false);
 
     const containerRef = useRef<HTMLDivElement>(null);
+    const inputWrapperRef = useRef<HTMLDivElement>(null);
     const listboxRef = useRef<HTMLDivElement>(null);
+    const side = useDropdownPosition(inputWrapperRef, listboxRef, open);
 
     const selectedLabel = options.find((o) => o.value === value)?.label ?? '';
 
@@ -138,7 +143,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
 
     return (
       <div ref={containerRef} className="relative inline-block w-full">
-        <div className="relative flex items-center">
+        <div ref={inputWrapperRef} className="relative flex items-center">
           <input
             ref={ref}
             id={inputId}
@@ -190,14 +195,17 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
               id={listboxId}
               role="listbox"
               style={{
-                maskImage:
-                  filtered.length > 5 ? 'linear-gradient(to bottom, black calc(100% - 32px), transparent)' : undefined,
-                WebkitMaskImage:
-                  filtered.length > 5 ? 'linear-gradient(to bottom, black calc(100% - 32px), transparent)' : undefined,
-                originY: 0,
+                ...(filtered.length > 5 ? (() => {
+                  const fadeMask = side === 'bottom'
+                    ? 'linear-gradient(to bottom, black calc(100% - 32px), transparent)'
+                    : 'linear-gradient(to top, black calc(100% - 32px), transparent)';
+                  return { maskImage: fadeMask, WebkitMaskImage: fadeMask };
+                })() : {}),
+                originY: side === 'bottom' ? 0 : 1,
               }}
               className={cn(
-                'absolute top-full mt-1 w-full',
+                'absolute w-full',
+                side === 'bottom' ? 'top-full mt-1' : 'bottom-full mb-1',
                 'bg-[var(--dropdown-bg)] backdrop-blur-[40px] backdrop-saturate-[180%]',
                 'rounded-[var(--radius-m)] border-[0.5px] border-solid border-[var(--input-border-rest)] shadow-[var(--dropdown-shadow)]',
                 'max-h-[200px] overflow-y-auto',
