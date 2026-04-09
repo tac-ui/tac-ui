@@ -112,7 +112,7 @@ export const TabsList = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivE
           aria-orientation="horizontal"
           onKeyDown={handleKeyDown}
           className={cn(
-            'overflow-x-auto scrollbar-none',
+            'overflow-x-auto scrollbar-none max-w-full',
             variant === 'underline' && 'flex gap-1 pb-1 border-b border-solid border-[var(--border)]',
             variant === 'pill' && 'relative inline-flex gap-1 p-1 bg-[var(--muted)] rounded-[var(--radius-m)]',
             variant === 'outline' &&
