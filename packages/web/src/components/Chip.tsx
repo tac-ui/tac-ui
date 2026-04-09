@@ -81,7 +81,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
               }
             }}
             style={{ transition: `opacity ${DURATION.normal} ${EASING}` }}
-            className="flex items-center justify-center w-3.5 h-3.5 shrink-0 bg-transparent border-none cursor-pointer opacity-70 hover:opacity-100"
+            className="flex items-center justify-center w-3.5 h-3.5 p-2.5 -m-2 box-content shrink-0 bg-transparent border-none cursor-pointer opacity-70 hover:opacity-100 active:opacity-100"
             aria-label="Remove"
           >
             <svg

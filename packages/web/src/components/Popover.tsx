@@ -136,7 +136,7 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
               exit="exit"
               role="dialog"
               className={cn(
-                'absolute w-max max-w-[384px]',
+                'absolute w-max max-w-[min(384px,calc(100vw-1.5rem))]',
                 '[backdrop-filter:blur(24px)_saturate(180%)] bg-[var(--dropdown-bg)]',
                 'border-[0.5px] border-solid border-[var(--input-border-rest)] rounded-[var(--radius-m)] [box-shadow:var(--dropdown-shadow)]',
                 'z-[var(--z-popover)]',

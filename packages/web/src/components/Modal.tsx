@@ -1,12 +1,15 @@
 'use client';
 
-import React, { forwardRef, useEffect, useCallback, useRef, useId } from 'react';
+import React, { forwardRef, useEffect, useCallback, useRef, useId, createContext, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { useFocusTrap, useFocusRestore } from '../hooks/useAccessibility';
 import { tacSpring, EXIT_DURATION, OVERLAY_DURATION } from '../constants/motion';
 import { mergeRefs } from '../utils/mergeRefs';
 import type { MotionConflictingHandlers } from '../constants/types';
+
+/** Controls the maximum width of the Modal panel. */
+const ModalContext = createContext<{ titleId?: string }>({});
 
 /** Controls the maximum width of the Modal panel. */
 export type ModalSize = 'sm' | 'md' | 'lg' | 'xl';
@@ -97,7 +100,9 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
               onClick={(e) => e.stopPropagation()}
               {...props}
             >
-              {children}
+              <ModalContext.Provider value={{ titleId }}>
+                {children}
+              </ModalContext.Provider>
             </motion.div>
           </motion.div>
         )}
@@ -126,9 +131,12 @@ export const ModalIcon = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 ModalIcon.displayName = 'ModalIcon';
 
 export const ModalTitle = forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
-  ({ className, ...props }, ref) => (
-    <h3 ref={ref} className={cn('text-lg font-medium text-[var(--foreground)]', className)} {...props} />
-  ),
+  ({ className, id: idProp, ...props }, ref) => {
+    const { titleId } = useContext(ModalContext);
+    return (
+      <h3 ref={ref} id={idProp || titleId} className={cn('text-lg font-medium text-[var(--foreground)]', className)} {...props} />
+    );
+  },
 );
 ModalTitle.displayName = 'ModalTitle';
 

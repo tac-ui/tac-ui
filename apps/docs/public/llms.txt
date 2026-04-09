@@ -1232,7 +1232,7 @@ All [lucide-react](https://lucide.dev/icons) icons are re-exported, plus the cus
 ## Design Tokens
 
 ```tsx
-import { primitiveColors, semanticTokens, spacing, typography, motion, diaSpring } from '@tac-ui/tokens';
+import { primitiveColors, semanticTokens, spacing, typography, motion, tacSpring } from '@tac-ui/tokens';
 
 // Native-specific
 import { buildNativeTheme, nativeShadows } from '@tac-ui/tokens/native';
@@ -1240,27 +1240,62 @@ import { buildNativeTheme, nativeShadows } from '@tac-ui/tokens/native';
 
 ### CSS Custom Properties (Web)
 
-Colors: `--background`, `--foreground`, `--border`, `--card`, `--primary`, `--point`, `--muted-foreground`, `--success`, `--error`, `--warning`, `--info`
+**Colors**: `--background`, `--foreground`, `--border`, `--card`, `--primary`, `--point`, `--point-hover`, `--point-foreground`, `--point-subtle`, `--muted-foreground`, `--success`, `--error`, `--warning`, `--info`
 
-Spacing: `--spacing-2xs` through `--spacing-3xl`
+**Surface layers**: `--surface-base`, `--surface-elevated-low`, `--surface-elevated-mid`, `--surface-elevated-high`
 
-Radius: `--radius-none`, `--radius-xs`, `--radius-sm`, `--radius-m`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-pill`
+**Interactive states**: `--interactive-hover`, `--interactive-pressed`, `--interactive-surface-tint`, `--interactive-hover-tint`
 
-Shadows: `--shadow-sm`, `--shadow-m`, `--shadow-lg`, `--shadow-xl`
+**Glass & Effects**: `--glass-bg`, `--glass-border`, `--glass-inset`, `--glass-panel-shadow`, `--accent-glow`
 
-Motion: `--duration-instant` (80ms), `--duration-fast` (150ms), `--duration-normal` (220ms), `--duration-slow` (320ms), `--duration-complex` (450ms)
+**Gradients**: `--gradient-brand`, `--gradient-brand-hover`, `--gradient-subtle`, `--gradient-accent`, `--gradient-accent-vivid`, `--gradient-glow`, `--gradient-mesh`, `--gradient-surface`, `--gradient-glow-shadow`
 
-Easing: `--ease-standard`, `--ease-in`, `--ease-out`, `--ease-in-out`, `--ease-bounce`, `--ease-spring`
+**Fonts**: `--font-primary` (Pretendard), `--font-secondary`, `--font-display`, `--font-mono` (SF Mono)
 
-Z-Index: `--z-dropdown`, `--z-sticky`, `--z-overlay`, `--z-modal`, `--z-popover`, `--z-tooltip`, `--z-toast`
+**Spacing**: `--spacing-2xs` (2px) through `--spacing-3xl` (80px)
 
-Charts: `--chart-1` through `--chart-8`
+**Radius**: `--radius-none`, `--radius-xs` (4px), `--radius-sm` (8px), `--radius-m` (12px), `--radius-lg` (16px), `--radius-xl` (20px), `--radius-2xl` (24px), `--radius-pill`
+
+**Shadows**: `--shadow-sm`, `--shadow-m`, `--shadow-lg`, `--shadow-xl`, `--shadow-glass`, `--shadow-glass-lg`
+
+**Motion**: `--duration-instant` (80ms), `--duration-fast` (150ms), `--duration-normal` (220ms), `--duration-slow` (320ms), `--duration-complex` (450ms)
+
+**Easing**: `--ease-standard`, `--ease-in`, `--ease-out`, `--ease-in-out`, `--ease-bounce`, `--ease-spring`, `--ease-elastic`
+
+**Z-Index**: `--z-dropdown` (1000), `--z-sticky` (1100), `--z-overlay` (1200), `--z-modal` (1300), `--z-popover` (1400), `--z-tooltip` (1500), `--z-toast` (1600)
+
+**Charts**: `--chart-1` through `--chart-8`, `--chart-grid`, `--chart-axis`, `--chart-label`
+
+### Typography System
+
+Font: Pretendard (Korean & Latin optimized), SF Mono (monospace)
+
+| Scale | Size | Weight | Letter Spacing |
+|-------|------|--------|----------------|
+| Display LG | 56px | 700 | -0.035em |
+| Display MD | 48px | 700 | -0.03em |
+| Display SM | 40px | 600 | -0.025em |
+| Heading H1-H6 | 34px-15px | 600-700 | -0.025em to 0 |
+| Body LG/MD/SM | 17px/15px/13px | 400 | -0.01em to 0 |
+| Label LG/MD/SM | 15px/13px/12px | 500 | Signature weight for UI |
+| Caption | 12px | 400 | +0.01em |
+| Overline | 11px | 600 | +0.06em (uppercase) |
+
+Weight 500 (medium) is tac-ui's signature label weight — subtle emphasis for UI controls and navigation.
 
 ### Brand Colors
 
 Point accent: Royal Indigo — Light `#5856D6`, Dark `#5E5CE6`
 Primary: Ink Black `#18181B` (light) / Near-White `#FAFAFA` (dark)
 Neutral: Zinc scale
+
+### Dark Mode Design
+
+- Semi-transparent inputs: `rgba(255,255,255,0.04)` bg, `rgba(255,255,255,0.1)` border
+- Semi-transparent dropdowns: `rgba(24,24,27,0.95)` with multi-layer shadow + white ring
+- Glass panels: inset highlights + 0.5px white ring for depth on dark surfaces
+- Gradients active with higher Indigo opacity for glow effects
+- Elevation via background luminance stepping, not traditional shadows
 
 ---
 

@@ -188,7 +188,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
           <button
             type="button"
             className={cn(
-              'md:hidden mr-3 p-1 rounded-md shrink-0 hover:bg-[var(--point-subtle)] transition-colors text-[var(--muted-foreground)] cursor-pointer',
+              'md:hidden mr-1 -ml-2 size-11 flex items-center justify-center rounded-md shrink-0 hover:bg-[var(--point-subtle)] active:bg-[var(--point-subtle)] transition-colors text-[var(--muted-foreground)] cursor-pointer',
               focusRing,
             )}
             onClick={() => setMobileSidebarOpen?.(true)}
@@ -202,7 +202,7 @@ export const Header = forwardRef<HTMLElement, HeaderProps>(
           <button
             type="button"
             className={cn(
-              'md:hidden ml-3 p-1 rounded-md shrink-0 hover:bg-[var(--point-subtle)] transition-colors text-[var(--muted-foreground)] cursor-pointer',
+              'md:hidden ml-1 -mr-2 size-11 flex items-center justify-center rounded-md shrink-0 hover:bg-[var(--point-subtle)] active:bg-[var(--point-subtle)] transition-colors text-[var(--muted-foreground)] cursor-pointer',
               focusRing,
             )}
             onClick={() => setMobileRightSidebarOpen?.(true)}
@@ -759,8 +759,7 @@ export const FloatingMenuBar = forwardRef<HTMLDivElement, FloatingMenuBarProps>(
         'flex items-center justify-around',
         'px-2 py-1.5 rounded-full',
         blur ? 'backdrop-blur-[20px] bg-[var(--glass-bg)]' : 'bg-[var(--card)]/90',
-        bordered && 'border-[0.5px] border-solid border-white/20',
-        'border-t-[0.5px] border-t-white/[0.1]',
+        bordered && 'border-[0.5px] border-solid border-[var(--glass-border)]',
         'shadow-glass-lg',
         floatingPositionClass[position],
         className,
@@ -795,7 +794,7 @@ export const FloatingMenuItem = forwardRef<HTMLButtonElement, FloatingMenuItemPr
       ref={ref}
       type="button"
       className={cn(
-        'flex flex-col items-center justify-center gap-0.5 bg-transparent border-none cursor-pointer px-3 py-1.5 rounded-full transition-colors hover:-translate-y-0.5',
+        'flex flex-col items-center justify-center gap-0.5 bg-transparent border-none cursor-pointer px-3 py-1.5 min-w-[44px] min-h-[44px] rounded-full transition-colors hover:-translate-y-0.5 active:translate-y-0',
         focusRing,
         active ? 'text-[var(--point)]' : 'text-[var(--muted-foreground)] hover:text-[var(--foreground)]',
         className,

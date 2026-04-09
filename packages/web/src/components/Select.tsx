@@ -203,7 +203,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
                 id={listboxId}
                 role="listbox"
                 className={cn(
-                  'absolute w-max min-w-full',
+                  'absolute w-max min-w-full max-w-[calc(100vw-1rem)]',
                   side === 'bottom' ? 'top-full mt-1' : 'bottom-full mb-1',
                   'bg-[var(--dropdown-bg)] backdrop-blur-[40px] backdrop-saturate-[180%]',
                   'rounded-[var(--radius-m)] border-[0.5px] border-solid border-[var(--input-border-rest)] shadow-[var(--dropdown-shadow)]',
@@ -234,8 +234,8 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
                       transition: `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
                     }}
                     className={cn(
-                      'px-3 py-2.5 text-sm cursor-pointer',
-                      'hover:bg-[var(--dropdown-item-hover)] focus:bg-[var(--dropdown-item-hover)] focus:outline-none',
+                      'px-3 py-3 text-sm cursor-pointer',
+                      'hover:bg-[var(--dropdown-item-hover)] active:bg-[var(--dropdown-item-hover)] focus:bg-[var(--dropdown-item-hover)] focus:outline-none',
                       'first:rounded-t-[var(--radius-sm)] last:rounded-b-[var(--radius-sm)]',
                       option.value === currentValue && 'bg-[var(--secondary)] font-medium text-[var(--point)]',
                       option.disabled && 'opacity-50 cursor-not-allowed pointer-events-none',

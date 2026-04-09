@@ -237,6 +237,8 @@ export interface ThemeTypography {
     primary: string;
     secondary: string;
     display: string;
+    /** Monospace font for code, technical labels, and data */
+    mono?: string;
   };
   display: {
     lg: TypeScaleEntry;
@@ -256,7 +258,15 @@ export interface ThemeTypography {
     md: TypeScaleEntry;
     sm: TypeScaleEntry;
   };
+  /** Label text — UI controls, navigation, form labels. Uses medium weight as signature. */
+  label?: {
+    lg: TypeScaleEntry;
+    md: TypeScaleEntry;
+    sm: TypeScaleEntry;
+  };
   caption: TypeScaleEntry;
+  /** Overline text — small uppercase labels for categories and metadata. */
+  overline?: TypeScaleEntry;
   fontWeight: {
     light: string;
     regular: string;

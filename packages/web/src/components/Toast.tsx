@@ -64,7 +64,7 @@ export interface ToastProviderProps {
 // ---------------------------------------------------------------------------
 
 const toastVariants = cva(
-  'group relative flex items-center gap-3 pl-5 pr-4 py-3.5 min-w-[320px] max-w-[480px] w-auto rounded-[var(--radius-lg)] pointer-events-auto [backdrop-filter:blur(40px)_saturate(180%)] bg-[var(--card)]',
+  'group relative flex items-center gap-3 pl-5 pr-4 py-3.5 min-w-[320px] max-w-[min(480px,calc(100vw-2rem))] w-auto rounded-[var(--radius-lg)] pointer-events-auto [backdrop-filter:blur(40px)_saturate(180%)] bg-[var(--card)]',
   {
     variants: {
       variant: {
@@ -256,7 +256,7 @@ export const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>(
               onDismiss(entry.id);
             }}
             className={cn(
-              'py-1.5 px-3.5 rounded-[var(--radius-sm)] text-[13px] font-semibold cursor-pointer border-none transition-opacity hover:opacity-80',
+              'py-2.5 px-3.5 rounded-[var(--radius-sm)] text-[13px] font-semibold cursor-pointer border-none transition-opacity hover:opacity-80 active:opacity-70',
               variant === 'default'
                 ? 'bg-[var(--secondary)] text-[var(--foreground)]'
                 : 'bg-[var(--secondary)] text-[var(--foreground)] opacity-90',
@@ -269,7 +269,7 @@ export const ToastItem = forwardRef<HTMLDivElement, ToastItemProps>(
           type="button"
           onClick={() => onDismiss(entry.id)}
           className={cn(
-            'flex items-center justify-center w-7 h-7 rounded-[var(--radius-sm)] text-[var(--muted-foreground)] bg-transparent border-none cursor-pointer transition-colors hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)]',
+            'flex items-center justify-center w-9 h-9 rounded-[var(--radius-sm)] text-[var(--muted-foreground)] bg-transparent border-none cursor-pointer transition-colors hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)] active:text-[var(--foreground)] active:bg-[var(--interactive-hover)]',
             focusRing,
           )}
           aria-label="Close"

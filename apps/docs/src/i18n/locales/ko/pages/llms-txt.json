@@ -18,7 +18,7 @@
       "description": "llms.txt 파일에 포함된 내용:",
       "items": {
         "install": { "badge": "설치", "text": "빠른 시작 설치 명령어 및 프로바이더 설정" },
-        "components": { "badge": "컴포넌트", "text": "39개 이상 컴포넌트의 사용 예제 및 전체 프롭 테이블" },
+        "components": { "badge": "컴포넌트", "text": "47개 이상 컴포넌트의 사용 예제 및 전체 프롭 테이블" },
         "charts": { "badge": "차트", "text": "BarChart, LineChart, PieChart, DonutChart 및 데이터 형식" },
         "layout": { "badge": "레이아웃", "text": "Sidebar, Header, FloatingMenuBar 및 10가지 프리셋 페이지 레이아웃" },
         "tokens": { "badge": "토큰", "text": "색상, 간격, 모서리, 그림자, 모션, z-index를 위한 CSS 커스텀 프로퍼티" },

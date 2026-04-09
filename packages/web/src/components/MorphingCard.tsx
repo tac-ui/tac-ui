@@ -103,7 +103,7 @@ export const MorphingCard = forwardRef<HTMLDivElement, MorphingCardProps>(
             className={cn(
               glassClasses,
               'p-[var(--card-padding)] flex flex-col gap-[var(--card-gap)]',
-              'cursor-pointer hover:[box-shadow:var(--glass-inset),var(--glass-panel-shadow)] hover:border-[var(--card-accent-border)]',
+              'cursor-pointer hover:[box-shadow:var(--glass-inset),var(--glass-panel-shadow)] hover:border-[var(--card-accent-border)] active:[box-shadow:var(--glass-inset),var(--glass-panel-shadow)] active:border-[var(--card-accent-border)]',
               focusRingPoint,
               className,
             )}
@@ -122,7 +122,7 @@ export const MorphingCard = forwardRef<HTMLDivElement, MorphingCardProps>(
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: OVERLAY_DURATION }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-[8px]"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-md"
               onClick={handleOverlayClick}
             >
               <motion.div
@@ -143,7 +143,7 @@ export const MorphingCard = forwardRef<HTMLDivElement, MorphingCardProps>(
                     transition: `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
                   }}
                   className={cn(
-                    'absolute top-3 right-3 flex items-center justify-center w-7 h-7 rounded-full bg-[var(--muted)] text-[var(--muted-foreground)] hover:bg-[var(--secondary)] cursor-pointer border-none',
+                    'absolute top-3 right-3 flex items-center justify-center w-9 h-9 rounded-full bg-[var(--muted)] text-[var(--muted-foreground)] hover:bg-[var(--secondary)] active:bg-[var(--secondary)] cursor-pointer border-none',
                     focusRing,
                   )}
                 >

@@ -39,7 +39,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     return (
       <label
         className={cn(
-          'group flex items-center gap-3 cursor-pointer transition-colors',
+          'group flex items-center gap-3 cursor-pointer transition-colors min-h-[44px]',
           filled
             ? 'py-2.5 px-4 rounded-[var(--radius-m)] bg-[var(--interactive-surface-tint)] hover:bg-[var(--interactive-hover-tint)]'
             : 'py-1',

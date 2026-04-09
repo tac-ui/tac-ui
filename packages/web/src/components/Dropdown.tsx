@@ -107,7 +107,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
               role="menu"
               style={{ originY: side === 'bottom' ? 0 : 1 }}
               className={cn(
-                'absolute min-w-[200px] bg-[var(--dropdown-bg)] [backdrop-filter:blur(24px)_saturate(180%)] border-[0.5px] border-solid border-[var(--input-border-rest)] rounded-[var(--radius-m)] [box-shadow:var(--dropdown-shadow)] p-1 z-[var(--z-dropdown)]',
+                'absolute min-w-[200px] max-w-[calc(100vw-1rem)] bg-[var(--dropdown-bg)] [backdrop-filter:blur(24px)_saturate(180%)] border-[0.5px] border-solid border-[var(--input-border-rest)] rounded-[var(--radius-m)] [box-shadow:var(--dropdown-shadow)] p-1 z-[var(--z-dropdown)]',
                 side === 'bottom' ? 'top-full mt-1' : 'bottom-full mb-1',
                 alignClasses[align],
               )}
@@ -154,10 +154,10 @@ export const DropdownItem = forwardRef<HTMLButtonElement, DropdownItemProps>(
       role="menuitem"
       tabIndex={-1}
       className={cn(
-        'flex items-center gap-2 w-full px-3 py-2 text-sm rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-left transition-colors duration-fast',
+        'flex items-center gap-2 w-full px-3 py-2.5 text-sm rounded-[var(--radius-m)] bg-transparent border-none cursor-pointer text-left transition-colors duration-fast',
         destructive
-          ? 'text-[var(--error)] hover:bg-[var(--error-bg)]'
-          : 'text-[var(--foreground)] hover:bg-[var(--dropdown-item-hover)]',
+          ? 'text-[var(--error)] hover:bg-[var(--error-bg)] active:bg-[var(--error-bg)]'
+          : 'text-[var(--foreground)] hover:bg-[var(--dropdown-item-hover)] active:bg-[var(--dropdown-item-hover)]',
         'disabled:opacity-50 disabled:pointer-events-none',
         'focus:outline-none focus:bg-[var(--dropdown-item-hover)]',
         className,

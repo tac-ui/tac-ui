@@ -381,7 +381,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                   side === 'bottom' ? 'top-full mt-1' : 'bottom-full mb-1',
                   'bg-[var(--dropdown-bg)] backdrop-blur-[40px] backdrop-saturate-[180%]',
                   'rounded-[var(--radius-m)] border-[0.5px] border-solid border-[var(--input-border-rest)] shadow-[var(--dropdown-shadow)]',
-                  'p-3 w-[304px]',
+                  'p-3 w-[304px] max-w-[calc(100vw-1.5rem)]',
                 )}
                 variants={dropdownMotionVariants}
                 initial="hidden"
@@ -444,7 +444,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                         }}
                         style={{ transition: btnTransition }}
                         className={cn(
-                          'w-full h-7 flex items-center justify-center text-xs font-medium text-[var(--point)] rounded-[var(--radius-sm)] border-none bg-transparent cursor-pointer hover:bg-[var(--interactive-hover)]',
+                          'w-full h-10 flex items-center justify-center text-xs font-medium text-[var(--point)] rounded-[var(--radius-sm)] border-none bg-transparent cursor-pointer hover:bg-[var(--interactive-hover)] active:bg-[var(--interactive-hover)]',
                           focusRing,
                         )}
                       >
@@ -551,7 +551,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                             }}
                             style={{ transition: inputTransition }}
                             className={cn(
-                              'w-11 h-8 text-center text-xs font-mono text-[var(--foreground)] bg-[var(--input-bg)] border border-solid border-[var(--input-border-rest)] rounded-[var(--radius-sm)] outline-none',
+                              'w-12 h-10 text-center text-sm font-mono text-[var(--foreground)] bg-[var(--input-bg)] border border-solid border-[var(--input-border-rest)] rounded-[var(--radius-sm)] outline-none',
                               'hover:border-[var(--input-border-hover)]',
                               'focus:border-[var(--point)]',
                               '[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none',
@@ -575,7 +575,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                             }}
                             style={{ transition: inputTransition }}
                             className={cn(
-                              'w-11 h-8 text-center text-xs font-mono text-[var(--foreground)] bg-[var(--input-bg)] border border-solid border-[var(--input-border-rest)] rounded-[var(--radius-sm)] outline-none',
+                              'w-12 h-10 text-center text-sm font-mono text-[var(--foreground)] bg-[var(--input-bg)] border border-solid border-[var(--input-border-rest)] rounded-[var(--radius-sm)] outline-none',
                               'hover:border-[var(--input-border-hover)]',
                               'focus:border-[var(--point)]',
                               '[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none',
@@ -594,7 +594,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                               }}
                               style={{ transition: btnTransition }}
                               className={cn(
-                                'h-8 px-2 text-xs font-medium rounded-[var(--radius-sm)] border border-solid border-[var(--input-border-rest)] bg-[var(--input-bg)] cursor-pointer text-[var(--foreground)]',
+                                'h-10 px-3 text-xs font-medium rounded-[var(--radius-sm)] border border-solid border-[var(--input-border-rest)] bg-[var(--input-bg)] cursor-pointer text-[var(--foreground)]',
                                 'hover:border-[var(--input-border-hover)]',
                                 focusRing,
                               )}
@@ -610,7 +610,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                             onClick={() => setOpen(false)}
                             style={{ transition: btnTransition }}
                             className={cn(
-                              'h-8 px-3 text-xs font-medium text-white bg-[var(--point)] rounded-[var(--radius-sm)] border-none cursor-pointer hover:opacity-90',
+                              'h-10 px-4 text-xs font-medium text-[var(--point-foreground)] bg-[var(--point)] rounded-[var(--radius-sm)] border-none cursor-pointer hover:opacity-90 active:opacity-80',
                               focusRing,
                             )}
                           >
@@ -633,7 +633,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                           }}
                           style={{ transition: btnTransition }}
                           className={cn(
-                            'w-full h-7 flex items-center justify-center text-xs font-medium text-[var(--point)] rounded-[var(--radius-sm)] border-none bg-transparent cursor-pointer hover:bg-[var(--interactive-hover)]',
+                            'w-full h-10 flex items-center justify-center text-xs font-medium text-[var(--point)] rounded-[var(--radius-sm)] border-none bg-transparent cursor-pointer hover:bg-[var(--interactive-hover)] active:bg-[var(--interactive-hover)]',
                             focusRing,
                           )}
                         >

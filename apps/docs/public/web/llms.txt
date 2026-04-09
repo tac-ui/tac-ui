@@ -1107,4 +1107,90 @@ const [apiKey, setApiKey] = useState('sk-proj-abc123...');
 - **`Divider`**: Visual HR line. Prop `label` allows rendering text in the center like "OR".
 - **`MorphingCard`**: Advanced Framer Motion component. Prop `layoutId` (required), renders a `preview` prop and morphs into a full `detail` prop node on click.
 
-*(All styling leverages the underlying Tailwind utility sets configured by the `tacPreset` in the tailwind config and the design tokens injected by `TacProvider`).*
+---
+
+## Design Tokens & Theming
+
+All styling is driven by CSS custom properties injected by `TacProvider` and the `tacPreset` Tailwind config.
+
+### Fonts
+
+| Variable | Value | Use |
+|----------|-------|-----|
+| `--font-primary` | Pretendard | All UI text (Korean & Latin optimized) |
+| `--font-display` | Pretendard | Display/heading text |
+| `--font-mono` | SF Mono | Code, technical labels, monospace data |
+
+Tailwind classes: `font-primary`, `font-display`, `font-mono`
+
+### Typography Scale
+
+| Scale | Size | Weight | Letter Spacing | Notes |
+|-------|------|--------|----------------|-------|
+| Display LG | 56px | 700 | -0.035em | Hero headlines, tight line-height (1.08) |
+| Display MD | 48px | 700 | -0.03em | Section headlines |
+| Display SM | 40px | 600 | -0.025em | Feature titles |
+| H1-H6 | 34-15px | 600-700 | -0.025em to 0 | Progressively relaxed tracking |
+| Body LG/MD/SM | 17/15/13px | 400 | -0.01em to 0 | Line-height 1.5 for readability |
+| **Label LG/MD/SM** | 15/13/12px | **500** | -0.005em to +0.005em | **Signature weight** for UI controls |
+| Caption | 12px | 400 | +0.01em | Metadata, timestamps |
+| Overline | 11px | 600 | +0.06em | Uppercase category labels |
+
+### Color Tokens
+
+**Core**: `--background`, `--foreground`, `--card`, `--border`, `--primary`, `--secondary`, `--muted-foreground`
+
+**Point (Accent)**: `--point` (Royal Indigo: #5856D6 light / #5E5CE6 dark), `--point-hover`, `--point-foreground`, `--point-subtle`
+
+**Surface Elevation**: `--surface-base`, `--surface-elevated-low`, `--surface-elevated-mid`, `--surface-elevated-high`
+
+**Status**: `--success`, `--error`, `--warning`, `--info` (each with `-bg` and `-foreground` variants)
+
+**Glass & Effects**: `--glass-bg`, `--glass-border`, `--glass-inset`, `--glass-panel-shadow`, `--accent-glow`
+
+### Gradients
+
+| Token | Description |
+|-------|-------------|
+| `--gradient-brand` | 135° Indigo → Violet for CTAs |
+| `--gradient-subtle` | Vertical Indigo fade for section backgrounds |
+| `--gradient-accent` | Directional accent gradient |
+| `--gradient-accent-vivid` | 3-stop Indigo → Purple → Pink |
+| `--gradient-glow` | Radial top-glow for page atmosphere |
+| `--gradient-mesh` | Multi-point mesh for rich backgrounds |
+| `--gradient-surface` | Depth gradient for surfaces |
+
+### Spacing & Radius
+
+**Spacing**: `--spacing-2xs` (2px), `-xs` (4px), `-sm` (8px), `-m` (16px), `-lg` (24px), `-xl` (40px), `-2xl` (56px), `-3xl` (80px)
+
+**Radius**: `--radius-xs` (4px), `-sm` (8px), `-m` (12px), `-lg` (16px), `-xl` (20px), `-2xl` (24px), `-pill` (9999px)
+
+### Shadows & Elevation
+
+Light mode: Soft neutral shadows. Dark mode: Multi-layer shadows with 0.5px white ring + inset highlights for depth on dark surfaces.
+
+`--shadow-sm`, `--shadow-m`, `--shadow-lg`, `--shadow-xl`, `--shadow-glass`, `--shadow-glass-lg`
+
+### Motion
+
+**Durations**: `--duration-instant` (80ms), `-fast` (150ms), `-normal` (220ms), `-slow` (320ms), `-complex` (450ms)
+
+**Easing**: `--ease-standard`, `-in`, `-out`, `-in-out`, `-bounce`, `-spring`, `-elastic`
+
+**Spring presets** (Framer Motion): `tacSpring.default`, `.light`, `.heavy`, `.magnetic`, `.entrance`
+
+### Dark Mode
+
+Theming via `data-theme="dark"` attribute (set by TacProvider via next-themes).
+
+Key dark mode design decisions:
+- Semi-transparent inputs (`rgba(255,255,255,0.04)` bg) instead of solid colors
+- Semi-transparent dropdowns (`rgba(24,24,27,0.95)`) with backdrop-blur
+- Glass panels use inset highlights + 0.5px white ring for depth
+- Gradients use higher Indigo opacity for glow effects on dark canvas
+- Elevation communicated via background luminance stepping, not shadows alone
+
+### Z-Index
+
+`--z-dropdown` (1000), `--z-sticky` (1100), `--z-overlay` (1200), `--z-modal` (1300), `--z-popover` (1400), `--z-tooltip` (1500), `--z-toast` (1600)

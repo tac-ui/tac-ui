@@ -150,7 +150,7 @@ export const Snackbar = forwardRef<HTMLDivElement, SnackbarProps>(
               handleClose();
             }}
             className={cn(
-              'py-1.5 px-3.5 rounded-[var(--radius-sm)] text-[13px] font-medium cursor-pointer border-none transition-opacity hover:opacity-80',
+              'py-2.5 px-3.5 rounded-[var(--radius-sm)] text-[13px] font-medium cursor-pointer border-none transition-opacity hover:opacity-80 active:opacity-70',
               variant === 'default'
                 ? 'bg-transparent text-[var(--point)]'
                 : 'bg-[var(--secondary)] text-[var(--foreground)]',
@@ -164,7 +164,7 @@ export const Snackbar = forwardRef<HTMLDivElement, SnackbarProps>(
             type="button"
             onClick={handleClose}
             className={cn(
-              'flex items-center justify-center w-7 h-7 rounded-[var(--radius-sm)] text-[var(--muted-foreground)] bg-transparent border-none cursor-pointer transition-colors hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)]',
+              'flex items-center justify-center w-9 h-9 rounded-[var(--radius-sm)] text-[var(--muted-foreground)] bg-transparent border-none cursor-pointer transition-colors hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)] active:text-[var(--foreground)] active:bg-[var(--interactive-hover)]',
               focusRing,
             )}
             aria-label={closeLabel}

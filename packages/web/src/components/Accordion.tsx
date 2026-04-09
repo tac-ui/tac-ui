@@ -122,7 +122,7 @@ export const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerPr
         onClick={() => toggle(value)}
         className={cn(
           'flex items-center justify-between w-full py-3 px-3.5 text-sm font-medium text-[var(--foreground)] bg-transparent border-none cursor-pointer text-left',
-          'hover:bg-[var(--interactive-hover)]',
+          'hover:bg-[var(--interactive-hover)] active:bg-[var(--interactive-hover)]',
           focusRing,
           className,
         )}

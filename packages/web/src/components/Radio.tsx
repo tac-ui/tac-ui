@@ -67,8 +67,8 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
     return (
       <label
         className={cn(
-          'flex items-center gap-3 py-1 cursor-pointer transition-colors',
-          filled && 'bg-[var(--interactive-surface-tint)] px-4 py-2.5 rounded-[10px]',
+          'flex items-center gap-3 py-1 cursor-pointer transition-colors min-h-[44px]',
+          filled && 'bg-[var(--interactive-surface-tint)] px-4 py-2.5 rounded-[var(--radius-m)]',
           disabled && 'cursor-default',
           className,
         )}

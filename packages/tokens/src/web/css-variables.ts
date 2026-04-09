@@ -21,6 +21,7 @@ export function generateCSSVariables(mode: ThemeMode): Record<string, string> {
     '--font-primary': `'${typography.fontFamily.primary}', -apple-system, BlinkMacSystemFont, system-ui, sans-serif`,
     '--font-secondary': `'${typography.fontFamily.secondary}', sans-serif`,
     '--font-display': `'${typography.fontFamily.display}', '${typography.fontFamily.primary}', sans-serif`,
+    '--font-mono': `'${typography.fontFamily.mono}', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`,
     // Colors
     '--background': colors.background,
     '--background-subtle': colors.backgroundSubtle,

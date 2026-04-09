@@ -1,12 +1,15 @@
 'use client';
 
-import React, { forwardRef, useEffect, useCallback, useRef, useId } from 'react';
+import React, { forwardRef, useEffect, useCallback, useRef, useId, createContext, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { useFocusTrap, useFocusRestore } from '../hooks/useAccessibility';
 import { tacSpring, OVERLAY_DURATION } from '../constants/motion';
 import { mergeRefs } from '../utils/mergeRefs';
 import type { MotionConflictingHandlers } from '../constants/types';
+
+/** Controls which edge the Drawer slides in from. */
+const DrawerContext = createContext<{ titleId?: string }>({});
 
 /** Controls which edge the Drawer slides in from. */
 export type DrawerSide = 'left' | 'right' | 'top' | 'bottom';
@@ -131,7 +134,9 @@ export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(
               )}
               {...props}
             >
-              {children}
+              <DrawerContext.Provider value={{ titleId }}>
+                {children}
+              </DrawerContext.Provider>
             </motion.div>
           </motion.div>
         )}
@@ -155,9 +160,12 @@ DrawerHeader.displayName = 'DrawerHeader';
  * Title text within a DrawerHeader.
  */
 export const DrawerTitle = forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
-  ({ className, ...props }, ref) => (
-    <h3 ref={ref} className={cn('text-lg font-medium text-[var(--foreground)]', className)} {...props} />
-  ),
+  ({ className, id: idProp, ...props }, ref) => {
+    const { titleId } = useContext(DrawerContext);
+    return (
+      <h3 ref={ref} id={idProp || titleId} className={cn('text-lg font-medium text-[var(--foreground)]', className)} {...props} />
+    );
+  },
 );
 DrawerTitle.displayName = 'DrawerTitle';
 

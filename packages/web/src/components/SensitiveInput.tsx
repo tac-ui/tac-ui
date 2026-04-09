@@ -97,6 +97,8 @@ export const SensitiveInput = forwardRef<HTMLInputElement, SensitiveInputProps>(
         className="relative w-full"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
+        onTouchStart={() => setHovered(true)}
+        onTouchEnd={() => setTimeout(() => setHovered(false), 1500)}
       >
         {/* Actual input — hidden behind mask when masked */}
         <input
@@ -158,8 +160,9 @@ export const SensitiveInput = forwardRef<HTMLInputElement, SensitiveInputProps>(
                   }}
                   aria-label={copied ? 'Copied' : 'Copy to clipboard'}
                   className={cn(
-                    'shrink-0 flex items-center justify-center w-7 h-7 bg-transparent border-none cursor-pointer text-[var(--muted-foreground)] rounded-[var(--radius-sm)]',
+                    'shrink-0 flex items-center justify-center w-11 h-11 bg-transparent border-none cursor-pointer text-[var(--muted-foreground)] rounded-[var(--radius-sm)]',
                     'hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)]',
+                    'active:text-[var(--foreground)] active:bg-[var(--interactive-hover)]',
                     focusRing,
                   )}
                   style={{ transition: `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}` }}

@@ -15,12 +15,12 @@ export const elevation = {
     glassLg: '0 12px 48px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.04)',
   },
   dark: {
-    sm: '0 1px 2px rgba(0,0,0,0.20), 0 1px 3px rgba(0,0,0,0.14)',
-    m: '0 1px 4px rgba(0,0,0,0.20), 0 4px 12px rgba(0,0,0,0.16)',
-    lg: '0 2px 8px rgba(0,0,0,0.20), 0 8px 24px rgba(0,0,0,0.18)',
-    xl: '0 4px 12px rgba(0,0,0,0.22), 0 12px 32px rgba(0,0,0,0.20)',
-    glass: '0 2px 12px rgba(0,0,0,0.18), 0 1px 2px rgba(0,0,0,0.12), 0 0 0 0.5px rgba(255,255,255,0.06)',
-    glassLg: '0 4px 20px rgba(0,0,0,0.20), 0 2px 4px rgba(0,0,0,0.12), 0 0 16px rgba(138,163,184,0.03)',
+    sm: '0 1px 2px rgba(0,0,0,0.24), 0 0 0 0.5px rgba(255,255,255,0.04)',
+    m: '0 2px 8px rgba(0,0,0,0.24), 0 4px 12px rgba(0,0,0,0.18), 0 0 0 0.5px rgba(255,255,255,0.04)',
+    lg: '0 4px 12px rgba(0,0,0,0.24), 0 8px 24px rgba(0,0,0,0.20), 0 0 0 0.5px rgba(255,255,255,0.06)',
+    xl: '0 8px 24px rgba(0,0,0,0.28), 0 16px 40px rgba(0,0,0,0.22), 0 0 0 0.5px rgba(255,255,255,0.06)',
+    glass: '0 4px 16px rgba(0,0,0,0.24), 0 1px 2px rgba(0,0,0,0.16), 0 0 0 0.5px rgba(255,255,255,0.06), inset 0 0.5px 0 rgba(255,255,255,0.04)',
+    glassLg: '0 8px 32px rgba(0,0,0,0.28), 0 2px 4px rgba(0,0,0,0.16), 0 0 0 0.5px rgba(255,255,255,0.08), inset 0 0.5px 0 rgba(255,255,255,0.06)',
   },
 } as const satisfies Record<ThemeMode, ThemeElevation>;
 

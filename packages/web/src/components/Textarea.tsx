@@ -32,6 +32,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     const generatedId = useId();
     const inputId = id || generatedId;
     const errorId = `${inputId}-error`;
+    const helperId = `${inputId}-helper`;
     return (
       <div className="w-full flex flex-col gap-2">
         {label && (
@@ -44,7 +45,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             ref={ref}
             id={inputId}
             aria-invalid={error || undefined}
-            aria-describedby={error && errorMessage ? errorId : helperText ? errorId : undefined}
+            aria-describedby={error && errorMessage ? errorId : helperText ? helperId : undefined}
             style={{ transition: inputTransition }}
             className={cn(
               'peer relative z-10 w-full font-[var(--font-primary)] text-[var(--foreground)] bg-[var(--input-bg)] border-[0.5px] border-solid outline-none resize-y',
@@ -66,7 +67,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           </span>
         )}
         {helperText && !error && (
-          <span id={errorId} className="text-xs text-[var(--muted-foreground)]">
+          <span id={helperId} className="text-xs text-[var(--muted-foreground)]">
             {helperText}
           </span>
         )}

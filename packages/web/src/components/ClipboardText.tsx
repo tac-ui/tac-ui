@@ -67,9 +67,10 @@ export const ClipboardText = forwardRef<HTMLDivElement, ClipboardTextProps>(
             transition: `color ${DURATION.fast} ${EASING}, background-color ${DURATION.fast} ${EASING}`,
           }}
           className={cn(
-            'shrink-0 flex items-center justify-center bg-transparent border-none cursor-pointer text-[var(--muted-foreground)] rounded-[var(--radius-sm)] p-0.5',
+            'shrink-0 flex items-center justify-center bg-transparent border-none cursor-pointer text-[var(--muted-foreground)] rounded-[var(--radius-sm)] min-w-[44px] min-h-[44px] -mr-2',
             'hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)]',
-            'opacity-0 group-hover:opacity-100 transition-opacity',
+            'active:text-[var(--foreground)] active:bg-[var(--interactive-hover)]',
+            'md:opacity-0 md:group-hover:opacity-100 transition-opacity',
             focusRing,
           )}
         >

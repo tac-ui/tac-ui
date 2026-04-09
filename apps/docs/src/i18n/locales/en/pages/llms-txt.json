@@ -18,7 +18,7 @@
       "description": "The llms.txt file covers:",
       "items": {
         "install": { "badge": "Install", "text": "Quick start installation commands and provider setup" },
-        "components": { "badge": "Components", "text": "All 39+ components with usage examples and full prop tables" },
+        "components": { "badge": "Components", "text": "All 47+ components with usage examples and full prop tables" },
         "charts": { "badge": "Charts", "text": "BarChart, LineChart, PieChart, DonutChart with data format" },
         "layout": { "badge": "Layout", "text": "Sidebar, Header, FloatingMenuBar, and 10 preset page layouts" },
         "tokens": {

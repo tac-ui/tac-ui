@@ -125,7 +125,7 @@ export const Banner = forwardRef<HTMLDivElement, BannerProps>(
                   type="button"
                   onClick={handleDismiss}
                   className={cn(
-                    'shrink-0 w-6 h-6 flex items-center justify-center rounded-[var(--radius-sm)] bg-transparent border-none cursor-pointer text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)] transition-colors',
+                    'shrink-0 w-9 h-9 flex items-center justify-center rounded-[var(--radius-sm)] bg-transparent border-none cursor-pointer text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--interactive-hover)] active:text-[var(--foreground)] active:bg-[var(--interactive-hover)] transition-colors',
                     focusRing,
                   )}
                   aria-label="Dismiss banner"

@@ -223,7 +223,7 @@ function ChannelInput({
         aria-label={label}
         style={{ transition: inputTransition }}
         className={cn(
-          'w-[52px] h-7 text-center text-xs font-mono text-[var(--foreground)] bg-[var(--input-bg)] border border-solid border-[var(--input-border-rest)] rounded-[var(--radius-sm)] outline-none',
+          'w-[52px] h-9 text-center text-xs font-mono text-[var(--foreground)] bg-[var(--input-bg)] border border-solid border-[var(--input-border-rest)] rounded-[var(--radius-sm)] outline-none',
           'hover:border-[var(--input-border-hover)]',
           'focus:border-[var(--point)] focus:shadow-[var(--input-focus-glow)]',
           '[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none',
@@ -605,7 +605,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
                   side === 'bottom' ? 'top-full mt-1' : 'bottom-full mb-1',
                   'bg-[var(--dropdown-bg)] backdrop-blur-[40px] backdrop-saturate-[180%]',
                   'rounded-[var(--radius-m)] border-[0.5px] border-solid border-[var(--input-border-rest)] shadow-[var(--dropdown-shadow)]',
-                  'p-3 w-[300px]',
+                  'p-3 w-[300px] max-w-[calc(100vw-1.5rem)]',
                 )}
                 variants={dropdownMotionVariants}
                 initial="hidden"

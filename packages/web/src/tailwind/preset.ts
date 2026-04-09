@@ -262,6 +262,7 @@ export const tacPreset = {
         primary: ['var(--font-primary)', 'system-ui', 'sans-serif'],
         secondary: ['var(--font-secondary)', 'system-ui', 'sans-serif'],
         display: ['var(--font-display)', 'var(--font-primary)', 'sans-serif'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       transitionDuration: {
         instant: 'var(--duration-instant)',

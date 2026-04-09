@@ -342,8 +342,8 @@ export const SplitPage = forwardRef<HTMLDivElement, SplitPageProps>(
   ({ header, footer, left, right, className, children: _children, ...props }, ref) => (
     <Shell ref={ref} className={className} {...props}>
       {header}
-      <div className="flex flex-1 overflow-hidden">
-        <div className="flex-1 overflow-y-auto p-6 border-r border-solid border-[var(--border)] animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200">
+      <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
+        <div className="flex-1 overflow-y-auto p-6 border-b md:border-b-0 md:border-r border-solid border-[var(--border)] animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200">
           {left}
         </div>
         <div className="flex-1 overflow-y-auto p-6 animate-blur-fade-in [&>*]:animate-blur-fade-in [&>*]:opacity-0 [&>*:nth-child(1)]:animation-delay-0 [&>*:nth-child(2)]:animation-delay-75 [&>*:nth-child(3)]:animation-delay-150 [&>*:nth-child(n+4)]:animation-delay-200">
@@ -736,12 +736,12 @@ export const AsymmetricPage = forwardRef<HTMLDivElement, AsymmetricPageProps>(
     return (
       <Shell ref={ref} className={className} {...props}>
         {header}
-        <div className="flex flex-1 overflow-hidden">
+        <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
           <div className={cn(primaryFlex, 'overflow-y-auto p-6')}>{primary}</div>
           <div
             className={cn(
               secondaryFlex,
-              'overflow-y-auto p-6 border-l border-solid border-[var(--border)] bg-[var(--card)]',
+              'overflow-y-auto p-6 border-t md:border-t-0 md:border-l border-solid border-[var(--border)] bg-[var(--card)]',
             )}
           >
             {secondary}
