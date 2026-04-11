@@ -1,8 +1,38 @@
-import React, { forwardRef, useRef } from 'react';
-import { View, Text, Pressable, Animated, StyleSheet, type ViewStyle, type ViewProps } from 'react-native';
+import React, { forwardRef, useRef, useLayoutEffect } from 'react';
+import {
+  View,
+  Text,
+  Pressable,
+  Animated,
+  StyleSheet,
+  LayoutAnimation,
+  Platform,
+  UIManager,
+  type ViewStyle,
+  type ViewProps,
+} from 'react-native';
 import { useTacNativeTheme } from '../provider/TacNativeProvider';
 import { componentTokens, nativeShadows } from '@tac-ui/tokens/native';
 import { springConfigs, duration } from '../constants/motion';
+
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
+const cardLayoutAnimation = {
+  duration: 300,
+  create: {
+    type: LayoutAnimation.Types.easeInEaseOut,
+    property: LayoutAnimation.Properties.opacity,
+  },
+  update: {
+    type: LayoutAnimation.Types.easeInEaseOut,
+  },
+  delete: {
+    type: LayoutAnimation.Types.easeInEaseOut,
+    property: LayoutAnimation.Properties.opacity,
+  },
+};
 
 export type CardVariant = 'default' | 'accent' | 'flat' | 'glass';
 
@@ -21,6 +51,15 @@ export const Card = forwardRef<View, CardProps>(
     const shadow = nativeShadows[theme.mode];
     const scaleAnim = useRef(new Animated.Value(1)).current;
     const opacityAnim = useRef(new Animated.Value(1)).current;
+
+    const isFirstRender = useRef(true);
+    useLayoutEffect(() => {
+      if (isFirstRender.current) {
+        isFirstRender.current = false;
+        return;
+      }
+      LayoutAnimation.configureNext(cardLayoutAnimation);
+    });
 
     const containerStyle: ViewStyle = {
       backgroundColor:
