@@ -46,6 +46,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
         <motion.div
           ref={ref}
           tabIndex={0}
+          layout
           whileHover={{ y: -2, transition: tacSpring.light }}
           whileTap={{ scale: 0.99, y: 0, transition: tacSpring.light }}
           transition={tacSpring.light}
@@ -65,9 +66,11 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
     }
 
     return (
-      <div
+      <motion.div
         ref={ref}
-        {...props}
+        layout
+        transition={tacSpring.light}
+        {...(props as React.ComponentPropsWithoutRef<typeof motion.div>)}
         style={{
           transition: `box-shadow ${DURATION.moderate} ${EASING}, border-color ${DURATION.moderate} ${EASING}, background-color ${DURATION.moderate} ${EASING}`,
           ...style,
@@ -75,7 +78,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
         className={cn(cardVariants({ variant }), className)}
       >
         {children}
-      </div>
+      </motion.div>
     );
   },
 );
