@@ -6,6 +6,7 @@ import { cn } from '../utils/cn';
 import { tacSpring, EASING, DURATION } from '../constants/motion';
 import { focusRing } from '../constants/styles';
 
+/** Size variant of the Switch component. */
 export type SwitchSize = 'sm' | 'md';
 
 /** Props for the Switch component, a toggle control that supports controlled and uncontrolled usage. */

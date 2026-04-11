@@ -50,8 +50,13 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement>, Varia
 }
 
 export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
-  ({ className, variant, interactive, onClick, count, children, ...props }, ref) => {
+  ({ className, variant, interactive, onClick, count, children, 'aria-label': ariaLabel, ...props }, ref) => {
     const isInteractive = interactive || !!onClick;
+
+    // When used as a count badge without children, auto-generate an aria-label so screen readers
+    // announce the count. User-supplied aria-label always wins.
+    const resolvedAriaLabel =
+      ariaLabel ?? (count !== undefined && children === undefined ? `${count}` : undefined);
 
     const content =
       count !== undefined ? (
@@ -62,6 +67,7 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
             initial="initial"
             animate={{ scale: 1, opacity: 1 }}
             exit="exit"
+            aria-hidden="true"
           >
             {count}
           </motion.span>
@@ -77,6 +83,7 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
           whileHover={{ scale: 1, transition: tacSpring.light }}
           whileTap={{ scale: 0.98 }}
           onClick={onClick}
+          aria-label={resolvedAriaLabel}
           className={cn(badgeVariants({ variant }), 'cursor-pointer', className)}
           {...(props as React.ComponentPropsWithoutRef<typeof motion.span>)}
         >
@@ -86,7 +93,13 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
     }
 
     return (
-      <span ref={ref} className={cn(badgeVariants({ variant }), className)} onClick={onClick} {...props}>
+      <span
+        ref={ref}
+        aria-label={resolvedAriaLabel}
+        className={cn(badgeVariants({ variant }), className)}
+        onClick={onClick}
+        {...props}
+      >
         {content}
       </span>
     );

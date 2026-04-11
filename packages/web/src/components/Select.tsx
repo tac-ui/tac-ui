@@ -22,7 +22,7 @@ export interface SelectOption {
 }
 
 /** Props for the Select component, a styled native select with optional label and error state. */
-export interface SelectProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface SelectProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {
   /** Label text displayed above the select. */
   label?: string;
   /** Helper text displayed below the select when there is no error. */
@@ -37,8 +37,10 @@ export interface SelectProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   placeholder?: string;
   /** Controls the height and font size of the select element. */
   size?: SelectSize;
-  /** Currently selected value. */
+  /** Currently selected value (controlled). */
   value?: string;
+  /** Initial selected value for uncontrolled usage. */
+  defaultValue?: string;
   /** Called when an option is selected. */
   onChange?: (value: string) => void;
   /** When true, the select is disabled. */
@@ -66,6 +68,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
       size = 'md',
       id,
       value,
+      defaultValue,
       onChange,
       disabled,
       ...props
@@ -75,16 +78,18 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
     const generatedId = useId();
     const inputId = id || generatedId;
     const errorId = `${inputId}-error`;
+    const helperId = `${inputId}-helper`;
     const listboxId = `${inputId}-listbox`;
 
     const [open, setOpen] = useState(false);
-    const [internalValue, setInternalValue] = useState<string | undefined>(undefined);
+    const [internalValue, setInternalValue] = useState<string | undefined>(defaultValue);
+    const isControlled = value !== undefined;
     const containerRef = useRef<HTMLDivElement>(null);
     const triggerBtnRef = useRef<HTMLButtonElement>(null);
     const listboxRef = useRef<HTMLDivElement>(null);
     const side = useDropdownPosition(triggerBtnRef, listboxRef, open);
 
-    const currentValue = value ?? internalValue;
+    const currentValue = isControlled ? value : internalValue;
     const selectedOption = options.find((o) => o.value === currentValue);
     const displayText = selectedOption ? selectedOption.label : placeholder || 'Select...';
 
@@ -99,11 +104,11 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
     const handleSelect = useCallback(
       (option: SelectOption) => {
         if (option.disabled) return;
-        setInternalValue(option.value);
+        if (!isControlled) setInternalValue(option.value);
         onChange?.(option.value);
         handleClose();
       },
-      [onChange, handleClose],
+      [isControlled, onChange, handleClose],
     );
 
     const handleTriggerClick = useCallback(() => {
@@ -165,7 +170,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
             aria-expanded={open}
             aria-controls={listboxId}
             aria-invalid={error || undefined}
-            aria-describedby={error && errorMessage ? errorId : helperText ? errorId : undefined}
+            aria-describedby={error && errorMessage ? errorId : helperText ? helperId : undefined}
             onClick={handleTriggerClick}
             onKeyDown={handleTriggerKeyDown}
             disabled={disabled}
@@ -254,7 +259,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
           </span>
         )}
         {helperText && !error && (
-          <span id={errorId} className="text-xs text-[var(--muted-foreground)]">
+          <span id={helperId} className="text-xs text-[var(--muted-foreground)]">
             {helperText}
           </span>
         )}

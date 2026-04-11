@@ -28,11 +28,13 @@ export interface ComboboxOption {
 }
 
 /** Props for the Combobox component, a searchable select input with a filterable dropdown. */
-export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value' | 'size'> {
+export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value' | 'defaultValue' | 'size'> {
   /** Available options to filter and select from. */
   options: ComboboxOption[];
-  /** Currently selected value. */
+  /** Currently selected value (controlled). */
   value?: string;
+  /** Initial selected value for uncontrolled usage. */
+  defaultValue?: string;
   /** Called when an option is selected. */
   onChange?: (value: string) => void;
   /** Placeholder text for the search input. */
@@ -57,10 +59,28 @@ export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
  */
 
 export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
-  ({ className, options, value, onChange, placeholder, emptyText = 'No results found', size = 'md', id, ...props }, ref) => {
+  (
+    {
+      className,
+      options,
+      value: controlledValue,
+      defaultValue,
+      onChange,
+      placeholder,
+      emptyText = 'No results found',
+      size = 'md',
+      id,
+      ...props
+    },
+    ref,
+  ) => {
     const generatedId = useId();
     const inputId = id ?? generatedId;
     const listboxId = `${inputId}-listbox`;
+
+    const [internalValue, setInternalValue] = useState<string | undefined>(defaultValue);
+    const isControlled = controlledValue !== undefined;
+    const value = isControlled ? controlledValue : internalValue;
 
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
@@ -88,10 +108,11 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
     const handleSelect = useCallback(
       (option: ComboboxOption) => {
         if (option.disabled) return;
+        if (!isControlled) setInternalValue(option.value);
         onChange?.(option.value);
         handleClose();
       },
-      [onChange, handleClose],
+      [isControlled, onChange, handleClose],
     );
 
     const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

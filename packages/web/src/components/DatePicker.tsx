@@ -127,6 +127,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     const generatedId = useId();
     const inputId = id || generatedId;
     const errorId = `${inputId}-error`;
+    const helperId = `${inputId}-helper`;
 
     const [open, setOpen] = useState(false);
     const today = useMemo(() => new Date(), []);
@@ -328,7 +329,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
             ref={triggerBtnRef}
             aria-expanded={open}
             aria-invalid={error || undefined}
-            aria-describedby={error && errorMessage ? errorId : helperText ? errorId : undefined}
+            aria-describedby={error && errorMessage ? errorId : helperText ? helperId : undefined}
             onClick={handleOpen}
             disabled={disabled}
             style={{ transition: inputTransition }}
@@ -653,7 +654,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
           </span>
         )}
         {helperText && !error && (
-          <span id={errorId} className="text-xs text-[var(--muted-foreground)]">
+          <span id={helperId} className="text-xs text-[var(--muted-foreground)]">
             {helperText}
           </span>
         )}

@@ -10,6 +10,16 @@ const tokens = componentTokens.dialog;
 
 export type DialogBackdrop = 'opaque' | 'blur' | 'transparent';
 
+/** Size variant of the Dialog card. */
+export type DialogSize = 'sm' | 'md' | 'lg' | 'xl';
+
+const dialogSizeWidth: Record<DialogSize, number> = {
+  sm: 280,
+  md: 384,
+  lg: 480,
+  xl: 560,
+};
+
 /** Props for the Dialog root overlay component. */
 export interface DialogProps {
   /** Controls whether the dialog is visible. */
@@ -18,10 +28,13 @@ export interface DialogProps {
   onClose?: () => void;
   /** Backdrop style: 'opaque' = semi-transparent dark, 'transparent' = no background, 'blur' = same as opaque in basic RN. */
   backdrop?: DialogBackdrop;
+  /** Controls the card width. @default 'sm' */
+  size?: DialogSize;
   children?: React.ReactNode;
 }
 
-export const Dialog = forwardRef<View, DialogProps>(({ open, onClose, backdrop = 'opaque', children }, ref) => {
+export const Dialog = forwardRef<View, DialogProps>(
+  ({ open, onClose, backdrop = 'opaque', size = 'sm', children }, ref) => {
   const { theme } = useTacNativeTheme();
   const scale = useRef(new Animated.Value(0.95)).current;
   const opacity = useRef(new Animated.Value(0)).current;
@@ -57,6 +70,7 @@ export const Dialog = forwardRef<View, DialogProps>(({ open, onClose, backdrop =
           style={[
             styles.card,
             {
+              width: dialogSizeWidth[size],
               backgroundColor: theme.colors.background,
               borderRadius: tokens.borderRadius,
               ...shadow,
@@ -70,7 +84,8 @@ export const Dialog = forwardRef<View, DialogProps>(({ open, onClose, backdrop =
       </View>
     </Modal>
   );
-});
+  },
+);
 Dialog.displayName = 'Dialog';
 
 // ─── DialogHeader ──────────────────────────────────────────────────────────
@@ -160,7 +175,6 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   card: {
-    width: tokens.width,
     maxWidth: '90%',
     overflow: 'hidden',
   },

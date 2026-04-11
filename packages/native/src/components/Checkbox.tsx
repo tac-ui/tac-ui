@@ -77,12 +77,12 @@ export const Checkbox = forwardRef<View, CheckboxProps>(
 
     const animatedBorderColor = colorAnim.interpolate({
       inputRange: [0, 1],
-      outputRange: [(theme.colors.gray300 as string) || '#D4D4D8', (theme.colors.point as string) || '#5856D6'],
+      outputRange: [theme.colors.gray300, theme.colors.point],
     });
 
     const animatedBgColor = colorAnim.interpolate({
       inputRange: [0, 1],
-      outputRange: ['transparent', (theme.colors.point as string) || '#5856D6'],
+      outputRange: ['transparent', theme.colors.point],
     });
 
     return (

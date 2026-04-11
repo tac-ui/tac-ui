@@ -9,12 +9,21 @@ export type InputSize = 'sm' | 'md' | 'lg';
 export interface InputProps extends TextInputProps {
   /** Controls the height and font size of the input element. */
   size?: InputSize;
+  /** Label text displayed above the input. */
   label?: string;
+  /** Helper text displayed below the input when there is no error. */
   helperText?: string;
+  /** When true, applies error styling to the input. */
   error?: boolean;
+  /** Error message displayed below the input when `error` is true. */
   errorMessage?: string;
+  /** Icon rendered inside the left side of the input. */
   leftIcon?: React.ReactNode;
+  /** Icon rendered inside the right side of the input. */
   rightIcon?: React.ReactNode;
+  /** Button element rendered flush to the right side of the input (overrides rightIcon). */
+  rightButton?: React.ReactNode;
+  /** Custom style for the outer container wrapping label, input row, and helper/error text. */
   containerStyle?: ViewStyle;
 }
 
@@ -56,6 +65,7 @@ export const Input = forwardRef<TextInput, InputProps>(
       errorMessage,
       leftIcon,
       rightIcon,
+      rightButton,
       containerStyle,
       style,
       editable = true,
@@ -119,13 +129,18 @@ export const Input = forwardRef<TextInput, InputProps>(
                 borderColor,
               },
               leftIcon ? { paddingLeft: size.iconPadding } : undefined,
-              rightIcon ? { paddingRight: size.iconPadding } : undefined,
+              rightIcon && !rightButton ? { paddingRight: size.iconPadding } : undefined,
+              rightButton ? { paddingRight: size.height + 8 } : undefined,
               disabled ? styles.disabled : undefined,
               style,
             ]}
             {...props}
           />
-          {rightIcon && <View style={[styles.iconRight, { top: (size.height - size.iconSize) / 2 }]}>{rightIcon}</View>}
+          {rightButton ? (
+            <View style={[styles.rightButton, { top: 4, bottom: 4 }]}>{rightButton}</View>
+          ) : rightIcon ? (
+            <View style={[styles.iconRight, { top: (size.height - size.iconSize) / 2 }]}>{rightIcon}</View>
+          ) : null}
         </View>
         {error && errorMessage && (
           <Text style={[styles.helperText, { color: theme.colors.error }]}>{errorMessage}</Text>
@@ -150,6 +165,7 @@ const styles = StyleSheet.create({
   },
   iconLeft: { position: 'absolute', left: 12, zIndex: 1 },
   iconRight: { position: 'absolute', right: 12, zIndex: 1 },
+  rightButton: { position: 'absolute', right: 6, zIndex: 1, justifyContent: 'center' },
   helperText: { fontSize: 12 },
   disabled: { opacity: 0.5 },
 });

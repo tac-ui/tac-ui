@@ -47,22 +47,27 @@ RadioGroup.displayName = 'RadioGroup';
 
 export interface RadioProps extends Omit<ViewProps, 'children'> {
   /** The value this radio represents; compared against the RadioGroup's selected value. */
-  radioValue: string;
+  value?: string;
+  /**
+   * @deprecated Use `value` instead. Kept for backward compatibility.
+   */
+  radioValue?: string;
   label?: string;
   disabled?: boolean;
   filled?: boolean;
 }
 
 export const Radio = forwardRef<View, RadioProps>(
-  ({ radioValue, label, disabled, filled = false, style, ...props }, ref) => {
+  ({ value, radioValue, label, disabled, filled = false, style, ...props }, ref) => {
     const { theme } = useTacNativeTheme();
     const group = useContext(RadioGroupContext);
-    const isSelected = group?.value === radioValue;
+    const resolvedValue = value ?? radioValue ?? '';
+    const isSelected = group?.value === resolvedValue;
 
     const handlePress = useCallback(() => {
       if (disabled) return;
-      group?.onChange(radioValue);
-    }, [disabled, group, radioValue]);
+      group?.onChange(resolvedValue);
+    }, [disabled, group, resolvedValue]);
 
     const dotScaleAnim = useRef(new Animated.Value(isSelected ? 1 : 0)).current;
     const colorAnim = useRef(new Animated.Value(isSelected ? 1 : 0)).current;

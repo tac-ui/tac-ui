@@ -1,6 +1,6 @@
 {
   "name": "@tac-ui/web",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Web components for Tac UI (Next.js / React)",
   "license": "MIT",
   "sideEffects": false,

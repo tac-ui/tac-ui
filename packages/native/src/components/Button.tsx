@@ -1,5 +1,6 @@
 import React, { forwardRef, useRef } from 'react';
 import {
+  ActivityIndicator,
   Pressable,
   Text,
   View,
@@ -18,12 +19,18 @@ export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'poi
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export interface ButtonProps extends Omit<PressableProps, 'children' | 'style'> {
+  /** Visual style of the button. @default 'primary' */
   variant?: ButtonVariant;
+  /** Controls the height, padding, and font size. @default 'md' */
   size?: ButtonSize;
   /** When true, makes the button square (width = height) with no horizontal padding, for icon-only use. */
   iconOnly?: boolean;
+  /** Icon element rendered before the label. */
   leftIcon?: React.ReactNode;
+  /** Icon element rendered after the label. */
   rightIcon?: React.ReactNode;
+  /** When true, replaces the button content with a spinner and disables interaction. */
+  loading?: boolean;
   children?: React.ReactNode;
   style?: ViewStyle;
 }
@@ -74,7 +81,18 @@ function getVariantStyles(
 
 export const Button = forwardRef<View, ButtonProps>(
   (
-    { variant = 'primary', size = 'md', iconOnly = false, leftIcon, rightIcon, children, disabled, style, ...props },
+    {
+      variant = 'primary',
+      size = 'md',
+      iconOnly = false,
+      leftIcon,
+      rightIcon,
+      loading = false,
+      children,
+      disabled,
+      style,
+      ...props
+    },
     ref,
   ) => {
     const { theme } = useTacNativeTheme();
@@ -83,6 +101,7 @@ export const Button = forwardRef<View, ButtonProps>(
     const isGhost = variant === 'ghost';
     const scaleAnim = useRef(new Animated.Value(1)).current;
     const bgAnim = useRef(new Animated.Value(0)).current;
+    const isDisabled = disabled || loading;
 
     const handlePressIn = () => {
       Animated.parallel([
@@ -123,11 +142,11 @@ export const Button = forwardRef<View, ButtonProps>(
       <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
         <Pressable
           ref={ref}
-          disabled={disabled}
+          disabled={isDisabled}
           accessibilityRole="button"
-          accessibilityState={{ disabled: !!disabled }}
-          onPressIn={disabled ? undefined : handlePressIn}
-          onPressOut={disabled ? undefined : handlePressOut}
+          accessibilityState={{ disabled: isDisabled, busy: loading }}
+          onPressIn={isDisabled ? undefined : handlePressIn}
+          onPressOut={isDisabled ? undefined : handlePressOut}
           style={[
             styles.base,
             {
@@ -138,7 +157,7 @@ export const Button = forwardRef<View, ButtonProps>(
             },
             iconOnly && { width: tokens.height },
             variantStyles.container,
-            disabled && styles.disabled,
+            isDisabled && styles.disabled,
             style,
           ]}
           {...props}
@@ -152,31 +171,37 @@ export const Button = forwardRef<View, ButtonProps>(
               },
             ]}
           />
-          <View style={styles.animatedContent}>
-            {leftIcon && (
-              <View style={styles.iconWrapper}>
-                {React.isValidElement(leftIcon)
-                  ? React.cloneElement(leftIcon as React.ReactElement<{ color?: string }>, {
-                      color: variantStyles.text.color as string,
-                    })
-                  : leftIcon}
-              </View>
-            )}
-            {!iconOnly && typeof children === 'string' ? (
-              <Text style={[styles.text, { fontSize: tokens.fontSize }, variantStyles.text]}>{children}</Text>
-            ) : !iconOnly ? (
-              children
-            ) : null}
-            {rightIcon && (
-              <View style={styles.iconWrapper}>
-                {React.isValidElement(rightIcon)
-                  ? React.cloneElement(rightIcon as React.ReactElement<{ color?: string }>, {
-                      color: variantStyles.text.color as string,
-                    })
-                  : rightIcon}
-              </View>
-            )}
-          </View>
+          {loading ? (
+            <View style={styles.animatedContent}>
+              <ActivityIndicator size="small" color={variantStyles.text.color as string} />
+            </View>
+          ) : (
+            <View style={styles.animatedContent}>
+              {leftIcon && (
+                <View style={styles.iconWrapper}>
+                  {React.isValidElement(leftIcon)
+                    ? React.cloneElement(leftIcon as React.ReactElement<{ color?: string }>, {
+                        color: variantStyles.text.color as string,
+                      })
+                    : leftIcon}
+                </View>
+              )}
+              {!iconOnly && typeof children === 'string' ? (
+                <Text style={[styles.text, { fontSize: tokens.fontSize }, variantStyles.text]}>{children}</Text>
+              ) : !iconOnly ? (
+                children
+              ) : null}
+              {rightIcon && (
+                <View style={styles.iconWrapper}>
+                  {React.isValidElement(rightIcon)
+                    ? React.cloneElement(rightIcon as React.ReactElement<{ color?: string }>, {
+                        color: variantStyles.text.color as string,
+                      })
+                    : rightIcon}
+                </View>
+              )}
+            </View>
+          )}
         </Pressable>
       </Animated.View>
     );
