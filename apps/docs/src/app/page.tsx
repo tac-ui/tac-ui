@@ -12,7 +12,6 @@ import {
   Header,
   Footer,
   VStack,
-  HStack,
   Badge,
   useTacTheme,
   SegmentController,
@@ -281,7 +280,6 @@ function StatsSection() {
 /* ─── Platform Cards ─── */
 
 function PlatformSection() {
-  const pt = usePageTranslation('landing');
 
   return (
     <section className="px-6 py-20 lg:py-28">

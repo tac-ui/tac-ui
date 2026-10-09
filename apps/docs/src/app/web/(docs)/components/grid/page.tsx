@@ -212,7 +212,7 @@ export default function GridPage() {
           <div className="flex flex-col gap-6 w-full">
             {(['none', 'sm', 'md', 'lg'] as const).map((gap) => (
               <div key={gap}>
-                <p className="text-xs text-[var(--muted-foreground)] mb-2">gap="{gap}"</p>
+                <p className="text-xs text-[var(--muted-foreground)] mb-2">gap=&quot;{gap}&quot;</p>
                 <Grid variant="3up" gap={gap}>
                   <GridItem><PlaceholderItem label="A" /></GridItem>
                   <GridItem><PlaceholderItem label="B" /></GridItem>
