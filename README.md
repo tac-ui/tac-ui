@@ -139,8 +139,7 @@ pnpm build
 pnpm --filter docs dev
 
 # Lint & type check
-pnpm lint
-pnpm typecheck
+pnpm check   # lint + typecheck + test
 ```
 
 ### Project Structure
@@ -157,6 +156,10 @@ tac-ui/
 ├── apps/
 │   ├── docs/            # Documentation site (Next.js)
 │   └── native-docs-app/ # Native component demo (Expo)
+├── docs/                # Per-package contracts (project-<id>.md)
+├── scripts/             # Maintenance scripts
+├── .changeset/          # Pending release notes
+├── AGENTS.md            # Repository rules
 ├── turbo.json
 └── pnpm-workspace.yaml
 ```

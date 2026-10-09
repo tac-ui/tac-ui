@@ -1,7 +1,8 @@
 # Contributing to Tac UI
 
 Thanks for helping build Tac UI. This guide covers the day-to-day workflow for adding
-components, tokens, and fixes across the web and native packages.
+components, tokens, and fixes across the web and native packages. The binding rules live in
+[AGENTS.md](./AGENTS.md); per-package contracts live in [`docs/`](./docs).
 
 ## Prerequisites
 
@@ -14,9 +15,7 @@ components, tokens, and fixes across the web and native packages.
 pnpm install
 pnpm dev      # watch all packages
 pnpm build    # build everything in dependency order
-pnpm lint
-pnpm typecheck
-pnpm test
+pnpm check    # lint + typecheck + test
 ```
 
 The docs site runs at `http://localhost:3001`:
@@ -36,24 +35,28 @@ packages/
   web/          # @tac-ui/web       — React web components
   native/       # @tac-ui/native    — React Native components
 apps/
-  docs/         # Next.js documentation site (dogfoods @tac-ui/web)
+  docs/             # Next.js documentation site (dogfoods @tac-ui/web)
+  native-docs-app/  # Expo showcase for @tac-ui/native
+docs/               # project-<id>.md contracts
+scripts/            # maintenance scripts (version sync)
 ```
 
 Dependency flow is strictly one-directional:
 
 ```
 shared → tokens → web / native
-shared → tokens → icon / icon-native
+icon → web
 ```
 
 Never introduce a dependency that breaks this flow.
 
 ## Adding a New Component
 
-1. **Place the file** at `packages/web/src/components/<Name>.tsx` (and/or
-   `packages/native/src/components/<Name>.tsx` for the native counterpart).
-2. **Export it** from `packages/web/src/index.ts` — include both the component and its
-   prop/variant types.
+1. **Create the directory** `packages/web/src/components/<name>/` (kebab-case) with
+   `<name>.tsx` and an `index.ts` containing exactly `export * from './<name>';`. Do the same
+   under `packages/native/src/components/` for the native counterpart.
+2. **Export it** from `packages/web/src/index.ts` via `./components/<name>` — include both the
+   component and its prop/variant types. `src/test/structure.test.ts` fails if you forget.
 3. **Consume tokens** — do not hardcode colors, spacing, or shadows:
    - Web: use CSS variables like `var(--point)` via Tailwind arbitrary values.
    - Native: pull from `useTacNativeTheme()` and `componentTokens` from
@@ -71,12 +74,14 @@ Never introduce a dependency that breaks this flow.
 
 ## Component Template (Web)
 
+`packages/web/src/components/example/example.tsx`:
+
 ```tsx
 'use client';
 
 import React, { forwardRef } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../utils/cn';
+import { cn } from '../../utils/cn';
 
 const exampleVariants = cva('base-classes', {
   variants: {
@@ -124,18 +129,25 @@ After editing tokens:
 
 ## Commits & Versioning
 
-- Conventional-commit-ish style: `feat:`, `fix:`, `chore:`, `refactor:`, `docs:`.
-- Scope native-specific work with `feat(native): ...`.
-- Package versions follow semver. Non-breaking fixes bump patch (`1.3.1` → `1.3.2`),
-  additive APIs bump minor, breaking API changes bump major.
-- Version bumps happen in the same commit as the change they release, or in a dedicated
-  `chore: bump @tac-ui/<pkg> to vX.Y.Z` commit.
+- Conventional commits: `feat(web): ...`, `fix(native): ...`, `docs: ...`, `chore(repo): ...`.
+- Versions are managed by [Changesets](./.changeset/README.md). For every change to a
+  published package run `pnpm changeset`, pick the bump (patch / minor / major) and commit the
+  generated file with your change. **Do not edit `version` fields or `src/version.ts` by hand.**
+- On merge to `main`, the Release workflow opens a "chore: version packages" PR. Merging it
+  publishes to npm.
+
+## Testing
+
+- Guard tests in `packages/{web,native}/src/test/` enforce the directory contract, public
+  exports, colour-literal ratchet and version sync. They run in Node.
+- Component tests sit next to the component (`button/button.test.tsx`), start with
+  `// @vitest-environment jsdom`, and use `@testing-library/react`.
 
 ## Before Opening a PR
 
-- [ ] `pnpm typecheck` passes
+- [ ] `pnpm check` passes (lint + typecheck + test)
 - [ ] `pnpm build` passes
-- [ ] `pnpm test` passes
+- [ ] Changeset added for every changed `@tac-ui/*` package
 - [ ] New exports added to `src/index.ts`
 - [ ] JSDoc on every exported type
 - [ ] Tokens used instead of hardcoded values

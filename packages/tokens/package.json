@@ -3,6 +3,13 @@
   "version": "1.1.0",
   "description": "Design tokens for Tac UI",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tac-ui/tac-ui.git",
+    "directory": "packages/tokens"
+  },
+  "homepage": "https://tac-ui.com",
+  "bugs": "https://github.com/tac-ui/tac-ui/issues",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -35,7 +42,7 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "lint": "eslint src/",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json",
     "test": "vitest run",
     "clean": "rm -rf dist"
   },
@@ -43,7 +50,9 @@
     "@tac-ui/shared": "workspace:*"
   },
   "devDependencies": {
+    "@types/node": "^22",
     "tsup": "^8.3.0",
-    "typescript": "^5.7.0"
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
   }
 }

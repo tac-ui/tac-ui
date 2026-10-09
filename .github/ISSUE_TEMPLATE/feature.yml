@@ -1,0 +1,40 @@
+name: Feature request
+description: Propose a new component, prop, or token.
+title: '<package>: <description>'
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      options:
+        [
+          '@tac-ui/web',
+          '@tac-ui/native',
+          '@tac-ui/tokens',
+          '@tac-ui/icon',
+          '@tac-ui/icon-native',
+          '@tac-ui/shared',
+          docs,
+        ]
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: The problem this solves.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed API
+      render: tsx
+  - type: checkboxes
+    id: parity
+    attributes:
+      label: Platforms
+      options:
+        - label: Web
+        - label: Native

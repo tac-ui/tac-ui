@@ -19,7 +19,6 @@
     "@tac-ui/tokens": "workspace:*",
     "expo": "~55.0.5",
     "expo-clipboard": "~55.0.8",
-    "r": "^0.0.5",
     "react": "19.2.4",
     "react-native": "0.83.2",
     "react-native-gesture-handler": "~2.30.0",

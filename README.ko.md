@@ -138,9 +138,8 @@ pnpm build
 # 문서 사이트 시작 (포트 3001)
 pnpm --filter docs dev
 
-# 린트 & 타입 체크
-pnpm lint
-pnpm typecheck
+# 린트 & 타입 체크 & 테스트
+pnpm check   # lint + typecheck + test
 ```
 
 ### 프로젝트 구조
@@ -157,6 +156,10 @@ tac-ui/
 ├── apps/
 │   ├── docs/            # 문서 사이트 (Next.js)
 │   └── native-docs-app/ # 네이티브 컴포넌트 데모 (Expo)
+├── docs/                # 패키지별 계약 문서 (project-<id>.md)
+├── scripts/             # 유지보수 스크립트
+├── .changeset/          # 릴리스 노트 대기열
+├── AGENTS.md            # 저장소 규칙
 ├── turbo.json
 └── pnpm-workspace.yaml
 ```

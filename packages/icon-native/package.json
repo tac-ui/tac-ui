@@ -3,6 +3,13 @@
   "version": "1.0.3",
   "description": "Icon package for Tac UI React Native — lucide-react-native + TacLogo",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tac-ui/tac-ui.git",
+    "directory": "packages/icon-native"
+  },
+  "homepage": "https://tac-ui.com",
+  "bugs": "https://github.com/tac-ui/tac-ui/issues",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

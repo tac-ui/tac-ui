@@ -1,1 +1,1 @@
-export { useTacNativeTheme } from '../provider/TacNativeProvider';
+export { useTacNativeTheme } from '../provider/tac-native-provider';

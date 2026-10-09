@@ -1,0 +1,43 @@
+name: Bug report
+description: Something in a @tac-ui package does not work as documented.
+title: '<package>: <description>'
+labels: [bug]
+body:
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      options:
+        [
+          '@tac-ui/web',
+          '@tac-ui/native',
+          '@tac-ui/tokens',
+          '@tac-ui/icon',
+          '@tac-ui/icon-native',
+          '@tac-ui/shared',
+          docs,
+        ]
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: 1.3.3
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Minimal code or steps.
+      render: tsx
+    validations:
+      required: true
