@@ -42,7 +42,8 @@
     "dev": "tsup --watch",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "test": "vitest run"
   },
   "dependencies": {
     "@tac-ui/icon": "workspace:*",
