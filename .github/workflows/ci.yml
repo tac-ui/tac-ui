@@ -36,7 +36,8 @@ jobs:
 
   changeset:
     name: changeset
-    if: github.event_name == 'pull_request'
+    # The version PR consumes changesets by design, so it has none to check.
+    if: github.event_name == 'pull_request' && !startsWith(github.head_ref, 'changeset-release/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
