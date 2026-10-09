@@ -2,17 +2,17 @@
 export { version } from './version';
 
 // Provider
-export { TacNativeProvider, useTacNativeTheme, type TacNativeProviderProps } from './provider/TacNativeProvider';
+export { TacNativeProvider, useTacNativeTheme, type TacNativeProviderProps } from './provider/tac-native-provider';
 
 // Utils
-export { createStyles } from './utils/createStyles';
+export { createStyles } from './utils/create-styles';
 
 // Constants
 export { tacSpring, duration, springConfigs } from './constants/motion';
 
 // Components — Phase 1
-export { Button, type ButtonProps, type ButtonVariant, type ButtonSize } from './components/Button';
-export { Badge, type BadgeProps, type BadgeVariant } from './components/Badge';
+export { Button, type ButtonProps, type ButtonVariant, type ButtonSize } from './components/button';
+export { Badge, type BadgeProps, type BadgeVariant } from './components/badge';
 export {
   Card,
   CardHeader,
@@ -24,9 +24,9 @@ export {
   type CardVariant,
   type CardTitleProps,
   type CardDescriptionProps,
-} from './components/Card';
-export { VStack, HStack, type StackProps, type Spacing, type StackAlign, type StackJustify } from './components/Stack';
-export { Divider, type DividerProps, type DividerVariant, type DividerOrientation } from './components/Divider';
+} from './components/card';
+export { VStack, HStack, type StackProps, type Spacing, type StackAlign, type StackJustify } from './components/stack';
+export { Divider, type DividerProps, type DividerVariant, type DividerOrientation } from './components/divider';
 export {
   Alert,
   AlertTitle,
@@ -35,18 +35,18 @@ export {
   type AlertVariant,
   type AlertTitleProps,
   type AlertDescriptionProps,
-} from './components/Alert';
-export { EmptyState, type EmptyStateProps } from './components/EmptyState';
-export { Avatar, type AvatarProps, type AvatarSize } from './components/Avatar';
-export { Chip, type ChipProps, type ChipVariant } from './components/Chip';
-export { Checkbox, type CheckboxProps } from './components/Checkbox';
-export { RadioGroup, Radio, type RadioGroupProps, type RadioProps } from './components/Radio';
-export { Switch, type SwitchProps } from './components/Switch';
-export { Toggle, type ToggleProps, AnimatedToggle, type AnimatedToggleProps } from './components/AnimatedToggle';
+} from './components/alert';
+export { EmptyState, type EmptyStateProps } from './components/empty-state';
+export { Avatar, type AvatarProps, type AvatarSize } from './components/avatar';
+export { Chip, type ChipProps, type ChipVariant } from './components/chip';
+export { Checkbox, type CheckboxProps } from './components/checkbox';
+export { RadioGroup, Radio, type RadioGroupProps, type RadioProps } from './components/radio';
+export { Switch, type SwitchProps } from './components/switch';
+export { Toggle, type ToggleProps, AnimatedToggle, type AnimatedToggleProps } from './components/animated-toggle';
 
 // Components — Phase 2
-export { Input, type InputProps, type InputSize } from './components/Input';
-export { Textarea, type TextareaProps, type TextareaSize } from './components/Textarea';
+export { Input, type InputProps, type InputSize } from './components/input';
+export { Textarea, type TextareaProps, type TextareaSize } from './components/textarea';
 export {
   Tabs,
   TabsList,
@@ -58,11 +58,11 @@ export {
   type TabTriggerStyles,
   type TabContentProps,
   type TabVariant,
-} from './components/Tabs';
-export { SegmentController, type SegmentControllerProps, type SegmentOption } from './components/SegmentController';
-export { Skeleton, type SkeletonProps } from './components/Skeleton';
-export { Snackbar, type SnackbarProps, type SnackbarVariant } from './components/Snackbar';
-export { Stepper, Step, type StepperProps, type StepProps } from './components/Stepper';
+} from './components/tabs';
+export { SegmentController, type SegmentControllerProps, type SegmentOption } from './components/segment-controller';
+export { Skeleton, type SkeletonProps } from './components/skeleton';
+export { Snackbar, type SnackbarProps, type SnackbarVariant } from './components/snackbar';
+export { Stepper, Step, type StepperProps, type StepProps } from './components/stepper';
 export {
   Table,
   TableHeader,
@@ -80,11 +80,11 @@ export {
   type TableHeadProps,
   type TableCellProps,
   type TableCaptionProps,
-} from './components/Table';
-export { Progress, type ProgressProps, type ProgressVariant, type ProgressBarSize } from './components/Progress';
-export { Slider, type SliderProps } from './components/Slider';
-export { Indicator, type IndicatorProps, type IndicatorVariant } from './components/Indicator';
-export { CodeBlock, type CodeBlockProps } from './components/CodeBlock';
+} from './components/table';
+export { Progress, type ProgressProps, type ProgressVariant, type ProgressBarSize } from './components/progress';
+export { Slider, type SliderProps } from './components/slider';
+export { Indicator, type IndicatorProps, type IndicatorVariant } from './components/indicator';
+export { CodeBlock, type CodeBlockProps } from './components/code-block';
 export {
   Breadcrumb,
   BreadcrumbList,
@@ -98,7 +98,7 @@ export {
   type BreadcrumbLinkProps,
   type BreadcrumbSeparatorProps,
   type BreadcrumbEllipsisProps,
-} from './components/Breadcrumb';
+} from './components/breadcrumb';
 export {
   Accordion,
   AccordionItem,
@@ -108,7 +108,7 @@ export {
   type AccordionItemProps,
   type AccordionTriggerProps,
   type AccordionContentProps,
-} from './components/Accordion';
+} from './components/accordion';
 export {
   Dialog,
   DialogHeader,
@@ -120,7 +120,7 @@ export {
   type DialogTitleProps,
   type DialogDescriptionProps,
   type DialogFooterProps,
-} from './components/Dialog';
+} from './components/dialog';
 export {
   Dropdown,
   DropdownItem,
@@ -130,12 +130,12 @@ export {
   type DropdownItemProps,
   type DropdownTitleProps,
   type DropdownDividerProps,
-} from './components/Dropdown';
-export { Select, type SelectProps, type SelectOption, type SelectSize } from './components/Select';
-export { Combobox, type ComboboxProps, type ComboboxOption } from './components/Combobox';
-export { DatePicker, type DatePickerProps } from './components/DatePicker';
-export { ColorPicker, type ColorPickerProps } from './components/ColorPicker';
-export { FloatingMenuBar, type FloatingMenuBarProps, type FloatingMenuBarItem } from './components/FloatingMenuBar';
+} from './components/dropdown';
+export { Select, type SelectProps, type SelectOption, type SelectSize } from './components/select';
+export { Combobox, type ComboboxProps, type ComboboxOption } from './components/combobox';
+export { DatePicker, type DatePickerProps } from './components/date-picker';
+export { ColorPicker, type ColorPickerProps } from './components/color-picker';
+export { FloatingMenuBar, type FloatingMenuBarProps, type FloatingMenuBarItem } from './components/floating-menu-bar';
 export {
   ToastProvider,
   ToastContainer,
@@ -144,4 +144,4 @@ export {
   type ToastProviderProps,
   type ToastVariant,
   type ToastPosition,
-} from './components/Toast';
+} from './components/toast';
